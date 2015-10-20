@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0" provider-name="basics">
+<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0.1" provider-name="basics">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
