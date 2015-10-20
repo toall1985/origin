@@ -63,7 +63,7 @@ if os.path.exists(favorites)==True:
     FAV = open(favorites).read()
 else: FAV = []
 
-SOURCES = [{"url": "http://j.mp/projectcyphertv", "fanart": "http://projectcypher.grn.cc/KODI/IPTV/back.jpg", "genre": "Sports", "date": "30.09.2015", "credits": "ProjectCypherIPTV", "thumbnail": "http://projectcypher.grn.cc/KODI/IPTV/icon2.png"}]
+SOURCES = [{"url": "http://projectcypher.x10.mx/KODI/IPTV/projectcypher0.xml", "fanart": "http://projectcypher.x10.mx/KODI/IPTV/back.jpg", "genre": "Sports", "date": "30.09.2015", "credits": "ProjectCypher", "thumbnail": "http://projectcypher.x10.mx/KODI/IPTV/icon2.png"}]
 
     
 """
