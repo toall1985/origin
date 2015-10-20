@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0.2" provider-name="basics">
+<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.1" provider-name="basics">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -8,7 +8,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">	Back2Basics Wizard</summary>
-    <description lang="en">Easy install builds from Origin</description>
+    <description lang="en">Easy install builds from Origin, Hope you find all you need for free from here, enjoy</description>
     <platform>all</platform> 
   </extension>
 </addon>
