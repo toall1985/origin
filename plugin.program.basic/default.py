@@ -15,7 +15,7 @@ base='http://back2basicsbuild.co.uk'    #HERE YOU NEED TO INPUT YOUR WEB URL HTT
 ADDON=xbmcaddon.Addon(id='plugin.program.basics')
 
 
-VERSION = "1.3"
+VERSION = "1.0"
 PATH = "Basics"
 
 
