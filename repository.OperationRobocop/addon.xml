@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.OperationRobocop" name="Operation Robocop Ultimate Repository" version="1.4" provider-name="OperationRobocop Dev Team">
+	<extension point="xbmc.addon.repository" name="Operation Robocop Ultimate Repository">
+		<info compressed="false">http://195.154.225.163/operationrobocop/repo1/zips/addons.xml</info>
+		<checksum>http://195.154.225.163/operationrobocop/repo1/zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://195.154.225.163/operationrobocop/repo1/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Operation Robocop Ultimate</summary>
+		<description>Home of Operation Robocop Ultimate</description>
+		<platform>all</platform>
+	</extension>
+</addon>
