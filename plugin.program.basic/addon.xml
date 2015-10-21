@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0" provider-name="basics">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">	Back2Basics Wizard</summary>
+    <description lang="en">Easy Update Your Kodi Install, from Basic Builds</description>
+    <platform>all</platform> 
+  </extension>
+</addon>
