@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.Devil666" name="Devils Origin Wizard" version="1.0.1" provider-name="Devils Origin Wizard">
+  <requires>
+	<import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Devils Origin</summary>
+	<description>Thanks to whufclee for the original Community Builds code used in this add-on.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
