@@ -19,8 +19,7 @@ VERSION = "1.0.1"
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART 		=  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
-
-xbmcplugin.setContent(addon_handle, 'movies')
+net = Net()
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
@@ -30,13 +29,19 @@ def Home_Menu():
 	addDir('Comedy','',3,ART + 'icon.png',ART + 'background.png','')
 	addDir('Action','',6,ART + 'icon.png',ART + 'background.png','')
 	addDir('Kids','',12,ART + 'icon.png',ART + 'background.png','')
+	addDir('TEST AREA','',14,ART + 'icon.png',ART + 'background.png','')
 #	addDir('Home Six','','test2','','','')
 #	addDir('Home Seven','','test2','','','')
 #	addDir('Home Eight','','test2','','','')
 #	addDir('Home Nine','','test2','','','')
 #	addDir('Scraper','',20,ART + 'icon.png',ART + 'background.png','')
-	
+
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Test_2():
+
+	addList('TEST AREA 2',BASE2+'Ftwd'+CAT,400,ART + 'background.png')
+
 	
 def Cartoons():
 
@@ -116,7 +121,7 @@ def Arrow():
 	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
-	addList('Fear The Walking Dead',BASE2+'Ftwd'+CAT,400,'http://goo.gl/IHk8Ya')
+	addVID('','Series 4 Episode 4','rHUgvTAHSXE',9,'arrow.png',ART + 'background.png','','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -249,7 +254,6 @@ def WouldILieToYou():
 	
 def Mock_the_week():
 
-	addVID('','Test','KG0mpd',9,'mock.png',ART + 'background.png','','')
 	addVID('','Series 1 Episode 1','cQ0nx_OQa2A',9,'mock.png',ART + 'background.png','','')
 	addVID('','Series 1 Episode 2','M1NWfTh1C08',9,'mock.png',ART + 'background.png','','')
 	addVID('','Series 1 Episode 3','UupD9ps50aY',9,'mock.png',ART + 'background.png','','')
@@ -485,6 +489,7 @@ def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
     return ok
 
 def Add_Directory_Item(handle, url, listitem, isFolder):
+
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder) 
 
 def OPEN_URL(url):
@@ -502,16 +507,20 @@ def Live(url):
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
                 addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
-def RESOLVE(url): 
+def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
     try: play.play(url)
     except: pass
     from urlresolver import common
     dp = xbmcgui.DialogProgress()
-    dp.create('[COLORlime]Origin Loading[/COLOR]','Opening %s Now'%(name))
+    dp.create('lOADING','Opening %s Now'%(name))
     play=xbmc.Player(GetPlayerCore())
+    dp.update(60)
     url=urlresolver.HostedMediaFile(url).resolve() 
+    dp.update(75)
+    xbmc.sleep(1000)
+    dp.update(85)
     if dp.iscanceled(): 
         print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
         dp.update(100)
@@ -522,12 +531,15 @@ def RESOLVE(url):
         else:
 	         return
     else:
+        dp.update(90)
+        xbmc.sleep(1000)
+        dp.update(100)
         try: play.play(url)
         except: pass
         try: ADDON.resolve_url(url) 
         except: pass 
         dp.close()
-       
+		
 def GetPlayerCore(): 
     try: 
         PlayerMethod=getSet("core-player") 
@@ -618,6 +630,7 @@ elif mode == 3		: Comedy()
 elif mode == 6		: Action()
 elif mode == 12 	: Kids()
 elif mode == 13 	: Cartoons()
+elif mode == 14		: Test_2()
 elif mode == 20 	: Scraper()
 elif mode == 100	: Stand_up()
 elif mode == 101 	: Tv_shows()
@@ -636,7 +649,7 @@ elif mode == 302 	: Mock_the_week()
 elif mode == 303 	: Inbetweeners()
 elif mode == 310 	: WouldILieToYou()
 elif mode == 9		: yt.PlayVideo(url)
-elif mode == 401	: RESOLVE(url)
+elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 		
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
