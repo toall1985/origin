@@ -1,13 +1,16 @@
-import sys, os
-import urllib
+import sys
 import urlparse
-import xbmcgui
-import xbmcplugin
 import yt
+import time
+import urllib,urllib2,re,base64,xbmcplugin,xbmcgui,xbmc,xbmcaddon,os
+import base64
+import urlresolver
+from t0mm0.common.addon import Addon
+from t0mm0.common.net import Net
 
 addon_id='plugin.video.originentertainment'
-
-
+CAT = base64.decodestring('LnBocA==')
+BASE2 = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
@@ -26,13 +29,33 @@ def Home_Menu():
 	addDir('Movies','',2,ART + 'icon.png',ART + 'background.png','')
 	addDir('Comedy','',3,ART + 'icon.png',ART + 'background.png','')
 	addDir('Action','',6,ART + 'icon.png',ART + 'background.png','')
-#	addDir('Home Four','','test2','','','')
-#	addDir('Home Five','','test2','','','')
+	addDir('Kids','',12,ART + 'icon.png',ART + 'background.png','')
 #	addDir('Home Six','','test2','','','')
 #	addDir('Home Seven','','test2','','','')
 #	addDir('Home Eight','','test2','','','')
 #	addDir('Home Nine','','test2','','','')
-#	addDir('Home Ten','','test2','','','')
+#	addDir('Scraper','',20,ART + 'icon.png',ART + 'background.png','')
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Cartoons():
+
+	addVID('','Mickey Mouse Clubhouse','vn6xsuAokPg',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Curious George','sQqHVm0IklE',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Minnie Mouse Bowtique','xNbjhNmNUGA',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Mickeys Once Upon A Christmas','X_ULfylsMzY',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Winter Cartoon Classics','vJw5IPX-mLI',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Walt Disney Classic Cartoons','s0IGJUTQQus',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Mickey mouse goofy and donald duck cartoons','blIHV79HplU',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Pluto Meets Cute Little Critters','3BkNDE5GI0g',9,'Icon.jpg',ART + 'background.png','','')
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+		
+def Scraper():
+	
+#	addDir('Nothing to see here','','',ART + 'icon.png',ART + 'background.png','')
+#	addDir('Kindly Move Along','','',ART + 'icon.png',ART + 'background.png','')
+#	addDir('Maybe one day','','',ART + 'icon.png',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -49,7 +72,7 @@ def Third_Menu():
 	addVID('','Planes','5-JP00Asyj8',9,'plane.png',ART + 'background.png','','')
 	addVID('','Peabody and Sherman','CnqYG-ErVw',9,'peabody.png',ART + 'background.png','','')
 	addVID('','R.E.D','8uYpHmOcuf8',9,'red.png',ART + 'background.png','','')
-	addVID('','Robin Hood 2010','v6AJyDPfzlY',9,'robin.png',ART + 'background.png','','')
+	addVID('','Robin Hood 2010','v6AJyDPfzlY',9,'robin.png',ART + 'background.png','','')	
 	addVID('','Rush Hour','WwOx_7gCP9U',9,'rush.png',ART + 'background.png','','')
 	addVID('','Rush Hour 2','pPI4gYCEbnA',9,'rush2.png',ART + 'background.png','','')
 	addVID('','Richie Rich','kcIktGgrRmQ',9,'rich.jpg',ART + 'background.png','','')
@@ -93,6 +116,7 @@ def Arrow():
 	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
+	addList('Fear The Walking Dead',BASE2+'Ftwd'+CAT,400,'http://goo.gl/IHk8Ya')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -412,7 +436,15 @@ def Dara_Obriain():
 	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
+
+
+def Kids():
+
+    
+	addDir('Cartoons','',13,ART + 'icon.png',ART + 'background.png','')
+	addList('Bing',BASE2+'bing'+CAT,400,'http://goo.gl/IHk8Ya')	
 	
+	xbmcplugin.endOfDirectory(addon_handle)
 	
 def addDir(name,url,mode,iconimage,fanart,description): 
 		u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
@@ -454,7 +486,73 @@ def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
 
 def Add_Directory_Item(handle, url, listitem, isFolder):
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder) 
-	
+
+def OPEN_URL(url):
+		req = urllib2.Request(url)
+		req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+		response = urllib2.urlopen(req)
+		link=response.read()
+		response.close()
+		return link
+
+def Live(url):
+        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+        vidlocation=('%s%s'%(BASE2,url))
+        link = OPEN_URL(url)
+        match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
+        for url,iconimage,name in match:
+                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
+def RESOLVE(url): 
+    play=xbmc.Player(GetPlayerCore())
+    import urlresolver
+    try: play.play(url)
+    except: pass
+    from urlresolver import common
+    dp = xbmcgui.DialogProgress()
+    dp.create('[COLORlime]Origin Loading[/COLOR]','Opening %s Now'%(name))
+    play=xbmc.Player(GetPlayerCore())
+    url=urlresolver.HostedMediaFile(url).resolve() 
+    if dp.iscanceled(): 
+        print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
+        dp.update(100)
+        dp.close()
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
+            dialog.ok("Message Send", "Your Message Has Been Sent")
+        else:
+	         return
+    else:
+        try: play.play(url)
+        except: pass
+        try: ADDON.resolve_url(url) 
+        except: pass 
+        dp.close()
+       
+def GetPlayerCore(): 
+    try: 
+        PlayerMethod=getSet("core-player") 
+        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
+        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
+        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
+        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
+    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
+    return PlayerMeth 
+    return True 
+	  
+def addList(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+def addList2(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
 
 def get_params():
         param=[]
@@ -477,9 +575,8 @@ def get_params():
 params=get_params()
 url=None
 name=None
-mode=None
 iconimage=None
-fanart=None
+mode=None
 description=None
 
 
@@ -519,6 +616,9 @@ if mode == None		: Home_Menu()
 elif mode == 2		: Third_Menu()
 elif mode == 3		: Comedy()
 elif mode == 6		: Action()
+elif mode == 12 	: Kids()
+elif mode == 13 	: Cartoons()
+elif mode == 20 	: Scraper()
 elif mode == 100	: Stand_up()
 elif mode == 101 	: Tv_shows()
 elif mode == 110	: Arrow()
@@ -536,3 +636,7 @@ elif mode == 302 	: Mock_the_week()
 elif mode == 303 	: Inbetweeners()
 elif mode == 310 	: WouldILieToYou()
 elif mode == 9		: yt.PlayVideo(url)
+elif mode == 401	: RESOLVE(url)
+elif mode == 400 	: Live(url)
+		
+xbmcplugin.endOfDirectory(int(sys.argv[1]))

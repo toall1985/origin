@@ -51,7 +51,6 @@
 #        121: "hd1080"
 
 
-import re
 import urllib2
 import urllib
 import cgi
@@ -63,6 +62,7 @@ except ImportError: import json
 MAX_REC_DEPTH = 5
 
 
+import re
 def Clean(text):
     text = text.replace('&#8211;', '-')
     text = text.replace('&#8217;', '\'')
