@@ -10,7 +10,7 @@ from t0mm0.common.net import Net
 
 addon_id='plugin.video.originentertainment'
 CAT = base64.decodestring('LnBocA==')
-BASE2 = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
+BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
@@ -25,9 +25,9 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
-	addDir('Movies','',2,ART + 'icon.png',ART + 'background.png','')
+	addList('Movies',BASE+'Movies'+CAT,400,ART + 'background.png')
 	addDir('Comedy','',3,ART + 'icon.png',ART + 'background.png','')
-	addDir('Action','',6,ART + 'icon.png',ART + 'background.png','')
+	addDir('TV Shows','',6,ART + 'icon.png',ART + 'background.png','')
 	addDir('Kids','',12,ART + 'icon.png',ART + 'background.png','')
 	addDir('TEST AREA','',14,ART + 'icon.png',ART + 'background.png','')
 #	addDir('Home Six','','test2','','','')
@@ -40,7 +40,7 @@ def Home_Menu():
 	
 def Test_2():
 
-	addList('TEST AREA 2',BASE2+'Ftwd'+CAT,400,ART + 'background.png')
+	addList('TEST AREA 2',BASE+'Ftwd'+CAT,400,ART + 'background.png')
 
 	
 def Cartoons():
@@ -64,37 +64,6 @@ def Scraper():
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
-def Third_Menu():
-	addVID('','Beauty and the beast','VBVqtr9yYFU',9,'beauty.jpg',ART + 'background.png','','')
-	addVID('','Bedtime Stories','TPW2haPRsIs',9,'bedtime.png',ART + 'background.png','','')
-	addVID('','Bruce Almighty','81KO8AYwnqY',9,'bruce.png',ART + 'background.png','','')
-	addVID('','Crank','bCGfQKA-w_c',9,'crank.png',ART + 'background.png','','')
-	addVID('','Cowboys and Aliens','ovEC9uucMdc',9,'cowboys.png',ART + 'background.png','','')
-	addVID('','Flash Gordon','cX2prhbupro',9,'flash.png',ART + 'background.png','','')
-	addVID('','Just go with it','qMmnM_p_UWU',9,'justgo.png',ART + 'background.png','','')
-	addVID('','Legally Blonde','KgTmGFiRaWI',9,'legally.png',ART + 'background.png','','')
-	addVID('','Law Abiding Citizen','ZiGJWAkxyTA',9,'law.png',ART + 'background.png','','')
-	addVID('','Planes','5-JP00Asyj8',9,'plane.png',ART + 'background.png','','')
-	addVID('','Peabody and Sherman','CnqYG-ErVw',9,'peabody.png',ART + 'background.png','','')
-	addVID('','R.E.D','8uYpHmOcuf8',9,'red.png',ART + 'background.png','','')
-	addVID('','Robin Hood 2010','v6AJyDPfzlY',9,'robin.png',ART + 'background.png','','')	
-	addVID('','Rush Hour','WwOx_7gCP9U',9,'rush.png',ART + 'background.png','','')
-	addVID('','Rush Hour 2','pPI4gYCEbnA',9,'rush2.png',ART + 'background.png','','')
-	addVID('','Richie Rich','kcIktGgrRmQ',9,'rich.jpg',ART + 'background.png','','')
-	addVID('','S.W.A.T','Gl1r10HpZZM',9,'swat.png',ART + 'background.png','','')
-	addVID('','The 40 year old virgin','TXvDbsh-pwk',9,'virgin.jpg',ART + 'background.png','','')
-	addVID('','The A Team','AsFJY1LvTLE',9,'ateam.png',ART + 'background.png','','')
-	addVID('','Tombstone','ggd-74FG6ac',9,'tombstone.jpg',ART + 'background.png','','')
-	addVID('','The Bourne Identity','tvi3shzDaPQ',9,'bourneid.png',ART + 'background.png','','')
-	addVID('','The Bourne Ultimatum','7MyZSUMN6Mc',9,'bourneult.jpg',ART + 'background.png','','')
-	addVID('','The Bourne Legacy','oRrifHAhVjc',9,'bourneleg.png',ART + 'background.png','','')
-	addVID('','The Little Rascals','5L1ODF8iPWY',9,'little.jpg',ART + 'background.png','','')
-	addVID('','The Maze Runner','V3sIffYlBtg',9,'maze.png',ART + 'background.png','','')
-	addVID('','Waterboy','dkj2aI9xdTw','9','waterboy.jpg',ART + 'background.png','','')
-	addVID('','Wall-E','9Zp10_vBqEM',9,'walle.jpg',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
-
 def Comedy():
 
 	addDir('Stand Up','',100,ART + 'standup.png',ART + 'background.png','')
@@ -109,11 +78,11 @@ def Comedy():
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
-def Action():
+def TVShows():
 
 	addDir('Arrow','',110,ART + 'arrow.png',ART + 'background.png','')
 	addDir('Flash','',111,ART + 'flash.jpg',ART + 'background.png','')
-	
+	addList('Dr Who',BASE+'drwho'+CAT,400,ART + 'background.png')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Arrow():
@@ -121,7 +90,7 @@ def Arrow():
 	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
 	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
-	addVID('','Series 4 Episode 4','rHUgvTAHSXE',9,'arrow.png',ART + 'background.png','','')
+	
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -446,7 +415,7 @@ def Kids():
 
     
 	addDir('Cartoons','',13,ART + 'icon.png',ART + 'background.png','')
-	addList('Bing',BASE2+'bing'+CAT,400,'http://goo.gl/IHk8Ya')	
+	addList('Bing',BASE+'bing'+CAT,400,'http://goo.gl/IHk8Ya')	
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -502,11 +471,11 @@ def OPEN_URL(url):
 
 def Live(url):
         xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
-        vidlocation=('%s%s'%(BASE2,url))
+        vidlocation=('%s%s'%(BASE,url))
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
+                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage))
 def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
@@ -514,26 +483,17 @@ def Resolve(url):
     except: pass
     from urlresolver import common
     dp = xbmcgui.DialogProgress()
-    dp.create('lOADING','Opening %s Now'%(name))
+    dp.create('LOADING','Opening %s Now'%(name))
     play=xbmc.Player(GetPlayerCore())
-    dp.update(60)
     url=urlresolver.HostedMediaFile(url).resolve() 
-    dp.update(75)
-    xbmc.sleep(1000)
-    dp.update(85)
     if dp.iscanceled(): 
         print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
-        dp.update(100)
-        dp.close()
         dialog = xbmcgui.Dialog()
         if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
             dialog.ok("Message Send", "Your Message Has Been Sent")
         else:
 	         return
     else:
-        dp.update(90)
-        xbmc.sleep(1000)
-        dp.update(100)
         try: play.play(url)
         except: pass
         try: ADDON.resolve_url(url) 
@@ -627,7 +587,7 @@ print "IconImage: "+str(iconimage)
 if mode == None		: Home_Menu()
 elif mode == 2		: Third_Menu()
 elif mode == 3		: Comedy()
-elif mode == 6		: Action()
+elif mode == 6		: TVShows()
 elif mode == 12 	: Kids()
 elif mode == 13 	: Cartoons()
 elif mode == 14		: Test_2()
