@@ -42,6 +42,11 @@ def Test_2():
 
 	addList('TEST AREA 2',BASE+'Ftwd'+CAT,400,ART + 'background.png')
 
+def DrWho():
+	
+	addList('Series 7',BASE+'drwhoseries7'+CAT,400,'ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 8',BASE+'drwhoseries8'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
+	addList('Series 9',BASE+'drwhoseries9'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
 	
 def Cartoons():
 
@@ -82,7 +87,7 @@ def TVShows():
 
 	addDir('Arrow','',110,ART + 'arrow.png',ART + 'background.png','')
 	addDir('Flash','',111,ART + 'flash.jpg',ART + 'background.png','')
-	addList('Dr Who',BASE+'drwho'+CAT,400,ART + 'background.png')
+	addDir('Dr Who','',112,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg','background.png','')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Arrow():
@@ -596,6 +601,7 @@ elif mode == 100	: Stand_up()
 elif mode == 101 	: Tv_shows()
 elif mode == 110	: Arrow()
 elif mode == 111	: Flash()
+elif mode == 112 	: DrWho()
 elif mode == 201 	: Frankie_Boyle()
 elif mode == 202 	: Sean_Lock()
 elif mode == 203 	: Lee_Evans()
