@@ -25,110 +25,104 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
-	addList('Movies',BASE+'Movies'+CAT,400,ART + 'background.png')
-	addDir('Comedy','',3,ART + 'icon.png',ART + 'background.png','')
-	addDir('TV Shows','',6,ART + 'icon.png',ART + 'background.png','')
-	addDir('Kids','',12,ART + 'icon.png',ART + 'background.png','')
-	addDir('TEST AREA','',14,ART + 'icon.png',ART + 'background.png','')
-#	addDir('Home Six','','test2','','','')
-#	addDir('Home Seven','','test2','','','')
-#	addDir('Home Eight','','test2','','','')
-#	addDir('Home Nine','','test2','','','')
-#	addDir('Scraper','',20,ART + 'icon.png',ART + 'background.png','')
+#	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
+	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
+	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
+	addDir('TEST AREA','',13,ART + 'icon.png',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
-	
-def Test_2():
 
-	addList('TEST AREA 2',BASE+'Ftwd'+CAT,400,ART + 'background.png')
+def Films():   
 
-def DrWho():
+	addList('Latest Releases',BASE+'latestreleases'+CAT,400,ART + 'icon.png')
+	addList('Action',BASE+'actionfilm'+CAT,400,ART + 'icon.png')
+	addList('Animation',BASE+'animationfilm'+CAT,400,ART + 'icon.png')
+	addList('Biography',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
+	addList('Comedy',BASE+'comedyfilm'+CAT,400,ART + 'icon.png')
+	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
+	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
+	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
+	addList('History',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
+	addList('Horror',BASE+'horrorfilm'+CAT,400,ART + 'icon.png')
+	addList('Kids',BASE+'kidsfilm'+CAT,400,ART + 'icon.png')
+	addList('Music',BASE+'musicfilm'+CAT,400,ART + 'icon.png')
+	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
+	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')
 	
-	addList('Series 7',BASE+'drwhoseries7'+CAT,400,'ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
-	addList('Series 8',BASE+'drwhoseries8'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
-	addList('Series 9',BASE+'drwhoseries9'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
-	
-def Cartoons():
+	xbmcplugin.endOfDirectory(addon_handle)
 
-	addVID('','Mickey Mouse Clubhouse','vn6xsuAokPg',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Curious George','sQqHVm0IklE',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Minnie Mouse Bowtique','xNbjhNmNUGA',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Mickeys Once Upon A Christmas','X_ULfylsMzY',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Winter Cartoon Classics','vJw5IPX-mLI',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Walt Disney Classic Cartoons','s0IGJUTQQus',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Mickey mouse goofy and donald duck cartoons','blIHV79HplU',9,'Icon.jpg',ART + 'background.png','','')
-	addVID('','Pluto Meets Cute Little Critters','3BkNDE5GI0g',9,'Icon.jpg',ART + 'background.png','','')
+def TV_Shows():
+	
+#	addList('Recent Episodes',BASE+'recentepisodes'+CAT,400,ART + 'icon.png')
+#	addDir('Animated','',14,ART + 'icon.png',ART + 'background.png','')
+	addDir('Action','',15,ART + 'icon.png',ART + 'background.png','')
+	addDir('Childrens','',16,ART + 'icon.png',ART + 'background.png','')
+	addDir('Comedy','',17,ART + 'icon.png',ART + 'background.png','')
+	addDir('Drama','',18,ART + 'icon.png',ART + 'background.png','')
+#	addDir('Entertainment','',19,ART + 'icon.png',ART + 'background.png','')
+	addDir('Fantasy','',20,ART + 'icon.png',ART + 'background.png','')
+#	addDir('Music','',21,ART + 'icon.png',ART + 'background.png','')
+	addDir('Scifi','',22,ART + 'icon.png',ART + 'background.png','')
+#	addDir('Soaps','',23,ART + 'icon.png',ART + 'background.png','')
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Stand_Up():
+
+	addVID('','Billy Connolly','2kuspt3Cglo',9,'icon.png',ART + 'background.png','','')
+	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
+	addVID('','Frankie Boyle','PR1hrP6YBR4',9,'icon.png',ART + 'background.png','','')
+	addVID('','Lee Evans','8JHWGMVTLwQ',9,'icon.png','',ART + 'background.png','')
+	addDir('Jeff Dunham','',24,ART + 'icon.png',ART + 'background.png','')
+	addVID('','Micheal Mcintyre','W1Aa503qr-E',9,'icon.png',ART + 'background.png','','')
+	addVID('','Mrs Browns Boys','nmGf1k0nfwo',9,'icon.png',ART + 'background.png','','')
+	addVID('','Sean Lock','iBcnfgM43VM',9,'icon.png',ART + 'background.png','','')
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Jeff_Dunham():
+
+	addVID('','Spark of insanity','UDBYXC8EUsg',9,'icon.png',ART + 'background.png','','')
+	addVID('','Unhinged','I6whmmHRYO8',9,'icon.png',ART + 'background.png','','')
+	addVID('','Achmed saves america','OV0Gd0ClBg',9,'icon.png',ART + 'background.png','','')
+	addVID('','Very Special Christmas Special','-5ASk6u2ik4',9,'icon.png',ART + 'background.png','','')
+	addVID('','All over the map','5POeSnPslv0',9,'icon.png',ART + 'background.png','','')
+	addVID('','Controlled Chaos','CcJAFTB6omQ',9,'icon.png',ART + 'background.png','','')
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Test():
+
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 		
-def Scraper():
-	
-#	addDir('Nothing to see here','','',ART + 'icon.png',ART + 'background.png','')
-#	addDir('Kindly Move Along','','',ART + 'icon.png',ART + 'background.png','')
-#	addDir('Maybe one day','','',ART + 'icon.png',ART + 'background.png','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
+def Childrens_TV():
 
-def Comedy():
-
-	addDir('Stand Up','',100,ART + 'standup.png',ART + 'background.png','')
-	addDir('Tv Shows','',101,ART + '',ART + 'background.png','')
-#	addVID('','Sean Lock','iBcnfgM43VM',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Lee Evans','8JHWGMVTLwQ',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Micheal Mcintyre','W1Aa503qr-E',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Mrs Browns Boys','nmGf1k0nfwo',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Billy Connolly','2kuspt3Cglo',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
-#	addVID('','Cats','UIrEM_9qvZU',9,'icon.png',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
-
-def TVShows():
-
-	addDir('Arrow','',110,ART + 'arrow.png',ART + 'background.png','')
-	addDir('Flash','',111,ART + 'flash.jpg',ART + 'background.png','')
-	addDir('Dr Who','',112,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg','background.png','')
-	xbmcplugin.endOfDirectory(addon_handle)
-	
-def Arrow():
-
-	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
-	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
-	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
+	addList('Bing',BASE+'bing'+CAT,400,'http://goo.gl/IHk8Ya')
+	addVID('','Minnie Mouse Bowtique','xNbjhNmNUGA',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Mickey Mouse Clubhouse','vn6xsuAokPg',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Mickey Mouse goofy and donald duck cartoons','blIHV79HplU',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Mickeys Once Upon A Christmas','X_ULfylsMzY',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Pluto Meets Cute Little Critters','3BkNDE5GI0g',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Walt Disney Classic Cartoons','s0IGJUTQQus',9,'Icon.jpg',ART + 'background.png','','')
+	addVID('','Winter Cartoon Classics','vJw5IPX-mLI',9,'Icon.jpg',ART + 'background.png','','')
 	
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-def Flash():
-
-	addVID('','Series 2 Episode 1','-srjHKXgfnw',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 2','Qf6Wvbk0Vug',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 3','MVugMhH7EOQ',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 4','VCzthVJu7d0',9,'flash.jpg',ART + 'background.png','','')
+def Comedy_TV():
 	
+	addDir('Mock The Week','',28,ART + 'mock.png',ART + 'background.png','')
+	addDir('The Inbetweeners','',29,ART + 'inbetween.png',ART + 'background.png','')
+	addDir('The Last Man On Earth','',32,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg',ART + 'background.png','')
+	addDir('Would I Lie To You','',30,ART + 'wouldi.jpg',ART + 'background.png','')
+
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-def Stand_up():
-
-	addDir('Billy Connolly','',206,ART + '',ART + 'background.png','')
-	addDir('Frankie Boyle','',201,ART + '',ART + 'background.png','')
-	addDir('Jeff Dunham','',205,ART + '',ART + 'background.png','')
-	addDir('Lee Evans','',203,ART + '',ART + 'background.png','')
-	addDir('Micheal Mcintyre','',204,ART + '',ART + 'background.png','')
-	addDir('Sean Lock','',202,ART + '',ART + 'background.png','')
-
+def The_Last_Man_On_Earth():
 	
-	xbmcplugin.endOfDirectory(addon_handle)
-	
-def Tv_shows():
-
-	addDir('Mock The Week','',302,ART + 'mock.png',ART + 'background.png','')
-#	addDir('Mrs Browns Boys','',301,'','','')
-#	addDir('Russell Howards Good News','',300,ART + 'goodnews.jpg',ART + 'background.png','')
-	addDir('The Inbetweeners','',303,ART + 'inbetween.png',ART + 'background.png','')
-	addDir('Would I Lie To You','',310,ART + 'wouldi.jpg',ART + 'background.png','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
+	addList('Series 1',BASE+'lastmanonearthseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg')
+	addList('Series 2',BASE+'lastmanonearthseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg')
 	
 def Inbetweeners():
 
@@ -334,94 +328,98 @@ def Mock_the_week():
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-# def Russell_howard_good_news():
+def Drama_TV():
 
-	addVID('','Series 4 Episode 1','iXMTuenopsQ',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 4 Episode 3','ztg_E7WJhp8',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 4 Episode 4','S_WIfJL2EXQ',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 4 Episode 6','93dVLvMrXq8',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 6 Episode 2','ri74H1RjZaI',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 6 Episode 3','LRclkw38HRE',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 6 Episode 4','euGEauS6Kk0',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 6 Episode 5','1CR-iBap3gY',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 6 Episode 6','mbWAZHj5enc',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 7 Episode 2','em45lXWhH4U',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 7 Episode 6','ZvasN4BUPCc',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 7 Episode 7','0Y81TdTmVps',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 7 Episode 8','QlfSyWuJ97A',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 7 Episode 10','EG11HvNcGyg',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 1','S_WIfJL2EXQ',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 2','R1VQxxyiS8c',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 4','MJ0hqGe1RZ4',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 5','3mZn0Hi1qwM',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 6','s-Vf2A96zok',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 7','6lujoodyWuw',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 8 Episode 8','t7mJjO7n2c0',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 9 Episode 1','a5OKA5SZJK4',9,'goodnews.jpg',ART + 'background.png','','')
-	addVID('','Series 9 Episode 8','5-y9NvcRHpY',9,'goodnews.jpg',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
+	addDir('Fargo','',33,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg',ART + 'background.png','')
+	addList('Quantico',BASE+'quantico'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2NjU1NTkyMl5BMl5BanBnXkFtZTgwMzk5Mjg5NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addDir('The Knick','',34,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg',ART + 'background.png','')
+	addList('The Last Kingdom',BASE+'thelastkingdom'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE1MzYzNjk3OF5BMl5BanBnXkFtZTgwMzk0MzYwNzE@._V1_SX214_AL_.jpg')
 
-def Frankie_Boyle():
-
-	addVID('','Frankie Boyle','PR1hrP6YBR4',9,'icon.png',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
-
-def Sean_Lock():
-
-	addVID('','Sean Lock','iBcnfgM43VM',9,'icon.png',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
-
-def Lee_Evans():
-
-	addVID('','Lee Evans','8JHWGMVTLwQ',9,'icon.png','',ART + 'background.png','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
-
-def Micheal_Mcintyre():
-
-	addVID('','Micheal Mcintyre','W1Aa503qr-E',9,'icon.png',ART + 'background.png','','')
-	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-def Jeff_Dunham():
+def The_Knick():
 
-	addVID('','Spark of insanity','UDBYXC8EUsg',9,'icon.png',ART + 'background.png','','')
-	addVID('','Unhinged','I6whmmHRYO8',9,'icon.png',ART + 'background.png','','')
-	addVID('','Achmed saves america','OV0Gd0ClBg',9,'icon.png',ART + 'background.png','','')
-	addVID('','Very Special Christmas Special','-5ASk6u2ik4',9,'icon.png',ART + 'background.png','','')
-	addVID('','All over the map','5POeSnPslv0',9,'icon.png',ART + 'background.png','','')
-	addVID('','Controlled Chaos','CcJAFTB6omQ',9,'icon.png',ART + 'background.png','','')
+	addList('Season 1',BASE+'the-knick'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg')
+	addList('Season 2',BASE+'the-knickseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg')
 	
+def Fargo():
+
+	addList('Series 1',BASE+'fargo'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg')
+	addList('Series 2',BASE+'fargoseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg')
+	
+def Entertainment_TV():
+
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Music_TV():
+
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Action_TV():
+
+	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addDir('Arrow','',26,ART + 'arrow.png',ART + 'background.png','')
+	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
+
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Arrow():
+
+	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
+	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
+	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
+	
+
 	xbmcplugin.endOfDirectory(addon_handle)
 
-def Mrs_Browns_Boys():
+def Flash():
 
-	addVID('','Mrs Browns Boys','nmGf1k0nfwo',9,'icon.png',ART + 'background.png','','')
+	addList('Season 1',BASE+'theflashseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')
+	addDir('Season 2','',31,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg',ART + 'background.png','')
+	
+def Flash_Series2():
+	
+	addVID('','Series 2 Episode 1','-srjHKXgfnw',9,'flash.jpg',ART + 'background.png','','')
+	addVID('','Series 2 Episode 2','Qf6Wvbk0Vug',9,'flash.jpg',ART + 'background.png','','')
+	addVID('','Series 2 Episode 3','MVugMhH7EOQ',9,'flash.jpg',ART + 'background.png','','')
+	addVID('','Series 2 Episode 4','VCzthVJu7d0',9,'flash.jpg',ART + 'background.png','','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-def Billy_Connoly():
+def Fantasy_TV():
 
-	addVID('','Billy Connolly','2kuspt3Cglo',9,'icon.png',ART + 'background.png','','')
-	
+	addList('Heroes Reborn',BASE+'heroesreborn'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI0NTE5NDIxOV5BMl5BanBnXkFtZTgwMDQ3ODM2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Limitless',BASE+'limitless'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTA4ODE4NjA5ODleQTJeQWpwZ15BbWU4MDUxMTQ0NTYx._V1_SX214_AL_.jpg')
+	addList('Supergirl',BASE+'supergirl'+CAT,400,'')
+	addList('The Walking Dead',BASE+'thewalkingdead'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NzQ2Mzk1OF5BMl5BanBnXkFtZTgwNTAzNjI5NjE@._V1_SX214_AL_.jpg')
+
 	xbmcplugin.endOfDirectory(addon_handle)
-
-def Dara_Obriain():
-
-	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
 	
+def DrWho():
+	
+	addList('Series 1',BASE+'drwhoseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 2',BASE+'drwhoseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 3',BASE+'drwhoseries3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 4',BASE+'drwhoseries4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 5',BASE+'drwhoseries5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 6',BASE+'drwhoseries6'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 7',BASE+'drwhoseries7'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTYwMzE2OTczMV5BMl5BanBnXkFtZTgwOTE0NjAzMTE@._V1_UY1200_CR485,0,630,1200_AL_.jpg')
+	addList('Series 8',BASE+'drwhoseries8'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
+	addList('Series 9',BASE+'drwhoseries9'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg')
+	
+	
+def Animated_TV():
+
 	xbmcplugin.endOfDirectory(addon_handle)
-
-
-def Kids():
-
-    
-	addDir('Cartoons','',13,ART + 'icon.png',ART + 'background.png','')
-	addList('Bing',BASE+'bing'+CAT,400,'http://goo.gl/IHk8Ya')	
 	
+def Scifi_TV():
+
+	addDir('Dr Who','',25,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg','background.png','')
+
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Soap_TV():
+
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def addDir(name,url,mode,iconimage,fanart,description): 
@@ -590,32 +588,34 @@ print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
 if mode == None		: Home_Menu()
-elif mode == 2		: Third_Menu()
-elif mode == 3		: Comedy()
-elif mode == 6		: TVShows()
-elif mode == 12 	: Kids()
-elif mode == 13 	: Cartoons()
-elif mode == 14		: Test_2()
-elif mode == 20 	: Scraper()
-elif mode == 100	: Stand_up()
-elif mode == 101 	: Tv_shows()
-elif mode == 110	: Arrow()
-elif mode == 111	: Flash()
-elif mode == 112 	: DrWho()
-elif mode == 201 	: Frankie_Boyle()
-elif mode == 202 	: Sean_Lock()
-elif mode == 203 	: Lee_Evans()
-elif mode == 204 	: Micheal_Mcintyre()
-elif mode == 205 	: Jeff_Dunham()
-elif mode == 206 	: Billy_Connoly()
-elif mode == 207 	: Dara_Obriain()
-elif mode == 300 	: Russell_howard_good_news()
-elif mode == 301 	: Mrs_Browns_Boys()
-elif mode == 302 	: Mock_the_week()
-elif mode == 303 	: Inbetweeners()
-elif mode == 310 	: WouldILieToYou()
 elif mode == 9		: yt.PlayVideo(url)
+elif mode == 10		: Films()
+elif mode == 11		: TV_Shows()
+elif mode == 12 	: Stand_Up()
+elif mode == 13		: Test()
+elif mode == 14		: Animated_TV()
+elif mode == 15		: Action_TV()
+elif mode == 16		: Childrens_TV()
+elif mode == 17		: Comedy_TV()
+elif mode == 18		: Drama_TV()
+elif mode == 19		: Entertainment_TV()
+elif mode == 20		: Fantasy_TV()
+elif mode == 21		: Music_TV()
+elif mode == 22		: Scifi_TV()
+elif mode == 23		: Soap_TV()
+elif mode == 24		: Jeff_Dunham()
+elif mode == 25		: DrWho()
+elif mode == 26		: Arrow()
+elif mode == 27		: Flash()
+elif mode == 28		: Mock_the_week()
+elif mode == 29		: Inbetweeners()
+elif mode == 30		: WouldILieToYou()
+elif mode == 31		: Flash_Series2()
+elif mode == 32 	: The_Last_Man_On_Earth()
+elif mode == 33 	: Fargo()
+elif mode == 34		: The_Knick()
+
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
-		
+	
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
