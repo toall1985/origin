@@ -28,7 +28,7 @@ def Home_Menu():
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
-	addDir('TEST AREA','',13,ART + 'icon.png',ART + 'background.png','')
+	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -94,6 +94,8 @@ def Test():
 
 	
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+	
 		
 def Childrens_TV():
 
@@ -393,16 +395,7 @@ def Arrow():
 def Flash():
 
 	addList('Season 1',BASE+'theflashseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')
-	addDir('Season 2','',31,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg',ART + 'background.png','')
-	
-def Flash_Series2():
-	
-	addVID('','Series 2 Episode 1','-srjHKXgfnw',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 2','Qf6Wvbk0Vug',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 3','MVugMhH7EOQ',9,'flash.jpg',ART + 'background.png','','')
-	addVID('','Series 2 Episode 4','VCzthVJu7d0',9,'flash.jpg',ART + 'background.png','','')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
+	addList('Season 2',BASE+'theflashseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')	
 	
 def Fantasy_TV():
 
