@@ -330,11 +330,17 @@ def Mock_the_week():
 def Drama_TV():
 
 	addDir('Fargo','',33,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg',ART + 'background.png','')
+	addDir('Homelands','',37,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg',ART + 'background.png','')
 	addList('Quantico',BASE+'quantico'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2NjU1NTkyMl5BMl5BanBnXkFtZTgwMzk5Mjg5NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('The Knick','',34,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addList('The Last Kingdom',BASE+'thelastkingdom'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE1MzYzNjk3OF5BMl5BanBnXkFtZTgwMzk0MzYwNzE@._V1_SX214_AL_.jpg')
 
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Homelands():
+
+	addList('Season 1',BASE+'homelandsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'homelandsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	
 def The_Knick():
 
@@ -628,7 +634,7 @@ elif mode == 33 	: Fargo()
 elif mode == 34		: The_Knick()
 elif mode == 35 	: Gotham()
 elif mode == 36 	: Sons_Of_Anarchy()
-
+elif mode == 37 	: Homelands()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 	
