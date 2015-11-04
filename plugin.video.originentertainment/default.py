@@ -25,7 +25,7 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
-#	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
+	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 	addDir('TEST AREA','',13,ART + 'icon.png',ART + 'background.png','')
@@ -34,20 +34,19 @@ def Home_Menu():
 
 def Films():   
 
-	addList('Latest Releases',BASE+'latestreleases'+CAT,400,ART + 'icon.png')
 	addList('Action',BASE+'actionfilm'+CAT,400,ART + 'icon.png')
 	addList('Animation',BASE+'animationfilm'+CAT,400,ART + 'icon.png')
-	addList('Biography',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
+#	addList('Biography',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
 	addList('Comedy',BASE+'comedyfilm'+CAT,400,ART + 'icon.png')
-	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
-	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
-	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
-	addList('History',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
+#	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
+#	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
+#	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
+	addList('History/Factual',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
 	addList('Horror',BASE+'horrorfilm'+CAT,400,ART + 'icon.png')
 	addList('Kids',BASE+'kidsfilm'+CAT,400,ART + 'icon.png')
-	addList('Music',BASE+'musicfilm'+CAT,400,ART + 'icon.png')
-	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
-	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')
+#	addList('Music',BASE+'musicfilm'+CAT,400,ART + 'icon.png')
+#	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
+#	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -357,11 +356,24 @@ def Music_TV():
 	
 def Action_TV():
 
-	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('Arrow','',26,ART + 'arrow.png',ART + 'background.png','')
+	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
-
+	addDir('Gotham','',27,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
+	addDir('Sons Of Anarchy','',27,ART + 'flash.jpg',ART + 'background.png','')
+	
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Gotham():
+	
+	addList('Season 1',BASE+'gotham.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'gothamseason2.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	
+def Sons_Of_Anarchy()
+	
+	addList('Season 1',BASE+'SonsOfAnarchySeason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg')
+	addList('Season 2',BASE+'SonsOfAnarchySeason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg')
+	addList('Season 3',BASE+'SonsOfAnarchySeason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg')
 	
 def Arrow():
 
@@ -614,6 +626,8 @@ elif mode == 31		: Flash_Series2()
 elif mode == 32 	: The_Last_Man_On_Earth()
 elif mode == 33 	: Fargo()
 elif mode == 34		: The_Knick()
+elif mode == 35 	: Gotham()
+elif mode == 36 	: Sons_Of_Anarchy()
 
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
