@@ -342,7 +342,7 @@ def Drama_TV():
 def Homelands():
 
 	addList('Season 1',BASE+'homelandsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
-	addList('Season 2',BASE+'homelandsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'homelandsseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	
 def The_Knick():
 
@@ -366,11 +366,16 @@ def Action_TV():
 
 	addDir('Arrow','',26,ART + 'arrow.png',ART + 'background.png','')
 	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addDir('Daredevil','',38,ART + 'arrow.png',ART + 'background.png','')
 	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
-	addDir('Gotham','',27,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
+	addDir('Gotham','',35,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Sons Of Anarchy','',27,ART + 'flash.jpg',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Daredevil():
+
+	addList('Blindspot',BASE+'Daredevilseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	
 def Gotham():
 	
@@ -628,6 +633,7 @@ elif mode == 34		: The_Knick()
 elif mode == 35 	: Gotham()
 elif mode == 36 	: Sons_Of_Anarchy()
 elif mode == 37 	: Homelands()
+elif mode == 38 	: Daredevil()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 	
