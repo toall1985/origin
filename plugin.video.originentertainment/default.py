@@ -36,17 +36,18 @@ def Films():
 
 	addList('Action',BASE+'actionfilm'+CAT,400,ART + 'icon.png')
 	addList('Animation',BASE+'animationfilm'+CAT,400,ART + 'icon.png')
-#	addList('Biography',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
+	addList('Biography/Factual',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
 	addList('Comedy',BASE+'comedyfilm'+CAT,400,ART + 'icon.png')
 #	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
-#	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
+	addList('Drama',BASE+'dramafilm'+CAT,400,ART + 'icon.png')
+	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
 #	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
 	addList('History/Factual',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
 	addList('Horror',BASE+'horrorfilm'+CAT,400,ART + 'icon.png')
 	addList('Kids',BASE+'kidsfilm'+CAT,400,ART + 'icon.png')
 #	addList('Music',BASE+'musicfilm'+CAT,400,ART + 'icon.png')
-#	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
-#	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')
+	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
+	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -366,16 +367,16 @@ def Action_TV():
 
 	addDir('Arrow','',26,ART + 'arrow.png',ART + 'background.png','')
 	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
-	addDir('Daredevil','',38,ART + 'arrow.png',ART + 'background.png','')
+	addDir('Daredevil','',38,'http://ia.media-imdb.com/images/M/MV5BMTgyMjU0Mzg5Nl5BMl5BanBnXkFtZTgwMTg3MDYyNTE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
 	addDir('Gotham','',35,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
-	addDir('Sons Of Anarchy','',27,ART + 'flash.jpg',ART + 'background.png','')
+	addDir('Sons Of Anarchy','',36,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Daredevil():
 
-	addList('Blindspot',BASE+'Daredevilseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Daredevil',BASE+'Daredevilseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	
 def Gotham():
 	
