@@ -7,6 +7,7 @@ import base64
 import urlresolver
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
+from resources import streams
 
 addon_id='plugin.video.originentertainment'
 CAT = base64.decodestring('LnBocA==')
@@ -112,8 +113,15 @@ def Childrens_TV():
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
-def Comedy_TV():
+def Comedy_TV(): 
 	
+	addList('Bobs Burgers',BASE+'bobsburgers1-3'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTg2MzI0NTQ3OV5BMl5BanBnXkFtZTgwODMyMzc1MDE@._V1_UY1200_CR93,0,630,1200_AL_.jpg')
+	addList('Family Guy',BASE+'familyguymulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk4MzM0MTU2MV5BMl5BanBnXkFtZTgwMTIwMzg3MjE@._V1_UY1200_CR204,0,630,1200_AL_.jpg')
+	addList('How I Met Your Mother',BASE+'Howimetyourmothermulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addList('Modern Family',BASE+''+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg')
+	addList('South Park',BASE+'southparkmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTYwMzUwOTE0NF5BMl5BanBnXkFtZTcwMDUwNTY0NA@@._V1._CR0,0,372,469_UY1200_CR161,0,630,1200_AL_.jpg')
+	addList('The Big Bang Theory',BASE+'bigbangmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMjI1Mzc4MDUwNl5BMl5BanBnXkFtZTgwMDAzOTIxMjE@._V1_UY1200_CR165,0,630,1200_AL_.jpg')
+	addList('Two and a Half Men',BASE+'twohalfmenmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTcwMDU1MDExNl5BMl5BanBnXkFtZTcwOTAwMjYyOQ@@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
 	addDir('Mock The Week','',28,ART + 'mock.png',ART + 'background.png','')
 	addDir('The Inbetweeners','',29,ART + 'inbetween.png',ART + 'background.png','')
 	addDir('The Last Man On Earth','',32,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg',ART + 'background.png','')
@@ -331,13 +339,15 @@ def Mock_the_week():
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Drama_TV():
-
+	
+	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addList('Criminal Minds',BASE+'criminalmindsmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQyMzExMzAzMl5BMl5BanBnXkFtZTcwMDEzNzk1OQ@@._V1_UY1200_CR93,0,630,1200_AL_.jpg')
 	addDir('Fargo','',33,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Homelands','',37,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg',ART + 'background.png','')
 	addList('Quantico',BASE+'quantico'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2NjU1NTkyMl5BMl5BanBnXkFtZTgwMzk5Mjg5NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('The Knick','',34,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addList('The Last Kingdom',BASE+'thelastkingdom'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE1MzYzNjk3OF5BMl5BanBnXkFtZTgwMzk0MzYwNzE@._V1_SX214_AL_.jpg')
-
+	addList('The Mentalist',BASE+'thementallistmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTgzOTczM15BMl5BanBnXkFtZTcwMDM2OTY4MQ@@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Homelands():
@@ -369,14 +379,16 @@ def Action_TV():
 	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('Daredevil','',38,'http://ia.media-imdb.com/images/M/MV5BMTgyMjU0Mzg5Nl5BMl5BanBnXkFtZTgwMTg3MDYyNTE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
+	addList('Game of Thrones',BASE+'gotmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
 	addDir('Gotham','',35,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
+	addList('Grimm',BASE+'grimmmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
 	addDir('Sons Of Anarchy','',36,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 def Daredevil():
 
-	addList('Daredevil',BASE+'Daredevilseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 1',BASE+'Daredevilseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTgyMjU0Mzg5Nl5BMl5BanBnXkFtZTgwMTg3MDYyNTE@._V1_SX214_AL_.jpg')
 	
 def Gotham():
 	
@@ -391,9 +403,10 @@ def Sons_Of_Anarchy():
 	
 def Arrow():
 
-	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'arrow.png',ART + 'background.png','','')
-	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'arrow.png',ART + 'background.png','','')
-	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'arrow.png',ART + 'background.png','','')
+	addList('Series 1-3',BASE+'arrow1-3'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg')
+	addVID('','Series 4 Episode 1','uIS78BLxodE',9,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg',ART + 'background.png','','')
+	addVID('','Series 4 Episode 2','xuu-hJP8K3g',9,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg',ART + 'background.png','','')
+	addVID('','Series 4 Episode 3','9UFEqovbPxA',9,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg',ART + 'background.png','','')
 	
 
 	xbmcplugin.endOfDirectory(addon_handle)
@@ -495,7 +508,17 @@ def Live(url):
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage))
+                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
+
+def Live2(url):
+        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+        vidlocation=('%s%s'%(BASE,url))
+        link = OPEN_URL(url)
+        match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
+        for url,iconimage,name in match:
+                #addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
+				addList2(name,url,402,iconimage)
+				
 def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
@@ -519,6 +542,12 @@ def Resolve(url):
         try: ADDON.resolve_url(url) 
         except: pass 
         dp.close()
+
+def TestPlayUrl(name, url, iconimage=None):
+	print '--- Playing "{0}". {1}'.format(name, url)
+	listitem = xbmcgui.ListItem(path=url, thumbnailImage=iconimage)
+	listitem.setInfo(type="Video", infoLabels={ "Title": name })
+	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
 		
 def GetPlayerCore(): 
     try: 
@@ -543,7 +572,7 @@ def addList2(name,url,mode,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
 def get_params():
@@ -637,5 +666,9 @@ elif mode == 37 	: Homelands()
 elif mode == 38 	: Daredevil()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
+elif mode == 402	: streams.ParseURL(url)
+elif mode == 403	: Live2(url)
+elif mode == 404	: TestPlayUrl(name, url, iconimage)
+
 	
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
