@@ -119,16 +119,25 @@ def Comedy_TV():
 	addList('Bobs Burgers',BASE+'bobsburgers1-3'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTg2MzI0NTQ3OV5BMl5BanBnXkFtZTgwODMyMzc1MDE@._V1_UY1200_CR93,0,630,1200_AL_.jpg')
 	addList('Family Guy',BASE+'familyguymulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk4MzM0MTU2MV5BMl5BanBnXkFtZTgwMTIwMzg3MjE@._V1_UY1200_CR204,0,630,1200_AL_.jpg')
 	addList('How I Met Your Mother',BASE+'Howimetyourmothermulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
-	addList('Modern Family',BASE+''+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE@._V1_UY1200_CR80,0,630,1200_AL_.jpg')
+	addList('Modern Family',BASE+'modernfamilymulit'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTU5MjQ1MTE2Ml5BMl5BanBnXkFtZTgwMDgwMzg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
 	addList('South Park',BASE+'southparkmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTYwMzUwOTE0NF5BMl5BanBnXkFtZTcwMDUwNTY0NA@@._V1._CR0,0,372,469_UY1200_CR161,0,630,1200_AL_.jpg')
 	addList('The Big Bang Theory',BASE+'bigbangmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMjI1Mzc4MDUwNl5BMl5BanBnXkFtZTgwMDAzOTIxMjE@._V1_UY1200_CR165,0,630,1200_AL_.jpg')
 	addList('Two and a Half Men',BASE+'twohalfmenmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTcwMDU1MDExNl5BMl5BanBnXkFtZTcwOTAwMjYyOQ@@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
 	addDir('Mock The Week','',28,ART + 'mock.png',ART + 'background.png','')
+	addDir('New Girl','',39,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addDir('The Inbetweeners','',29,ART + 'inbetween.png',ART + 'background.png','')
 	addDir('The Last Man On Earth','',32,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Would I Lie To You','',30,ART + 'wouldi.jpg',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def New_girl():
+
+	addList('Series 1',BASE+'New-Girl-Season-1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
+	addList('Series 2',BASE+'New-Girl-Season-2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
+	addList('Series 3',BASE+'New-Girl-Season-3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
+	addList('Series 4',BASE+'New-Girl-Season-4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
+
 	
 def The_Last_Man_On_Earth():
 	
@@ -668,8 +677,9 @@ elif mode == 35 	: Gotham()
 elif mode == 36 	: Sons_Of_Anarchy()
 elif mode == 37 	: Homelands()
 elif mode == 38 	: Daredevil()
-elif mode == 401	: Resolve(url)
+elif mode == 39 	: New_girl()
 elif mode == 400 	: Live(url)
+elif mode == 401	: Resolve(url)
 elif mode == 402	: streams.ParseURL(url)
 elif mode == 403	: Live2(url)
 elif mode == 404	: TestPlayUrl(name, url, iconimage)
