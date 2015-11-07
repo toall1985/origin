@@ -29,6 +29,7 @@ def Home_Menu():
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
+#	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
 
 	xbmcplugin.endOfDirectory(addon_handle)
@@ -354,6 +355,9 @@ def Homelands():
 
 	addList('Season 1',BASE+'homelandsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	addList('Season 2',BASE+'homelandsseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
+	addList('Season 3',BASE+'homelandsseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
+	addList('Season 4',BASE+'homelandsseason4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
+	addList('Season 5',BASE+'homelandsseason5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	
 def The_Knick():
 
@@ -508,7 +512,7 @@ def Live(url):
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
+                addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage))
 
 def Live2(url):
         xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
@@ -572,7 +576,7 @@ def addList2(name,url,mode,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=FalseFh)
         return ok
 
 def get_params():
