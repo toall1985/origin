@@ -139,6 +139,9 @@ def New_girl():
 	addList('Series 4',BASE+'New-Girl-Season-4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
 
 	
+	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
 def The_Last_Man_On_Earth():
 	
 	addList('Series 1',BASE+'lastmanonearthseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NTEzODcyNl5BMl5BanBnXkFtZTgwNjY1NzU2NDE@._V1_SY317_CR2,0,214,317_AL_.jpg')
@@ -368,6 +371,7 @@ def Homelands():
 	addList('Season 4',BASE+'homelandsseason4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	addList('Season 5',BASE+'homelandsseason5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg')
 	
+	
 def The_Knick():
 
 	addList('Season 1',BASE+'the-knick'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg')
@@ -585,7 +589,7 @@ def addList2(name,url,mode,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
 def get_params():
@@ -678,8 +682,8 @@ elif mode == 36 	: Sons_Of_Anarchy()
 elif mode == 37 	: Homelands()
 elif mode == 38 	: Daredevil()
 elif mode == 39 	: New_girl()
-elif mode == 400 	: Live(url)
 elif mode == 401	: Resolve(url)
+elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
 elif mode == 403	: Live2(url)
 elif mode == 404	: TestPlayUrl(name, url, iconimage)
