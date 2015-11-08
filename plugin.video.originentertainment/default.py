@@ -361,6 +361,7 @@ def Mock_the_week():
 def Drama_TV():
 	
 	addList('Ash vs Evil Dead',BASE+'Ash-vs-Evil-Dead'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTQ4ODY0NV5BMl5BanBnXkFtZTgwMzQ4MjA2NjE@._V1_SX214_AL_.jpg')
+	addDir('Bates Motel','',46,'http://ia.media-imdb.com/images/M/MV5BOTA5MzU0NzQ0M15BMl5BanBnXkFtZTgwNTYxMjA5NDE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
 	addDir('Breaking bad','',42,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Brooklyn Nine Nine','',44,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
@@ -374,6 +375,13 @@ def Drama_TV():
 	addList('The Mentalist',BASE+'thementallistmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTgzOTczM15BMl5BanBnXkFtZTcwMDM2OTY4MQ@@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
+	
+def Bates_motel():
+
+	addList('Season 1',BASE+'batesmotelseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addList('Season 2',BASE+'batesmotelseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addList('Season 3',BASE+'batesmotelseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+
 	
 def Brooklyn_Nine_Nine():
 
@@ -779,6 +787,7 @@ elif mode == 42 	: Breaking_bad()
 elif mode == 43 	: Grimm()
 elif mode == 44 	: Brooklyn_Nine_Nine()
 elif mode == 45 	: Game_of_thrones()
+elif mode == 46		: Bates_motel()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
