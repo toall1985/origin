@@ -27,7 +27,7 @@ def build_url(query):
 
 def Home_Menu():
 	
-	addList('Live Tv Test',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
+	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
@@ -38,8 +38,10 @@ def Home_Menu():
 	
 def Live_TV():
 
-	addList('',BASE+''+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addList('All Channels',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
+	addList('Sports Test',BASE+'livesports'+CAT,400,ART + 'icon.png')
 
+	
 	xbmcplugin.endOfDirectory(addon_handle)
 
 def Films():   
@@ -360,6 +362,8 @@ def Drama_TV():
 	
 	addList('Ash vs Evil Dead',BASE+'Ash-vs-Evil-Dead'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTQ4ODY0NV5BMl5BanBnXkFtZTgwMzQ4MjA2NjE@._V1_SX214_AL_.jpg')
 	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addDir('Breaking bad','',42,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
+	addDir('Brooklyn Nine Nine','',44,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addList('Criminal Minds',BASE+'criminalmindsmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQyMzExMzAzMl5BMl5BanBnXkFtZTcwMDEzNzk1OQ@@._V1_UY1200_CR93,0,630,1200_AL_.jpg')
 	addDir('Dexter','',40,'http://ia.media-imdb.com/images/M/MV5BMTM5MjkwMTI0MV5BMl5BanBnXkFtZTcwODQwMTc0OQ@@._V1_SY317_CR9,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Fargo','',33,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg',ART + 'background.png','')
@@ -370,6 +374,22 @@ def Drama_TV():
 	addList('The Mentalist',BASE+'thementallistmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTgzOTczM15BMl5BanBnXkFtZTcwMDM2OTY4MQ@@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
+	
+def Brooklyn_Nine_Nine():
+
+	addList('Season 1',BASE+'Brooklyn-Nine-Nine-Season-1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 2',BASE+'Brooklyn-Nine-Nine-Season-2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 3',BASE+'Brooklyn-Nine-Nine-Season-3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+
+	
+def Breaking_bad():
+
+	addList('Season 1',BASE+'Breaking-badseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'Breaking-badseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 3',BASE+'Breaking-badseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 4',BASE+'Breaking-badseason4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 5',BASE+'Breaking-badseason5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+
 
 def Dexter():
 
@@ -426,12 +446,27 @@ def Action_TV():
 	addList('Blindspot',BASE+'blindspot'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTczMTMyMzM2M15BMl5BanBnXkFtZTgwNzM1NDA2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addDir('Daredevil','',38,'http://ia.media-imdb.com/images/M/MV5BMTgyMjU0Mzg5Nl5BMl5BanBnXkFtZTgwMTg3MDYyNTE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addDir('Flash','',27,ART + 'flash.jpg',ART + 'background.png','')
-	addList('Game of Thrones',BASE+'gotmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addDir('Game of Thrones','',45,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addDir('Gotham','',35,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
-	addList('Grimm',BASE+'grimmmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+	addDir('Grimm','',43,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addDir('Sons Of Anarchy','',36,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
+
+def Game_of_thrones():
+	
+	addList('Season 1',BASE+'Game-of-Thrones-Season-1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 2-3-4',BASE+'gotmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 5',BASE+'Game-of-Thrones-Season-5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+
+	
+def Grimm():
+	
+	addList('Season 1',BASE+'Grimm-Season-1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+	addList('Season 2+3',BASE+'grimmmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+	addList('Season 4',BASE+'Grimm-Season-4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+	addList('Season 5',BASE+'Grimm-Season-5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+
 	
 def Daredevil():
 
@@ -740,6 +775,10 @@ elif mode == 38 	: Daredevil()
 elif mode == 39 	: New_girl()
 elif mode == 40 	: Dexter()
 elif mode == 41		: Live_TV()
+elif mode == 42 	: Breaking_bad()
+elif mode == 43 	: Grimm()
+elif mode == 44 	: Brooklyn_Nine_Nine()
+elif mode == 45 	: Game_of_thrones()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
