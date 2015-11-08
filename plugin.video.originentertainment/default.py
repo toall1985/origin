@@ -26,11 +26,19 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
+	
+	addList('Live Tv Test',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
+
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Live_TV():
+
+	addList('',BASE+''+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 
@@ -731,6 +739,7 @@ elif mode == 37 	: Homelands()
 elif mode == 38 	: Daredevil()
 elif mode == 39 	: New_girl()
 elif mode == 40 	: Dexter()
+elif mode == 41		: Live_TV()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
