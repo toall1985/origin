@@ -362,6 +362,7 @@ def Drama_TV():
 	
 	addList('Ash vs Evil Dead',BASE+'Ash-vs-Evil-Dead'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTQ4ODY0NV5BMl5BanBnXkFtZTgwMzQ4MjA2NjE@._V1_SX214_AL_.jpg')
 	addDir('Bates Motel','',46,'http://ia.media-imdb.com/images/M/MV5BOTA5MzU0NzQ0M15BMl5BanBnXkFtZTgwNTYxMjA5NDE@._V1_SX214_AL_.jpg',ART + 'background.png','')
+	addDir('Black List','',47,'http://ia.media-imdb.com/images/M/MV5BMTY3NjQ1OTU3NF5BMl5BanBnXkFtZTgwODcwMDI2NjE@._V1_UY1200_CR91,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
 	addDir('Breaking bad','',42,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Brooklyn Nine Nine','',44,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
@@ -381,6 +382,13 @@ def Bates_motel():
 	addList('Season 1',BASE+'batesmotelseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
 	addList('Season 2',BASE+'batesmotelseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
 	addList('Season 3',BASE+'batesmotelseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+
+	
+def Black_list():
+
+	addList('Season 1',BASE+'theblacklistseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTY3NjQ1OTU3NF5BMl5BanBnXkFtZTgwODcwMDI2NjE@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addList('Season 2',BASE+'theblacklistseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTY3NjQ1OTU3NF5BMl5BanBnXkFtZTgwODcwMDI2NjE@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addList('Season 3',BASE+'theblacklistseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTY3NjQ1OTU3NF5BMl5BanBnXkFtZTgwODcwMDI2NjE@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
 
 	
 def Brooklyn_Nine_Nine():
@@ -457,9 +465,15 @@ def Action_TV():
 	addDir('Game of Thrones','',45,'http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addDir('Gotham','',35,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Grimm','',43,'http://ia.media-imdb.com/images/M/MV5BMTk2NDMxOTg3Ml5BMl5BanBnXkFtZTgwNTE5MzExNzE@._V1_UY1200_CR135,0,630,1200_AL_.jpg',ART + 'background.png','')
+	addDir('Legends','',48,'http://ia.media-imdb.com/images/M/MV5BMTQ4Njg0MzYxMF5BMl5BanBnXkFtZTgwMjAzMjk4MTE@._V1_SY317_CR11,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Sons Of Anarchy','',36,'http://ia.media-imdb.com/images/M/MV5BMTEyODg2NzkwMDBeQTJeQWpwZ15BbWU4MDQwODI3MzIx._V1_SX214_AL_.jpg',ART + 'background.png','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Legends():
+
+	addList('Legends',BASE+'legends-season-1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ4Njg0MzYxMF5BMl5BanBnXkFtZTgwMjAzMjk4MTE@._V1_SY317_CR11,0,214,317_AL_.jpg')
+
 
 def Game_of_thrones():
 	
@@ -521,7 +535,7 @@ def Fantasy_TV():
 
 	addList('Heroes Reborn',BASE+'heroesreborn'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI0NTE5NDIxOV5BMl5BanBnXkFtZTgwMDQ3ODM2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addList('Limitless',BASE+'limitless'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTA4ODE4NjA5ODleQTJeQWpwZ15BbWU4MDUxMTQ0NTYx._V1_SX214_AL_.jpg')
-	addList('Supergirl',BASE+'supergirl'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg5MDI3OTI3M15BMl5BanBnXkFtZTgwNzk0MDI1NjE@._V1_UY1200_CR84,0,630,1200_AL_.jpg')
+	addList('Supergirl',BASE+'supergirl'+CAT,400,'')
 	addList('The Walking Dead',BASE+'thewalkingdead'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NzQ2Mzk1OF5BMl5BanBnXkFtZTgwNTAzNjI5NjE@._V1_SX214_AL_.jpg')
 
 	xbmcplugin.endOfDirectory(addon_handle)
@@ -788,6 +802,8 @@ elif mode == 43 	: Grimm()
 elif mode == 44 	: Brooklyn_Nine_Nine()
 elif mode == 45 	: Game_of_thrones()
 elif mode == 46		: Bates_motel()
+elif mode == 47 	: Black_list()
+elif mode == 48 	: Legends()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
