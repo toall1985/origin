@@ -39,7 +39,7 @@ def Home_Menu():
 def Live_TV():
 
 	addList('All Channels',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
-	addList('Sports Test',BASE+'livesports'+CAT,400,ART + 'icon.png')
+#	addList('Sports Test',BASE+'livesports'+CAT,400,ART + 'icon.png')
 
 	
 	xbmcplugin.endOfDirectory(addon_handle)
@@ -363,7 +363,7 @@ def Drama_TV():
 	addList('Ash vs Evil Dead',BASE+'Ash-vs-Evil-Dead'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTQ4ODY0NV5BMl5BanBnXkFtZTgwMzQ4MjA2NjE@._V1_SX214_AL_.jpg')
 	addDir('Bates Motel','',46,'http://ia.media-imdb.com/images/M/MV5BOTA5MzU0NzQ0M15BMl5BanBnXkFtZTgwNTYxMjA5NDE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addDir('Black List','',47,'http://ia.media-imdb.com/images/M/MV5BMTY3NjQ1OTU3NF5BMl5BanBnXkFtZTgwODcwMDI2NjE@._V1_UY1200_CR91,0,630,1200_AL_.jpg',ART + 'background.png','')
-	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addList('Bones',BASE+'bonesmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
 	addDir('Breaking bad','',42,'http://ia.media-imdb.com/images/M/MV5BMTQ0ODYzODc0OV5BMl5BanBnXkFtZTgwMDk3OTcyMDE@._V1_SY317_CR0,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Brooklyn Nine Nine','',44,'http://ia.media-imdb.com/images/M/MV5BMTU2NTExOTI0N15BMl5BanBnXkFtZTgwOTkyNTA3NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addList('Criminal Minds',BASE+'criminalmindsmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQyMzExMzAzMl5BMl5BanBnXkFtZTcwMDEzNzk1OQ@@._V1_UY1200_CR93,0,630,1200_AL_.jpg')
@@ -371,17 +371,27 @@ def Drama_TV():
 	addDir('Fargo','',33,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg',ART + 'background.png','')
 	addDir('Homelands','',37,'http://ia.media-imdb.com/images/M/MV5BMTg2MDAzNDIzOV5BMl5BanBnXkFtZTgwNzY3NDM2NjE@._V1_SY317_CR104,0,214,317_AL_.jpg',ART + 'background.png','')
 	addList('Quantico',BASE+'quantico'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg2NjU1NTkyMl5BMl5BanBnXkFtZTgwMzk5Mjg5NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addDir('Suits','',49,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg',ART + 'background.png','')	
 	addDir('The Knick','',34,'http://ia.media-imdb.com/images/M/MV5BMTQ5NzcyNDc5MV5BMl5BanBnXkFtZTgwMDMyOTY5NjE@._V1_SX214_AL_.jpg',ART + 'background.png','')
 	addList('The Last Kingdom',BASE+'thelastkingdom'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE1MzYzNjk3OF5BMl5BanBnXkFtZTgwMzk0MzYwNzE@._V1_SX214_AL_.jpg')
 	addList('The Mentalist',BASE+'thementallistmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTQ5OTgzOTczM15BMl5BanBnXkFtZTcwMDM2OTY4MQ@@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
 	xbmcplugin.endOfDirectory(addon_handle)
 	
+def Suits():
+
+	addList('Season 1',BASE+'suitsseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 2',BASE+'suitsseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 3',BASE+'suitsseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 4',BASE+'suitsseason4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 5',BASE+'suitsseason5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+
+	
 	
 def Bates_motel():
 
-	addList('Season 1',BASE+'batesmotelseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
-	addList('Season 2',BASE+'batesmotelseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
-	addList('Season 3',BASE+'batesmotelseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BODU0NzA1MTEwN15BMl5BanBnXkFtZTcwOTI1NjI5MQ@@._V1_UY1200_CR92,0,630,1200_AL_.jpg')
+	addList('Season 1',BASE+'batesmotelseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 2',BASE+'batesmotelseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
+	addList('Season 3',BASE+'batesmotelseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTk1MjYzOTU2Nl5BMl5BanBnXkFtZTgwMzAxMTg5MTE@._V1_SX214_AL_.jpg')
 
 	
 def Black_list():
@@ -535,10 +545,20 @@ def Fantasy_TV():
 
 	addList('Heroes Reborn',BASE+'heroesreborn'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjI0NTE5NDIxOV5BMl5BanBnXkFtZTgwMDQ3ODM2NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	addList('Limitless',BASE+'limitless'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTA4ODE4NjA5ODleQTJeQWpwZ15BbWU4MDUxMTQ0NTYx._V1_SX214_AL_.jpg')
-	addList('Supergirl',BASE+'supergirl'+CAT,400,'')
+	addDir('Once Upon A Time','',50,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg','background.png','')
+	addList('Supergirl',BASE+'supergirl'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTg5MDI3OTI3M15BMl5BanBnXkFtZTgwNzk0MDI1NjE@._V1_UY1200_CR84,0,630,1200_AL_.jpg')
 	addList('The Walking Dead',BASE+'thewalkingdead'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ3NzQ2Mzk1OF5BMl5BanBnXkFtZTgwNTAzNjI5NjE@._V1_SX214_AL_.jpg')
 
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Once_upon_a_time():
+
+	addList('Season 1',BASE+'onceuponatimeseason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 2',BASE+'onceuponatimeseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 3',BASE+'onceuponatimeseason3'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 4',BASE+'onceuponatimeseason4'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+	addList('Season 5',BASE+'onceuponatimeseason5'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMjE0NDgxNDY2NV5BMl5BanBnXkFtZTgwNjU5Mjg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
+
 	
 def DrWho():
 	
@@ -804,6 +824,8 @@ elif mode == 45 	: Game_of_thrones()
 elif mode == 46		: Bates_motel()
 elif mode == 47 	: Black_list()
 elif mode == 48 	: Legends()
+elif mode == 49		: Suits()
+elif mode == 50 	: Once_upon_a_time()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
