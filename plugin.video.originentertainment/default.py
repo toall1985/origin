@@ -12,6 +12,7 @@ from resources import streams
 addon_id='plugin.video.originentertainment'
 CAT = base64.decodestring('LnBocA==')
 BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
+Scraper=base64.decodestring('aHR0cDovL2ZhY2Vib29rLmNvbQ==')
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
@@ -30,6 +31,7 @@ def Home_Menu():
 	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
+	addList('Scraper',Scraper,402,ART + 'icon.png')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
@@ -53,10 +55,9 @@ def Films():
 #	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
 	addList('Drama',BASE+'dramafilm'+CAT,400,ART + 'icon.png')
 	addList('Family',BASE+'familyfilm'+CAT,400,ART + 'icon.png')
-#	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
-	addList('History/Factual',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
+	addList('Fantasy',BASE+'fantasyfilm'+CAT,400,ART + 'icon.png')
+	addList('History',BASE+'historyfilm'+CAT,400,ART + 'icon.png')
 	addList('Horror',BASE+'horrorfilm'+CAT,400,ART + 'icon.png')
-	addList('Kids',BASE+'kidsfilm'+CAT,400,ART + 'icon.png')
 #	addList('Music',BASE+'musicfilm'+CAT,400,ART + 'icon.png')
 	addList('Romance',BASE+'romancefilm'+CAT,400,ART + 'icon.png')
 	addList('Scifi',BASE+'scififilm'+CAT,400,ART + 'icon.png')

@@ -7,6 +7,7 @@ import base64
 #-------------------------------------------------------------------------------------
 ADDON_ID = 'plugin.video.originentertainment'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
+Scraper=base64.decodestring('aHR0cDovL21vdmlldHViZW5vdy5iaXo=')
 BaseURL =base64.decodestring('aHR0cDovL3dhdGNoLXNpbXBzb25zLmNvbS9kb3dubG9hZHMv')
 cookieJar = CookieJar()
 urlOpener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookieJar))
