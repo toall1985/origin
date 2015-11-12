@@ -31,10 +31,10 @@ def Home_Menu():
 	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
-	addList('Scraper',Scraper,402,ART + 'icon.png')
+#	addList('Scraper',Scraper,402,ART + 'icon.png')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
-	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
+	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -106,6 +106,8 @@ def Jeff_Dunham():
 	
 def Test():
 
+	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
+	addMenu(BASE + 'testmenu' + CAT)
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -127,7 +129,7 @@ def Childrens_TV():
 	
 def Comedy_TV(): 
 	
-	addList('How I Met Your Mother',BASE+'Howimetyourmothermulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addDir('How I Met Your Mother','',51,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg',ART + 'background.png','')
 	addList('Modern Family',BASE+'modernfamilymulit'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTU5MjQ1MTE2Ml5BMl5BanBnXkFtZTgwMDgwMzg5NjE@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
 	addList('The Big Bang Theory',BASE+'bigbangmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMjI1Mzc4MDUwNl5BMl5BanBnXkFtZTgwMDAzOTIxMjE@._V1_UY1200_CR165,0,630,1200_AL_.jpg')
 	addList('Two and a Half Men',BASE+'twohalfmenmulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTcwMDU1MDExNl5BMl5BanBnXkFtZTcwOTAwMjYyOQ@@._V1_UY1200_CR90,0,630,1200_AL_.jpg')
@@ -138,6 +140,12 @@ def Comedy_TV():
 	addDir('Would I Lie To You','',30,ART + 'wouldi.jpg',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def How_I_Met_Your_Mother():
+	
+	addList('Series 1/3/4/5/7/8',BASE+'Howimetyourmothermulti'+CAT,403,'http://ia.media-imdb.com/images/M/MV5BMTA5MzAzNTcyNjZeQTJeQWpwZ15BbWU3MDUyMzE1MTk@._V1_UY1200_CR91,0,630,1200_AL_.jpg')
+	addList('Series 2',BASE+'How-I-Met-Your-Mother-Season-2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTkyMTcwNTM3OF5BMl5BanBnXkFtZTcwMDI2MjcxOA@@._V1_UY1200_CR107,0,630,1200_AL_.jpg')
+
 	
 def New_girl():
 
@@ -608,6 +616,7 @@ def addDir(name,url,mode,iconimage,fanart,description):
 		
 		return ok
 
+		
 def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):
     if type != 'folder2' and type != 'addon':
         if len(iconimage) > 0:
@@ -661,6 +670,16 @@ def Live2(url):
         for url,iconimage,name in match:
                 #addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
 				addList2(name,url,402,iconimage)
+
+
+def addMenu(url):
+    
+	xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+	menulocation=('%s%s'%(BASE,url))
+	link = OPEN_URL(url)
+	match=re.compile("addDir('','','','','','')").findall(link)
+
+	
 				
 def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
@@ -827,6 +846,8 @@ elif mode == 47 	: Black_list()
 elif mode == 48 	: Legends()
 elif mode == 49		: Suits()
 elif mode == 50 	: Once_upon_a_time()
+elif mode == 51		: How_I_Met_Your_Mother()
+elif mode == 52		: Test()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
