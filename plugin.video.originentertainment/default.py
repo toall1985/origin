@@ -30,7 +30,7 @@ def Home_Menu():
 	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
-	addList('Scraper',BASE+'Scraper'+CAT,403,ART + 'icon.png')
+#	addList('Scraper',BASE+'Scraper'+CAT,403,ART + 'icon.png')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
