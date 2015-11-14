@@ -13,6 +13,7 @@ addon_id='plugin.video.originentertainment'
 CAT = base64.decodestring('LnBocA==')
 BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 base_url = sys.argv[0]
+BASE2=base64.decodestring('aHR0cDovL2RsLmZpbG0ybW92aWUuaW5mby9zZXJpYWwv')
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Origin Entertainment"
@@ -30,7 +31,6 @@ def Home_Menu():
 	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
-#	addList('Scraper',BASE+'Scraper'+CAT,403,ART + 'icon.png')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
@@ -107,7 +107,8 @@ def Test():
 
 	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
 	addMenu(BASE + 'testmenu' + CAT)
-	
+	addList('Scraper',BASE2,402,ART + 'icon.png')
+
 	xbmcplugin.endOfDirectory(addon_handle)
 	
 	

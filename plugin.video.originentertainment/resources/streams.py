@@ -84,18 +84,31 @@ def ParseURL(url):
                     name = name.replace ('ReEnc', '')
                 if '/' in name:
                     name = name.replace('/', ' ')
+                if 'Film2Movie_ORG' in name:
+                    name = name.replace('Film2Movie_ORG', ' ')
+                if 'Film2Movie_INFO' in name:
+                    name = name.replace('Film2Movie_INFO', ' ')
+                if 'x265' in name:
+                    name = name.replace('x265', ' ')
+                if 'HEVC' in name:
+                    name = name.replace('HEVC', ' ')
+                if '.' in name:
+                    name = name.replace('.', ' ')
+                if '.' in name:
+                    name = name.replace('.', ' ')
+                if '.' in name:
+                    name = name.replace('.', ' ')
                 if '.' in name:
                     name = name.replace('.', ' ')
 
                 if '.mkv' in link or '.mp3' in link:
-                    mode = 'Mode: Link'
+                    AddTVSHOWDir(name, url+link, 404, '', '', isFolder=False)
+					
                 else:
-                    mode = 'Mode: Folder'
+					AddTVSHOWDir(name, url+link, 402, '', '', isFolder=True)
+                    
 
-                print mode
-                print name
-                print url+link
-                print '\n'
+                
 
     except Exception, e:
                 print str(e)        
