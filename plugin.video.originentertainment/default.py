@@ -56,6 +56,7 @@ def Films():
 	addList('Action',BASE+'actionfilm'+CAT,400,ART + 'icon.png')
 	addList('Animation',BASE+'animationfilm'+CAT,400,ART + 'icon.png')
 	addList('Biography/Factual',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
+	addList('Christmas',BASE+'christmasfilm'+CAT,400,ART + 'icon.png')
 	addList('Comedy',BASE+'comedyfilm'+CAT,400,ART + 'icon.png')
 #	addList('Crime',BASE+'crimefilm'+CAT,400,ART + 'icon.png')
 	addList('Drama',BASE+'dramafilm'+CAT,400,ART + 'icon.png')
@@ -525,7 +526,7 @@ def Daredevil():
 def Gotham():
 	
 	addList('Season 1',BASE+'gotham.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
-	addList('Season 2',BASE+'gothamseason2.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'gothamseries2.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -547,8 +548,8 @@ def Arrow():
 
 def Flash():
 
-	addList('Season 1',BASE+'theflashSeason1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')
-	addList('Season 2',BASE+'theflashSeason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')	
+	addList('Season 1',BASE+'theflashseries1'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'theflashseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE@._V1_SY317_CR19,0,214,317_AL_.jpg')	
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
