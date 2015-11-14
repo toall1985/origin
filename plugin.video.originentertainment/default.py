@@ -32,10 +32,16 @@ def Home_Menu():
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
+	addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
 #	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
+	
+def Lists():
+	
+	addList('List 1',BASE2,402,ART + 'icon.png')
+
 	
 def Live_TV():
 
@@ -107,7 +113,6 @@ def Test():
 
 	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
 	addMenu(BASE + 'testmenu' + CAT)
-	addList('Scraper',BASE2,402,ART + 'icon.png')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -845,6 +850,7 @@ elif mode == 49		: Suits()
 elif mode == 50 	: Once_upon_a_time()
 elif mode == 51		: How_I_Met_Your_Mother()
 elif mode == 52		: Test()
+elif mode == 53 	: Lists()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
