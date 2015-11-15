@@ -45,8 +45,8 @@ def Lists():
 	
 def Live_TV():
 
-	addList('All Channels',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
-#	addList('Sports Test',BASE+'livesports'+CAT,400,ART + 'icon.png')
+	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
+	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
 
 	
 	xbmcplugin.endOfDirectory(addon_handle)
@@ -90,6 +90,7 @@ def Stand_Up():
 
 	addVID('','Billy Connolly','2kuspt3Cglo',9,'icon.png',ART + 'background.png','','')
 	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
+	addVID('','Dave Gorman','Zdq9p2cBITU',9,'icon.png',ART + 'background.png','','')
 	addVID('','Frankie Boyle','PR1hrP6YBR4',9,'icon.png',ART + 'background.png','','')
 	addVID('','Lee Evans','8JHWGMVTLwQ',9,'icon.png','',ART + 'background.png','')
 	addDir('Jeff Dunham','',24,ART + 'icon.png',ART + 'background.png','')
