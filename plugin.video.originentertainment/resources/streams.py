@@ -48,6 +48,34 @@ def ParseURL(url):
                 pass
             elif '.txt' in link:
                 pass
+            elif '?C=N;O=D' in link:
+                pass
+            elif '?C=M;O=A' in link:
+                pass
+            elif '?C=S;O=A' in link:
+                pass
+            elif '?C=D;O=A' in link:
+                pass
+            elif 'Torrent' in link:
+                pass
+            elif 'exe' in link:
+                pass
+            elif 'public' in link:
+                pass
+            elif '?C=D;O=A' in link:
+                pass
+            elif 'pub' in link:
+                pass
+            elif 'install' in link:
+                pass
+            elif '?C=D;O=A' in link:
+                pass
+            elif '?C=D;O=A' in link:
+                pass
+            elif '?C=D;O=A' in link:
+                pass
+            elif 'mpeg' in link:
+                pass
             else:
                 name = link
                 if 'txt' in name:
@@ -92,16 +120,94 @@ def ParseURL(url):
                     name = name.replace('x265', ' ')
                 if 'HEVC' in name:
                     name = name.replace('HEVC', ' ')
+                if '&amp;' in name:
+                    name = name.replace('&amp;', ' ')
+                if '%5b2007%5d' in name:
+                    name = name.replace('%5b2007%5d', ' ')
+                if '%5b2006%5d%5b' in name:
+                    name = name.replace('%5b2006%5d%5b', ' ')
+                if '%5b' in name:
+                    name = name.replace('%5b', ' ')
+                if '%5d' in name:
+                    name = name.replace('%5d', ' ')
+                if 'x264' in name:
+                    name = name.replace('x264', ' ')
+                if 'CHD' in name:
+                    name = name.replace('CHD', ' ')
+                if 'sample' in name:
+                    name = name.replace('sample', ' ')
+                if 'DVDSCR' in name:
+                    name = name.replace('DVDSCR', ' ')
+                if 'DVDRip' in name:
+                    name = name.replace('DVDRip', ' ')
+                if '%d0' in name:
+                    name = name.replace('%d0', ' ')
+                if '%92' in name:
+                    name = name.replace('%92', ' ')
+                if '%b3' in name:
+                    name = name.replace('%b3', ' ')
+                if '%d1' in name:
+                    name = name.replace('%d1', ' ')
+                if '%be' in name:
+                    name = name.replace('%be', ' ')
+                if '%81' in name:
+                    name = name.replace('%81', ' ')
+                if '%82' in name:
+                    name = name.replace('%82', ' ')
+                if '%8f' in name:
+                    name = name.replace('%8f', ' ')
+                if '%94' in name:
+                    name = name.replace('%94', ' ')
+                if '%83' in name:
+                    name = name.replace('%83', ' ')
+                if '%85' in name:
+                    name = name.replace('%85', ' ')
+                if '%93' in name:
+                    name = name.replace('%93', ' ')
+                if '%80' in name:
+                    name = name.replace('%80', ' ')
+                if '%b4' in name:
+                    name = name.replace('%b4', ' ')
+                if '%bd' in name:
+                    name = name.replace('%bd', ' ')
+                if '%b0' in name:
+                    name = name.replace('%b0', ' ')
+                if '%9e' in name:
+                    name = name.replace('%9e', ' ')
+                if '%8b' in name:
+                    name = name.replace('%8b', ' ')
+                if '%84' in name:
+                    name = name.replace('%84', ' ')
+                if '%b8' in name:
+                    name = name.replace('%b8', ' ')
+                if '%bb' in name:
+                    name = name.replace('%bb', ' ')
+                if '%86' in name:
+                    name = name.replace('%86', ' ')
+                if '%8c' in name:
+                    name = name.replace('%8c', ' ')
+                if '%b9' in name:
+                    name = name.replace('%b9', ' ')
+                if '%ba' in name:
+                    name = name.replace('%ba', ' ')
+                if '%9a' in name:
+                    name = name.replace('%9a', ' ')
+                if '%9d' in name:
+                    name = name.replace('%9d', ' ')
                 if '.' in name:
                     name = name.replace('.', ' ')
-                if '.' in name:
-                    name = name.replace('.', ' ')
-                if '.' in name:
-                    name = name.replace('.', ' ')
-                if '.' in name:
-                    name = name.replace('.', ' ')
+                if '2012' in name:
+                    name = name.replace('2012', ' ')
+                if 'mp3' in name:
+                    name = name.replace('mp3', ' ')
+                if '(' in name:
+                    name = name.replace('(', ' ')
+                if ')' in name:
+                    name = name.replace(')', ' ')
+                if 'DivX' in name:
+                    name = name.replace('DivX', ' ')
 
-                if '.mkv' in link or '.mp3' in link:
+                if '.mkv' in link or '.mp3' in link or '.mp4' in link or '.avi' in link:
                     AddTVSHOWDir(name, url+link, 404, '', '', isFolder=False)
 					
                 else:

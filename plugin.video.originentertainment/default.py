@@ -13,7 +13,13 @@ addon_id='plugin.video.originentertainment'
 CAT = base64.decodestring('LnBocA==')
 BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 base_url = sys.argv[0]
+Decode = base64.decodestring
 BASE2=base64.decodestring('aHR0cDovL2RsLmZpbG0ybW92aWUuaW5mby9zZXJpYWwv')
+BASE3=base64.decodestring('aHR0cDovL3dhdGNoLXNpbXBzb25zLmNvbS9kb3dubG9hZHMv')
+BASE4=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9QZXBwYSUyMFBpZy9QZXBwYSUyMFBpZyUyMC0lMjBDb21wbGV0ZSUyMFNlcmllcyUyMDEsJTIwMiwlMjAzLCUyMDQv')
+BASE5=base64.decodestring('')
+BASE6=base64.decodestring('')
+BASE7=base64.decodestring('')
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Origin Entertainment"
@@ -41,6 +47,12 @@ def Home_Menu():
 def Lists():
 	
 	addList('List 1',BASE2,402,ART + 'icon.png')
+	addList('List 2',BASE3,402,ART + 'icon.png')
+	addList('List 3',Decode('aHR0cDovL2NvbnRlbnQubjN0dzNya3MuY29tL01vdmllcy8='),402,ART + 'icon.png')
+	addList('List 4',Decode('aHR0cDovL2hlY2tsaW5nZmV4dC50aGVtaXMuZmVyYWxob3N0aW5nLmNvbS9wdWJsaWMv'),402,ART + 'icon.png')
+#	addList('List 5',BASE7,402,ART + 'icon.png')
+	addList('My Christmas list - ip blocked dont use',BASE+'christmasfilmmine'+CAT,400,ART + 'icon.png')
+
 
 	
 def Live_TV():
@@ -121,8 +133,9 @@ def Test():
 	
 		
 def Childrens_TV():
-
 	addList('Bing',BASE+'bing'+CAT,400,'http://goo.gl/IHk8Ya')
+	addList('Peppa Pig',BASE4,402,'http://ia.media-imdb.com/images/M/MV5BMTgzMTAwNDczMF5BMl5BanBnXkFtZTgwNzUzMzU0MTE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
+	addList('Tazmania',Decode('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9PdGhlclRvb25zL1Rhei1NYW5pYS8='),402,'http://ia.media-imdb.com/images/M/MV5BMTUyMTY5MDE0N15BMl5BanBnXkFtZTcwMDEwMDEzMQ@@._V1_UY1200_CR8,0,630,1200_AL_.jpg')
 	addVID('','Minnie Mouse Bowtique','xNbjhNmNUGA',9,'Icon.jpg',ART + 'background.png','','')
 	addVID('','Mickey Mouse Clubhouse','vn6xsuAokPg',9,'Icon.jpg',ART + 'background.png','','')
 	addVID('','Mickey Mouse goofy and donald duck cartoons','blIHV79HplU',9,'Icon.jpg',ART + 'background.png','','')
@@ -470,7 +483,7 @@ def The_Knick():
 def Fargo():
 
 	addList('Season 1',BASE+'fargo'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg')
-	addList('Season 2',BASE+'fargoSeason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'fargoseries2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BNDEzOTYzMDkzN15BMl5BanBnXkFtZTgwODkzNTAyNjE@._V1_SY317_CR4,0,214,317_AL_.jpg')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -526,8 +539,8 @@ def Daredevil():
 	
 def Gotham():
 	
-	addList('Season 1',BASE+'gotham.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
-	addList('Season 2',BASE+'gothamseries2.php'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 1',BASE+'gotham'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
+	addList('Season 2',BASE+'gothamseason2'+CAT,400,'http://ia.media-imdb.com/images/M/MV5BMTQ1ODk3NDczNF5BMl5BanBnXkFtZTgwODE5MDQ4NjE@._V1_SY317_CR0,0,214,317_AL_.jpg')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -806,6 +819,30 @@ print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
+
+def resolve2(url):
+    try:
+        url = url.replace('/embed-', '/')
+        url = re.compile('//.+?/([\w]+)').findall(url)[0]
+        page = 'http://allmyvideos.net/%s' % url
+
+        result = client.request(page, close=False)
+
+        post = {}
+        f = client.parseDOM(result, 'form', attrs = {'action': ''})
+        k = client.parseDOM(f, 'input', ret='name', attrs = {'type': 'hidden'})
+        for i in k: post.update({i: client.parseDOM(f, 'input', ret='value', attrs = {'name': i})[0]})
+        post = urllib.urlencode(post)
+
+        result = client.request(page, post=post)
+
+        url = re.compile('"file" *: *"(http.+?)"').findall(result)[-1]
+        url += '&direct=false&ua=false'
+        return url
+    except:
+        return
+
+
 
 if mode == None		: Home_Menu()
 elif mode == 9		: yt.PlayVideo(url)
