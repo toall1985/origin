@@ -45,13 +45,19 @@ def Home_Menu():
 	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
 	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
 	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
+	addDir('Pandoras Box','',55,ART + 'icon.png',ART + 'background.png','')	
 	addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
 	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
 
 	xbmcplugin.endOfDirectory(addon_handle)
 
+def Pandoras_Box():
 
+	addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
+	addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
+
+	
 def M3u8Lists():
 
 	addList('List 1','',411,ART + 'icon.png')
@@ -117,13 +123,13 @@ def M3UCATS2():
 
 def M3UCATS3():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u3.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
+    match = re.compile('#EXTINF:-1,(.+?) (.+?)').findall(html)
     for name, url in match:
         addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS4():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u4.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
+    match = re.compile('#EXTINF:-1,(.+?) (.+?)').findall(html)
     for name, url in match:
         addDir4(name,url,401,ART+'icon.png')
 
@@ -417,6 +423,7 @@ elif mode == 51		: TV.How_I_Met_Your_Mother()
 elif mode == 52		: Test()
 elif mode == 53 	: lists.Lists()
 elif mode == 54		: M3u8Lists()
+elif mode == 55 	: Pandoras_Box()
 elif mode == 401	: Resolve(url)
 elif mode == 400 	: Live(url)
 elif mode == 402	: streams.ParseURL(url)
