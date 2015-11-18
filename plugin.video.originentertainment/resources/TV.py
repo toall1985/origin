@@ -339,6 +339,7 @@ def Soap_TV():
 def Live_TV():
 
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
+	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
 
 	
