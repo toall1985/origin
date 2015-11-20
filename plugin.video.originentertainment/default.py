@@ -54,6 +54,7 @@ def Home_Menu():
 
 def Pandoras_Box():
 
+	addList('Latest TV Episodes',BASE5+'recentepisodes'+CAT,400,ART + 'icon.png')
 	addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
 	addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
 
@@ -123,13 +124,13 @@ def M3UCATS2():
 
 def M3UCATS3():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u3.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?)').findall(html)
+    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
     for name, url in match:
         addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS4():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u4.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?)').findall(html)
+    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
     for name, url in match:
         addDir4(name,url,401,ART+'icon.png')
 
