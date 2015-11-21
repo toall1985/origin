@@ -49,8 +49,8 @@ def Home_Menu():
 	addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
 	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
-	addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
-#	addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
+#	addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
+	addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
