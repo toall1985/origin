@@ -67,7 +67,7 @@ def M3u8Lists():
 	addList('List 4','',415,ART + 'icon.png')
 	addList('List 5','',416,ART + 'icon.png')
 
-	
+
 	
 def Test():
 
@@ -112,33 +112,34 @@ def addDir4(name,url,mode,iconimage):
 
 def M3UCATS():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u1.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
-    for name, url in match:
+    match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
+    for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS2():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u2.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
-    for name, url in match:
-        addDir4(name,url,401,ART+'icon.png')
+    match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
+    for var,name,url in match:
+       addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS3():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u3.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
-    for name, url in match:
+    match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
+    for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS4():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u4.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
-    for name, url in match:
+    match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
+    for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
 
 def M3UCATS5():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u5.m3u')
-    match = re.compile('#EXTINF:-1,(.+?) (.+?) ').findall(html)
-    for name, url in match:
+    match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
+    for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
+		
 				
 def TESTCATS():
     html=OPEN_URL('http://www.animetoon.org/cartoon')
