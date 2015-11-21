@@ -49,7 +49,9 @@ def Home_Menu():
 	addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
 	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
 	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
-
+	addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
+#	addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
+	
 	xbmcplugin.endOfDirectory(addon_handle)
 
 def Pandoras_Box():
@@ -255,6 +257,18 @@ def Resolve(url):
         except: pass 
         dp.close()
 
+def addSearch():
+	searchStr = ''
+	keyboard = xbmc.Keyboard(searchStr, 'Search')
+	keyboard.doModal()
+	if (keyboard.isConfirmed()==False):
+	  return
+	searchStr=keyboard.getText()
+	if len(searchStr) == 0:
+	  return
+	else:
+	  return searchStr
+		
 def TestPlayUrl(name, url, iconimage=None):
 	print '--- Playing "{0}". {1}'.format(name, url)
 	listitem = xbmcgui.ListItem(path=url, thumbnailImage=iconimage)
@@ -383,7 +397,7 @@ elif mode == 9		: yt.PlayVideo(url)
 elif mode == 10		: Films.Films()
 elif mode == 11		: TV.TV_Shows()
 elif mode == 12 	: Standup.Stand_Up()
-elif mode == 13		: Test()
+elif mode == 13		: addSearch()
 elif mode == 14		: TV.Animated_TV()
 elif mode == 15		: TV.Action_TV()
 elif mode == 16		: TV.Childrens_TV()
