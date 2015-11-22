@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
+   <category label="General Settings">
+		<setting id="User" type="text" label="Username:" default="Origin" visible="true"/>
+		<setting id="Password" type="text" label="Password:" default="blank" visible="true"/>
+    </category>	
+	 <category label="32010">
+        <setting label="32032" type="action" action="RunScript(my.addon.id, downloadreport)"/>
+    </category>
 </settings>

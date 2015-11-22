@@ -8,6 +8,8 @@ import urlresolver
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films
+from resources.lib.parsers import TVParser
+
 
 Decode = base64.decodestring
 BASE2= lists.BASE2
@@ -25,13 +27,18 @@ args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Origin Entertainment"
 VERSION = "1.0.1"
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
-ART 		=  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
+ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 net = Net()
+ADDON = xbmcaddon.Addon(id=addon_id)
+GetAdultPassword = ADDON.getSetting('Password')
+AdultURL = Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL0FkdWx0L2luZGV4LnBocD9tb2RlPVh4WCZwYXNzd29yZD0=')
+AdultFinalURL = AdultURL + GetAdultPassword
+
 
 addon_data_dir = os.path.join(xbmc.translatePath("special://userdata/addon_data" ).decode("utf-8"), addon_id)
 if not os.path.exists(addon_data_dir):
-		os.makedirs(addon_data_dir)
+        os.makedirs(addon_data_dir)
 
 tmpListFile = os.path.join(addon_data_dir, 'tempList.txt')
 
@@ -39,63 +46,64 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
-	
-	addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
-	addDir('M3U8 Lists','',54,ART + 'icon.png',ART + 'background.png','')
-	addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
-	addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
-	addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
-	addDir('Pandoras Box','',55,ART + 'icon.png',ART + 'background.png','')	
-	addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
-	addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
-	addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
-#	addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
-	addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
-	
-	xbmcplugin.endOfDirectory(addon_handle)
+    
+    addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
+    addDir('M3U8 Lists','',54,ART + 'icon.png',ART + 'background.png','')
+    addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
+    addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
+    addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
+    addDir('Pandoras Box','',55,ART + 'icon.png',ART + 'background.png','') 
+    addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
+    addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
+    addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
+    addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
+    addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
+    if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
+        addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
+    
+    xbmcplugin.endOfDirectory(addon_handle)
 
 def Pandoras_Box():
 
-	addList('Latest TV Episodes',BASE5+'recentepisodes'+CAT,400,ART + 'icon.png')
-	addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
-	addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
+    addList('Latest TV Episodes',BASE5+'recentepisodes'+CAT,400,ART + 'icon.png')
+    addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
+    addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
 
-	
+    
 def M3u8Lists():
 
-	addList('List 1','',411,ART + 'icon.png')
-	addList('List 2','',413,ART + 'icon.png')
-	addList('List 3','',414,ART + 'icon.png')
-	addList('List 4','',415,ART + 'icon.png')
-	addList('List 5','',416,ART + 'icon.png')
+    addList('List 1','',411,ART + 'icon.png')
+    addList('List 2','',413,ART + 'icon.png')
+    addList('List 3','',414,ART + 'icon.png')
+    addList('List 4','',415,ART + 'icon.png')
+    addList('List 5','',416,ART + 'icon.png')
+    addDir('Multi Lists',Decode('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv'),418,ART + 'icon.png',ART + 'background.png','')
 
-
-	
 def Test():
 
-	addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
-	addList('Sponge Test',BASE5+'badlands'+CAT,400,ART + 'icon.png')
-	addList('Dizilab Scraper Test','',410,ART + 'icon.png')
+    addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
+    addList('Sponge Test',BASE5+'badlands'+CAT,400,ART + 'icon.png')
+    addList('Dizilab Scraper Test','',410,ART + 'icon.png')
 
 
-	xbmcplugin.endOfDirectory(addon_handle)
-	
-	
-		
-	
+    xbmcplugin.endOfDirectory(addon_handle)
+    
+    
+    
+    
 def addDir(name,url,mode,iconimage,fanart,description): 
-		u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-		ok=True
-		liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-		liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-		liz.setProperty( "Fanart_Image", fanart )
-		if mode==5 :
-			ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-		else:
-			ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-		
-		return ok
-		
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
+        if mode==5 :
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        else:
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        
+        return ok
+        
 def addDir3(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
@@ -111,6 +119,14 @@ def addDir4(name,url,mode,iconimage):
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
+'''       
+def Parsem3uURL(url): 
+    response = urlOpener.open(url).read()
+        
+    try:
+        Titles = re.findall(r'<a .*?>(.*?)</a>',response)
+        Links = re.findall(('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S),response)
+'''
 
 def M3UCATS():
     html=OPEN_URL('http://back2basics.x10host.com/back2basics/test/m3u1.m3u')
@@ -141,8 +157,8 @@ def M3UCATS5():
     match = re.compile('^#EXTINF:-?[0-9]*(.*?),(.*?)\n(.*?)$',re.I+re.M+re.U+re.S).findall(html)
     for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
-		
-				
+        
+                
 def TESTCATS():
     html=OPEN_URL('http://www.animetoon.org/cartoon')
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
@@ -154,21 +170,21 @@ def LISTS(url):
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
     for url,name in match:
         addDir3(name,url,408,ART+'icon.png')
-		
+        
 def LISTS2(url):
     html=OPEN_URL(url)
     match = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html)
     for name,url in match:
         addDir3(name,url,409,ART+'icon.png')
-		
+        
 def LISTS3(url):
     html=OPEN_URL(url)
     match = re.compile("url: '(.+?)',").findall(html)
     for url in match:
         addDir4('STREAM',url,401,ART+'icon.png')
 
-		
-		
+        
+        
 def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):
     if type != 'folder2' and type != 'addon':
         if len(iconimage) > 0:
@@ -199,12 +215,12 @@ def Add_Directory_Item(handle, url, listitem, isFolder):
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder) 
 
 def OPEN_URL(url):
-		req = urllib2.Request(url)
-		req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-		response = urllib2.urlopen(req)
-		link=response.read()
-		response.close()
-		return link
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        response = urllib2.urlopen(req)
+        link=response.read()
+        response.close()
+        return link
 
 def Live(url):
         xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
@@ -221,18 +237,18 @@ def Live2(url):
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
                 #addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
-				addList2(name,url,402,iconimage)
+                addList2(name,url,402,iconimage)
 
 
 def addMenu(url):
     
-	xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
-	menulocation=('%s%s'%(BASE,url))
-	link = OPEN_URL(url)
-	match=re.compile("addDir('','','','','','')").findall(link)
+    xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+    menulocation=('%s%s'%(BASE,url))
+    link = OPEN_URL(url)
+    match=re.compile("addDir('','','','','','')").findall(link)
 
-	
-				
+    
+                
 def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
@@ -249,7 +265,7 @@ def Resolve(url):
         if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
             dialog.ok("Message Send", "Your Message Has Been Sent")
         else:
-	         return
+             return
     else:
         try: play.play(url)
         except: pass
@@ -258,23 +274,23 @@ def Resolve(url):
         dp.close()
 
 def addSearch():
-	searchStr = ''
-	keyboard = xbmc.Keyboard(searchStr, 'Search')
-	keyboard.doModal()
-	if (keyboard.isConfirmed()==False):
-	  return
-	searchStr=keyboard.getText()
-	if len(searchStr) == 0:
-	  return
-	else:
-	  return searchStr
-		
+    searchStr = ''
+    keyboard = xbmc.Keyboard(searchStr, 'Search')
+    keyboard.doModal()
+    if (keyboard.isConfirmed()==False):
+      return
+    searchStr=keyboard.getText()
+    if len(searchStr) == 0:
+      return
+    else:
+      return searchStr
+        
 def TestPlayUrl(name, url, iconimage=None):
-	print '--- Playing "{0}". {1}'.format(name, url)
-	listitem = xbmcgui.ListItem(path=url, thumbnailImage=iconimage)
-	listitem.setInfo(type="Video", infoLabels={ "Title": name })
-	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
-		
+    print '--- Playing "{0}". {1}'.format(name, url)
+    listitem = xbmcgui.ListItem(path=url, thumbnailImage=iconimage)
+    listitem.setInfo(type="Video", infoLabels={ "Title": name })
+    xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
+        
 def GetPlayerCore(): 
     try: 
         PlayerMethod=getSet("core-player") 
@@ -285,7 +301,7 @@ def GetPlayerCore():
     except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
     return PlayerMeth 
     return True 
-	  
+      
 def addList(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
@@ -308,17 +324,17 @@ def addList3(name,url,mode,iconimage):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
 
-		
+        
 def get_params():
         param=[]
         paramstring=sys.argv[2]
-        if len(paramstring)>=2:	
+        if len(paramstring)>=2: 
                 params=sys.argv[2] 
                 cleanedparams=params.replace('?','')
                 if (params[len(params)-1]=='/'):
                         params=params[0:len(params)-2]
                 pairsofparams=cleanedparams.split('&')
-                param={}	
+                param={}    
                 for i in range(len(pairsofparams)):
                         splitparams={}
                         splitparams=pairsofparams[i].split('=')
@@ -326,7 +342,7 @@ def get_params():
                                 param[splitparams[0]]=splitparams[1]
                                 
         return param
-		
+        
 params=get_params()
 url=None
 name=None
@@ -392,70 +408,73 @@ def resolve2(url):
 
 
 
-if mode == None		: Home_Menu()
-elif mode == 9		: yt.PlayVideo(url)
-elif mode == 10		: Films.Films()
-elif mode == 11		: TV.TV_Shows()
-elif mode == 12 	: Standup.Stand_Up()
-elif mode == 13		: addSearch()
-elif mode == 14		: TV.Animated_TV()
-elif mode == 15		: TV.Action_TV()
-elif mode == 16		: TV.Childrens_TV()
-elif mode == 17		: TV.Comedy_TV()
-elif mode == 18		: TV.Drama_TV()
-elif mode == 19		: TV.Entertainment_TV()
-elif mode == 20		: TV.Fantasy_TV()
-elif mode == 21		: TV.Music_TV()
-elif mode == 22		: TV.Scifi_TV()
-elif mode == 23		: TV.Soap_TV()
-elif mode == 24		: Standup.Jeff_Dunham()
-elif mode == 25		: TV.DrWho()
-elif mode == 26		: TV.Arrow()
-elif mode == 27		: TV.Flash()
-elif mode == 28		: utube.Mock_the_week()
-elif mode == 29		: utube.Inbetweeners()
-elif mode == 30		: utube.WouldILieToYou()
-elif mode == 31		: TV.Flash_Series2()
-elif mode == 32 	: TV.The_Last_Man_On_Earth()
-elif mode == 33 	: TV.Fargo()
-elif mode == 34		: TV.The_Knick()
-elif mode == 35 	: TV.Gotham()
-elif mode == 36 	: TV.Sons_Of_Anarchy()
-elif mode == 37 	: TV.Homelands()
-elif mode == 38 	: TV.Daredevil()
-elif mode == 39 	: TV.New_girl()
-elif mode == 40 	: TV.Dexter()
-elif mode == 41		: TV.Live_TV()
-elif mode == 42 	: TV.Breaking_bad()
-elif mode == 43 	: TV.Grimm()
-elif mode == 44 	: TV.Brooklyn_Nine_Nine()
-elif mode == 45 	: TV.Game_of_thrones()
-elif mode == 46		: TV.Bates_motel()
-elif mode == 47 	: TV.Black_list()
-elif mode == 48 	: TV.Legends()
-elif mode == 49		: TV.Suits()
-elif mode == 50 	: TV.Once_upon_a_time()
-elif mode == 51		: TV.How_I_Met_Your_Mother()
-elif mode == 52		: Test()
-elif mode == 53 	: lists.Lists()
-elif mode == 54		: M3u8Lists()
-elif mode == 55 	: Pandoras_Box()
-elif mode == 401	: Resolve(url)
-elif mode == 400 	: Live(url)
-elif mode == 402	: streams.ParseURL(url)
-elif mode == 403	: Live2(url)
-elif mode == 404	: TestPlayUrl(name, url, iconimage)
-elif mode == 405 	: lists.TESTCATS2()
-elif mode == 406	: TESTCATS()
-elif mode == 407 	: LISTS(url)
-elif mode == 408 	: LISTS2(url)
-elif mode == 409	: LISTS3(url)
-elif mode == 410 	: TestDizi()
-elif mode == 411 	: M3UCATS()
-elif mode == 412 	: M3UPLAY(url)
-elif mode == 413 	: M3UCATS2()
-elif mode == 414 	: M3UCATS3()
-elif mode == 415 	: M3UCATS4()
-elif mode == 416 	: M3UCATS5()
+if mode == None     : Home_Menu()
+elif mode == 9      : yt.PlayVideo(url)
+elif mode == 10     : Films.Films()
+elif mode == 11     : TV.TV_Shows()
+elif mode == 12     : Standup.Stand_Up()
+elif mode == 13     : addSearch()
+elif mode == 14     : TV.Animated_TV()
+elif mode == 15     : TV.Action_TV()
+elif mode == 16     : TV.Childrens_TV()
+elif mode == 17     : TV.Comedy_TV()
+elif mode == 18     : TV.Drama_TV()
+elif mode == 19     : TV.Entertainment_TV()
+elif mode == 20     : TV.Fantasy_TV()
+elif mode == 21     : TV.Music_TV()
+elif mode == 22     : TV.Scifi_TV()
+elif mode == 23     : TV.Soap_TV()
+elif mode == 24     : Standup.Jeff_Dunham()
+elif mode == 25     : TV.DrWho()
+elif mode == 26     : TV.Arrow()
+elif mode == 27     : TV.Flash()
+elif mode == 28     : utube.Mock_the_week()
+elif mode == 29     : utube.Inbetweeners()
+elif mode == 30     : utube.WouldILieToYou()
+elif mode == 31     : TV.Flash_Series2()
+elif mode == 32     : TV.The_Last_Man_On_Earth()
+elif mode == 33     : TV.Fargo()
+elif mode == 34     : TV.The_Knick()
+elif mode == 35     : TV.Gotham()
+elif mode == 36     : TV.Sons_Of_Anarchy()
+elif mode == 37     : TV.Homelands()
+elif mode == 38     : TV.Daredevil()
+elif mode == 39     : TV.New_girl()
+elif mode == 40     : TV.Dexter()
+elif mode == 41     : TV.Live_TV()
+elif mode == 42     : TV.Breaking_bad()
+elif mode == 43     : TV.Grimm()
+elif mode == 44     : TV.Brooklyn_Nine_Nine()
+elif mode == 45     : TV.Game_of_thrones()
+elif mode == 46     : TV.Bates_motel()
+elif mode == 47     : TV.Black_list()
+elif mode == 48     : TV.Legends()
+elif mode == 49     : TV.Suits()
+elif mode == 50     : TV.Once_upon_a_time()
+elif mode == 51     : TV.How_I_Met_Your_Mother()
+elif mode == 52     : Test()
+elif mode == 53     : lists.Lists()
+elif mode == 54     : M3u8Lists()
+elif mode == 55     : Pandoras_Box()
+elif mode == 401    : Resolve(url)
+elif mode == 400    : Live(url)
+elif mode == 402    : streams.ParseURL(url)
+elif mode == 403    : Live2(url)
+elif mode == 404    : TestPlayUrl(name, url, iconimage)
+elif mode == 405    : lists.TESTCATS2()
+elif mode == 406    : TESTCATS()
+elif mode == 407    : LISTS(url)
+elif mode == 408    : LISTS2(url)
+elif mode == 409    : LISTS3(url)
+elif mode == 410    : TestDizi()
+elif mode == 411    : M3UCATS()
+elif mode == 412    : M3UPLAY(url)
+elif mode == 413    : M3UCATS2()
+elif mode == 414    : M3UCATS3()
+elif mode == 415    : M3UCATS4()
+elif mode == 416    : M3UCATS5()
+elif mode == 417    : Parsem3uURL(url)
+elif mode == 418    : TVParser.GetLinks(url)
+elif mode == 419 	: TVParser.m3uCategory(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

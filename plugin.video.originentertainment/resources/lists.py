@@ -27,7 +27,7 @@ BASE3=base64.decodestring('aHR0cDovL3dhdGNoLXNpbXBzb25zLmNvbS9kb3dubG9hZHMv')
 BASE4=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9QZXBwYSUyMFBpZy9QZXBwYSUyMFBpZyUyMC0lMjBDb21wbGV0ZSUyMFNlcmllcyUyMDEsJTIwMiwlMjAzLCUyMDQv')
 BASE5=base64.decodestring('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8=')
 BASE6=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9PdGhlclRvb25zL1Rhei1NYW5pYS8=')
-BASE7=base64.decodestring('')
+BASE7=base64.decodestring('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv')
 CAT = base64.decodestring('LnBocA==')
 BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 
@@ -37,7 +37,6 @@ def Lists():
 	addList('Lists',BASE+'url'+CAT,405,ART + 'icon.png')
 	addList('My Christmas list - ip blocked dont use',BASE+'christmasfilmmine'+CAT,400,ART + 'icon.png')
 	addList('Scraper test try all links','',406,ART + 'icon.png')
-	addList('Latest Episodes','',417,ART + 'icon.png')
 
 	
 def addList(name,url,mode,iconimage):
@@ -58,6 +57,6 @@ def OPEN_URL(url):
 		req = urllib2.Request(url)
 		req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
 		response = urllib2.urlopen(req)
-		link=response.read()
+		link=response.read(	)
 		response.close()
 		return link
