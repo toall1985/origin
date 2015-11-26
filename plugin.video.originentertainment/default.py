@@ -46,7 +46,8 @@ def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
-    
+
+    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'icon.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
@@ -60,15 +61,32 @@ def Home_Menu():
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
+	
+
     
     xbmcplugin.endOfDirectory(addon_handle)
 
+def Football():
+	addList('Fixtures','',58,ART + 'icon.png')
+
+	
 def Pandoras_Box():
 
     addList('Latest TV Episodes',BASE5+'recentepisodes'+CAT,400,ART + 'icon.png')
     addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
     addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
+    addDir('Live TV','',61,ART + 'icon.png',ART + 'background.png','')
+	
+	
+def Sponge_TV():
 
+    addList('All Channels',BASE5+'all'+CAT,400,ART + 'icon.png')
+    addList('Live TV',BASE5+'live'+CAT,400,ART + 'icon.png')
+    addList('Sports TV',BASE5+'sports'+CAT,400,ART + 'icon.png')
+    addList('Movie TV',BASE5+'movies'+CAT,400,ART + 'icon.png')
+    addList('Kids TV',BASE5+'kids'+CAT,400,ART + 'icon.png')
+	
+	
     
 def M3u8Lists():
 
@@ -84,12 +102,12 @@ def Test():
     addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
     addList('Sponge Test',BASE5+'badlands'+CAT,400,ART + 'icon.png')
     addList('Dizilab Scraper Test','',410,ART + 'icon.png')
-
+	
 
     xbmcplugin.endOfDirectory(addon_handle)
     
     
-    
+ 
     
 def addDir(name,url,mode,iconimage,fanart,description): 
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
@@ -158,7 +176,45 @@ def M3UCATS5():
     for var,name,url in match:
         addDir4(name,url,401,ART+'icon.png')
         
-                
+#elif mode == 58 	: FootballFixturesDay()
+#elif mode == 59 	: FootballFixturesGame()
+#elif mode == 60 	: FootballFixturesChannel()
+
+def FootballFixturesDay():
+    html=OPEN_URL('http://www.live-footballontv.com/')
+    match = re.compile('<div class="span12 matchdate">(.+?)</div>,<div class="span4 matchfixture">(.+?)  </div>,<div class="span4 competition">(.+?)&nbsp;Group Stage</div>,<div class="span1 kickofftime">(.+?)</div>,<div class="span3 channels">(.+?)</div>').findall(html)
+    for day,game,comp,time,channel in match:
+        addDir3(name,url,59,ART+'icon.png')
+	
+		
+def TESTMOVIE():
+    html=OPEN_URL('http://liveonsat.com/los_soc_br_eng_ALL.php')
+    match = re.compile('<td><a href="(.+?)"><img src="(.+?)" width="100" height="100" border="0"><br>(.+?)</a></td>').findall(html)
+    for url,img,name in match:
+        addDir3(name,'',420,ART+'icon.png')
+
+def Movie2(url):
+    html=OPEN_URL(url)
+    match = re.compile('',re.DOTALL).findall(html)
+    for url,name,img in match:
+        addDir3(name,url,421,'http://www.movietubenow.biz%s'%img)
+
+def Movie3(url):
+    html=OPEN_URL(url)
+    match = re.compile('<iframe width="680" height="430" scrolling="no" frameborder="0" src="(.+?)"',re.DOTALL).findall(html)
+    for url in match:
+        addDir3(name,url,422,ART + 'icon.png')
+
+def Movie4(url):
+    html=OPEN_URL(url)
+    match = re.compile('<source src="(.+?)" type="video/mp4"/>').findall(html)
+    for url in match:
+        addDir3(name,url,401,'')
+
+
+#src="http://videomega.tv/cdn.php?ref=065104072102117048051048121088088121048051048117102072104065&width=680&height=430" allowFullScreen>		
+#<source src="http://abo.cdn.vizplay.org/v/aaaa1e04c23889aaec7251ca54fc1a8a.mp4?st=dYoIz47Vr0qMjSeS85wPAw&hash=5HPCRQZTlXarhII_FigSBA" type="video/mp4"/>
+				
 def TESTCATS():
     html=OPEN_URL('http://www.animetoon.org/cartoon')
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
@@ -456,6 +512,12 @@ elif mode == 52     : Test()
 elif mode == 53     : lists.Lists()
 elif mode == 54     : M3u8Lists()
 elif mode == 55     : Pandoras_Box()
+elif mode == 56 	: TESTMOVIE()
+elif mode == 57 	: Football()
+elif mode == 58 	: FootballFixturesDay()
+elif mode == 59 	: FootballFixturesGame()
+elif mode == 60 	: FootballFixturesChannel()
+elif mode == 61 	: Sponge_TV()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
@@ -466,7 +528,7 @@ elif mode == 406    : TESTCATS()
 elif mode == 407    : LISTS(url)
 elif mode == 408    : LISTS2(url)
 elif mode == 409    : LISTS3(url)
-elif mode == 410    : TestDizi()
+elif mode == 410    : lists.TestDizi()
 elif mode == 411    : M3UCATS()
 elif mode == 412    : M3UPLAY(url)
 elif mode == 413    : M3UCATS2()
@@ -476,5 +538,8 @@ elif mode == 416    : M3UCATS5()
 elif mode == 417    : Parsem3uURL(url)
 elif mode == 418    : TVParser.GetLinks(url)
 elif mode == 419 	: TVParser.m3uCategory(url)
+elif mode == 420 	: Movie2(url)
+elif mode == 421 	: Movie3(url)
+elif mode == 422 	: Movie4(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
