@@ -53,9 +53,19 @@ def Jeff_Dunham():
 	addVID('','Very Special Christmas Special','-5ASk6u2ik4',9,'icon.png',ART + 'background.png','','')
 	addVID('','All over the map','5POeSnPslv0',9,'icon.png',ART + 'background.png','','')
 	addVID('','Controlled Chaos','CcJAFTB6omQ',9,'icon.png',ART + 'background.png','','')
+	addList('2015 Unhinged in Hollywood',BASE+'jeffdunham'+CAT,400,ART + 'icon.png')
+
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
+def addList(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+	
 def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):
     if type != 'folder2' and type != 'addon':
         if len(iconimage) > 0:

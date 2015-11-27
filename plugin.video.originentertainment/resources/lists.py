@@ -36,8 +36,8 @@ def Lists():
 	
 	addList('Lists',BASE+'url'+CAT,405,ART + 'icon.png')
 	addList('My Christmas list - ip blocked dont use',BASE+'christmasfilmmine'+CAT,400,ART + 'icon.png')
-	addList('Scraper test try all links','',406,ART + 'icon.png')
-	addList('Movie Scraper','',56,ART + 'icon.png')
+	addList('Childrens Programs - try all links','',406,ART + 'icon.png')
+#	addList('Movie Scraper','',56,ART + 'icon.png')
 
 
 	

@@ -47,7 +47,7 @@ def build_url(query):
 
 def Home_Menu():
 
-    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
+#    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'icon.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
@@ -57,7 +57,7 @@ def Home_Menu():
     addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
     addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
-    addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
+#    addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
@@ -81,10 +81,12 @@ def Pandoras_Box():
 def Sponge_TV():
 
     addList('All Channels',BASE5+'all'+CAT,400,ART + 'icon.png')
+    addList('Kids TV',BASE5+'kids'+CAT,400,ART + 'icon.png')
     addList('Live TV',BASE5+'live'+CAT,400,ART + 'icon.png')
     addList('Sports TV',BASE5+'sports'+CAT,400,ART + 'icon.png')
     addList('Movie TV',BASE5+'movies'+CAT,400,ART + 'icon.png')
-    addList('Kids TV',BASE5+'kids'+CAT,400,ART + 'icon.png')
+    addList('Music TV',BASE5+'music'+CAT,400,ART + 'icon.png')
+
 	
 	
     
@@ -101,7 +103,7 @@ def Test():
 
     addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
     addList('Sponge Test',BASE5+'badlands'+CAT,400,ART + 'icon.png')
-    addList('Dizilab Scraper Test','',410,ART + 'icon.png')
+#    addList('Dizilab Scraper Test','',410,ART + 'icon.png')
 	
 
     xbmcplugin.endOfDirectory(addon_handle)
