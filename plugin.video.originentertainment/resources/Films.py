@@ -34,6 +34,7 @@ net = Net()
 
 def Films():   
 
+	addList('Latest Films',BASE+'latestfilms'+CAT,400,ART + 'icon.png')
 	addList('Action',BASE+'actionfilm'+CAT,400,ART + 'icon.png')
 	addList('Animation',BASE+'animationfilm'+CAT,400,ART + 'icon.png')
 	addList('Biography/Factual',BASE+'biographyfilm'+CAT,400,ART + 'icon.png')
