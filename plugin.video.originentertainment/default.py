@@ -97,7 +97,7 @@ def M3u8Lists():
     addList('List 3','',414,ART + 'icon.png')
     addList('List 4','',415,ART + 'icon.png')
     addList('List 5','',416,ART + 'icon.png')
-    addDir('Multi Lists',Decode('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv'),418,ART + 'icon.png',ART + 'background.png','')
+#    addDir('Multi Lists',Decode('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv'),418,ART + 'icon.png',ART + 'background.png','')
 
 def Test():
 
