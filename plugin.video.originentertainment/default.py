@@ -48,17 +48,17 @@ def build_url(query):
 def Home_Menu():
 
 #    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
-    addDir('Live TV','',41,ART + 'icon.png',ART + 'background.png','')
-    addDir('M3U8 Lists','',54,ART + 'icon.png',ART + 'background.png','')
-    addDir('Movies','',10,ART + 'icon.png',ART + 'background.png','')
-    addDir('TV Shows','',11,ART + 'icon.png',ART + 'background.png','')
-    addDir('Stand Up','',12,ART + 'icon.png',ART + 'background.png','')
-    addDir('Pandoras Box','',55,ART + 'icon.png',ART + 'background.png','') 
-    addDir('Lists','',53,ART + 'icon.png',ART + 'background.png','')
-    addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + 'icon.png')
-    addDir('Test Area','',52,ART + 'icon.png',ART + 'background.png','')
-#    addDir('Search','',13,ART + 'icon.png',ART + 'background.png','')
-    addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'icon.png')
+    addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
+    addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
+    addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
+    addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')
+    addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','')
+    addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','') 
+    addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
+    addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
+    addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
+#    addDir('Search','',13,ART + 'search.png',ART + 'background.png','')
+    addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
 	
@@ -72,21 +72,17 @@ def Football():
 	
 def Pandoras_Box():
 
-    addList('Latest TV Episodes',BASE5+'recentepisodes'+CAT,400,ART + 'icon.png')
-    addList('Films',BASE5+'films'+CAT,400,ART + 'icon.png')
-    addList('TV Shows',BASE5+'tvshows'+CAT,400,ART + 'icon.png')
-    addDir('Live TV','',61,ART + 'icon.png',ART + 'background.png','')
-	
-	
-def Sponge_TV():
+    html=OPEN_URL(Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9zcG9uZ2VtYWluLnBocA=='))
+    match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
+    for name,url,img,fanart,mode in match:
+			    addList(name,url,mode,ART + 'icon.png')
+				
+def open_Menu(url):
 
-    addList('All Channels',BASE5+'all'+CAT,400,ART + 'icon.png')
-    addList('Kids TV',BASE5+'kids'+CAT,400,ART + 'icon.png')
-    addList('Live TV',BASE5+'live'+CAT,400,ART + 'icon.png')
-    addList('Sports TV',BASE5+'sports'+CAT,400,ART + 'icon.png')
-    addList('Movie TV',BASE5+'movies'+CAT,400,ART + 'icon.png')
-    addList('Music TV',BASE5+'music'+CAT,400,ART + 'icon.png')
-
+    html=OPEN_URL(url)
+    match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
+    for name,url,img,fanart,mode in match:
+			    addList(name,url,400,ART + 'icon.png')
 	
 	
     
@@ -543,5 +539,6 @@ elif mode == 419 	: TVParser.m3uCategory(url)
 elif mode == 420 	: Movie2(url)
 elif mode == 421 	: Movie3(url)
 elif mode == 422 	: Movie4(url)
+elif mode == 423 	: open_Menu(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
