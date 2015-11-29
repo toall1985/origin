@@ -72,7 +72,7 @@ def Football():
 	
 def Pandoras_Box():
 
-    html=OPEN_URL(Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9zcG9uZ2VtYWluLnBocA=='))
+    html=OPEN_URL(Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qvc3BvbmdlbWFpbi5waHA='))
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,url,img,fanart,mode in match:
 			    addList(name,url,mode,ART + 'icon.png')
@@ -82,7 +82,7 @@ def open_Menu(url):
     html=OPEN_URL(url)
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,url,img,fanart,mode in match:
-			    addList(name,url,400,ART + 'icon.png')
+			    addList(name,url,mode,ART + 'icon.png')
 	
 	
     
