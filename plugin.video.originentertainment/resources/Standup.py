@@ -33,6 +33,7 @@ net = Net()
 
 def Stand_Up():
 
+	addList('Stand Up',BASE+'standuplist'+CAT,400,ART + 'icon.png')
 	addVID('','Billy Connolly','2kuspt3Cglo',9,'icon.png',ART + 'background.png','','')
 	addVID('','Dara O Briain','39LK1A1YGPc',9,'icon.png',ART + 'background.png','','')
 	addVID('','Dave Gorman','Zdq9p2cBITU',9,'icon.png',ART + 'background.png','','')
