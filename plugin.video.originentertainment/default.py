@@ -47,16 +47,17 @@ def build_url(query):
 
 def Home_Menu():
 
+    addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
 #    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
+    addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
-    addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')
-    addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','')
-    addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','') 
-    addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
-    addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
+    addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
+    addDir('Radio','',62,ART + 'radio.png',ART + 'background.png','')	
+    addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
+    addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
 #    addDir('Search','',13,ART + 'search.png',ART + 'background.png','')
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
@@ -65,6 +66,14 @@ def Home_Menu():
 
     
     xbmcplugin.endOfDirectory(addon_handle)
+	
+def Radio():
+
+    html=OPEN_URL(Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1L3VrLmh0bWw='))
+    match = re.compile('<tr>.+?<td><a href=".+?"><b>(.+?)</b>.+?<td><a href="(.+?)">',re.DOTALL).findall(html)
+    for name,url in match:
+			    addList(name,url,401,ART + 'icon.png')
+
 
 def Football():
 	addList('Fixtures','',58,ART + 'icon.png')
@@ -516,6 +525,7 @@ elif mode == 58 	: FootballFixturesDay()
 elif mode == 59 	: FootballFixturesGame()
 elif mode == 60 	: FootballFixturesChannel()
 elif mode == 61 	: Sponge_TV()
+elif mode == 62 	: Radio()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
