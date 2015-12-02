@@ -26,6 +26,10 @@ addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Origin Entertainment"
 VERSION = "1.0.1"
+ADDON = xbmcaddon.Addon(id=addon_id)
+GetTVPassword = ADDON.getSetting('Password')
+TVURL = Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9UVi9pbmRleC5waHA/bW9kZT1UViZwYXNzd29yZD0=')
+TVFinalURL = TVURL + GetTVPassword
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART 		=  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
@@ -341,9 +345,9 @@ def Live_TV():
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
-
+	if GetTVPassword == Decode('c3VzcGVjdHBhY2thZ2U='):
+		addList('Live TV',TVFinalURL,400,ART + 'icon.png')
 	
-	xbmcplugin.endOfDirectory(addon_handle)
 
 def addDir(name,url,mode,iconimage,fanart,description): 
 		u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)

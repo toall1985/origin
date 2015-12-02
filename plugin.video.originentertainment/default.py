@@ -54,7 +54,7 @@ def Home_Menu():
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
-    addDir('Radio','',62,ART + 'radio.png',ART + 'background.png','')	
+    addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
     addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
@@ -63,13 +63,22 @@ def Home_Menu():
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
 	
+	
 
     
     xbmcplugin.endOfDirectory(addon_handle)
-	
-def Radio():
 
-    html=OPEN_URL(Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1L3VrLmh0bWw='))
+def Radiocountry():
+
+    html=OPEN_URL(Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1Lw=='))
+    match = re.compile('<tr>.+?<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(html)
+    for url,name in match:
+			    addList((name).replace('email me','').replace('External services',''),Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1LyVz')%url,62,ART + 'icon.png')
+
+	
+def Radio(url):
+
+    html=OPEN_URL(url)
     match = re.compile('<tr>.+?<td><a href=".+?"><b>(.+?)</b>.+?<td><a href="(.+?)">',re.DOTALL).findall(html)
     for name,url in match:
 			    addList(name,url,401,ART + 'icon.png')
@@ -525,7 +534,8 @@ elif mode == 58 	: FootballFixturesDay()
 elif mode == 59 	: FootballFixturesGame()
 elif mode == 60 	: FootballFixturesChannel()
 elif mode == 61 	: Sponge_TV()
-elif mode == 62 	: Radio()
+elif mode == 62 	: Radio(url)
+elif mode == 63 	: Radiocountry()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
