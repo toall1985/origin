@@ -345,8 +345,56 @@ def Live_TV():
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
+#	addList('World News','',66,ART + 'icon.png')
+
 	if GetTVPassword == Decode('c3VzcGVjdHBhY2thZ2U='):
 		addList('Live TV',TVFinalURL,400,ART + 'icon.png')
+		
+def WorldNews():
+
+    html=OPEN_URL('http://wwitv.com/news_tv_live/index.html')
+    match = re.compile('<tr><td width="100">.(.+?)<BR><a href="..(.+?)">(.+?)</a></td><td>').findall(html)
+    for country,url,name in match:
+        addDir3(country + ' - ' + name,'http://wwitv.com/%s'%url,67,'')
+		
+def WorldPlayUrl(url):
+
+    html=OPEN_URL(url)
+    match = re.compile('class="embed-responsive-item".+?src="(.+?)" frameborder="0" allowfullscreen></iframe></u><u></u></div></div>',re.DOTALL).findall(html)
+    for url in match:
+        addDir3('PLAY NEXT',url,68,ART + 'icon.png')
+    else:
+		html=OPEN_URL(url)
+		match = re.compile('embed.+?<a href="(.+?)"',re.DOTALL).findall(html)
+		for url in match:
+			addDir3('PLAY',url,400,ART + 'icon.png')
+
+		
+def WorldPlayVid(url):
+    html=OPEN_URL(url)
+    match = re.compile('<a href="(.+?)"').findall(html)
+    for url in match:
+        addDir3('PLAY',url,401,'')
+
+
+		
+def OPEN_URL(url):
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        response = urllib2.urlopen(req)
+        link=response.read()
+        response.close()
+        return link
+
+def addDir3(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+
+
 	
 
 def addDir(name,url,mode,iconimage,fanart,description): 

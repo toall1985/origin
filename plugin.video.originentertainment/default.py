@@ -5,11 +5,12 @@ import time
 import urllib,urllib2,re,base64,xbmcplugin,xbmcgui,xbmc,xbmcaddon,os
 import base64
 import urlresolver
+from bs4 import BeautifulSoup
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films
 from resources.lib.parsers import TVParser
-
+from datetime import datetime
 
 Decode = base64.decodestring
 BASE2= lists.BASE2
@@ -48,7 +49,7 @@ def build_url(query):
 def Home_Menu():
 
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
-#    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
+    addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
@@ -57,6 +58,7 @@ def Home_Menu():
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
+    addDir('TV Guide','',71,ART + 'tvguide.png',ART + 'background.png','')		
     addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
 #    addDir('Search','',13,ART + 'search.png',ART + 'background.png','')
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
@@ -64,6 +66,9 @@ def Home_Menu():
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
 	
 	
+def Sports():
+
+    addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
 
     
     xbmcplugin.endOfDirectory(addon_handle)
@@ -197,14 +202,47 @@ def M3UCATS5():
 #elif mode == 60 	: FootballFixturesChannel()
 
 def FootballFixturesDay():
-    html=OPEN_URL('http://www.live-footballontv.com/')
-    match = re.compile('<div class="span12 matchdate">(.+?)</div>,<div class="span4 matchfixture">(.+?)  </div>,<div class="span4 competition">(.+?)&nbsp;Group Stage</div>,<div class="span1 kickofftime">(.+?)</div>,<div class="span3 channels">(.+?)</div>').findall(html)
-    for day,game,comp,time,channel in match:
-        addDir3(name,url,59,ART+'icon.png')
-	
+    html=OPEN_URL('http://liveonsat.com/quickindex.html')
+    match = re.compile('<a target="_self" href="(.+?)".+?src="(.+?)" alt="(.+?)"',re.DOTALL).findall(html)
+    for url,img,name in match:
+        addDir3((name).replace('amp;',''),'http://liveonsat.com/%s'%url,59,'http://liveonsat.com/%s'%img)
 		
+def FootballFixturesGame(url):
+    html=OPEN_URL(url)	
+    match = re.compile('time_head>(.+?)</h2>.+?comp_head>(.+?)</span>.+?<div class = fLeft width = "250"><img src="(.+?)"></div>.+?ST: (.+?)</div>',re.DOTALL).findall(html)
+    for date,comp,img,time in match:
+		addDir3(date + ' - ' + comp + ' - ' + time,'',65,'http://liveonsat.com' + img)
+
+		
+def Guidemenu():
+
+#    addDir('Interactive','',65,ART + 'tvguide.png',ART + 'background.png','')		
+    addDir('Basic','',65,ART + 'tvguide.png',ART + 'background.png','')		
+    addDir('Full','',70,ART + 'tvguide.png',ART + 'background.png','')		
+
+
+
+def whatsoncat():
+    html=OPEN_URL('http://tvguideuk.telegraph.co.uk/')
+    match = re.compile('<li class="tabs"><span><a href="(.+?)">(.+?)</a></span></li>').findall(html)
+    for url,name in match:
+        if 'amp;' in url:
+	    url = url.replace ('amp;','')
+        addDir3(name,'http://tvguideuk.telegraph.co.uk/' + url,65,'')
+		
+        
+#http://tvguideuk.telegraph.co.uk/grid.php?&amp;day=2015-12-04&amp;oclock=&amp;tab=04876b686441c8c84c0cd5679937d339&amp;tabname=Sport&amp;region=
+#http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region=
+
+def whatson(url):
+    #url = 'http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region='
+    html=OPEN_URL(url)
+    match = re.compile('<div class="channel_name">(.+?)<.+?channel_id=(.+?).+?>(.+?)</a>',re.DOTALL).findall(html)
+    for name,id,whatson in match:
+        addDir3(name + ' - ' + whatson,'',41,'')
+
 def TESTMOVIE():
-    html=OPEN_URL('http://liveonsat.com/los_soc_br_eng_ALL.php')
+    html=OPEN_URL('')
     match = re.compile('<td><a href="(.+?)"><img src="(.+?)" width="100" height="100" border="0"><br>(.+?)</a></td>').findall(html)
     for url,img,name in match:
         addDir3(name,'',420,ART+'icon.png')
@@ -228,9 +266,6 @@ def Movie4(url):
         addDir3(name,url,401,'')
 
 
-#src="http://videomega.tv/cdn.php?ref=065104072102117048051048121088088121048051048117102072104065&width=680&height=430" allowFullScreen>		
-#<source src="http://abo.cdn.vizplay.org/v/aaaa1e04c23889aaec7251ca54fc1a8a.mp4?st=dYoIz47Vr0qMjSeS85wPAw&hash=5HPCRQZTlXarhII_FigSBA" type="video/mp4"/>
-				
 def TESTCATS():
     html=OPEN_URL('http://www.animetoon.org/cartoon')
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
@@ -308,7 +343,6 @@ def Live2(url):
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                #addList2('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),400,'%s'%(iconimage))
                 addList2(name,url,402,iconimage)
 
 
@@ -330,7 +364,7 @@ def Resolve(url):
     dp = xbmcgui.DialogProgress()
     dp.create('LOADING','Opening %s Now'%(name))
     play=xbmc.Player(GetPlayerCore())
-    url=urlresolver.HostedMediaFile(url).resolve() 
+    url=urlresolver.HostedMediaFile(url).resolve()
     if dp.iscanceled(): 
         print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
         dialog = xbmcgui.Dialog()
@@ -531,11 +565,19 @@ elif mode == 55     : Pandoras_Box()
 elif mode == 56 	: TESTMOVIE()
 elif mode == 57 	: Football()
 elif mode == 58 	: FootballFixturesDay()
-elif mode == 59 	: FootballFixturesGame()
+elif mode == 59 	: FootballFixturesGame(url)
 elif mode == 60 	: FootballFixturesChannel()
 elif mode == 61 	: Sponge_TV()
 elif mode == 62 	: Radio(url)
 elif mode == 63 	: Radiocountry()
+elif mode == 64 	: Sports()
+elif mode == 65 	: whatson(url)
+elif mode == 66 	: TV.WorldNews()
+elif mode == 67 	: TV.WorldPlayUrl(url)
+elif mode == 68 	: TV.WorldPlayVid(url)
+elif mode == 69 	: Guidemenu()
+elif mode == 70		: whatsonsky()
+elif mode == 71 	: whatsoncat()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
