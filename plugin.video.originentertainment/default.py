@@ -8,7 +8,7 @@ import urlresolver
 from bs4 import BeautifulSoup
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films
+from resources import streams,lists,utube,TV,Standup,Films,premierleague
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -36,6 +36,8 @@ GetAdultPassword = ADDON.getSetting('Password')
 AdultURL = Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL0FkdWx0L2luZGV4LnBocD9tb2RlPVh4WCZwYXNzd29yZD0=')
 AdultFinalURL = AdultURL + GetAdultPassword
 
+Article_Cache = xbmc.translatePath(os.path.join('special://home/userdata/addon_data/' + addon_id + 'Article_Dump.txt'))
+
 
 addon_data_dir = os.path.join(xbmc.translatePath("special://userdata/addon_data" ).decode("utf-8"), addon_id)
 if not os.path.exists(addon_data_dir):
@@ -54,6 +56,7 @@ def Home_Menu():
     addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
+    addDir('News','',72,ART + 'icon.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
@@ -86,11 +89,13 @@ def Radio(url):
     html=OPEN_URL(url)
     match = re.compile('<tr>.+?<td><a href=".+?"><b>(.+?)</b>.+?<td><a href="(.+?)">',re.DOTALL).findall(html)
     for name,url in match:
-			    addList(name,url,401,ART + 'icon.png')
+		addDir4(name,url,401,ART + 'icon.png')
 
 
 def Football():
 	addList('Fixtures','',58,ART + 'icon.png')
+	addDir4('Premier League Table','',75,ART+'icon.png')
+	
 
 	
 def Pandoras_Box():
@@ -231,8 +236,6 @@ def whatsoncat():
         addDir3(name,'http://tvguideuk.telegraph.co.uk/' + url,65,'')
 		
         
-#http://tvguideuk.telegraph.co.uk/grid.php?&amp;day=2015-12-04&amp;oclock=&amp;tab=04876b686441c8c84c0cd5679937d339&amp;tabname=Sport&amp;region=
-#http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region=
 
 def whatson(url):
     #url = 'http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region='
@@ -272,6 +275,21 @@ def TESTCATS():
     for url,name in match:
         addDir3(name,url,407,ART+'icon.png')
 
+def NewsCat():
+    html=OPEN_URL('http://www.mirror.co.uk/')
+    match = re.compile('<a href="(.+?)" data-type="section-head_.+?" data-action="section:.+?">(.+?)</a>').findall(html)
+    for url,name in match:
+        addDir3((name).replace('amp;',''),url,73,ART+'icon.png')
+        
+
+def NewsStory(url):
+    html=OPEN_URL(url)
+    match = re.compile('<figure>.+?<img src="(.+?)" class="aboveHeadline .+?<a href="(.+?)".+?&#xa;(.+?)</a>',re.DOTALL).findall(html)
+    for img,url,name in match:
+        addDir4((name).replace('amp;','').replace('&#x3a','').replace('&#xa; </a>','').replace('&#xa;','').replace('&quot;','').replace('&#x27;',''),url,74,img)
+        print '>>>>>>>>>>' + url        
+
+		
 def LISTS(url):
     html=OPEN_URL(url)
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
@@ -430,7 +448,52 @@ def addList3(name,url,mode,iconimage):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
 
+
+def News_Article(name, url):
+    req = OPEN_URL(url)
+    soup = BeautifulSoup(req)
+    Dump_Article = open(Article_Cache,'w')
+    Heading = name
+
+    Article_Body = soup.find_all('div', {'class': 'body'})
+    for Article in Article_Body:
+        Article_Paragraph = Article.find_all('p')
+        for Paragraph in Article_Paragraph:
+            Paragraph = Paragraph.text
+            Paragraph = Paragraph.encode('utf-8')
+
+            Write_Paragraph = open(Article_Cache,'a')
+            Write_Paragraph.write(Paragraph)
+            Write_Paragraph.write('\n')
+
+        Get_Article = open(Article_Cache,'r')
+        Read_Article = Get_Article.read()
+        Text_Boxes(Heading,Read_Article)
+        Write_Paragraph.close()
+
+
+
+def Text_Boxes(heading,anounce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try: f=open(anounce); text=f.read()
+      except: text=anounce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
+
         
+
+		
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -578,6 +641,10 @@ elif mode == 68 	: TV.WorldPlayVid(url)
 elif mode == 69 	: Guidemenu()
 elif mode == 70		: whatsonsky()
 elif mode == 71 	: whatsoncat()
+elif mode == 72 	: NewsCat()
+elif mode == 73 	: NewsStory(url)
+elif mode == 74 	: News_Article(name, url)
+elif mode == 75 	: premierleague.Premier_League_Table()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
