@@ -468,8 +468,26 @@ def News_Article(name, url):
 
         Get_Article = open(Article_Cache,'r')
         Read_Article = Get_Article.read()
-        Text_Boxes(Heading,Read_Article)
+        showText (Heading,Read_Article)
         Write_Paragraph.close()
+
+
+		
+def showText(heading, text):
+    id = 10147
+    xbmc.executebuiltin('ActivateWindow(%d)' % id)
+    xbmc.sleep(100)
+    win = xbmcgui.Window(id)
+    retry = 50
+    while (retry > 0):
+	try:
+	    xbmc.sleep(10)
+	    retry -= 1
+	    win.getControl(1).setLabel(heading)
+	    win.getControl(5).setText(text)
+	    return
+	except:
+	    pass
 
 
 
@@ -477,7 +495,8 @@ def Text_Boxes(heading,anounce):
   class TextBox():
     WINDOW=10147
     CONTROL_LABEL=1
-    CONTROL_TEXTBOX=5
+    CONTROL_TEXT
+    BOX=5
     def __init__(self,*args,**kwargs):
       xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
       self.win=xbmcgui.Window(self.WINDOW) # get window
