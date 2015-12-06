@@ -43,7 +43,7 @@ ADDON = xbmcaddon.Addon(id=addon_id)
 GetAdultPassword = ADDON.getSetting('Password')
 AdultURL = Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL0FkdWx0L2luZGV4LnBocD9tb2RlPVh4WCZwYXNzd29yZD0=')
 AdultFinalURL = AdultURL + GetAdultPassword
-
+TOKEN_URL = Decode('aHR0cDovL2lkYS5vbXJvZXAubmwvbnBvcGxheWVyL2kuanM=')
 Article_Cache = xbmc.translatePath(os.path.join('special://home/userdata/addon_data/' + addon_id + 'Article_Dump.txt'))
 
 
@@ -67,6 +67,7 @@ def Home_Menu():
     addDir('News','',72,ART + 'icon.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
+    addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')		
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
     addDir('TV Guide','',71,ART + 'tvguide.png',ART + 'background.png','')		
@@ -243,7 +244,10 @@ def whatsoncat():
 	    url = url.replace ('amp;','')
         addDir3(name,'http://tvguideuk.telegraph.co.uk/' + url,65,'')
 		
-        
+def Scraper():
+    addDir('Site 1 Films - Top one will not play on each menu!!!!','',77,ART + 'scraper.png',ART + 'background.png','')
+#   addDir('Site 2 TV Shows - Top one will not play on each menu!!!!','',81,ART + 'scraper.png',ART + 'background.png','')
+
 
 def whatson(url):
     #url = 'http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region='
@@ -316,8 +320,91 @@ def LISTS3(url):
     for url in match:
         addDir4('STREAM',url,401,ART+'icon.png')
 
-        
-        
+def cnfTV():
+    html=OPEN_URL('http://tvshows.cnfstudio.com/')
+    match = re.compile('<a href="http://tvshows.cnfstudio.com/genre/(.+?)">(.+?)</a>').findall(html)
+    for url,name in match:
+        addDir3(name,'http://tvshows.cnfstudio.com/genre/' + url,82,ART+'icon.png')
+        print '>>>>>>>>>>' + url
+
+def cnfTVCat(url):
+    html=OPEN_URL(url)
+    match = re.compile('<div class=".+?">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
+    next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
+    for img,url,name in match:
+        addDir3((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,83,img)
+    prev=prev
+    for url in prev:
+        addDir3('Prev',url,82,'')
+    next=next
+    for url in next:
+        addDir3('Next',url,82,'')
+
+def cnfTVPlay(url):
+    html=OPEN_URL(url)
+    match = re.compile('<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?</b>\n(.+?)</span>',re.DOTALL).findall(html)
+    for url,episode,name in match:
+        addDir3(episode + ('  ') + name,url,84,ART+'icon.png')
+
+def cnfTVPlay1(url):
+
+    html=OPEN_URL(url)
+    match = re.compile('<div id="play-1".+?src="(.+?)" scrolling="no".+?<li><a href="#play-1">(.+?)</a></li>',re.DOTALL).findall(html)
+    for url,name in match:
+        addDir3(name,(url + '&fv=&sou=').replace('player','watch'),85,ART+'icon.png')
+
+
+
+def cnfTVPlay2(url):
+
+    html=OPEN_URL(url)
+    match = re.compile('<video id=".+?<source src="(.+?)" type="video/mp4">',re.DOTALL).findall(html)
+    for url in match:
+        addDir4('PLAY NOW',url,401,ART+'icon.png')
+
+
+
+def cnfHome():      
+    html=OPEN_URL('http://cnfstudio.com/')
+    match = re.compile('<a href="http://cnfstudio.com/genre/(.+?)">(.+?)</a>').findall(html)
+    for url,name in match:
+        addDir3(name,'http://cnfstudio.com/genre/' + url,78,ART+'icon.png')
+		
+		
+def cnfCat(url):
+    html=OPEN_URL(url)
+    match = re.compile('<div class=".+?">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
+    next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
+    for img,url,name in match:
+        addDir4((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,79,img)
+    prev=prev
+    for url in prev:
+        addDir3('Prev',url,78,'')
+    next=next
+    for url in next:
+        addDir3('Next',url,78,'')
+
+def cnfMovie(url):
+
+    html=OPEN_URL(url)
+    match = re.compile('<div id="play-1" class="player-content"><iframe class="playerframe" src="(.+?)" scrolling="no".+?</div>',re.DOTALL).findall(html)
+    for url in match:
+        link = url + '&fv=&sou='
+        link = link.replace('player','watch')
+        Play_URL = cnfPlay1(link)
+        ResolvePlayURL = cnfPlay1(url)
+
+
+def cnfPlay1(url):
+
+    html=OPEN_URL(url)
+    match = re.compile('<video id=".+?<source src="(.+?)" type="video/mp4">',re.DOTALL).findall(html)
+    for url in match:
+        Resolve(url)
+		
+		
 def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):
     if type != 'folder2' and type != 'addon':
         if len(iconimage) > 0:
@@ -519,6 +606,37 @@ def Text_Boxes(heading,anounce):
   TextBox()
 
         
+def collect_token():
+    req = urllib2.Request(TOKEN_URL)
+    req.add_header('User-Agent', USER_AGENT)
+    response = urllib2.urlopen(req)
+    page = response.read()
+    response.close()
+    token = re.search(r'npoplayer.token = "(.*?)"',page).group(1)
+    #xbmc.log("plugin.video.nederland24:: oldtoken: %s" % token)
+    # site change, token invalid, needs to be reordered. Thanks to rieter for figuring this out very quickly.
+    first = -1
+    last = -1
+    for i in range(5, len(token) - 5, 1):
+	#xbmc.log("plugin.video.nederland24:: %s" % token[i])
+        if token[i].isdigit():
+            if first < 0:
+                first = i
+                #xbmc.log("plugin.video.nederland24:: %s" % token[i])
+            elif last < 0:
+                last = i
+                #xbmc.log("plugin.video.nederland24:: %s" % token[i])
+                break
+
+    newtoken = list(token)
+    if first < 0 or last < 0:
+        first = 12
+        last = 13
+    newtoken[first] = token[last]
+    newtoken[last] = token[first]
+    newtoken = ''.join(newtoken)
+    #xbmc.log("plugin.video.nederland24:: newtoken: %s" % newtoken)
+    return newtoken
 
 		
 def get_params():
@@ -672,6 +790,17 @@ elif mode == 72 	: NewsCat()
 elif mode == 73 	: NewsStory(url)
 elif mode == 74 	: News_Article(name, url)
 elif mode == 75 	: premierleague.Premier_League_Table()
+elif mode == 76 	: Scraper()
+elif mode == 77 	: cnfHome()
+elif mode == 78 	: cnfCat(url)
+elif mode == 79 	: cnfMovie(url)
+elif mode == 80		: cnfPlay1(url)
+elif mode == 81 	: cnfTV()
+elif mode == 82 	: cnfTVCat(url)
+elif mode == 83 	: cnfTVPlay(url)
+elif mode == 84 	: cnfTVPlay1(url)
+elif mode == 85 	: cnfTVPlay2(url)
+elif mode == 99 	: collect_token()
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
