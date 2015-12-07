@@ -245,7 +245,7 @@ def whatsoncat():
         addDir3(name,'http://tvguideuk.telegraph.co.uk/' + url,65,'')
 		
 def Scraper():
-    addDir('Site 1 Films - Top one will not play on each menu!!!!','',77,ART + 'scraper.png',ART + 'background.png','')
+    addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
 #   addDir('Site 2 TV Shows - Top one will not play on each menu!!!!','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
@@ -374,7 +374,7 @@ def cnfHome():
 		
 def cnfCat(url):
     html=OPEN_URL(url)
-    match = re.compile('<div class=".+?">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
     prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
     next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
     for img,url,name in match:
