@@ -246,11 +246,10 @@ def whatsoncat():
 		
 def Scraper():
     addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
-#   addDir('Site 2 TV Shows - Top one will not play on each menu!!!!','',81,ART + 'scraper.png',ART + 'background.png','')
+    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
 def whatson(url):
-    #url = 'http://tvguideuk.telegraph.co.uk/grid.php?&day=2015-12-04&oclock=&tab=0e0a6394b2f90a3e6c4783fa1a895ffd&tabname=Radio&region='
     html=OPEN_URL(url)
     match = re.compile('<div class="channel_name">(.+?)<.+?channel_id=(.+?).+?>(.+?)</a>',re.DOTALL).findall(html)
     for name,id,whatson in match:
@@ -329,7 +328,7 @@ def cnfTV():
 
 def cnfTVCat(url):
     html=OPEN_URL(url)
-    match = re.compile('<div class=".+?">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
     prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
     next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
     for img,url,name in match:
@@ -343,7 +342,7 @@ def cnfTVCat(url):
 
 def cnfTVPlay(url):
     html=OPEN_URL(url)
-    match = re.compile('<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?</b>\n(.+?)</span>',re.DOTALL).findall(html)
+    match = re.compile('<li>.+?<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?<span class="datix"><b class="icon-chevron-right"></b>\n(.+?)</span>.+?<i><b class="icon-query-builder"></b>.+?</i>.+?</a>.+?</li>',re.DOTALL).findall(html)
     for url,episode,name in match:
         addDir3(episode + ('  ') + name,url,84,ART+'icon.png')
 
