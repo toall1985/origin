@@ -344,24 +344,7 @@ def cnfTVPlay(url):
     html=OPEN_URL(url)
     match = re.compile('<li>.+?<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?<span class="datix"><b class="icon-chevron-right"></b>\n(.+?)</span>.+?<i><b class="icon-query-builder"></b>.+?</i>.+?</a>.+?</li>',re.DOTALL).findall(html)
     for url,episode,name in match:
-        addDir3(episode + ('  ') + name,url,84,ART+'icon.png')
-
-def cnfTVPlay1(url):
-
-    html=OPEN_URL(url)
-    match = re.compile('<div id="play-1".+?src="(.+?)" scrolling="no".+?<li><a href="#play-1">(.+?)</a></li>',re.DOTALL).findall(html)
-    for url,name in match:
-        addDir3(name,(url + '&fv=&sou=').replace('player','watch'),85,ART+'icon.png')
-
-
-
-def cnfTVPlay2(url):
-
-    html=OPEN_URL(url)
-    match = re.compile('<video id=".+?<source src="(.+?)" type="video/mp4">',re.DOTALL).findall(html)
-    for url in match:
-        addDir4('PLAY NOW',url,401,ART+'icon.png')
-
+        addDir4(episode + ('  ') + name,url,79,ART+'icon.png')
 
 
 def cnfHome():      
