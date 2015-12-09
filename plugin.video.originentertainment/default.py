@@ -1,10 +1,7 @@
 import sys
 import urlparse
 import yt
-import time
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
-import urllib,urllib2,re,base64,xbmcplugin,xbmcgui,xbmc,xbmcaddon,os
-import base64
 import urlresolver
 from bs4 import BeautifulSoup
 from BeautifulSoup import BeautifulStoneSoup, BeautifulSOAP
@@ -16,7 +13,7 @@ import time
 import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films,premierleague
+from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -39,6 +36,9 @@ ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 net = Net()
+HD_URLS = []
+SD_URLS = []
+Play_URLS = []
 ADDON = xbmcaddon.Addon(id=addon_id)
 GetAdultPassword = ADDON.getSetting('Password')
 AdultURL = Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL0FkdWx0L2luZGV4LnBocD9tb2RlPVh4WCZwYXNzd29yZD0=')
@@ -353,20 +353,73 @@ def cnfHome():
     for url,name in match:
         addDir3(name,'http://cnfstudio.com/genre/' + url,78,ART+'icon.png')
 		
+dialog = xbmcgui.Dialog()
+
+def build_dialog(url):
+	#Get_Page('',url,'')
+	Part_No = 1
+	Link_No = 0
+	Get_NextURL = OPEN_URL(url)
+	NextURL = re.compile('<iframe width=".*?" height=".*?" frameborder=".*?" src="(.*?)" scrolling=".*?" marginwidth=".*?" marginheight=".*?" vspace=".*?" hspace=".*?" allowfullscreen=".*?" webkitallowfullscreen=".*?" mozallowfullscreen=".*?"></iframe>',re.DOTALL).findall(Get_NextURL)
+	for url in NextURL:
+		#addDir3('DOUBLE LINK',url,424,'')
+		try:
+			url2 = Google.resolve(url)
+		except:
+			pass
+
+		find_Links = re.findall(r"{'url': u'(.*?)', 'quality': 'HD'}, {'url': u'(.*?)', 'quality': 'SD'}", str(url2))
+		for HD, SD in find_Links:
+			
+			HD_URLS.append(HD)
+			SD_URLS.append(SD)
+	
+
+		addDir4('HD LINKS','','','')
+		for link in HD_URLS:
+			addDir4('Part ' + Part_No,HD_URLS[Link_No],100,'')
+			Part_No = Part_No + 1
+			Link_No = Link_No + 1
+		
+		Part_No = 0
+		Link_No = 0
+		addDir4('SD LINKS','','','')
+		for link in SD_URLS:
+			addDir4('Part ' + Part_No,SD_URLS[Link_No],100,'')
+			Part_No = Part_No + 1
+			Link_No = Link_No + 1
+		
+		Part_No = 0
+		Link_No = 0
+
 		
 def cnfCat(url):
     html=OPEN_URL(url)
     match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
     prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
     next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
+    '''
+    Count_URL = 0
+    print len(match)
     for img,url,name in match:
-        addDir4((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,79,img)
+        if url != '':
+            Count_URL = Count_URL + 1
+    
+    if Count_URL == 2:
+        for img,url,name in match:
+            addDir3((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,424,img)
+    else:
+	'''
+    for img,url,name in match:
+		addDir4((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,100,img)
     prev=prev
     for url in prev:
         addDir3('Prev',url,78,'')
     next=next
     for url in next:
         addDir3('Next',url,78,'')
+
+
 
 def cnfMovie(url):
 
@@ -416,6 +469,62 @@ def Add_Directory_Item(handle, url, listitem, isFolder):
 
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder) 
 
+
+def Get_Page(name, url, img):
+    HTML = OPEN_URL(url)
+    Page_Link = re.compile('<iframe class="playerframe" src="(.+?)" scrolling=".+?" marginwidth=".+?" marginheight=".+?" vspace=".+?" hspace=".+?" allowfullscreen=".+?" webkitallowfullscreen=".+?" mozallowfullscreen=".+?" width=".+?" height=".+?" frameborder=".+?"></iframe>',re.DOTALL).findall(HTML)
+    No_PageLinks = len(Page_Link)
+    
+    
+    if No_PageLinks == 1:
+        for PageLink in Page_Link:
+            PageLink = PageLink.replace('player','watch')
+            Resolve_Link = PageLink + '&fv=&sou='
+            Resolve_Page = OPEN_URL(Resolve_Link)
+            Resolved = re.compile('<source src="(.+?)" type=".+?">',re.DOTALL).findall(Resolve_Page)
+            for Link in Resolved:
+                isFolder=False
+                Resolve(Link)
+    
+    elif No_PageLinks > 1:
+        
+        for PageLink in Page_Link:
+            Get_NextURL = OPEN_URL(PageLink)
+            NextURL = re.compile('<iframe width=".*?" height=".*?" frameborder=".*?" src="(.*?)" scrolling=".*?" marginwidth=".*?" marginheight=".*?" vspace=".*?" hspace=".*?" allowfullscreen=".*?" webkitallowfullscreen=".*?" mozallowfullscreen=".*?"></iframe>',re.DOTALL).findall(Get_NextURL)
+            RT_Link = NextURL
+            RT_Link = (str(RT_Link)).replace('[\'', '').replace('\']', '');
+            print 'Stripped url : ' + RT_Link
+            addDir4('DOUBLE LINK',RT_Link,424,'')
+			
+            for url in NextURL:
+					addDir3('DOUBLE LINK',url,424,'')
+					try:
+						url2 = Google.resolve(url)
+					except:
+						pass
+					try:
+						find_Links = re.findall(r"{'url': u'(.*?)', 'quality': 'HD'}, {'url': u'(.*?)', 'quality': 'SD'}", str(url2))
+						for HD, SD in find_Links:
+							
+							HD_URLS.append(HD)
+							SD_URLS.append(SD)
+					except:
+						pass
+    else:
+        pass
+	
+	
+'''
+    print '~~~~~~~~~~ ITEM ~~~~~~~~~~'
+    print 'HD Links'
+    print 'Part 1 ' + HD_URLS[0]
+    print 'Part 2 ' + HD_URLS[1]
+    print 'SD Links'
+    print 'Part 1 ' + SD_URLS[0]
+    print 'Part 2 ' + SD_URLS[1]
+    print '~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    print '\n\n'
+'''	
 def OPEN_URL(url):
         req = urllib2.Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
@@ -545,35 +654,19 @@ def News_Article(name, url):
 
         Get_Article = open(Article_Cache,'r')
         Read_Article = Get_Article.read()
-        showText (Heading,Read_Article)
+        TextBoxes (Heading,Read_Article)
         Write_Paragraph.close()
 
 
-		
-def showText(heading, text):
-    id = 10147
-    xbmc.executebuiltin('ActivateWindow(%d)' % id)
-    xbmc.sleep(100)
-    win = xbmcgui.Window(id)
-    retry = 50
-    while (retry > 0):
-	try:
-	    xbmc.sleep(10)
-	    retry -= 1
-	    win.getControl(1).setLabel(heading)
-	    win.getControl(5).setText(text)
-	    return
-	except:
-	    pass
 
 
 
-def Text_Boxes(heading,anounce):
+def TextBoxes(heading,announce):
   class TextBox():
     WINDOW=10147
     CONTROL_LABEL=1
-    CONTROL_TEXT
-    BOX=5
+    CONTROL_TEXTBOX=5
+    isFolder=True
     def __init__(self,*args,**kwargs):
       xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
       self.win=xbmcgui.Window(self.WINDOW) # get window
@@ -581,8 +674,8 @@ def Text_Boxes(heading,anounce):
       self.setControls()
     def setControls(self):
       self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
-      try: f=open(anounce); text=f.read()
-      except: text=anounce
+      try: f=open(announce); text=f.read()
+      except: text=announce
       self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
       return
   TextBox()
@@ -783,6 +876,7 @@ elif mode == 83 	: cnfTVPlay(url)
 elif mode == 84 	: cnfTVPlay1(url)
 elif mode == 85 	: cnfTVPlay2(url)
 elif mode == 99 	: collect_token()
+elif mode == 100 	: Get_Page(name, url, iconimage)
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
@@ -807,5 +901,6 @@ elif mode == 420 	: Movie2(url)
 elif mode == 421 	: Movie3(url)
 elif mode == 422 	: Movie4(url)
 elif mode == 423 	: open_Menu(url)
+elif mode == 424	: build_dialog(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
