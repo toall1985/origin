@@ -28,7 +28,7 @@ PATH = "Origin Entertainment"
 VERSION = "1.0.1"
 ADDON = xbmcaddon.Addon(id=addon_id)
 GetTVPassword = ADDON.getSetting('Password')
-TVURL = Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9UVi9pbmRleC5waHA/bW9kZT1UViZwYXNzd29yZD0=')
+TVURL = Decode('http://seedurgreed.x10host.com/origin/TV/index.php?mode=TV&password=')
 TVFinalURL = TVURL + GetTVPassword
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART 		=  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
@@ -345,11 +345,23 @@ def Live_TV():
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
+#	addDir('Full List','',86,ART + 'icon.png',ART + 'background.jpg','')
 #	addList('World News','',66,ART + 'icon.png')
 
 	if GetTVPassword == Decode('c3VzcGVjdHBhY2thZ2U='):
 		addList('Live TV',TVFinalURL,400,ART + 'icon.png')
+
 		
+def LiveTVFull():
+    html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
+    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":"(.+?)","cat_id":".+?","stream_url2":"(.+?)","stream_url":"(.+?)"}',re.DOTALL).findall(html)
+    for name,img,url,url2,url3 in match:
+        addDir4(name,(url).replace('\\',''),401,img)
+    for name,img,url,url2,url3 in match:
+        addDir4(name,(url2).replace('\\',''),401,(img).replace('\\',''))
+    for name,img,url,url2,url3 in match:
+        addDir4(name,(url3).replace('\\',''),401,(img).replace('\\',''))
+
 def WorldNews():
 
     html=OPEN_URL('http://wwitv.com/news_tv_live/index.html')
@@ -395,6 +407,13 @@ def addDir3(name,url,mode,iconimage):
         return ok
 
 
+def addDir4(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
 	
 
 def addDir(name,url,mode,iconimage,fanart,description): 

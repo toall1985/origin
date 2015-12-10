@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="1.0.3576" provider-name="Origin">
+<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="1.0.3577" provider-name="Origin">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4" />
