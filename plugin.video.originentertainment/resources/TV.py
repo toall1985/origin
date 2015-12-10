@@ -352,13 +352,26 @@ def Live_TV():
 		addList('Live TV',TVFinalURL,400,ART + 'icon.png')
 
 		
-def LiveTVFull():
+
+def List_LiveTVFull():
     html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
-    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":"(.+?)","cat_id":".+?","stream_url2":"(.+?)","stream_url":"(.+?)"}',re.DOTALL).findall(html)
-    for name,img,url,url2,url3 in match:
-        addDir4(name + 'Link 1',(url).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
-        addDir4(name + 'Link 2',(url2).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
-        addDir4(name + 'Link 3',(url3).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
+    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":".+?","cat_id":".+?","stream_url2":".+?","stream_url":".+?"}',re.DOTALL).findall(html)
+    print 'Len Match: >>>' + str(len(match))
+    for name,img in match:
+        Image = Decode ('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv') + (img).replace('\\','')
+        addDir3(name,'',87,Image)
+		
+	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
+
+def LiveTVFull(Search_Name):
+    html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
+    match = re.compile('"id":".+?","name":"'+Search_Name+'","img":"(.+?)","stream_url3":"(.+?)","cat_id":".+?","stream_url2":"(.+?)","stream_url":"(.+?)"}',re.DOTALL).findall(html)
+    for img,url,url2,url3 in match:
+		Image = Decode ('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv') + (img).replace('\\','')
+		addDir4(Search_Name + ': Link 1',(url).replace('\\',''),401,Image)
+		addDir4(Search_Name + ': Link 2',(url2).replace('\\',''),401,Image)
+		addDir4(Search_Name + ': Link 3',(url3).replace('\\',''),401,Image)
+
 
 def TextBoxes(heading,announce):
   class TextBox():
