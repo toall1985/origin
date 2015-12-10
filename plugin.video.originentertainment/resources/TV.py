@@ -345,7 +345,7 @@ def Live_TV():
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
-#	addDir('Full List','',86,ART + 'icon.png',ART + 'background.jpg','')
+	addDir('Full List','',86,ART + 'icon.png',ART + 'background.jpg','')
 #	addList('World News','',66,ART + 'icon.png')
 
 	if GetTVPassword == Decode('c3VzcGVjdHBhY2thZ2U='):
@@ -356,11 +356,28 @@ def LiveTVFull():
     html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
     match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":"(.+?)","cat_id":".+?","stream_url2":"(.+?)","stream_url":"(.+?)"}',re.DOTALL).findall(html)
     for name,img,url,url2,url3 in match:
-        addDir4(name,(url).replace('\\',''),401,img)
-    for name,img,url,url2,url3 in match:
-        addDir4(name,(url2).replace('\\',''),401,(img).replace('\\',''))
-    for name,img,url,url2,url3 in match:
-        addDir4(name,(url3).replace('\\',''),401,(img).replace('\\',''))
+        addDir4(name + 'Link 1',(url).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
+        addDir4(name + 'Link 2',(url2).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
+        addDir4(name + 'Link 3',(url3).replace('\\',''),401,'http://uktvnow.desistreams.tv/' + (img).replace('\\',''))
+
+def TextBoxes(heading,announce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    isFolder=True
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try: f=open(announce); text=f.read()
+      except: text=announce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
 
 def WorldNews():
 
