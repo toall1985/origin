@@ -328,7 +328,7 @@ def cnfTV():
 
 def cnfTVCat(url):
     html=OPEN_URL(url)
-    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?" />.+?<a href="(.+?)"><span class="player"></span></a>.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
     prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
     next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
     for img,url,name in match:
@@ -342,9 +342,9 @@ def cnfTVCat(url):
 
 def cnfTVPlay(url):
     html=OPEN_URL(url)
-    match = re.compile('<li>.+?<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?<span class="datix"><b class="icon-chevron-right"></b>\n(.+?)</span>.+?<i><b class="icon-query-builder"></b>.+?</i>.+?</a>.+?</li>',re.DOTALL).findall(html)
+    match = re.compile('<li>.+?<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?</b>(.+?)</span>.+?</li>',re.DOTALL).findall(html)
     for url,episode,name in match:
-        addDir4(episode + ('  ') + name,url,79,ART+'icon.png')
+        addDir3(('Season') + episode + ('  ') + name,url,401,ART+'icon.png')
 
 
 def cnfHome():      
@@ -395,7 +395,7 @@ def build_dialog(url):
 		
 def cnfCat(url):
     html=OPEN_URL(url)
-    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?"/>.+?<a href="(.+?)">.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
+    match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?" />.+?<a href="(.+?)"><span class="player"></span></a>.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
     prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
     next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
     '''
