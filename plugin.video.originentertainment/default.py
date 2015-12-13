@@ -13,7 +13,7 @@ import time
 import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client
+from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -53,24 +53,30 @@ if not os.path.exists(addon_data_dir):
 
 tmpListFile = os.path.join(addon_data_dir, 'tempList.txt')
 
+def ChangeLog():
+    TextBoxes('Change Log, Future Plans and General Info', ' [CR] ---------------------------------------------------------------------------------------------------------- [CR]Going to look at adding TV guide to new live tv streams [CR] ---------------------------------------------------------------------------------------------------------- [CR]Hoping to get search function in soon to make things easier to find [CR] ---------------------------------------------------------------------------------------------------------- [CR]Am thinking of making a second release of the addon once my knowledge grows to tidy things up a bit [CR] ---------------------------------------------------------------------------------------------------------- [CR]11/12/15 Fixed Scraper, still need to work on some streams not playing [CR] ---------------------------------------------------------------------------------------------------------- [CR]Massive thanks and respect to Chris for all his help lately helping me push forwards [CR] ---------------------------------------------------------------------------------------------------------- [CR]Also to Jay, Damian and Sponge head for being here from the start and of course Team H20 [CR] ---------------------------------------------------------------------------------------------------------- [CR]Will look at adding a music section once search function in and working properly [CR] ---------------------------------------------------------------------------------------------------------- [CR]Fixes Needed - Scraper streams not working. Newspaper Article and Prem League table windows not working on android  ')
+
+
+
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
 
 def Home_Menu():
 
+    addDir4('Change Log','',1000,ART+'ChangeLog.png')
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
     addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
-    addDir('News','',72,ART + 'icon.png',ART + 'background.png','')
+    addDir('News','',72,ART + 'News2.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')		
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
-    addDir('TV Guide','',71,ART + 'tvguide.png',ART + 'background.png','')		
+    addDir('TV Guide','',69,ART + 'tvguide.png',ART + 'background.png','')
     addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
 #    addDir('Search','',13,ART + 'search.png',ART + 'background.png','')
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
@@ -232,9 +238,16 @@ def Guidemenu():
 
 #    addDir('Interactive','',65,ART + 'tvguide.png',ART + 'background.png','')		
     addDir('Basic','',65,ART + 'tvguide.png',ART + 'background.png','')		
-    addDir('Full','',70,ART + 'tvguide.png',ART + 'background.png','')		
+    addDir('Full','',71,ART + 'tvguide.png',ART + 'background.png','')
+    addDir('Sky Basic','',70,ART + 'tvguide.png',ART + 'background.png','')
+	
 
-
+def whatsonsky():
+    html=OPEN_URL('http://www.locatetv.com/uk/listings/sky')
+    match = re.compile('<li>.+?<li class="channel" data-name="(.+?)">.+?<a href="(.+?)">.+?<img src="(.+?)" alt=".+?title="(.+?)" class',re.DOTALL).findall(html)
+    for name,url,img,name2 in match:
+        addDir3((name + ' - ' + name2).replace('&#039;s',''),'http://www.locatetv.com' + url,'',img)
+	
 
 def whatsoncat():
     html=OPEN_URL('http://tvguideuk.telegraph.co.uk/')
@@ -246,7 +259,7 @@ def whatsoncat():
 		
 def Scraper():
     addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
-    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
+#    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
 def whatson(url):
@@ -344,8 +357,7 @@ def cnfTVPlay(url):
     html=OPEN_URL(url)
     match = re.compile('<li>.+?<a href="(.+?)" target="_blank">.+?<span class="datex">(.+?)</span>.+?</b>(.+?)</span>.+?</li>',re.DOTALL).findall(html)
     for url,episode,name in match:
-        addDir3(('Season') + episode + ('  ') + name,url,401,ART+'icon.png')
-
+        addDir4(('Season') + episode + ('  ') + name,url,100,ART+'icon.png')
 
 def cnfHome():      
     html=OPEN_URL('http://cnfstudio.com/')
@@ -559,7 +571,7 @@ def addMenu(url):
 
     
                 
-def Resolve(url): 
+def Resolve(name, url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
     try: play.play(url)
@@ -794,6 +806,14 @@ def resolve2(url):
     except:
         return
 
+def MOVIES_TWO():
+    addDir3('Top 20 Most Viewed','http://cnfstudio.com',173,ART+'Movies.png')
+    addDir3('Box Office','http://cnfstudio.com/category/box-office/',89,ART+'Movies.png')
+    addDir3('Genres','http://cnfstudio.com/movies/',164,ART+'Movies.png')
+    addDir3('By Year','http://cnfstudio.com',174,ART+'Movies.png')
+    addDir3('Search Movies','',171,ART+'Movies.png')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 
 
 
@@ -866,7 +886,7 @@ elif mode == 73 	: NewsStory(url)
 elif mode == 74 	: News_Article(name, url)
 elif mode == 75 	: premierleague.Premier_League_Table()
 elif mode == 76 	: Scraper()
-elif mode == 77 	: cnfHome()
+elif mode == 77 	: MOVIES_TWO()
 elif mode == 78 	: cnfCat(url)
 elif mode == 79 	: cnfMovie(url)
 elif mode == 80		: cnfPlay1(url)
@@ -875,11 +895,24 @@ elif mode == 82 	: cnfTVCat(url)
 elif mode == 83 	: cnfTVPlay(url)
 elif mode == 84 	: cnfTVPlay1(url)
 elif mode == 85 	: cnfTVPlay2(url)
-elif mode == 86 	: TV.List_LiveTVFull()
+elif mode == 86 	: TV.List_LiveTVFull(name)
 elif mode == 87 	: TV.LiveTVFull(name)
+elif mode == 88 	: TV.LiveTVFullCat()
+elif mode == 89 	: CNF_Studio_Indexer.Box_Office(url)
+elif mode == 164		: CNF_Studio_Indexer.List_genres(url)
+elif mode == 165		: CNF_Studio_Indexer.List_Movies(url)
+elif mode == 166		: CNF_Studio_Indexer.Get_Movie_Page(url)
+elif mode == 167		: LiveTVFull(name)
+elif mode == 168		: List_LiveTVFull(name)
+elif mode == 169		: CNF_Studio_Indexer.Resolve_CNF_Link(name, url, iconimage)
+elif mode == 170		: List_LiveTVCats()
+elif mode == 171		: CNF_Studio_Indexer.Search_Movie()
+elif mode == 172		: MOVIES_TWO()
+elif mode == 173		: CNF_Studio_Indexer.MV_Movies(url)
+elif mode == 174		: CNF_Studio_Indexer.Movie_ByYear(url)
 elif mode == 99 	: collect_token()
 elif mode == 100 	: Get_Page(name, url, iconimage)
-elif mode == 401    : Resolve(url)
+elif mode == 401    : Resolve(name, url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
 elif mode == 403    : Live2(url)
@@ -904,5 +937,7 @@ elif mode == 421 	: Movie3(url)
 elif mode == 422 	: Movie4(url)
 elif mode == 423 	: open_Menu(url)
 elif mode == 424	: build_dialog(url)
+elif mode == 1000 	: ChangeLog()
+elif mode == 1001 	: TV.TESTING()
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

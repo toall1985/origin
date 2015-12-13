@@ -10,6 +10,7 @@ from t0mm0.common.net import Net
 from resources import streams
 from resources import lists
 from resources import utube
+from datetime import datetime
 
 Decode = base64.decodestring
 BASE2= lists.BASE2
@@ -345,21 +346,175 @@ def Live_TV():
 	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
-	addDir('Full List','',86,ART + 'icon.png',ART + 'background.jpg','')
+	addDir('Full List','',88,ART + 'icon.png',ART + 'background.jpg','')
+#	addDir('TESTING','',1001,ART + 'icon.png',ART + 'background.jpg','')
+	
 #	addList('World News','',66,ART + 'icon.png')
 
 	if GetTVPassword == Decode('c3VzcGVjdHBhY2thZ2U='):
 		addList('Live TV',TVFinalURL,400,ART + 'icon.png')
 
-		
+def Date_Time(check_Route):
+	
+	now = datetime.now()
+	
+	if check_Route == 'Time':
+		hour = str(now.hour)
+		return hour
+		#minute = now.minute
+	
+	elif check_Route == 'Date':
+			Date = str(now.month) + '/' + str(now.day) + '/' + str(now.year)
+			return Date
+	else:
+		pass
 
-def List_LiveTVFull():
+# Can Move to the top later if you want mate
+Guide_URL = 'http://www.tvguide.co.uk/?catcolor=&systemid=5&thistime=' + str(Date_Time('Time')) + '&thisday=' + str(Date_Time('Date')) + '&gridspan=03:00&view=0&gw=1877'
+
+
+def TV_Guide(name):
+	title = name
+	html=OPEN_URL(Guide_URL)
+	match = re.compile('<div class="div-epg-channel-name">(.+?)</div>.+?<a qt-title="(.+?)"',re.DOTALL).findall(html)
+	info = 'No Data Currently Available'
+	for name, whatson in match:
+		if 'HD' in name:
+			name = name.replace ('HD', '')
+		if 'hd' in name:
+			name = name.replace ('hd', '')
+		if '//' in name:
+			name = name.replace ('//', ' ')
+				
+		channel = str(title)
+				
+		if channel in name:
+			info = whatson
+			return info
+		else:
+			pass
+
+			
+			
+def clean_Guide_Search(name):
+	name = name.lower()
+	if 'bt sports 1' in name:
+		name = name.replace('bt sports 1', 'BT Sport 1')
+		return name
+	if 'bt sports 2' in name:
+		name = name.replace('bt sports 2', 'BT Sport 2')
+		return name
+	if 'bbc one' in name:
+		name = name.replace('bbc one', 'BBC1 London - ')
+		return name
+	if 'bbc two' in name:
+		name = name.replace('bbc two', 'BBC2 London')
+		return name
+	if 'itv' in name:
+		name = name.replace('itv', 'ITV London')
+		return name
+	if 'channel 4' in name:
+		name = name.replace('channel 4', 'Channel 4')
+		return name
+	if 'sky 1' in name:
+		name = name.replace('sky 1', 'Sky1')
+		return name
+	if 'sky Living' in name:
+		name = name.replace('sky Living', 'Sky Living')
+		return name
+	if 'comedy central' in name:
+		name = name.replace('comedy central', 'Comedy Central')
+		return name
+	if 'bbc three' in name:
+		name = name.replace('bbc three', 'BBC3')
+		return name
+	if 'bbc four' in name:
+		name = name.replace('bbc four', 'BBC4')
+		return name
+	if 'itv2' in name:
+		name = name.replace('itv2', 'ITV2')
+		return name
+	if 'itv3' in name:
+		name = name.replace('itv3', 'ITV3')
+		return name
+	if 'itv4' in name:
+		name = name.replace('itv4', 'ITV4')
+		return name
+	if 'sky 2' in name:
+		name = name.replace('sky 2', 'Sky2')
+		return name
+	if 'fox' in name:
+		name = name.replace('fox', 'FOX')
+		return name
+	if 'mtv' in name:
+		name = name.replace('mtv', 'MTV')
+		return name
+	if 'itv+' in name:
+		name = name.replace('itv+', 'ITV London +1')
+		return name
+	if 'alibi' in name:
+		name = name.replace('alibi', 'alibi')
+		return name
+	if 'sky sports 1' in name:
+		name = name.replace('sky sports 1', 'Sky Sports 1')
+		return name
+	if 'sky sports 2' in name:
+		name = name.replace('sky sports 2', 'Sky Sports 2')
+		return name
+	if 'sky sports 3' in name:
+		name = name.replace('sky sports 3', 'Sky Sports 3')
+		return name
+	if 'sky sports 4' in name:
+		name = name.replace('sky sports 4', 'Sky Sports 4')
+		return name
+	if 'sky sports 5' in name:
+		name = name.replace('sky sports 5', 'Sky Sports 5')
+		return name
+	
+
+def LiveTVFullCat():
+	
+	addDir3('All Channels','',86,ART + 'livetv.png')
+	addDir3('Entertainment','',86,ART + 'livetv.png')
+	addDir3('Movies','',86,ART + 'livetv.png')
+	addDir3('Music','',86,ART + 'livetv.png')
+	addDir3('News','',86,ART + 'livetv.png')
+	addDir3('Sports','',86,ART + 'livetv.png')
+	addDir3('Documentary','',86,ART + 'livetv.png')
+	addDir3('Kids','',86,ART + 'livetv.png')
+	addDir3('Food','',86,ART + 'livetv.png')
+	addDir3('Religious','',86,ART + 'livetv.png')
+	addDir3('USA Channels','',86,ART + 'livetv.png')
+	addDir3('Other','',86,ART + 'livetv.png')
+	
+		
+def List_LiveTVFull(Cat_Name):
+
+    Find_all = False
+    cat_id = '0'
+    if Cat_Name == 'All Channels' : Find_all = True
+    if Cat_Name == 'Entertainment' : cat_id = '1'
+    if Cat_Name == 'Movies' : cat_id = '2'
+    if Cat_Name == 'Music' : cat_id = '3'
+    if Cat_Name == 'News' : cat_id = '4'
+    if Cat_Name == 'Sports' : cat_id = '5'
+    if Cat_Name == 'Documentary' : cat_id = '6'
+    if Cat_Name == 'Kids' : cat_id = '7'
+    if Cat_Name == 'Food' : cat_id = '8'
+    if Cat_Name == 'Religious' : cat_id = '9'
+    if Cat_Name == 'USA Channels' : cat_id = '10'
+    if Cat_Name == 'Other' : cat_id = '11'
+	
     html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
-    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":".+?","cat_id":".+?","stream_url2":".+?","stream_url":".+?"}',re.DOTALL).findall(html)
+    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":".+?","cat_id":"(.+?)","stream_url2":".+?","stream_url":".+?"}',re.DOTALL).findall(html)
     print 'Len Match: >>>' + str(len(match))
-    for name,img in match:
+    for name,img,CatNO in match:
         Image = Decode ('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv') + (img).replace('\\','')
-        addDir3(name,'',87,Image)
+        if CatNO == cat_id:
+			addDir3(name,'',87,Image)
+        elif Find_all == True:
+            addDir3(name,'',87,Image)
+        else: pass	
 		
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 
@@ -371,8 +526,24 @@ def LiveTVFull(Search_Name):
 		addDir4(Search_Name + ': Link 1',(url).replace('\\',''),401,Image)
 		addDir4(Search_Name + ': Link 2',(url2).replace('\\',''),401,Image)
 		addDir4(Search_Name + ': Link 3',(url3).replace('\\',''),401,Image)
+		
+def TESTING():
 
+    html=OPEN_URL(Decode('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYvRGVzaVN0cmVhbXMvaW5kZXgyMDIucGhwP3RhZz1nZXRfYWxsX2NoYW5uZWwmdXNlcm5hbWU9YnlwYXNz'))
+    match = re.compile('"id":".+?","name":"(.+?)","img":"(.+?)","stream_url3":"(.+?)","cat_id":".+?","stream_url2":"(.+?)","stream_url":"(.+?)"}',re.DOTALL).findall(html)
+    for name,img,url,url2,url3 in match:
+        Image = Decode ('aHR0cDovL3VrdHZub3cuZGVzaXN0cmVhbXMudHYv') + (img).replace('\\','')
+        Whats_on = TV_Guide(name)
+        clean_Guide_Search(name)
+        Channel_Only = 'Sky Sports 1'
+        Channel_Only = Channel_Only.lower()
+        Search_Channel = name.lower()
+        if name == Channel_Only:
+            addDir3(name + ' - ' + str(Whats_on),'',87,Image)
+ 
+	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 
+		
 def TextBoxes(heading,announce):
   class TextBox():
     WINDOW=10147
