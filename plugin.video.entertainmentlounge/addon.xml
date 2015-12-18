@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.0.25" provider-name="Chameleon-Builds">
+<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="10000000000.0.25" provider-name="Chameleon-Builds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
