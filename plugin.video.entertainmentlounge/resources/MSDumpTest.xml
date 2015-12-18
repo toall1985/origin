@@ -1,0 +1,804 @@
+<item>
+<title>[COLOR orange]SD[/COLOR]=[COLOR orange]SPORTSDEVIL LINK[/COLOR]</title>
+<sportsdevil>http://stepfb.net/live/chanel/48/</sportsdevil>
+<referer>http://stepfb.net/</referer>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 1-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv21&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 1 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/liveskysport1.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 2-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv22&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 2 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/liveskysport2.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 3-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv23&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 3 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/livesky3.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 4-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv24&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 4 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/livesky4.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 5-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv25&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS 5 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/livesky5.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS F1-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://www.streamlive.to/embed/68718</sportsdevil>
+<referer>http://www.streamlive.to</referer>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS F1 BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/liveformula.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SKY SPORTS NEWS-[/COLOR]</title>
+<link>http://www.juhe.ml/$doregex[file]|user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45
+.0.2454.101 Safari/537.36</link>
+<regex>
+<name>file</name>
+<expres>src = '(.*?)'</expres>
+<page>http://www.juhe.ml/ds/embed?id=232</page>
+<referer>http://www.zoptv.com/live/sky-sports-news</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]AT THE RACES-[/COLOR]</title>
+<link>$doregex[get-m3u8]</link>
+<regex>
+<name>get-m3u8</name>
+<expres>
+http://shadow.go.ro/shadownet/channels/uktv/player/atr.php
+http://www.sdw-net.co/channels/At-The-Races.html
+Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2
+</expres>
+<page>http://shadow.go.ro/shadownet/channels/uktv/player/atr.php</page>
+<referer>http://www.sdw-net.co/channels/At-The-Races.html</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS 1-[/COLOR] </title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv26&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS 1 BACKUP-[/COLOR]</title>
+<link>rtmp://www1.iguide.to/iguide playpath=$doregex[file] token=#ed%h0#w18623jsda6523lDGD swfUrl=http://www.iguide.to/player/secure_player_iguide_embed_token.swf pageUrl=http://www.iguide.to/ live=true timeout=15</link>
+<regex>
+<name>id</name>
+<expres>embed\/(.*)&</expres>
+<page>http://u-stream.me/livebt1.html
+</page>
+<referer>http://u-stream.me/livebt1.html
+</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS 2-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv27&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS 2 BACKUP-[/COLOR]</title>
+<link>rtmp://www1.iguide.to/iguide playpath=$doregex[file] token=#ed%h0#w18623jsda6523lDGD swfUrl=http://www.iguide.to/player/secure_player_iguide_embed_token.swf pageUrl=http://www.iguide.to/ live=true timeout=15</link>
+<regex>
+<name>id</name>
+<expres>embed\/(.*)&</expres>
+<page>http://u-stream.me/livebt2.html
+</page>
+<referer>http://u-stream.me/livebt2.html
+</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS EUROPE-[/COLOR]</title>
+<link>$doregex[get-m3u8]</link>
+<regex>
+<name>get-m3u8</name>
+<expres>
+http://shadow.go.ro/shadownet/channels/uktv/player/bt-sport-eu.php
+http://www.sdw-net.co/channels/BT-Sport-Europe.html
+Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2
+</expres>
+<page>http://shadow.go.ro/shadownet/channels/uktv/player/bt-sport-eu.php</page>
+<referer>http://www.sdw-net.co/channels/BT-Sport-Europe.html</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS EUROPE BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/streambteurope.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORT ESPN-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://hdfree.tv/watch-espn-live-stream.html</sportsdevil>
+<referer>http://hdfree.tv/</referer>
+</item>
+
+<item>
+<title>[COLOR red]BT SPORTS ESPN BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/livespnuk.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]BOXNATION-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://mamahd.com/watch-box-nation-live-stream-1.html</sportsdevil>
+<referer>http://mamahd.com/watch-box-nation-live-stream-1.html</referer>
+</item>
+
+<item>
+<title>[COLOR red]BOXNATION BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/liveboxnation.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SETANTA IRELAND-[/COLOR]</title>
+<link>rtmp://www1.iguide.to/iguide playpath=$doregex[file] token=#ed%h0#w18623jsda6523lDGD swfUrl=http://www.iguide.to/player/secure_player_iguide_embed_token.swf pageUrl=http://www.iguide.to/ live=true timeout=15</link>
+<regex>
+<name>id</name>
+<expres>embed\/(.*)&</expres>
+<page>http://u-stream.me/livesetantaireland.html
+</page>
+<referer>http://u-stream.me/livesetantaireland.html
+</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]SETANTA IRELAND-[/COLOR]</title>
+<link>$doregex[get-m3u8]</link>
+<regex>
+<name>get-m3u8</name>
+<expres>
+http://shadow.go.ro/shadownet/channels/uktv/player/setanta.php
+http://www.sdw-net.co/channels/Setanta-Ireland.html
+</expres>
+<page>http://shadow.go.ro/shadownet/channels/uktv/player/setanta.php</page>
+<referer>http://www.sdw-net.co/channels/Setanta-Ireland.html</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]PREMIER SPORTS-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv30&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]PREMIER SPORTS BACKUP-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/livepremiereuk.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]EUROSPORT 1-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv28&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]EUROSPORT 1 backup-[/COLOR]</title>
+<link>$doregex[decoded-url]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1</link>
+<regex>
+<name>id</name>
+<expres>id='(.*?)'</expres>
+<page>http://u-stream.me/streameurosport1uk.html</page>
+<referer>http://u-stream.me</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]EUROSPORT 2-[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv29&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]EUROSPORT 2 backup-[/COLOR]</title>
+<link>$doregex[decoded-url]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1</link>
+<regex>
+<name>id</name>
+<expres>id='(.*?)'</expres>
+<page>http://u-stream.me/streameurosport2uk.html</page>
+<referer>http://u-stream.me</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]FOX SPORTS 1 US-[/COLOR]</title>
+<link>http://www.juhe.ml/$doregex[file]|user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45
+.0.2454.101 Safari/537.36</link>
+<regex>
+<name>file</name>
+<expres>src = '(.*?)'</expres>
+<page>http://www.juhe.ml/ds/embed?id=305</page>
+<referer>http://www.zoptv.com/live/fox-sports-1</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]NBC NETWORK US-[/COLOR]</title>
+<link>http://www.juhe.ml/$doregex[file]|user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45
+.0.2454.101 Safari/537.36</link>
+<regex>
+<name>file</name>
+<expres>src = '(.*?)'</expres>
+<page>http://www.juhe.ml/ds/embed?id=413</page>
+<referer>http://www.zoptv.com/live/nbc</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]NBCSN-[/COLOR]</title>
+<link>http://www.juhe.ml/$doregex[file]|user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/45.0.2454.101 Chrome/45
+.0.2454.101 Safari/537.36</link>
+<regex>
+<name>file</name>
+<expres>src = '(.*?)'</expres>
+<page>http://www.juhe.ml/ds/embed?id=316</page>
+<referer>http://www.zoptv.com/live/nbcsn</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]NFL NETWORK[/COLOR]</title>
+<link>http://nflsvgatlgame3-i.akamaihd.net/hls/live/223175-b/NFL_Mobile/2015Mobile_NFLN_5000k.m3u8</link>
+</item>
+
+<item>
+<title>[COLOR red]BEIN USA-[/COLOR]</title>
+<link>http://yiptv4-live.hls.adaptive.level3.net/yiptv4/beinengov/01.m3u8</link>
+</item>
+
+<item>
+<title>[COLOR red]BEIN 11-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://showsport-tv.com/watch/bein-sport-11-live-stream</sportsdevil>
+<referer>http://showsport-tv.com</referer>
+</item>
+
+<item>
+<title>[COLOR red]BEIN 12-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://showsport-tv.com/watch/bein-sport-12-live-stream</sportsdevil>
+<referer>http://showsport-tv.com</referer>
+</item>
+
+<item>
+<title>[COLOR red]BEIN THAI[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-bein-sports/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]ASTRO/FOX SPORTS[/COLOR]</title>
+<link>rtmp://46.28.53.30/live playpath=footsymlmain?id=23904&pk=$doregex[get-pk] conn=S:OK swfVfy=1 live=1 timeout=13 swfUrl=http://www.embedezcast.com/static/scripts/fplayer.swf flashver=WIN\2019,0,0,245 pageUrl=http://www.embedezcast.com/embedplayer/footsymlmain/1/854/480</link>
+<regex>
+<name>get-pk</name>
+<expres>pk=(.*?)'</expres>
+<page>http://www.embedezcast.com/embedplayer/footsymlmain/1/854/480</page>
+<referer>http://www.embedezcast.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]FOX SPORTS ASIA HD-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://sportforyoufanpage.blogspot.co.uk/p/fox1_14.html</sportsdevil>
+<referer>http://sportforyoufanpage.blogspot.co.uk/</referer>
+</item>
+
+<item>
+<title>[COLOR red]FOX SPORTS 2 ASIA HD-[/COLOR][COLOR orange]SD[/COLOR]</title>
+<sportsdevil>http://sportforyoufanpage.blogspot.co.uk/p/fox2_14.html</sportsdevil>
+<referer>http://sportforyoufanpage.blogspot.co.uk/</referer>
+</item>
+
+<item>
+<title>[COLOR yellow]CTH STADIUM CHANNELS DO WORK JUST NEED A FEW ATTEMPTS[/COLOR]</title>
+<sportsdevil>http://sportforyoufanpage.blogspot.co.uk/p/fox2_14.html</sportsdevil>
+<referer>http://sportforyoufanpage.blogspot.co.uk/</referer>
+</item>
+
+<item>
+<title>[COLOR red]STADUIM 1-[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-cth1-hd/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]STADIUM 2-[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-cth2-hd/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]STADIUM 3-[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-cth3-hd/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]STADIUM 4-[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-cth4-hd/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]STADIUM 5-[/COLOR]</title>
+<link>$doregex[url]</link>
+<regex>
+<name>get-js</name>
+<expres>javascript. src="(.*?)"</expres>
+<page>http://www.khaozap.com/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C/%E0%B8%94%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%8A%E0%B9%88%E0%B8%AD%E0%B8%87-cth5-hd/</page>
+<referer>http://www.khaozap.com/</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR yellow]THESE CHANNELS BELOW WILL ALWAYS HAVE LIVE SPORTS ON ( EPL,NFL ETC )[/COLOR]</title>
+<sportsdevil>http://stepfb.net/live/chanel/48/</sportsdevil>
+<referer>http://stepfb.net/</referer>
+</item>
+
+<item>
+<title>[COLOR yellow]CHANNELS GO LIVE JUST BEFORE EVENT IS STARTED[/COLOR]</title>
+<sportsdevil>http://stepfb.net/live/chanel/48/</sportsdevil>
+<referer>http://stepfb.net/</referer>
+</item>
+
+<item>
+<title>[COLOR orange]SD[/COLOR]=[COLOR orange]SPORTSDEVIL LINK[/COLOR]</title>
+<sportsdevil>http://stepfb.net/live/chanel/48/</sportsdevil>
+<referer>http://stepfb.net/</referer>
+</item>
+
+<item>
+<title>[COLOR red]TV 1[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv1&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 2[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv2&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 3[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv3&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 4[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv4&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 5[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv5&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 6[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv6&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 7[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv7&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 8[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv8&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 9[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv9&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 10[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv10&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 11[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv11&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 12[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv12&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 13[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv13&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 14[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv14&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]TV 15[/COLOR]</title>
+<link>$doregex[getEncLink]</link>
+<regex>
+<name>getEncLink</name>
+<expres>$pyFunction:base64.b64decode("$doregex[getDecLink]")</expres>
+<referer>http://www.ibrodtv.net/embed.php?chan=tv15&width;=640&height;=480</referer>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 1-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream1.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 2-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream2.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 3-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream3.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 4-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream4.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 5-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream5.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 6-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream6.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 7-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream7.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 8-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream8.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 9-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream9.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
+<item>
+<title>[COLOR red]CH 10-[/COLOR]</title>
+<link>$doregex[decodedUrl]$doregex[token]|Referer=http://cdn.p2pcast.tv/jwplayer.flash.swf&User-Agent=Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</link>
+<regex>
+<name>id</name>
+<expres>>id='(.*?)'</expres>
+<page>http://u-stream.me/stream10.html</page>
+<referer>http://p2pcast.tv/stream.php?id=$doregex[id]&live=0&p2p=0&stretching=uniform</referer>
+<agent>Mozilla/5.0 (X11; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0 Iceweasel/41.0.2</agent>
+</regex>
+</item>
+
