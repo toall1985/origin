@@ -39,7 +39,13 @@ def Lists():
 	addList('Childrens Programs - try all links','',406,ART + 'icon.png')
 #	addList('Movie Scraper','',56,ART + 'icon.png')
 
-
+def TestDizi():
+	
+    html=OPEN_URL('http://dizilab.com')
+    match = re.compile('<li>.+?<a href="(.+?)">.+?<span class="fa fa-angle-right"></span>(.+?)</a>.+?</li>',re.DOTALL).findall(html)
+    for name in match:
+	    addList((name).replace('email me','').replace('External services',''),Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1LyVz')%url,62,ART + 'icon.png')
+	    print '>>>>>>>>>>>>>>>>>>' + name
 	
 def addList(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)

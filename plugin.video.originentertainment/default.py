@@ -1,3 +1,27 @@
+'''
+there is code in here from other addons, the vast majority is mine and ive spent a lot of time trying to learn from this code over the last while
+i watched some python tutorials october 2015 and its all been taken from there with help from friends. If you disagree with anything that is being used
+find and contact 'origin' and ill be happy to remove whatever you prove to be 'yours', i make no profit, i only provide to help people and to help 
+myself through education of coding in an ever advancing culture.  I do not pretend to be the greatest coder and have great respect for those that can
+'talk' to a computer like they talk to people, thats a real gift, i just hope to learn and let people enjoy the journey this is all.
+    Origin Entertainment Add-on
+    Copyright (C) 2015 Origin
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+'''
+
 import sys
 import urlparse
 import yt
@@ -13,7 +37,7 @@ import time
 import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer
+from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -32,6 +56,11 @@ addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Origin Entertainment"
 VERSION = "1.0.1"
+IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
+
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
@@ -87,10 +116,12 @@ def Home_Menu():
 def Sports():
 
     addDir('Football','',57,ART + 'icon.png',ART + 'background.png','')
+    addDir('Sports Channels','',86,ART + 'icon.png',ART + 'background.png','')
 
     
     xbmcplugin.endOfDirectory(addon_handle)
 
+	
 def Radiocountry():
 
     html=OPEN_URL(Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1Lw=='))
@@ -142,7 +173,7 @@ def Test():
 
     addList('Test Area',BASE+'test'+CAT,400,ART + 'icon.png')
     addList('Sponge Test',BASE5+'badlands'+CAT,400,ART + 'icon.png')
-#    addList('Dizilab Scraper Test','',410,ART + 'icon.png')
+    addList('Dizilab Scraper Test','',410,ART + 'icon.png')
 	
 
     xbmcplugin.endOfDirectory(addon_handle)
@@ -246,7 +277,7 @@ def whatsonsky():
     html=OPEN_URL('http://www.locatetv.com/uk/listings/sky')
     match = re.compile('<li>.+?<li class="channel" data-name="(.+?)">.+?<a href="(.+?)">.+?<img src="(.+?)" alt=".+?title="(.+?)" class',re.DOTALL).findall(html)
     for name,url,img,name2 in match:
-        addDir3((name + ' - ' + name2).replace('&#039;s',''),'http://www.locatetv.com' + url,'',img)
+        addDir3((name + ' - ' + name2).replace('&#039;s','').replace('&amp;', '&'),'http://www.locatetv.com' + url,'',img)
 	
 
 def whatsoncat():
@@ -259,6 +290,7 @@ def whatsoncat():
 		
 def Scraper():
     addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
+    addDir('Search Alluc*in testing*','',90,ART + 'scraper.png', ART + 'background.png','')
 #    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
@@ -408,28 +440,13 @@ def build_dialog(url):
 def cnfCat(url):
     html=OPEN_URL(url)
     match = re.compile('<div class="movie">.+?<img src="(.+?)" alt=".+?" />.+?<a href="(.+?)"><span class="player"></span></a>.+?<h2>(.+?)</h2>',re.DOTALL).findall(html)
-    prev = re.compile("<link rel='prev' href='(.+?)'/>").findall(html)
-    next = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
-    '''
-    Count_URL = 0
-    print len(match)
+    prev = re.compile("<link rel='next' href='(.+?)'/>").findall(html)
     for img,url,name in match:
-        if url != '':
-            Count_URL = Count_URL + 1
-    
-    if Count_URL == 2:
-        for img,url,name in match:
-            addDir3((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,424,img)
-    else:
-	'''
-    for img,url,name in match:
-		addDir4((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,100,img)
+		addDir4((name).replace('&#038;','').replace('&#8216;','').replace('&#8217;','').replace('&#8211;',''),url,169,img)
     prev=prev
     for url in prev:
-        addDir3('Prev',url,78,'')
-    next=next
-    for url in next:
-        addDir3('Next',url,78,'')
+		addDir3('Next Page',url,79,'')
+  
 
 
 
@@ -539,6 +556,10 @@ def Get_Page(name, url, img):
 '''	
 def OPEN_URL(url):
         req = urllib2.Request(url)
+        IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+        FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+        IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+        ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         response = urllib2.urlopen(req)
         link=response.read()
@@ -899,17 +920,20 @@ elif mode == 86 	: TV.List_LiveTVFull(name)
 elif mode == 87 	: TV.LiveTVFull(name)
 elif mode == 88 	: TV.LiveTVFullCat()
 elif mode == 89 	: CNF_Studio_Indexer.Box_Office(url)
-elif mode == 164		: CNF_Studio_Indexer.List_genres(url)
-elif mode == 165		: CNF_Studio_Indexer.List_Movies(url)
-elif mode == 166		: CNF_Studio_Indexer.Get_Movie_Page(url)
-elif mode == 167		: LiveTVFull(name)
-elif mode == 168		: List_LiveTVFull(name)
-elif mode == 169		: CNF_Studio_Indexer.Resolve_CNF_Link(name, url, iconimage)
-elif mode == 170		: List_LiveTVCats()
-elif mode == 171		: CNF_Studio_Indexer.Search_Movie()
-elif mode == 172		: MOVIES_TWO()
-elif mode == 173		: CNF_Studio_Indexer.MV_Movies(url)
-elif mode == 174		: CNF_Studio_Indexer.Movie_ByYear(url)
+elif mode == 90 	: Alluc_Indexer.Search_Alluc()
+elif mode == 91 	: Alluc_Indexer.Get_Alluc_Page(url,name)
+elif mode == 92		: Alluc_Indexer.Get_Playlink(url,name)
+elif mode == 164	: cnfHome()
+elif mode == 165	: CNF_Studio_Indexer.List_Movies(url)
+elif mode == 166	: CNF_Studio_Indexer.Get_Movie_Page(url)
+elif mode == 167	: LiveTVFull(name)
+elif mode == 168	: List_LiveTVFull(name)
+elif mode == 169	: CNF_Studio_Indexer.Resolve_CNF_Link(name, url, iconimage)
+elif mode == 170	: List_LiveTVCats()
+elif mode == 171	: CNF_Studio_Indexer.Search_Movie()
+elif mode == 172	: MOVIES_TWO()
+elif mode == 173	: CNF_Studio_Indexer.MV_Movies(url)
+elif mode == 174	: CNF_Studio_Indexer.Movie_ByYear(url)
 elif mode == 99 	: collect_token()
 elif mode == 100 	: Get_Page(name, url, iconimage)
 elif mode == 401    : Resolve(name, url)

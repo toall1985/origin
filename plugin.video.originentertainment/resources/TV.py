@@ -498,6 +498,7 @@ def List_LiveTVFull(Cat_Name):
     if Cat_Name == 'Music' : cat_id = '3'
     if Cat_Name == 'News' : cat_id = '4'
     if Cat_Name == 'Sports' : cat_id = '5'
+    if Cat_Name == 'Sports Channels' : cat_id = '5'
     if Cat_Name == 'Documentary' : cat_id = '6'
     if Cat_Name == 'Kids' : cat_id = '7'
     if Cat_Name == 'Food' : cat_id = '8'
@@ -593,6 +594,10 @@ def WorldPlayVid(url):
 		
 def OPEN_URL(url):
         req = urllib2.Request(url)
+        IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+        FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+        IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+        ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
         response = urllib2.urlopen(req)
         link=response.read()

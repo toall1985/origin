@@ -1,6 +1,6 @@
 import urllib,urllib2, re, os, sys, HTMLParser, control
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from bs4 import BeautifulSoup
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 #*************************************************************************************************************************************************************
 # Variables Needed Global
@@ -117,7 +117,7 @@ def List_Movies(url):
         #    Movie_Data.append(Rating)
         
         #print Movie_Data[0]
-        #print Movie_Data[1]
+        #print Movie_Data[1]	
         #print Movie_Data[2]
         #print Movie_Data[3]
         
@@ -135,9 +135,10 @@ def Box_Office(url):
     prev = re.compile("<link rel='(.+?)' href='(.+?)' />").findall(html)
     prev = prev
     for img,url,name in match:
-        addDir4(name,url,169,img)
+	addDir4(name,url,169,img)
     for name,url in prev:
-        addDir3((name).replace('next','Next Page').replace('prev','Previous Page'),url,89,'')
+        if name == 'next':
+            addDir3((name).replace('next','Next Page'),url,89,'')
   
 def addDir3(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
@@ -172,29 +173,11 @@ def addDir4(name,url,mode,iconimage):
 # 20 Most Viewed
 
 def MV_Movies(url):
-    HTML = Open_Url(url)
-    Soup = BeautifulSoup(HTML)
-    Movie_Links = Soup.find_all('ul', {'class': 'lista'})
-    Movie_Content = re.compile('<li>(.+?)</li>',re.DOTALL).findall(str(Movie_Links))
-        
-    for item in Movie_Content:
-        Collect_Data = []
-        Movie_ViewedNo = re.compile('<b>(.+?)</b>',re.DOTALL).findall(item)
-        Movie_Link = re.compile('<a href="(.+?)">.+?</a>',re.DOTALL).findall(item)
-        Movie_Title = re.compile('<a href=".+?">(.+?)</a>',re.DOTALL).findall(item)
-                
-        for Viewed_No in Movie_ViewedNo: Collect_Data.append(Viewed_No)
-        for Link in Movie_Link: Collect_Data.append(Link)
-        for Title in Movie_Title:
-            Title = Clean_UP(Title)
-            Collect_Data.append(Title)
-
-
-        #print Collect_Data[0]
-        #print Collect_Data[1]
-        #print Collect_Data[2]
-        AddTestDir(Collect_Data[0]+' : '+Collect_Data[2] , Collect_Data[1], 169, '', description='', isFolder=False, background='')
-
+    html = Open_Url(url)
+    match = re.compile('<li>.+?<b>(.+?)</b><a href="(.+?)">(.+?)</a>+?<span>',re.DOTALL).findall(html)
+    for name1,url,name in match:   
+        addDir(name1 + ' - ' + name,url,169,'','','')
+        print '>>>>>>>>>>>>>>' + name1 + url + name
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -263,8 +246,38 @@ def Search_Movie():
 		
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Search Alluc.ee
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+def Search_Alluc():
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    Search_Name = Search_Name.lower()
+    #Search_Name = Search_Name.replace(' ', '%22')
+    search_URL = 'http://www.alluc.ee/stream/' + Search_Name + 'host%3Avidzi.tv'
+    HTML = Open_Url(search_URL)
+    Soup = BeautifulSoup(HTML)
+    
+    Movie_Links = Soup.find_all('div', {'class': 'movie'})
+    for Movie in Movie_Links:
+        Get_Title = re.compile('<h2>(.+?)</h2>',re.DOTALL).findall(str(Movie))
+        Get_Page = re.compile('<a href="(.+?)"><span class="player"></span></a>',re.DOTALL).findall(str(Movie))
+        Get_Image = re.compile('<img alt=".+?" src="(.+?)"/>',re.DOTALL).findall(str(Movie))
+        Get_Rating = re.compile('<div class="imdb"><span class="icon-grade"></span>(.+?)</div>',re.DOTALL).findall(str(Movie))
+        Movie_Data = []
+        for Title in Get_Title:
+            Title = Clean_UP(Title)
+            Movie_Data.append(Title)
+        
+        for Page in Get_Page: Movie_Data.append(Page)
+        
+        for Image in Get_Image: Movie_Data.append(Image)
+        
+        for Rating in Get_Rating: Movie_Data.append(Rating)
+
+        Name_Switch = Movie_Data[0]
+        if Search_Name in Name_Switch: AddTestDir(Movie_Data[0], Movie_Data[1], 169, Movie_Data[2], description=Movie_Data[3], isFolder=False, background='')
+        else: pass
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # LIST TV SHOWS
