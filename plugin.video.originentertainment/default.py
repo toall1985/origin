@@ -1,12 +1,4 @@
 '''
-there is code in here from other addons, the vast majority is mine and ive spent a lot of time trying to learn from this code over the last while
-i watched some python tutorials october 2015 and its all been taken from there with help from friends. If you disagree with anything that is being used
-find and contact 'origin' and ill be happy to remove whatever you prove to be 'yours', i make no profit, i only provide to help people and to help 
-myself through education of coding in an ever advancing culture.  I do not pretend to be the greatest coder and have great respect for those that can
-'talk' to a computer like they talk to people, thats a real gift, i just hope to learn and let people enjoy the journey this is all.
-    Origin Entertainment Add-on
-    Copyright (C) 2015 Origin
-
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -37,7 +29,7 @@ import time
 import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer
+from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -141,6 +133,7 @@ def Radio(url):
 def Football():
 	addList('Fixtures','',58,ART + 'icon.png')
 	addDir4('Premier League Table','',75,ART+'icon.png')
+	addDir3('Replays','',93,ART+'icon.png')
 	
 
 	
@@ -156,8 +149,9 @@ def open_Menu(url):
     html=OPEN_URL(url)
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,url,img,fanart,mode in match:
-			    addList(name,url,mode,ART + 'icon.png')
+			    addList(name,url,mode,img)
 	
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 	
     
 def M3u8Lists():
@@ -572,15 +566,20 @@ def Live(url):
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                addList3('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage))
+            addList3('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage))
 
+        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
+				
+				
 def Live2(url):
         xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
         vidlocation=('%s%s'%(BASE,url))
         link = OPEN_URL(url)
         match=re.compile('<a.href="(.+?)".target="_blank"><img.src="(.+?)".style="max-width:200px;"./></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,name in match:
-                addList2(name,url,402,iconimage)
+            addList2(name,url,402,iconimage)
+
+        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 
 
 def addMenu(url):
@@ -853,7 +852,7 @@ elif mode == 19     : TV.Entertainment_TV()
 elif mode == 20     : TV.Fantasy_TV()
 elif mode == 21     : TV.Music_TV()
 elif mode == 22     : TV.Scifi_TV()
-elif mode == 23     : TV.Soap_TV()
+elif mode == 23     : SoapsCatchup.Soap_TV()
 elif mode == 24     : Standup.Jeff_Dunham()
 elif mode == 25     : TV.DrWho()
 elif mode == 26     : TV.Arrow()
@@ -923,6 +922,13 @@ elif mode == 89 	: CNF_Studio_Indexer.Box_Office(url)
 elif mode == 90 	: Alluc_Indexer.Search_Alluc()
 elif mode == 91 	: Alluc_Indexer.Get_Alluc_Page(url,name)
 elif mode == 92		: Alluc_Indexer.Get_Playlink(url,name)
+elif mode == 93 	: FootballReplays.Replay_Menu()
+elif mode == 94		: FootballReplays.get_All_Rows(url)
+elif mode == 95 	: SoapsCatchup.Hollyoaks()
+elif mode == 96 	: SoapsCatchup.Eastenders()
+elif mode == 97 	: SoapsCatchup.Emmerdale()
+elif mode == 98 	: SoapsCatchup.CoronationStreet()
+elif mode == 101 	: SoapsCatchup.ImACeleb()
 elif mode == 164	: cnfHome()
 elif mode == 165	: CNF_Studio_Indexer.List_Movies(url)
 elif mode == 166	: CNF_Studio_Indexer.Get_Movie_Page(url)
@@ -961,6 +967,7 @@ elif mode == 421 	: Movie3(url)
 elif mode == 422 	: Movie4(url)
 elif mode == 423 	: open_Menu(url)
 elif mode == 424	: build_dialog(url)
+elif mode == 425 	: SoapsCatchup.SOAPPLAYER(name,url)
 elif mode == 1000 	: ChangeLog()
 elif mode == 1001 	: TV.TESTING()
 

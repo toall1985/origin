@@ -49,7 +49,7 @@ def TV_Shows():
 	addDir('Fantasy','',20,ART + 'icon.png',ART + 'background.jpg','')
 #	addDir('Music','',21,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Scifi','',22,ART + 'icon.png',ART + 'background.jpg','')
-#	addDir('Soaps','',23,ART + 'icon.png',ART + 'background.jpg','')
+	addDir('Soaps','',23,ART + 'icon.png',ART + 'background.jpg','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 	
@@ -334,10 +334,6 @@ def Animated_TV():
 def Scifi_TV():
 
 	addDir('Dr Who','',25,'http://ia.media-imdb.com/images/M/MV5BMjI2MTc4MjMzMV5BMl5BanBnXkFtZTgwNDIyNzkwMjE@._V1_UY1200_CR88,0,630,1200_AL_.jpg','background.jpg','')
-
-	xbmcplugin.endOfDirectory(addon_handle)
-	
-def Soap_TV():
 
 	xbmcplugin.endOfDirectory(addon_handle)
 

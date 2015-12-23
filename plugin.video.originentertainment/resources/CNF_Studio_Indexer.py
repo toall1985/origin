@@ -12,15 +12,6 @@ Dialog = xbmcgui.Dialog()
 #*************************************************************************************************************************************************************
 #*************************************************************************************************************************************************************
 
-# TEST MODE VARIABLES - TO BE DELETED
-
-# GENRE URLS
-#url = 'http://cnfstudio.com/genre/action/'
-#url = 'http://cnfstudio.com/genre/adventure/'
-#url = 'http://cnfstudio.com/genre/animation/'
-
-# Next & Previous Page Test URL's
-#url = 'http://cnfstudio.com/genre/action/page/2/'
 
 def addDir(name,url,mode,iconimage,fanart,description):
 
