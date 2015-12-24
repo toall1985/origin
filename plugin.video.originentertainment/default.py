@@ -74,8 +74,8 @@ if not os.path.exists(addon_data_dir):
 
 tmpListFile = os.path.join(addon_data_dir, 'tempList.txt')
 
-def ChangeLog():
-    TextBoxes('Change Log, Future Plans and General Info', ' [CR] ---------------------------------------------------------------------------------------------------------- [CR]Going to look at adding TV guide to new live tv streams [CR] ---------------------------------------------------------------------------------------------------------- [CR]Hoping to get search function in soon to make things easier to find [CR] ---------------------------------------------------------------------------------------------------------- [CR]Am thinking of making a second release of the addon once my knowledge grows to tidy things up a bit [CR] ---------------------------------------------------------------------------------------------------------- [CR]11/12/15 Fixed Scraper, still need to work on some streams not playing [CR] ---------------------------------------------------------------------------------------------------------- [CR]Massive thanks and respect to Chris for all his help lately helping me push forwards [CR] ---------------------------------------------------------------------------------------------------------- [CR]Also to Jay, Damian and Sponge head for being here from the start and of course Team H20 [CR] ---------------------------------------------------------------------------------------------------------- [CR]Will look at adding a music section once search function in and working properly [CR] ---------------------------------------------------------------------------------------------------------- [CR]Fixes Needed - Scraper streams not working. Newspaper Article and Prem League table windows not working on android  ')
+#def ChangeLog():
+#    TextBoxes('Change Log, Future Plans and General Info', ' [CR] ---------------------------------------------------------------------------------------------------------- [CR]Going to look at adding TV guide to new live tv streams [CR] ---------------------------------------------------------------------------------------------------------- [CR]Hoping to get search function in soon to make things easier to find [CR] ---------------------------------------------------------------------------------------------------------- [CR]Am thinking of making a second release of the addon once my knowledge grows to tidy things up a bit [CR] ---------------------------------------------------------------------------------------------------------- [CR]11/12/15 Fixed Scraper, still need to work on some streams not playing [CR] ---------------------------------------------------------------------------------------------------------- [CR]Massive thanks and respect to Chris for all his help lately helping me push forwards [CR] ---------------------------------------------------------------------------------------------------------- [CR]Also to Jay, Damian and Sponge head for being here from the start and of course Team H20 [CR] ---------------------------------------------------------------------------------------------------------- [CR]Will look at adding a music section once search function in and working properly [CR] ---------------------------------------------------------------------------------------------------------- [CR]Fixes Needed - Scraper streams not working. Newspaper Article and Prem League table windows not working on android  ')
 
 
 
@@ -132,7 +132,7 @@ def Radio(url):
 
 def Football():
 	addList('Fixtures','',58,ART + 'icon.png')
-	addDir4('Premier League Table','',75,ART+'icon.png')
+#	addDir4('Premier League Table','',75,ART+'icon.png')
 	addDir3('Replays','',93,ART+'icon.png')
 	
 

@@ -339,9 +339,9 @@ def Scifi_TV():
 
 def Live_TV():
 
-	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
+#	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
-	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
+#	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
 	addDir('Full List','',88,ART + 'icon.png',ART + 'background.jpg','')
 #	addDir('TESTING','',1001,ART + 'icon.png',ART + 'background.jpg','')
 	
