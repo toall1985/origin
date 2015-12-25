@@ -44,6 +44,7 @@ def TV_Shows():
 	addDir('Action','',15,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Childrens','',16,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Comedy','',17,ART + 'icon.png',ART + 'background.jpg','')
+	addDir('Documentary','',102,ART + 'icon.png',ART + 'background.jpg','')	
 	addDir('Drama','',18,ART + 'icon.png',ART + 'background.jpg','')
 #	addDir('Entertainment','',19,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Fantasy','',20,ART + 'icon.png',ART + 'background.jpg','')

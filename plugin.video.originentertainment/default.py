@@ -29,7 +29,7 @@ import time
 import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup
+from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup,documentary
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -84,7 +84,7 @@ def build_url(query):
 
 def Home_Menu():
 
-    addDir4('Change Log','',1000,ART+'ChangeLog.png')
+#    addDir4('Change Log','',1000,ART+'ChangeLog.png')
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
     addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
@@ -928,7 +928,13 @@ elif mode == 95 	: SoapsCatchup.Hollyoaks()
 elif mode == 96 	: SoapsCatchup.Eastenders()
 elif mode == 97 	: SoapsCatchup.Emmerdale()
 elif mode == 98 	: SoapsCatchup.CoronationStreet()
+elif mode == 99 	: collect_token()
+elif mode == 100 	: Get_Page(name, url, iconimage)
 elif mode == 101 	: SoapsCatchup.ImACeleb()
+elif mode == 102	: documentary.DOC1()
+elif mode == 103    : documentary.DOC2(url)
+elif mode == 104    : documentary.DOC3(url)
+elif mode == 105 	: documentary.DOCLIST(url)
 elif mode == 164	: cnfHome()
 elif mode == 165	: CNF_Studio_Indexer.List_Movies(url)
 elif mode == 166	: CNF_Studio_Indexer.Get_Movie_Page(url)
@@ -940,8 +946,6 @@ elif mode == 171	: CNF_Studio_Indexer.Search_Movie()
 elif mode == 172	: MOVIES_TWO()
 elif mode == 173	: CNF_Studio_Indexer.MV_Movies(url)
 elif mode == 174	: CNF_Studio_Indexer.Movie_ByYear(url)
-elif mode == 99 	: collect_token()
-elif mode == 100 	: Get_Page(name, url, iconimage)
 elif mode == 401    : Resolve(name, url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
