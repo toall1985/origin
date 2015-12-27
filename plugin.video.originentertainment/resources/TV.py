@@ -39,7 +39,7 @@ net = Net()
 
 def TV_Shows():
 	
-	addList('Recent Episodes',BASE+'recentepisodes'+CAT,400,ART + 'icon.png')
+	addList('Recent Episodes',BASE+'recentepisodesmove'+CAT,400,ART + 'icon.png')
 	addDir('Animated','',14,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Action','',15,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Childrens','',16,ART + 'icon.png',ART + 'background.jpg','')

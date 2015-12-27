@@ -30,6 +30,7 @@ import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup,documentary
+from resources import IMDBsearch,M3Uscrape
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -86,7 +87,6 @@ def Home_Menu():
 
 #    addDir4('Change Log','',1000,ART+'ChangeLog.png')
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
-    addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
     addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
     addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
@@ -94,12 +94,13 @@ def Home_Menu():
     addDir('News','',72,ART + 'News2.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
-    addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')		
+    addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')	
+#    addDir('Search','',106,ART + 'search.png',ART + 'background.png','')
+    addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
     addDir('TV Guide','',69,ART + 'tvguide.png',ART + 'background.png','')
     addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
-#    addDir('Search','',13,ART + 'search.png',ART + 'background.png','')
     addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
     if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
         addList('Adult Movies',AdultFinalURL,400,ART + 'icon.png')
@@ -285,6 +286,8 @@ def whatsoncat():
 def Scraper():
     addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
     addDir('Search Alluc*in testing*','',90,ART + 'scraper.png', ART + 'background.png','')
+    addDir('Scraped M3U8 Lists','',109,ART + 'scraper.png', ART + 'background.png','')
+	
 #    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
@@ -935,6 +938,13 @@ elif mode == 102	: documentary.DOC1()
 elif mode == 103    : documentary.DOC2(url)
 elif mode == 104    : documentary.DOC3(url)
 elif mode == 105 	: documentary.DOCLIST(url)
+elif mode == 106 	: IMDBsearch.Get_imdb_movie_search()
+elif mode == 107 	: IMDBsearch.Get_movie(name,url,iconimage)
+elif mode == 108 	: IMDBsearch.Get_imdb_TV_Episode(name,url)
+elif mode == 109 	: M3Uscrape.Get_m3u_links()
+elif mode == 110 	: M3Uscrape.Get_m3u_playlinks(url)
+elif mode == 111 	: IMDBsearch.find_Alluc_Link(name,name)
+elif mode == 112 	: M3Uscrape.next_page(url)
 elif mode == 164	: cnfHome()
 elif mode == 165	: CNF_Studio_Indexer.List_Movies(url)
 elif mode == 166	: CNF_Studio_Indexer.Get_Movie_Page(url)
