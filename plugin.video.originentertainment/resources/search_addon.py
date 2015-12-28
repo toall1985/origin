@@ -31,7 +31,7 @@ def Search_Pandoras_Films():
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(HTML)
         for url,iconimage,desc,name in match:
             if Search_Name in name.lower():
-                addDir3(name,url,400,iconimage,'',desc)
+                addDir3(name,url,401,iconimage,'',desc)
 				
                 setView('tvshows', 'Media Info 3')			
 
