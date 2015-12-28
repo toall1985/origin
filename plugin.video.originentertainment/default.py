@@ -863,9 +863,9 @@ def addDirPand(name,url,mode,iconimage,fanart,description):
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
         liz.setProperty( "Fanart_Image", fanart )
         if mode==19 :
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        else:
             ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        else:
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
 
 
