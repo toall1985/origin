@@ -77,7 +77,7 @@ def OPEN_URL(url):
         response.close()
         return link
 
-def addDirPand(name,url,mode,iconimage,fanart,description):
+def addDir3(name,url,mode,iconimage,fanart,description):
 
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
         ok=True

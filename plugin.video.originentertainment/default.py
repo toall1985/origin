@@ -30,7 +30,7 @@ import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup,documentary
-from resources import IMDBsearch,M3Uscrape
+from resources import IMDBsearch,M3Uscrape, search_addon
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -95,7 +95,7 @@ def Home_Menu():
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')	
-#    addDir('Search','',106,ART + 'search.png',ART + 'background.png','')
+    addDir('Search','',175,ART + 'search.png',ART + 'background.png','')
     addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
@@ -986,6 +986,9 @@ elif mode == 171	: CNF_Studio_Indexer.Search_Movie()
 elif mode == 172	: MOVIES_TWO()
 elif mode == 173	: CNF_Studio_Indexer.MV_Movies(url)
 elif mode == 174	: CNF_Studio_Indexer.Movie_ByYear(url)
+elif mode == 175 	: search_addon.Search_Addon_Menu()
+elif mode == 176 	: search_addon.Search_Pandoras_Films()
+elif mode == 177  	: search_addon.Search_Pandoras_TV()
 elif mode == 401    : Resolve(name, url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
