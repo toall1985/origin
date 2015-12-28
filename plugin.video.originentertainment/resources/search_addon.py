@@ -10,13 +10,21 @@ FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 Dialog = xbmcgui.Dialog()
 addon_handle = int(sys.argv[1])
 Decode = base64.decodestring
-CAT = (Decode('LnBocA=='))
+BASE2=base64.decodestring('aHR0cDovL2RsLmZpbG0ybW92aWUuaW5mby9zZXJpYWwv')
+BASE3=base64.decodestring('aHR0cDovL3dhdGNoLXNpbXBzb25zLmNvbS9kb3dubG9hZHMv')
+BASE4=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9QZXBwYSUyMFBpZy9QZXBwYSUyMFBpZyUyMC0lMjBDb21wbGV0ZSUyMFNlcmllcyUyMDEsJTIwMiwlMjAzLCUyMDQv')
+BASE5=base64.decodestring('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8=')
+BASE6=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9PdGhlclRvb25zL1Rhei1NYW5pYS8=')
+BASE7=base64.decodestring('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv')
+CAT = base64.decodestring('LnBocA==')
+BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
 
 def Search_Addon_Menu():
 #	addDir('Search IMDB','',106,ART + 'search.png',ART + 'background.png','')
 	addDir('Search Pandoras Films','',176,ART + 'search.png',ART + 'background.png','')
 	addDir('Search Pandoras TV','',177,ART + 'search.png',ART + 'background.png','')
+	addDir('Search Films','',178,ART + 'search.png',ART + 'background.png','')
 
 	
 def Search_Pandoras_Films():
@@ -50,8 +58,113 @@ def Search_Pandoras_TV():
                 addList(name,url,mode,img)
 				
                 setView('tvshows', 'Media Info 3')			
-		
 
+def Search_Films_Lists():
+  
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
+    Search_Title = Search_Name.lower()
+    url = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE1Lw=='))
+    url2 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE0Lw=='))
+    url3 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEzLw=='))
+    url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
+	
+    HTML = OPEN_URL(url)
+    HTML2 = OPEN_URL(url2)
+    HTML3 = OPEN_URL(url3)
+    HTML4 = OPEN_URL(url4)	
+    match = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
+    match2 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML2)
+    match3 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML3)
+    match4 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML4)
+    for url,name in match:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match2:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match3:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match4:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+
+    movie_filenames = ['actionfilm', 'animationfilm', 'biographyfilm', 'christmasfilm', 'classicfilm', 'comedyfilm', 'crimefilm', 'dramafilm', 'familyfilm', 'fantasyfilm', 'historyfilm', 'horrorfilm', 'kidsfilm', 'latestfilms', 'musicfilm', 'romancefilm', 'scififilm' ]
+
+			
+    for file_Name2 in movie_filenames:
+        search_URL2 = BASE + file_Name2 + CAT
+        HTML5 = OPEN_URL(search_URL2)
+        print search_URL2
+        match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /></a><br><b>(.+?)</b>').findall(HTML5)
+        for url,iconimage,name in match5:
+            if Search_Name in name.lower():
+                addDir3(name,url,401,iconimage,'','')
+				
+                setView('tvshows', 'Media Info 3')			
+
+def Search_TV_Lists():
+	
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
+    Search_Title = Search_Name.lower()
+    url = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE1Lw=='))
+    url2 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE0Lw=='))
+    url3 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEzLw=='))
+    url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
+	
+    HTML = OPEN_URL(url)
+    HTML2 = OPEN_URL(url2)
+    HTML3 = OPEN_URL(url3)
+    HTML4 = OPEN_URL(url4)	
+    match = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
+    match2 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML2)
+    match3 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML3)
+    match4 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML4)
+    for url,name in match:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match2:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match3:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match4:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+				
+            setView('tvshows', 'Media Info 3')			
+
+    tv_filenames = []
+
+			
+    for file_Name2 in tv_filenames:
+        search_URL2 = BASE + file_Name2 + CAT
+        HTML5 = OPEN_URL(search_URL2)
+        print search_URL2
+        match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /></a><br><b>(.+?)</b>').findall(HTML5)
+        for url,iconimage,name in match5:
+            if Search_Name in name.lower():
+                addDir3(name,url,401,iconimage,'','')
+				
+                setView('tvshows', 'Media Info 3')			
+
+
+	
 def addList(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
