@@ -1018,6 +1018,7 @@ elif mode == 424	: build_dialog(url)
 elif mode == 425 	: SoapsCatchup.SOAPPLAYER(name,url)
 elif mode == 426 	: Pandora_Menu(url)
 elif mode == 427 	: addDirPand(name,url,mode,iconimage,fanart,description)
+elif mode == 428 	: streams.ParseURL_search(url)
 elif mode == 1000 	: ChangeLog()
 elif mode == 1001 	: TV.TESTING()
 

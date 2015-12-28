@@ -63,12 +63,12 @@ def Search_Films_Lists():
   
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
     Search_Title = Search_Name.lower()
-    url = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE1Lw=='))
+    url1 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE1Lw=='))
     url2 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE0Lw=='))
     url3 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEzLw=='))
     url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
 	
-    HTML = OPEN_URL(url)
+    HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
     HTML3 = OPEN_URL(url3)
     HTML4 = OPEN_URL(url4)	
@@ -78,22 +78,22 @@ def Search_Films_Lists():
     match4 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML4)
     for url,name in match:
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+            addDir4((name).replace('..&gt;',''),url1 + url,401,'')
 				
             setView('tvshows', 'Media Info 3')			
     for url,name in match2:
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+            addDir4((name).replace('..&gt;',''),url2 + url,401,'')
 				
             setView('tvshows', 'Media Info 3')			
     for url,name in match3:
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+            addDir4((name).replace('..&gt;',''),url3 + url,401,'')
 				
             setView('tvshows', 'Media Info 3')			
     for url,name in match4:
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,404,'')
+            addDir4((name).replace('..&gt;',''),url4 + url,401,'')
 				
             setView('tvshows', 'Media Info 3')			
 
@@ -110,6 +110,7 @@ def Search_Films_Lists():
                 addDir3(name,url,401,iconimage,'','')
 				
                 setView('tvshows', 'Media Info 3')			
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
 def Search_TV_Lists():
 	
