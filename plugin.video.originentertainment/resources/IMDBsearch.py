@@ -12,7 +12,6 @@ def Get_imdb_movie_search():
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_Title = Search_Name.lower()
     search_URL = 'http://www.imdb.com/find?ref_=nv_sr_fn&q=' + (Search_Name).replace(' ','+') + '&s=all'
-    item_Data.append(Search_Name)
     HTML = OPEN_URL(search_URL)
     match = re.compile('<td class=".+?"> <a href="(.+?)" ><img src="(.+?)" /></a> </td> <td class="result_text"> <a href=".+?" >(.+?)</a>.+?</td>',re.DOTALL).findall(HTML)
     for url,img,name in match:
@@ -41,24 +40,24 @@ def Get_imdb_TV_Episode(item_Data,url):
     HTML = OPEN_URL(url)
     match = re.compile('<img width.+?class=".+?" alt=".+?" src="(.+?)">\n<div>(.+?)</div>.+?itemprop="name">(.+?)</a>.+?itemprop="description">\n(.+?)</div>',re.DOTALL).findall(HTML)
     for img,ep,name,desc in match:
-        item_Data.append(ep)
         addDir3(ep + '  :  ' + name,'',111,img,'',desc)
 
        
 		
-	get_Each_Item_PLink(item_Data,ep)
 	
 	setView('tvshows', 'Media Info 3')
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Alluc Part Begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-def find_Alluc_Link(item_Data,ep):
-    search_URL_Cleaned = 'http://www.alluc.ee/stream/' + 'videovill' + '+' + (Search_Name,ep).replace(' ','+') + 'host%3Aallmyvideos.net'
+def find_Alluc_Link(Search_Name):
+    search_URL_Cleaned = 'http://www.alluc.ee/stream/' + (Search_Name).replace(' ','+').replace(',','%2C').replace(' : ','%3A') + 'host%3Aallmyvideos.net'
     HTML = OPEN_URL(search_URL_Cleaned)
+    print '>>>>>>>>SEARCH URL CLEANED>>>>>>>>' + search_URL_Cleaned +'<<<<<<<<<<<<<SEARCH URL CLEANED<<<<<<<<<<<<<<<'
     match = re.compile('<div class="title"><!--<h2>--><a href="(.+?)"   title=".+?" >(.+?)</a>',re.DOTALL).findall(HTML)
     for url,name in match:
-	    addDir4(name,'http://alluc.ee' + url,91,'')#wlist search result
-
+        addDir4(name,'http://alluc.ee' + url,91,'')#wlist search result
+        print '>>>>>>>>>>>>>>>>' + url +'<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+#http://www.alluc.ee/stream/s1%2C+ep1+%3A+the+one+where+monica+gets+a+roommate+host%3Aallmyvideos.net		
 # need that episode to be included in the search mate to bring back
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. Alluc part ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>	
@@ -78,7 +77,7 @@ def OPEN_URL(url):
         response.close()
         return link
 
-def addDir3(name,url,mode,iconimage,fanart,description):
+def addDirPand(name,url,mode,iconimage,fanart,description):
 
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
         ok=True

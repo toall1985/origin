@@ -144,7 +144,25 @@ def Pandoras_Box():
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,url,img,fanart,mode in match:
 			    addList(name,url,mode,ART + 'icon.png')
-				
+
+def Pandora_Menu(url):
+
+        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+        vidlocation=('%s%s'%(BASE,url))
+        link = OPEN_URL(url)
+        match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(link)
+        for url,iconimage,desc,name in match:
+            addDirPand('%s'%(name).replace('Origin Entertainment','Origin Entertainment').replace('.',' ').replace('mp4','').replace('mkv','').replace('_',' '),'%s'%(url),401,'%s'%(iconimage),'',desc)
+
+            setView('tvshows', 'Media Info 3')			
+			
+            xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+
+def setView(content, viewType):
+	if content:
+	    xbmcplugin.setContent(int(sys.argv[1]), content)
+
+			
 def open_Menu(url):
 
     html=OPEN_URL(url)
@@ -837,6 +855,18 @@ def MOVIES_TWO():
     addDir3('Search Movies','',171,ART+'Movies.png')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
+def addDirPand(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
+        if mode==19 :
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        else:
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
 
 
 
@@ -943,7 +973,7 @@ elif mode == 107 	: IMDBsearch.Get_movie(name,url,iconimage)
 elif mode == 108 	: IMDBsearch.Get_imdb_TV_Episode(name,url)
 elif mode == 109 	: M3Uscrape.Get_m3u_links()
 elif mode == 110 	: M3Uscrape.Get_m3u_playlinks(url)
-elif mode == 111 	: IMDBsearch.find_Alluc_Link(name,name)
+elif mode == 111 	: IMDBsearch.find_Alluc_Link(name)
 elif mode == 112 	: M3Uscrape.next_page(url)
 elif mode == 164	: cnfHome()
 elif mode == 165	: CNF_Studio_Indexer.List_Movies(url)
@@ -982,6 +1012,8 @@ elif mode == 422 	: Movie4(url)
 elif mode == 423 	: open_Menu(url)
 elif mode == 424	: build_dialog(url)
 elif mode == 425 	: SoapsCatchup.SOAPPLAYER(name,url)
+elif mode == 426 	: Pandora_Menu(url)
+elif mode == 427 	: addDirPand(name,url,mode,iconimage,fanart,description)
 elif mode == 1000 	: ChangeLog()
 elif mode == 1001 	: TV.TESTING()
 
