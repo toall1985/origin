@@ -26,6 +26,7 @@ def Search_Addon_Menu():
 	addDir('Search Pandoras TV','',177,ART + 'search.png',ART + 'background.png','')
 	addDir('Search Films','',178,ART + 'search.png',ART + 'background.png','')
 	addDir('Search Live TV','',179,ART + 'search.png',ART + 'background.png','')
+	addDir('Search TV Shows','',180,ART + 'search.png',ART + 'background.png','')
 
 	
 def Search_Pandoras_Films():
@@ -68,15 +69,24 @@ def Search_Films_Lists():
     url2 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE0Lw=='))
     url3 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEzLw=='))
     url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
-	
+    url6 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy9BbmltYXRpb24v'))
+    url7 = (Decode('aHR0cDovL2NvbnRlbnQubjN0dzNya3MuY29tL01vdmllcy8='))
+
     HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
     HTML3 = OPEN_URL(url3)
     HTML4 = OPEN_URL(url4)	
+    HTML6 = OPEN_URL(url6)	
+    HTML7 = OPEN_URL(url7)	
+	
+	
     match = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
     match2 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML2)
     match3 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML3)
     match4 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML4)
+    match6 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML6)
+    match7 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML7)
+	
     for url,name in match:
         if Search_Name in name.lower():
             addDir4((name).replace('..&gt;',''),url1 + url,401,'')
@@ -95,6 +105,16 @@ def Search_Films_Lists():
     for url,name in match4:
         if Search_Name in name.lower():
             addDir4((name).replace('..&gt;',''),url4 + url,401,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match6:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),url1 + url,401,'')
+				
+            setView('tvshows', 'Media Info 3')			
+    for url,name in match7:
+        if Search_Name in name.lower():
+            addDir4((name).replace('..&gt;',''),url1 + url,401,'')
 				
             setView('tvshows', 'Media Info 3')			
 
@@ -117,54 +137,48 @@ def Search_TV_Lists():
 	
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
     Search_Title = Search_Name.lower()
-    url = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE1Lw=='))
-    url2 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDE0Lw=='))
-    url3 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEzLw=='))
-    url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
-	
-    HTML = OPEN_URL(url)
+    url1 = (Decode('aHR0cDovL2RsLmZhcnNpbW92aWUubmV0L1NlcmlhbC8='))
+    url2 = (Decode('aHR0cDovL2RsLmZpbG0ybW92aWUuaW5mby9zZXJpYWwv'))
+    url3 = (Decode('aHR0cDovL2RsMi5teTk4bXVzaWMuY29tL0RhdGEvU2VyaWFsLw=='))
+    url4 = BASE + 'tvshowssearch' + CAT
+ 
+    HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
     HTML3 = OPEN_URL(url3)
-    HTML4 = OPEN_URL(url4)	
-    match = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
-    match2 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML2)
-    match3 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML3)
-    match4 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML4)
+    HTML4 = OPEN_URL(url4)
+
+    match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
+    match2 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML2)
+    match3 = re.compile('<tr><td class="n"><a href="(.+?)">(.+?)</a>/</td>').findall(HTML3)
+    match4 = re.compile("addList\('(.+?)','(.+?)',(.+?),'(.+?)'\)").findall(HTML4)
+    match5 = re.compile("addDir\('(.+?)','(.+?)',(.+?),(.+?),(.+?),(.+?)\)").findall(HTML4)
     for url,name in match:
+        print name
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,401,'')
-				
-            setView('tvshows', 'Media Info 3')			
+            addList((name).replace('/',''),url1 + url,402,'')
+
     for url,name in match2:
+        print name
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,401,'')
-				
-            setView('tvshows', 'Media Info 3')			
+            addList((name).replace('/',''),url2 + url,402,'')
+
     for url,name in match3:
+        print name
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,401,'')
-				
-            setView('tvshows', 'Media Info 3')			
-    for url,name in match4:
+            addList((name).replace('/',''),url3 + url,402,'')
+
+    for name,url,mode,img in match4:
         if Search_Name in name.lower():
-            addDir4((name).replace('..&gt;',''),'http://dl.filmiha.com/Movies/2015/' + url,401,'')
-				
-            setView('tvshows', 'Media Info 3')			
-
-    tv_filenames = []
-
+	        addList(name,url,mode,img)
 			
-    for file_Name2 in tv_filenames:
-        search_URL2 = BASE + file_Name2 + CAT
-        HTML5 = OPEN_URL(search_URL2)
-        print search_URL2
-        match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /></a><br><b>(.+?)</b>').findall(HTML5)
-        for url,iconimage,name in match5:
-            if Search_Name in name.lower():
-                addDir3(name,url,401,iconimage,'','')
-				
-                setView('tvshows', 'Media Info 3')			
+    for name,url,mode,iconimage,fanart,description in match5:
+        print name
+        if Search_Name in name.lower():
+            addDir(name,url,mode,iconimage,fanart,description)
+	
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
+ 		
 def Search_LiveTV():
     
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
@@ -261,3 +275,36 @@ def addDir50(name,url,mode,iconimage):
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
+		
+def addList(name,url,mode,iconimage):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+
+def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description = ''):
+    if type != 'folder2' and type != 'addon':
+        if len(iconimage) > 0:
+            iconimage = ART + iconimage
+        else:
+            iconimage = 'DefaultFolder.png'
+    if type == 'addon':
+        if len(iconimage) > 0:
+            iconimage = iconimage
+        else:
+            iconimage = 'http://totalxbmc.tv/addons/cache/images/4c79319887e240789ca125f144d989_addon-dummy.png'
+    if fanart == '':
+        fanart = FANART
+    u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&fanart="+urllib.quote_plus(fanart)+"&video="+urllib.quote_plus(video)+"&description="+urllib.quote_plus(description)
+    ok=True
+    liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+    liz.setProperty( "Fanart_Image", fanart )
+    liz.setProperty( "Build.Video", video )
+    if (type=='folder') or (type=='folder2') or (type=='tutorial_folder') or (type=='news_folder'):
+        ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+    else:
+        ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+    return ok
