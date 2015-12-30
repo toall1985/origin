@@ -215,10 +215,20 @@ def ParseURL(url):
                 pass
             elif 'Playlist 4' in link:
                 pass
+            elif 'American%20Serial' in link:
+                pass
             else:
                 name = link
                 if 'txt' in name:
                     pass
+                if 'WwW' in name:
+                    name = name.replace ('WwW','')	
+                if 'Max' in name:
+                    name = name.replace ('Max', '')
+                if 'Movie' in name:
+                    name = name.replace ('Movie', '')
+                if 'In' in name:
+                    name = name.replace ('In', '')
                 if 'HDTV' in name:
                     name = name.replace ('HDTV', '')
                 if 'XviD-LOL' in name:
