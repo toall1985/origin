@@ -19,15 +19,20 @@ BASE7=base64.decodestring('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv')
 CAT = base64.decodestring('LnBocA==')
 BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
 Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
+ADDON = xbmcaddon.Addon(id=addon_id)
+GetTestPassword = ADDON.getSetting('Password')
+TestURL = Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3QvTmV4dEdlbiUyMFJlcG8vbmV3JTIwZm9sZGVyL2luZGV4LnBocD9tb2RlPVh4WCZwYXNzd29yZD0=')
+TestFinalURL = TestURL + GetTestPassword
 
 def Search_Addon_Menu():
 #	addDir('Search IMDB','',106,ART + 'search.png',ART + 'background.png','')
 #	addDir('Search Pandoras Films','',176,ART + 'search.png',ART + 'background.png','')
 #	addDir('Search Pandoras TV','',177,ART + 'search.png',ART + 'background.png','')
-	addDir('Search Films','',178,ART + 'search.png',ART + 'background.png','')
-	addDir('Search Live TV','',179,ART + 'search.png',ART + 'background.png','')
-	addDir('Search TV Shows','',180,ART + 'search.png',ART + 'background.png','')
-
+    addDir('Search Films','',178,ART + 'search.png',ART + 'background.png','')
+    addDir('Search Live TV','',179,ART + 'search.png',ART + 'background.png','')
+    addDir('Search TV Shows','',180,ART + 'search.png',ART + 'background.png','')
+    if GetTestPassword == Decode('aGlkZGVuZGVwdGhz'):
+        addDir('Search Test',TestFinalURL,181,ART + 'icon.png','','')
 	
 def Search_Pandoras_Films():
     
@@ -128,7 +133,7 @@ def Search_Films_Lists():
         match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /></a><br><b>(.+?)</b>').findall(HTML5)
         for url,iconimage,name in match5:
             if Search_Name in name.lower():
-                addDir3(name + ' - Source 7',url,401,iconimage,'','')
+                addDir3(name + ' - Source Origin',url,401,iconimage,'','')
 				
                 setView('tvshows', 'Media Info 3')			
     
@@ -140,7 +145,7 @@ def Search_Films_Lists():
         match8=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(HTML8)
         for url,iconimage,desc,name in match8:
             if Search_Name in name.lower():
-                addDir3(name + + ' - Source 8',url,401,iconimage,'',desc)
+                addDir3(name + ' - Source Pandoras',url,401,iconimage,'',desc)
 				
                 setView('tvshows', 'Media Info 3')			
 				
@@ -153,7 +158,7 @@ def Search_Films_Lists():
         match9 = re.compile('<li><a href="(.+?)">(.+?)</a></li>').findall(HTML9)
         for url,name in match9:		
             if Search_Name in name.lower():
-                addDir4((name).replace(' [[ Max-Movie.In ]].mkv','') + ' - Source 9',Base_list + file_Name + url,401,'')
+                addDir4((name).replace('Ganool','').replace('WwW','').replace('mkv','').replace('mp4','').replace('.',' ').replace('In','').replace('YIFI','').replace('Ozlem','').replace('ShAaNiG','').replace('[','').replace(']','').replace('Max-Movie','')+ ' - Source 9',Base_list + file_Name + url,401,'')
 
 
 
@@ -201,12 +206,12 @@ def Search_TV_Lists():
 
     for name,url,mode,img in match4:
         if Search_Name in name.lower():
-	        addList(name + ' - Source 5',url,mode,img)
+	        addList(name + ' - Source Origin 1',url,mode,img)
 			
     for name,url,mode,iconimage,fanart,description in match5:
         print name
         if Search_Name in name.lower():
-            addDir(name + ' - Source 6',url,mode,iconimage,fanart,description)
+            addDir(name + ' - Source Origin 2',url,mode,iconimage,fanart,description)
 
     filenames_pand_tv = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -216,7 +221,7 @@ def Search_TV_Lists():
         match6 = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML6)
         for name,url,img,fanart,mode in match6:
             if Search_Name in name.lower():
-                addList(name + ' - Source 7',url,mode,img)
+                addList(name + ' - Source Pandoras',url,mode,img)
 				
                 setView('tvshows', 'Media Info 3')			
 
@@ -237,6 +242,19 @@ def Search_LiveTV():
                 addDir50(name,'',87,Image)
  
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+
+def search_test():	
+
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
+    Search_Title = Search_Name.lower()
+    url = (Decode('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3QvdGltZXIucGhw'))
+    HTML = OPEN_URL(url)
+    match = re.compile('#EXTINF:.+?:(.+?)\nURL = "(.+?)"').findall(HTML)
+    for name,url in match:
+        if Search_Name in name.lower():
+            addDir4(name,url,401,'')
+				
+            setView('tvshows', 'Media Info 3')			
 
  
 def addList(name,url,mode,iconimage):
