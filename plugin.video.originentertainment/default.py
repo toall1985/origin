@@ -152,7 +152,7 @@ def Pandora_Menu(url):
         link = OPEN_URL(url)
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
-            addDirPand(name,url,401,iconimage,background,desc)
+            addDirPand(name,url,400,iconimage,background,desc)
 
             setView('tvshows', 'Media Info 3')			
 			
