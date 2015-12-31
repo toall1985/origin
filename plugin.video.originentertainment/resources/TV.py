@@ -1,3 +1,5 @@
+# -*- coding: cp1252 -*-
+
 import sys
 import urlparse
 import yt
@@ -39,7 +41,7 @@ net = Net()
 
 def TV_Shows():
 	
-	addList('Recent Episodes',BASE+'recentepisodesmove'+CAT,400,ART + 'icon.png')
+	addDir('Recent Episodes','',184,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Animated','',14,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Action','',15,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Childrens','',16,ART + 'icon.png',ART + 'background.jpg','')
@@ -53,8 +55,26 @@ def TV_Shows():
 	addDir('Soaps','',23,ART + 'icon.png',ART + 'background.jpg','')
 	
 	xbmcplugin.endOfDirectory(addon_handle)
-	
 
+# this recent episodes, you prob wont need but i already got one so its both, bottom one dizi	
+	
+def Recent_Episodes_Now():
+
+    addList('Recent Episodes',BASE+'recentepisodesmove'+CAT,400,ART + 'icon.png')
+#    addDir('Recent Episodes Latest','',185,ART + 'search.png',ART + 'background.png','')
+
+    xbmcplugin.endOfDirectory(addon_handle)
+
+#goes to here, so you could just use this bit. which goes to
+	
+def Recent_Scraped():
+
+    html=OPEN_URL(Decode('aHR0cDovL2RpemlsYWIuY29t'))
+    match = re.compile('<li id=".+?">.+?<a href="(.+?)">.+?<img width="40" height="40" src="(.+?)" alt=""/>.+?<span class="title">\n(.+?)</span>.+?<span class="alt-title">\n(.+?)</span>.+?</a>.+?</li>',re.DOTALL).findall(html)
+    for url,img,name,episode in match:
+        addDir3(name + '  -  ' + (episode).replace('sezon','Season').replace('bölüm','Episode'),url,183,img)
+		
+	
 def Childrens_TV():
 	addList('Bing',BASE+'bing'+CAT,400,'http://goo.gl/IHk8Ya')
 	addList('Peppa Pig',BASE4,402,'http://ia.media-imdb.com/images/M/MV5BMTgzMTAwNDczMF5BMl5BanBnXkFtZTgwNzUzMzU0MTE@._V1_UY1200_CR135,0,630,1200_AL_.jpg')
