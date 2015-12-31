@@ -173,7 +173,7 @@ def Search_TV_Lists():
     url3 = (Decode('aHR0cDovL2RsMi5teTk4bXVzaWMuY29tL0RhdGEvU2VyaWFsLw=='))
     url4 = BASE + 'tvshowssearch' + CAT
 #    url5 = (Decode('aHR0cDovL2RsLnZpcG1heC1tb3ZpZS5pbi9BbWVyaWNhbiUyMFNlcmlhbC8='))
-#    url6 = (Decode('aHR0cDovL2RpemlsYWIuY29tL2Fyc2l2P2xpbWl0PSZ0dXI9Jm9yZGVyYnk9JnVsa2U9Jm9yZGVyPSZ5aWw9JmRpemlfYWRpPQ==' )) + (Search_Name).replace(' ','+')
+    url6 = (Decode('aHR0cDovL2RpemlsYWIuY29tL2Fyc2l2P2xpbWl0PSZ0dXI9Jm9yZGVyYnk9JnVsa2U9Jm9yZGVyPSZ5aWw9JmRpemlfYWRpPQ==' )) + (Search_Name).replace(' ','+')
 
 	
     HTML = OPEN_URL(url1)
@@ -181,7 +181,7 @@ def Search_TV_Lists():
     HTML3 = OPEN_URL(url3)
     HTML4 = OPEN_URL(url4)
 #    HTML5 = OPEN_URL(url5)
-#    HTML6 = OPEN_URL(url6)
+    HTML6 = OPEN_URL(url6)
 	
     match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
     match2 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML2)
@@ -189,11 +189,11 @@ def Search_TV_Lists():
     match4 = re.compile("addList\('(.+?)','(.+?)',(.+?),'(.+?)'\)").findall(HTML4)
     match5 = re.compile("addDir\('(.+?)','(.+?)',(.+?),(.+?),(.+?),(.+?)\)").findall(HTML4)
 #    match7 = re.compile('<li><a href="(.+?)">(.+?)</a></li>').findall(HTML5)
-#    match8 = re.compile('<a href="(.+?)" class="film-image">\n<img src="(.+?)" alt=""/>\n</a>\n<div class="tss-detail">\n<a class="title" style="" href=".+?">\n<span class="position">.+?</span>\n(.+?)</a>').findall(HTML6)
+    match8 = re.compile('<a href="(.+?)" class="film-image">\n<img src="(.+?)" alt=""/>\n</a>\n<div class="tss-detail">\n<a class="title" style="" href=".+?">\n<span class="position">.+?</span>\n(.+?)</a>').findall(HTML6)
     
-#    for url,img,name in match8:
-#        if Search_Name in name.lower():
-#            addDir50(name + ' - Source - Dizi',url,182,img)
+    for url,img,name in match8:
+        if Search_Name in name.lower():
+            addDir50(name + ' - Source - Dizi',url,182,img)
 
 
 #    for url,name in match7:		

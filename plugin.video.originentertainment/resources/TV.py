@@ -56,12 +56,11 @@ def TV_Shows():
 	
 	xbmcplugin.endOfDirectory(addon_handle)
 
-# this recent episodes, you prob wont need but i already got one so its both, bottom one dizi	
 	
 def Recent_Episodes_Now():
 
     addList('Recent Episodes',BASE+'recentepisodesmove'+CAT,400,ART + 'icon.png')
-#    addDir('Recent Episodes Latest','',185,ART + 'search.png',ART + 'background.png','')
+    addDir('Recent Episodes Latest','',185,ART + 'search.png',ART + 'background.png','')
 
     xbmcplugin.endOfDirectory(addon_handle)
 

@@ -136,6 +136,8 @@ def Football():
 #	addDir4('Premier League Table','',75,ART+'icon.png')
 	addDir3('Replays','',93,ART+'icon.png')
 	
+#elif mode == 423 	: open_Menu(url)
+#elif mode == 426 	: Pandora_Menu(url)
 
 	
 def Pandoras_Box():
@@ -147,8 +149,6 @@ def Pandoras_Box():
 
 def Pandora_Menu(url):
 
-        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
-        vidlocation=('%s%s'%(BASE,url))
         link = OPEN_URL(url)
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
@@ -158,19 +158,20 @@ def Pandora_Menu(url):
 			
             xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
-def setView(content, viewType):
-	if content:
-	    xbmcplugin.setContent(int(sys.argv[1]), content)
-
 			
 def open_Menu(url):
 
     html=OPEN_URL(url)
-    match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
-    for name,url,img,fanart,mode in match:
-			    addList(name,url,mode,img)
+    match = re.compile('<item>\n<title>(.+?)</title>\n<description>(.+?)</description>\n<link>(.+?)</link>\n<thumbnail>(.+?)</thumbnail>\n<fanart>(.+?)</fanart>\n<mode>(.+?)</mode>\n</item>',re.DOTALL).findall(html)
+    for name,desc,url,img,fanart,mode in match:
+            addDirPand2(name,url,mode,img,fanart,desc)
 	
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
+
+def setView(content, viewType):
+	if content:
+	    xbmcplugin.setContent(int(sys.argv[1]), content)
+
 	
     
 def M3u8Lists():
@@ -207,19 +208,7 @@ def addDir(name,url,mode,iconimage,fanart,description):
         
         return ok
 
-def addDirPand(name,url,mode,iconimage,fanart,description): 
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        if mode== 400:
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        else:
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-        
-        return ok		
- 
+
 def addDir3(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
@@ -625,29 +614,11 @@ def addMenu(url):
 
     
                 
-def Resolve(name, url): 
+def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
     try: play.play(url)
     except: pass
-    from urlresolver import common
-    dp = xbmcgui.DialogProgress()
-    dp.create('LOADING','Opening %s Now'%(name))
-    play=xbmc.Player(GetPlayerCore())
-    url=urlresolver.HostedMediaFile(url).resolve()
-    if dp.iscanceled(): 
-        print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
-        dialog = xbmcgui.Dialog()
-        if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
-            dialog.ok("Message Send", "Your Message Has Been Sent")
-        else:
-             return
-    else:
-        try: play.play(url)
-        except: pass
-        try: ADDON.resolve_url(url) 
-        except: pass 
-        dp.close()
 
 def addSearch():
     searchStr = ''
@@ -874,11 +845,16 @@ def addDirPand(name,url,mode,iconimage,fanart,description):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        if mode==19 :
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-        else:
-            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
+
+def addDirPand2(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
 
@@ -1010,7 +986,7 @@ elif mode == 182 	: search_addon.Get_Episode(url)
 elif mode == 183 	: search_addon.Play_link(url)
 elif mode == 184 	: TV.Recent_Episodes_Now()
 elif mode == 185 	: TV.Recent_Scraped()
-elif mode == 401    : Resolve(name, url)
+elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
 elif mode == 403    : Live2(url)
