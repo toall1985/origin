@@ -135,9 +135,13 @@ def Football():
 	addList('Fixtures','',58,ART + 'icon.png')
 #	addDir4('Premier League Table','',75,ART+'icon.png')
 	addDir3('Replays','',93,ART+'icon.png')
+
+############################################################### PANDORAS SECTION ######################################################################################################
+
 	
 #elif mode == 423 	: open_Menu(url)
 #elif mode == 426 	: Pandora_Menu(url)
+
 
 	
 def Pandoras_Box():
@@ -145,14 +149,16 @@ def Pandoras_Box():
     html=OPEN_URL(Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9zcG9uZ2VtYWluLnBocA=='))
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,desc,url,img,fanart,mode in match:
-            addDirPand(name,url,mode,img,fanart,desc)
+            addDirPand2(name,url,mode,img,fanart,desc)
 
 def Pandora_Menu(url):
-
+        
+        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
+        vidlocation=('%s%s'%(BASE,url))
         link = OPEN_URL(url)
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
-            addDirPand(name,url,400,iconimage,background,desc)
+            addDirPand(name,url,401,iconimage,background,desc)
 
             setView('tvshows', 'Media Info 3')			
 			
@@ -168,6 +174,27 @@ def open_Menu(url):
 	
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 
+def addDirPand(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
+
+def addDirPand2(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+	
+	
+############################################################### PANDORAS SECTION ######################################################################################################	
+	
 def setView(content, viewType):
 	if content:
 	    xbmcplugin.setContent(int(sys.argv[1]), content)
@@ -619,7 +646,32 @@ def Resolve(url):
     import urlresolver
     try: play.play(url)
     except: pass
+    from urlresolver import common
+    dp = xbmcgui.DialogProgress()
+    dp.create('LOADING','Opening %s Now'%(name))
+    play=xbmc.Player(GetPlayerCore())
+    url=urlresolver.HostedMediaFile(url).resolve() 
+    if dp.iscanceled(): 
+        print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
+            dialog.ok("Message Send", "Your Message Has Been Sent")
+        else:
+	         return
+    else:
+        try: play.play(url)
+        except: pass
+        try: ADDON.resolve_url(url) 
+        except: pass 
+        dp.close()
 
+def ResolveTwo(url): 
+    play=xbmc.Player(GetPlayerCore())
+    import urlresolver
+    try: play.play(url)
+    except: pass
+		
+		
 def addSearch():
     searchStr = ''
     keyboard = xbmc.Keyboard(searchStr, 'Search')
@@ -839,23 +891,6 @@ def MOVIES_TWO():
     addDir3('Search Movies','',171,ART+'Movies.png')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-def addDirPand(name,url,mode,iconimage,fanart,description):
-
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        return ok
-
-def addDirPand2(name,url,mode,iconimage,fanart,description):
-
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-        return ok
 
 
 
@@ -1015,6 +1050,7 @@ elif mode == 425 	: SoapsCatchup.SOAPPLAYER(name,url)
 elif mode == 426 	: Pandora_Menu(url)
 elif mode == 427 	: addDirPand(name,url,mode,iconimage,fanart,description)
 elif mode == 428 	: streams.ParseURL_search(url)
+elif mode == 501 	: ResolveTwo(url)
 elif mode == 1000 	: ChangeLog()
 elif mode == 1001 	: TV.TESTING()
 
