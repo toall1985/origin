@@ -30,7 +30,7 @@ import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup,documentary
-from resources import IMDBsearch,M3Uscrape, search_addon
+from resources import IMDBsearch,M3Uscrape, search_addon, SEO_INFO
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
@@ -96,6 +96,7 @@ def Home_Menu():
     addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
     addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')	
     addDir('Search','',175,ART + 'search.png',ART + 'background.png','')
+    addDir('Seo Guides','',186,ART + 'icon.png', ART + 'background.png','')
     addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
     addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
@@ -168,7 +169,7 @@ def Pandora_Menu(url):
 def open_Menu(url):
 
     html=OPEN_URL(url)
-    match = re.compile('<item>\n<title>(.+?)</title>\n<description>(.+?)</description>\n<link>(.+?)</link>\n<thumbnail>(.+?)</thumbnail>\n<fanart>(.+?)</fanart>\n<mode>(.+?)</mode>\n</item>',re.DOTALL).findall(html)
+    match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,desc,url,img,fanart,mode in match:
             addDirPand2(name,url,mode,img,fanart,desc)
 	
@@ -1021,6 +1022,11 @@ elif mode == 182 	: search_addon.Get_Episode(url)
 elif mode == 183 	: search_addon.Play_link(url)
 elif mode == 184 	: TV.Recent_Episodes_Now()
 elif mode == 185 	: TV.Recent_Scraped()
+elif mode == 186 	: SEO_INFO.Get_Group()
+elif mode == 187 	: SEO_INFO.Get_Page(url)
+elif mode == 188 	: SEO_INFO.Get_Info(url)
+elif mode == 189 	: SEO_INFO.Install_Addon(url,name)
+elif mode == 190 	: SEO_INFO.Get_Download_File(url)
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
