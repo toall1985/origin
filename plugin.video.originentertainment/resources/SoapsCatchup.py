@@ -119,3 +119,4 @@ def SOAPPLAYER(name,url):
         liz.setPath(stream_url)
         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
 
+#ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=str(url),listitem=liz)

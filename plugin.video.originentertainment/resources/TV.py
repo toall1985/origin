@@ -31,7 +31,7 @@ PATH = "Origin Entertainment"
 VERSION = "1.0.1"
 ADDON = xbmcaddon.Addon(id=addon_id)
 GetTVPassword = ADDON.getSetting('Password')
-TVURL = Decode('http://seedurgreed.x10host.com/origin/TV/index.php?mode=TV&password=')
+TVURL = Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi9UVi9pbmRleC5waHA/bW9kZT1UViZwYXNzd29yZD0=')
 TVFinalURL = TVURL + GetTVPassword
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART 		=  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
@@ -362,8 +362,8 @@ def Live_TV():
 #	addList('Freeview',BASE+'livetvtest'+CAT,400,ART + 'icon.png')
 	addList('Alt Tv List',BASE+'alttv'+CAT,400,ART + 'icon.png')
 #	addList('Sports',BASE+'livesports'+CAT,400,ART + 'icon.png')
-	addDir('Full List','',88,ART + 'icon.png',ART + 'background.jpg','')
-#	addDir('TESTING','',1001,ART + 'icon.png',ART + 'background.jpg','')
+#	addDir('Full List','',88,ART + 'icon.png',ART + 'background.jpg','')
+#	addDir('TESTING New','',191,ART + 'icon.png',ART + 'background.jpg','')
 	
 #	addList('World News','',66,ART + 'icon.png')
 
@@ -502,6 +502,38 @@ def LiveTVFullCat():
 	addDir3('Religious','',86,ART + 'livetv.png')
 	addDir3('USA Channels','',86,ART + 'livetv.png')
 	addDir3('Other','',86,ART + 'livetv.png')
+
+
+def get_Country():
+    HTML = OPEN_URL(Decode('aHR0cDovL3d3dy5zdHJlYW0yd2F0Y2guY28vbGl2ZS10dg=='))
+    match = re.compile('<a href="(.+?)">.+?<img src="(.+?)" alt=".+?"/>.+?<span class="country_name">(.+?)<br />(.+?)</span>',re.DOTALL).findall(HTML)
+    for url,img,name,name2 in match:
+        addDir3((name+'[COLORred]'+name2+'[/COLOR]'),url,192,img)
+
+def get_Channel(url):
+    HTML = OPEN_URL(url)
+    match = re.compile('<a class="front_channel_href" href="(.+?)" title=".+?">.+?<img class="front_channel_thumb" src="(.+?)" alt=".+?"/>.+?<span class="front_channel_name">(.+?)</span>',re.DOTALL).findall(HTML)
+    for url,img,name in match:
+        addDir3(name,url,193,img)
+
+def get_Part_1_Link(url):
+    HTML = OPEN_URL(url)
+    match = re.compile('a id="code_.+?data-f-href="(.+?)" data-code-embed="">(.+?)</a>',re.DOTALL).findall(HTML)
+    for url,name in match:
+        Get_Playlink(url,name)
+	
+def Get_Playlink(url,name):
+    HTML = OPEN_URL(url)
+    match = re.compile("playStream\('.+?', '(.+?)'\);",re.DOTALL).findall(HTML)
+    for url in match:
+        print url
+        addDir4(name,url,401,'')
+    match2 = re.compile('<iframe width="650" height="480" src="(.+?)" frameborder="0" allowfullscreen> </iframe>').findall(HTML)
+    for url in match2:
+        addDir4(name,url,401,'')
+
+
+
 	
 		
 def List_LiveTVFull(Cat_Name):

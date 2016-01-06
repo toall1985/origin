@@ -1,7 +1,7 @@
 import sys
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
 import urlresolver
-from resources import downloader
+from resources import downloader, extract
 addon_id='plugin.video.originentertainment'
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
@@ -29,9 +29,12 @@ def Get_Page(url):
         
 def Get_Info(url):
     HTML = OPEN_URL(url)
+    match4 = re.compile('<p>(.+?)<a href="(.+?)"><strong>(.+?)</strong></a>').findall(HTML)
+    for name,url,name2 in match4:
+        addDir3(name + ' ' + name2,'https://seo-michael.co.uk' + url,188,'')
     match3 = re.compile('<li>(.+?)<a href="(.+?)" rel="nofollow" target="_blank"><strong>(.+?)</strong></a>(.+?)</li>').findall(HTML)
     for name1,url,name2,name3 in match3:
-        addDir4('[COLORred]PRESS HERE TO DOWNLOAD ZIP[/COLOR]' + name1 + ' ' + name2 + ' ' + name3,url,190,'')
+        addDir4('[COLORred]PRESS HERE TO INSTALL ADDON[/COLOR]',url,190,'')
         name = name1
     else:
 		match = re.compile('<p>(.+?)</p>').findall(HTML)
@@ -53,21 +56,25 @@ def Get_Info(url):
 
 def Get_Download_File(url):
     HTML = OPEN_URL(url)
+    print 'THIS IS URL========' + url
     url2 = (url).replace('file.html','')
+    print 'THIS IS URL2========' + url2
     match = re.compile('var n = (.+?) +').findall(HTML)	
     for var in match:
-        print '<<<<<<<<<<<<' + var
-        A = var
-        print '<<<<<<<<<<<<' + A
+        print 'THIS IS VAR========' + var
+        A = int(var)
         B = 1
-        varchange = var + B
-        print '<<<<<<<<<<<' + varchange		
+        varchange = (A + B)
+        print varchange		
         matchname = re.compile('<title>(.+?)</title>').findall(HTML)
         for name in matchname:
-			url = url2 + varchange + '/' + name
-			print '>>>>>>>>>>>>>>>>' + url
-			addDir4(name,url,189,'')
-#Zippyshare.com - 	
+			url = url2 + (str(varchange)) + '/' + (name).replace('Zippyshare.com - ','')
+			urlfull = 'http://www31.zippyshare.com/d/N3GHU1hH/668382/plugin.video.SportsDevil-2016-01-02.zip'
+			print 'THIS IS URLFULL ======== ' + urlfull
+			print 'THIS IS NAME ======== ' + (name).replace('Zippyshare.com - ','')
+			Install_Addon(urlfull,(name).replace('Zippyshare.com - ',''))
+			print 'THIS IS URL FULL AFTER ======== ' + urlfull
+	
 	
 def addDir3(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
@@ -111,7 +118,7 @@ def setView(content, viewType):
 def Install_Addon(url,name):
     path = xbmc.translatePath(os.path.join('special://home/addons','packages'))
     dp = xbmcgui.DialogProgress()
-    dp.create("Origin Downloader","Downloading Content",'', 'Please Wait')
+    dp.create("ADDON INSTALLING","Downloading Content",'', 'Please Wait')
     lib=os.path.join(path, name+'.zip')
     try:
        os.remove(lib)

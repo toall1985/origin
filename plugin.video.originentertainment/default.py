@@ -172,7 +172,10 @@ def open_Menu(url):
     match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
     for name,desc,url,img,fanart,mode in match:
             addDirPand2(name,url,mode,img,fanart,desc)
-	
+
+    setView('tvshows', 'Media Info 3')			
+
+			
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
 
 def addDirPand(name,url,mode,iconimage,fanart,description):
@@ -181,6 +184,7 @@ def addDirPand(name,url,mode,iconimage,fanart,description):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
 
@@ -190,6 +194,7 @@ def addDirPand2(name,url,mode,iconimage,fanart,description):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 	
@@ -747,10 +752,6 @@ def News_Article(name, url):
         TextBoxes (Heading,Read_Article)
         Write_Paragraph.close()
 
-
-
-
-
 def TextBoxes(heading,announce):
   class TextBox():
     WINDOW=10147
@@ -1027,6 +1028,9 @@ elif mode == 187 	: SEO_INFO.Get_Page(url)
 elif mode == 188 	: SEO_INFO.Get_Info(url)
 elif mode == 189 	: SEO_INFO.Install_Addon(url,name)
 elif mode == 190 	: SEO_INFO.Get_Download_File(url)
+elif mode == 191 	: TV.get_Country()
+elif mode == 192  	: TV.get_Channel(url)
+elif mode == 193 	: TV.get_Part_1_Link(url)
 elif mode == 401    : Resolve(url)
 elif mode == 400    : Live(url)
 elif mode == 402    : streams.ParseURL(url)
