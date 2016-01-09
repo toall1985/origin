@@ -20,29 +20,36 @@ def OPEN_URL(url):
 
 def Get_m3u_links():
     HTML = OPEN_URL('http://bratu-marian.ro/iptv/')
-    match = re.compile('itemprop="image" class="entry-thumb" src="(.+?)".+?"/></a></div>.+?<a itemprop="url" href="(.+?)" rel="bookmark" title=".+?">(.+?)</a></h3>.+?<time  itemprop="dateCreated" class="entry-date updated td-module-date" datetime=".+?" >(.+?)</time>',re.DOTALL).findall(HTML)
-    match2 = re.compile('<a href="(.+?)" ><i class="td-icon-menu-right">').findall(HTML)
-    for img,url,name,date in match:
-        addDir3((date + '-' + name).replace('%#038;',''),url,110,img)
-    for url in match2:
+    match = re.compile('<article class=(.+?)</article>',re.DOTALL).findall(HTML)
+    match2 = re.compile('class="image-link">.+?<img width.+?src="(.+?)" class="image.+?<time datetime=".+?" itemprop="datePublished">(.+?)</time>.+?<h2 itemprop="name"><a href="(.+?)" title=".+?" itemprop="url">(.+?)</a></h2>').findall(str(match))
+    for img,date,url,name in match2:
+        addDir3(date + '   -   ' + (name).replace('&#038;',' & ').replace('_',' '),url,110,img)
+    match3 = re.compile('<a class="next page-numbers" href="(.+?)"><span class="visuallyhidden">Next</span>').findall(HTML)
+    for url in match3:
         addDir3('NEXT',url,112,'')
         print '>>>>>>>>>>>>' + url
 		
 def next_page(url):
     HTML = OPEN_URL(url)
-    match = re.compile('itemprop="image" class="entry-thumb" src="(.+?)".+?"/></a></div>.+?<a itemprop="url" href="(.+?)" rel="bookmark" title=".+?">(.+?)</a></h3>.+?<time  itemprop="dateCreated" class="entry-date updated td-module-date" datetime=".+?" >(.+?)</time>',re.DOTALL).findall(HTML)
-    match2 = re.compile('<a href="(.+?)" ><i class="td-icon-menu-right">').findall(HTML)
-    for img,url,name,date in match:
-        addDir3((date + '-' + name).replace('%#038;',''),url,110,img)
-    for url in match2:
+    match = re.compile('<article class=(.+?)</article>',re.DOTALL).findall(HTML)
+    match2 = re.compile('class="image-link">.+?<img width.+?src="(.+?)" class="image.+?<time datetime=".+?" itemprop="datePublished">(.+?)</time>.+?<h2 itemprop="name"><a href="(.+?)" title=".+?" itemprop="url">(.+?)</a></h2>').findall(str(match))
+    for img,date,url,name in match2:
+        addDir3((date + '   -   ' + name).replace('&#038;',' & ').replace('_',' '),url,110,img)
+    match3 = re.compile('<a class="next page-numbers" href="(.+?)"><span class="visuallyhidden">Next</span>').findall(HTML)
+    for url in match3:
         addDir3('NEXT',url,112,'')
         print '>>>>>>>>>>>>' + url
 		
 def Get_m3u_playlinks(url):
     HTML = OPEN_URL(url)
     match = re.compile('#EXTINF:.+?,(.+?)<br />\n(.+?)<br />').findall(HTML)
+    match2 = re.compile('<p>(.+?)<br />\n(.+?)</p>').findall(HTML)
     for name,url in match:
-		addDir4(name,url,401,ART + 'scraper.png')
+		addDir4((name).replace('&#038;',' & ').replace('_',' '),url,401,ART + 'scraper.png')
+    for name,url in match2:
+		addDir4((name).replace('&#038;',' & ').replace('_',' '),url,401,ART + 'scraper.png')
+		
+		
 		
 def addDir3(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
