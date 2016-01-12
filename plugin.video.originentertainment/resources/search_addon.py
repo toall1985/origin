@@ -18,7 +18,7 @@ BASE5=base64.decodestring('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='
 BASE6=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9PdGhlclRvb25zL1Rhei1NYW5pYS8=')
 BASE7=base64.decodestring('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv')
 CAT = base64.decodestring('LnBocA==')
-BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
+BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzYnVpbGQuY28udWsvdGVzdC8=')
 Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
 ADDON = xbmcaddon.Addon(id=addon_id)
 GetTestPassword = ADDON.getSetting('Password')
@@ -35,37 +35,6 @@ def Search_Addon_Menu():
     if GetTestPassword == Decode('aGlkZGVuZGVwdGhz'):
         addDir('Search Test',TestFinalURL,181,ART + 'icon.png','','')
 	
-def Search_Pandoras_Films():
-    
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
-    Search_Title = Search_Name.lower()
-    filenames = ['mova', 'movb', 'movc', 'movd', 'move', 'movf', 'movg', 'movh', 'movi', 'movj', 'movk', 'movl', 'movm', 'movn', 'movo', 'movp', 'movq', 'movr', 'movs', 'movt', 'movu', 'movv', 'movw', 'movx', 'movy', 'movz']
-
-    for file_Name in filenames:
-        search_URL = Base_Pand + file_Name + CAT
-        HTML = OPEN_URL(search_URL)
-        match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(HTML)
-        for url,iconimage,desc,name in match:
-            if Search_Name in name.lower():
-                addDir3(name,url,501,iconimage,'',desc)
-				
-                setView('tvshows', 'Media Info 3')			
-
-def Search_Pandoras_TV():
-    
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
-    Search_Title = Search_Name.lower()
-    filenames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-    for file_Name in filenames:
-        search_URL = Base_Pand + file_Name + CAT
-        HTML = OPEN_URL(search_URL)
-        match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML)
-        for name,url,img,fanart,mode in match:
-            if Search_Name in name.lower():
-                addList(name,url,mode,img)
-				
-                setView('tvshows', 'Media Info 3')			
 
 def Search_Films_Lists():
   
@@ -188,6 +157,7 @@ def Search_TV_Lists():
     url5 = (Decode('aHR0cDovL2RsLnZpcG1heC1tb3ZpZS5pbi9BbWVyaWNhbiUyMFNlcmlhbC8='))
     url6 = (Decode('aHR0cDovL2RpemlsYWIuY29tL2Fyc2l2P2xpbWl0PSZ0dXI9Jm9yZGVyYnk9JnVsa2U9Jm9yZGVyPSZ5aWw9JmRpemlfYWRpPQ==' )) + (Search_Name).replace(' ','+')
     url7 = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbg=='))
+    url8 = (Decode('aHR0cDovL3R2c2hvd3NhcHAuY29tL2ZlZWRzLw=='))
 	
     HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
@@ -196,6 +166,7 @@ def Search_TV_Lists():
     HTML5 = OPEN_URL(url5)
     HTML6 = OPEN_URL(url6)
     HTML7 = OPEN_URL(url7)
+    HTML8 = OPEN_URL(url8)
 
     if HTML != 'Failed':			
 		match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
@@ -256,6 +227,14 @@ def Search_TV_Lists():
 			
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
+    if HTML8 != 'Failed':			
+		match9 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML8)    
+		for url,name in match9:
+			if Search_Name in name.lower():
+			    addDir50((name).replace('&quot;','').replace('.',' ').replace('xml','') + ' - Source 55555555','http://tvshowsapp.com/feeds/' + url,113,'')
+
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+				
  		
 def Search_LiveTV():
     
@@ -278,13 +257,25 @@ def Get_Episode(url):
     for url,season,episode,name in match:
         addDir50((season).replace('Sezon',' Season ') + (episode).replace('Bölüm',' Episode ') + name,url,183,'')
 
-
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+	
 		
 def Play_link(url):
     html=OPEN_URL(url)
     match = re.compile('file: "(.+?)",.+?label: "(.+?)",',re.DOTALL).findall(html)
     for url,name in match:
         addDir4(name,url,501,'')
+
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+
+		
+def Get_Episode_2(url):
+    HTML = OPEN_URL(url)
+    match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>',re.DOTALL).findall(HTML)
+    for name,url in match:
+       addDir4(name,url,501,'')
+
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 	
 	
 def search_test():	
@@ -424,3 +415,37 @@ def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
     else:
         ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
     return ok
+
+'''	
+def Search_Pandoras_Films():
+    
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
+    Search_Title = Search_Name.lower()
+    filenames = ['mova', 'movb', 'movc', 'movd', 'move', 'movf', 'movg', 'movh', 'movi', 'movj', 'movk', 'movl', 'movm', 'movn', 'movo', 'movp', 'movq', 'movr', 'movs', 'movt', 'movu', 'movv', 'movw', 'movx', 'movy', 'movz']
+
+    for file_Name in filenames:
+        search_URL = Base_Pand + file_Name + CAT
+        HTML = OPEN_URL(search_URL)
+        match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(HTML)
+        for url,iconimage,desc,name in match:
+            if Search_Name in name.lower():
+                addDir3(name,url,501,iconimage,'',desc)
+				
+                setView('tvshows', 'Media Info 3')			
+
+def Search_Pandoras_TV():
+    
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
+    Search_Title = Search_Name.lower()
+    filenames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+    for file_Name in filenames:
+        search_URL = Base_Pand + file_Name + CAT
+        HTML = OPEN_URL(search_URL)
+        match = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML)
+        for name,url,img,fanart,mode in match:
+            if Search_Name in name.lower():
+                addList(name,url,mode,img)
+				
+                setView('tvshows', 'Media Info 3')			
+'''

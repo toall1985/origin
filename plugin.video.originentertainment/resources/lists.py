@@ -29,7 +29,7 @@ BASE5=base64.decodestring('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='
 BASE6=base64.decodestring('aHR0cDovL2dheml6b3ZhLm5ldC9wdWIvU2VyaWFscy9PdGhlclRvb25zL1Rhei1NYW5pYS8=')
 BASE7=base64.decodestring('aHR0cDovL2ljaGkxMzQubmV0MTYubmV0L0lQVFYv')
 CAT = base64.decodestring('LnBocA==')
-BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzLngxMGhvc3QuY29tL2JhY2syYmFzaWNzL3Rlc3Qv')
+BASE = base64.decodestring('aHR0cDovL2JhY2syYmFzaWNzYnVpbGQuY28udWsvdGVzdC8=')
 
 
 def Lists(): 
@@ -37,15 +37,7 @@ def Lists():
 	addList('Lists',BASE+'url'+CAT,405,ART + 'icon.png')
 	addList('My Christmas list - ip blocked dont use',BASE+'christmasfilmmine'+CAT,400,ART + 'icon.png')
 	addList('Childrens Programs - try all links','',406,ART + 'icon.png')
-#	addList('Movie Scraper','',56,ART + 'icon.png')
 
-def TestDizi():
-	
-    html=OPEN_URL('http://dizilab.com')
-    match = re.compile('<li>.+?<a href="(.+?)">.+?<span class="fa fa-angle-right"></span>(.+?)</a>.+?</li>',re.DOTALL).findall(html)
-    for name in match:
-	    addList((name).replace('email me','').replace('External services',''),Decode('aHR0cDovL3d3dy5saXN0ZW5saXZlLmV1LyVz')%url,62,ART + 'icon.png')
-	    print '>>>>>>>>>>>>>>>>>>' + name
 	
 def addList(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)

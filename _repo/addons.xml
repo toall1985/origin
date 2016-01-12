@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
+<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0" provider-name="basics">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">	Back2Basics Wizard</summary>
+    <description lang="en">Easy Update Your Kodi Install, from Basic Builds</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.livestreamer" name="livestreamer" version="1.12.2-blxd2" provider-name="blxd">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -22,7 +36,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="2.0.8" provider-name="Origin">
+<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="2.0.9" provider-name="Origin">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4" />
