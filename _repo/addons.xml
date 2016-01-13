@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.program.basics" name="Back2Basics Wizard" version="1.0.1" provider-name="basics">
+<addon id="plugin.program.originwizard" name="Origin Wizard" version="1.0.1" provider-name="Origin Wizard">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">	Back2Basics Wizard</summary>
-    <description lang="en">Easy Update Your Kodi Install, from Basic Builds</description>
+    <summary lang="en">Origin Wizard</summary>
+	<description>Thanks to whufclee for the original Community Builds code used in this add-on.</description>
     <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.livestreamer" name="livestreamer" version="1.12.2-blxd2" provider-name="blxd">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.xbmcswift2" version="2.4.0"/>
-    <import addon="script.module.requests" version="2.6.0"/>
-    <import addon="script.module.futures" version="2.2.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py" />
-  <extension point="xbmc.service" library="service.py" start="startup"/>
-  <extension point="xbmc.python.module" library="resources/site-packages/livestreamer/src/livestreamer" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary>livestreamer wrapper</summary>
-    <description>Plays videos from sites that are supported by livestreamer</description>
-    <platform>all</platform>
-    <license>Simplified BSD</license>
-    <source>https://github.com/chrippa/livestreamer.git</source>
-    <website>http://livestreamer.io</website>
   </extension>
 </addon>
 
@@ -109,34 +88,6 @@
             <description>Origin Builds Repo</description>
             <platform>all</platform>
     </extension>
-</addon>
-
-<addon id="script.module.livestreamer"
-       name="livestreamer"
-       version="1.12.0"
-       provider-name="Christopher Rosell">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.requests"
-                      version="1.1.0"
-                     optional="false"/>
-    <import addon="script.module.singledispatch"
-                      version="3.4.0.3"
-                     optional="false"/>
-    <import addon="script.module.futures"
-                      version="2.2.0"
-                     optional="false"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib"/>
-  <extension point="xbmc.addon.metadata">
-    <summary>Livestreamer extracts streams from various services</summary>
-    <description>Livestreamer is a command-line utility that pipes video streams from various services into a video player, such as VLC. The main purpose of Livestreamer is to allow the user to avoid buggy and CPU heavy flash plugins but still be able to enjoy various streamed content. There is also an API available for developers who want access to the video stream data.</description>
-    <platform>all</platform>
-    <license>Simplified BSD</license>
-    <source>https://github.com/chrippa/livestreamer.git</source>
-    <website>http://livestreamer.io</website>
-  </extension>
 </addon>
 
 <addon id="script.module.urlresolver"
