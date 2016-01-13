@@ -123,8 +123,8 @@ def Search_Films_Lists():
         search_URL = Base_Pand + file_Name + CAT
         HTML8 = OPEN_URL(search_URL)
         if HTML8 != 'Failed':
-			match8=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /></a><br><b>(.+?)</b>').findall(HTML8)
-			for url,iconimage,desc,name in match8:
+            match8=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML8)
+            for url,iconimage,desc,background,name in match8:
 				if Search_Name in name.lower():
 					addDir3(name + ' - Source Pandoras',url,501,iconimage,'',desc)
 					
@@ -156,7 +156,6 @@ def Search_TV_Lists():
     url4 = BASE + 'tvshowssearch' + CAT
     url5 = (Decode('aHR0cDovL2RsLnZpcG1heC1tb3ZpZS5pbi9BbWVyaWNhbiUyMFNlcmlhbC8='))
     url6 = (Decode('aHR0cDovL2RpemlsYWIuY29tL2Fyc2l2P2xpbWl0PSZ0dXI9Jm9yZGVyYnk9JnVsa2U9Jm9yZGVyPSZ5aWw9JmRpemlfYWRpPQ==' )) + (Search_Name).replace(' ','+')
-    url7 = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbg=='))
     url8 = (Decode('aHR0cDovL3R2c2hvd3NhcHAuY29tL2ZlZWRzLw=='))
 	
     HTML = OPEN_URL(url1)
@@ -165,7 +164,6 @@ def Search_TV_Lists():
     HTML4 = OPEN_URL(url4)
     HTML5 = OPEN_URL(url5)
     HTML6 = OPEN_URL(url6)
-    HTML7 = OPEN_URL(url7)
     HTML8 = OPEN_URL(url8)
 
     if HTML != 'Failed':			
@@ -217,8 +215,8 @@ def Search_TV_Lists():
         search_URL = Base_Pand + file_Name + CAT
         HTML7 = OPEN_URL(search_URL)
         if HTML7 != 'Failed':			
-			match7 = re.compile('<item>.+?<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML6)
-			for name,url,img,fanart,mode in match7:
+            match7 = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML7)
+            for name,desc,url,img,fanart,mode in match7:
 				if Search_Name in name.lower():
 					addList(name + ' - Source Pandoras',url,mode,img)
 					
@@ -231,7 +229,7 @@ def Search_TV_Lists():
 		match9 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML8)    
 		for url,name in match9:
 			if Search_Name in name.lower():
-			    addDir50((name).replace('&quot;','').replace('.',' ').replace('xml','') + ' - Source 55555555','http://tvshowsapp.com/feeds/' + url,113,'')
+			    addDir50((name).replace('&quot;','').replace('.',' ').replace('xml','') + ' - Source 5','http://tvshowsapp.com/feeds/' + url,113,'')
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 				
@@ -416,7 +414,7 @@ def addVID(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
         ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
     return ok
 
-'''	
+	
 def Search_Pandoras_Films():
     
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
@@ -448,4 +446,3 @@ def Search_Pandoras_TV():
                 addList(name,url,mode,img)
 				
                 setView('tvshows', 'Media Info 3')			
-'''
