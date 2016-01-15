@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
+<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Radio Ga Ga</summary>
+	<description lang="en">An addon by origin for Radio</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.program.originwizard" name="Origin Wizard" version="1.0.1" provider-name="Origin Wizard">
   <requires>
 	<import addon="xbmc.python" version="2.1.0"/>
@@ -12,6 +29,40 @@
     <summary lang="en">Origin Wizard</summary>
 	<description>Thanks to whufclee for the original Community Builds code used in this add-on.</description>
     <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.bigkids" name="Big Kids" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Big Kids</summary>
+	<description lang="en">An addon by origin for not so little kids</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.footballrepeat" name="Football Repeat" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Football Repeat</summary>
+	<description lang="en">An addon by origin for Replays</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
   </extension>
 </addon>
 
@@ -30,6 +81,23 @@
   </extension>
   <extension point="xbmc.addon.metadata">
 	<summary lang="en">Origins Entertainment</summary>
+	<description lang="en">An addon by origin for all-round Entertainment</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.pandorasbox" name="Pandoras Box" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Pandoras Box</summary>
 	<description lang="en">An addon by origin for all-round Entertainment</description>
 	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
 	<platform>all</platform>
