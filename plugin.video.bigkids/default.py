@@ -26,7 +26,6 @@ from datetime import datetime
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
 CAT=Decode('LnBocA==')
-Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
 addon_id='plugin.video.bigkids'
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
