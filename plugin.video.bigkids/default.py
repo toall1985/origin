@@ -72,7 +72,7 @@ def LISTS(url):
     for img in match2:
         IMAGE = img
     match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
-    for url in match:
+    for url in match3:
 	    addDirFolder('NEXT PAGE',url,4,IMAGE,FANART,'')
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
     for url,name in match:
