@@ -30,7 +30,7 @@ import requests
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
 from resources import streams,lists,utube,TV,Standup,Films,premierleague,Google,client,CNF_Studio_Indexer,Alluc_Indexer,FootballReplays,SoapsCatchup,documentary
-from resources import IMDBsearch,M3Uscrape, search_addon, SEO_INFO
+from resources import M3Uscrape, search_addon, SEO_INFO
 from resources.lib.parsers import TVParser
 from datetime import datetime
 
