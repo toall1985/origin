@@ -58,6 +58,7 @@ GUISETTINGS  =  os.path.join(USERDATA,'guisettings.xml')
 GUI          =  xbmc.translatePath(os.path.join(USERDATA,'guisettings.xml'))
 GUIFIX       =  xbmc.translatePath(os.path.join(USERDATA,'guifix.xml'))
 INSTALL      =  xbmc.translatePath(os.path.join(USERDATA,'install.xml'))
+IVUE 		 =  xbmc.translatePath(os.path.join('special://home/userdata/addon_data/script.ivueguide/master.db'))
 FAVS         =  xbmc.translatePath(os.path.join(USERDATA + 'favourites.xml'))
 SOURCE       =  xbmc.translatePath(os.path.join(USERDATA,'sources.xml'))
 ADVANCED     =  xbmc.translatePath(os.path.join(USERDATA,'advancedsettings.xml'))
@@ -173,6 +174,8 @@ def Backup_Option():
     extras.addDir('','Backup Just Your Addons','addons','restore_zip','Backup.png','','','Back Up Your Addons')
     extras.addDir('','Backup Just Your Addon UserData','addon_data','restore_zip','Backup.png','','','Back Up Your Addon Userdata')
     extras.addDir('','Backup Guisettings.xml',GUI,'restore_backup','Backup.png','','','Back Up Your guisettings.xml')
+    if os.path.exists(IVUE):
+        extras.addDir('','Backup Ivue Config',IVUE,'restore_backup','Backup.png','','','Back Up Your master.db')	    
     if os.path.exists(GENESIS):
         extras.addDir('','Backup Genesis Favourites',GENESIS,'restore_backup','Backup.png','','','Back Up Your Favourites.db')	    
     if os.path.exists(FAVS):
@@ -556,6 +559,9 @@ def Restore_Option():
 
     if os.path.exists(os.path.join(USB,'guisettings.xml')):
         extras.addDir('','Restore Guisettings.xml',GUI,'restore_backup','Restore.png','','','Restore Your guisettings.xml')
+
+    if os.path.exists(os.path.join(USB,'master.db')):
+        extras.addDir('','Restore Ivue Config',IVUE,'restore_backup','Restore.png','','','Restore Your master.db')
     
     if os.path.exists(os.path.join(USB,'favourites.xml')):
         extras.addDir('','Restore Favourites.xml',FAVS,'restore_backup','Restore.png','','','Restore Your favourites.xml')
