@@ -63,6 +63,7 @@ THUMBNAILS   =  xbmc.translatePath(os.path.join(USERDATA,'Thumbnails'))
 ADDONS       =  xbmc.translatePath(os.path.join('special://home','addons',''))
 CBADDONPATH  =  xbmc.translatePath(os.path.join(ADDONS,AddonID,'default.py'))
 FANART       =  xbmc.translatePath(os.path.join(ADDONS,AddonID,'fanart.jpg'))
+GENESIS 	 =  xbmc.translatePath(os.path.join('special://home/addons/plugin.video.genesis/resources/lib/indexers/navigator.py'))
 GUISETTINGS  =  os.path.join(USERDATA,'guisettings.xml')
 GUI          =  xbmc.translatePath(os.path.join(USERDATA,'guisettings.xml'))
 GUIFIX       =  xbmc.translatePath(os.path.join(USERDATA,'guifix.xml'))
@@ -112,6 +113,7 @@ def Addon_Fixes():
     extras.addDir('','Unhide my add-on passwords','none','unhide_passwords', 'Unhide_Passwords.png','','','')
     extras.addDir('','Update My Add-ons (Force Refresh)', 'none', 'update', 'Update_Addons.png','','','')
     extras.addDir('','Wipe All Add-on Settings (addon_data)','url','remove_addon_data','Delete_Addon_Data.png','','','')
+	
 #-----------------------------------------------------------------------------------------------------------------
 #Backup/Restore root menu
 def Backup_Restore():
@@ -575,7 +577,7 @@ elif mode == 'restore_local_CB'   : communitybuilds.Restore_Local_Community()
 elif mode == 'restore_local_gui'  : communitybuilds.Restore_Local_GUI()
 elif mode == 'restore_option'     : communitybuilds.Restore_Option()
 elif mode == 'restore_zip'        : communitybuilds.Restore_Zip_File(url)         
-elif mode == 'restore_community'  : communitybuilds.Restore_Community(name,url,video,description,skins,guisettingslink)        
+elif mode == 'restore_community'  : communitybuilds.Restore_Community(name,url,video,description,skins,guisettingslink)
 elif mode == 'showinfo'           : communitybuilds.Show_Info(url)
 elif mode == 'SortBy'             : extras.Sort_By(BuildURL,type)
 elif mode == 'text_guide'         : news.Text_Guide(name,url)
@@ -588,4 +590,5 @@ elif mode == 'wipetools'          : Wipe_Tools()
 elif mode == 'xbmcversion'        : extras.XBMC_Version(url)
 elif mode == 'wipe_xbmc'          : Wipe_Kodi()
 elif mode ==  'wizard'            : wizard(name,url,description)
+
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

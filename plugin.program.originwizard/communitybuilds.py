@@ -44,8 +44,8 @@ trcheck      =  ADDON.getSetting('trcheck')
 dialog       =  xbmcgui.Dialog()
 dp           =  xbmcgui.DialogProgress()
 HOME         =  xbmc.translatePath('special://home/')
-USERDATA     =  xbmc.translatePath(os.path.join('special://home/userdata',''))
-MEDIA        =  xbmc.translatePath(os.path.join('special://home/media',''))
+USERDATA     =  xbmc.translatePath(os.path.join('special://home/userdata/',''))
+MEDIA        =  xbmc.translatePath(os.path.join('special://home/media/',''))
 AUTOEXEC     =  xbmc.translatePath(os.path.join(USERDATA,'autoexec.py'))
 AUTOEXECBAK  =  xbmc.translatePath(os.path.join(USERDATA,'autoexec_bak.py'))
 ADDON_DATA   =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
@@ -53,11 +53,12 @@ PLAYLISTS    =  xbmc.translatePath(os.path.join(USERDATA,'playlists'))
 DATABASE     =  xbmc.translatePath(os.path.join(USERDATA,'Database'))
 ADDONS       =  xbmc.translatePath(os.path.join('special://home','addons',''))
 CBADDONPATH  =  xbmc.translatePath(os.path.join(ADDONS,AddonID,'default.py'))
+GENESIS 	 =  xbmc.translatePath(os.path.join('special://home/userdata/addon_data/plugin.video.genesis/favourites.db'))
 GUISETTINGS  =  os.path.join(USERDATA,'guisettings.xml')
 GUI          =  xbmc.translatePath(os.path.join(USERDATA,'guisettings.xml'))
 GUIFIX       =  xbmc.translatePath(os.path.join(USERDATA,'guifix.xml'))
 INSTALL      =  xbmc.translatePath(os.path.join(USERDATA,'install.xml'))
-FAVS         =  xbmc.translatePath(os.path.join(USERDATA,'favourites.xml'))
+FAVS         =  xbmc.translatePath(os.path.join(USERDATA + 'favourites.xml'))
 SOURCE       =  xbmc.translatePath(os.path.join(USERDATA,'sources.xml'))
 ADVANCED     =  xbmc.translatePath(os.path.join(USERDATA,'advancedsettings.xml'))
 PROFILES     =  xbmc.translatePath(os.path.join(USERDATA,'profiles.xml'))
@@ -172,6 +173,8 @@ def Backup_Option():
     extras.addDir('','Backup Just Your Addons','addons','restore_zip','Backup.png','','','Back Up Your Addons')
     extras.addDir('','Backup Just Your Addon UserData','addon_data','restore_zip','Backup.png','','','Back Up Your Addon Userdata')
     extras.addDir('','Backup Guisettings.xml',GUI,'restore_backup','Backup.png','','','Back Up Your guisettings.xml')
+    if os.path.exists(GENESIS):
+        extras.addDir('','Backup Genesis Favourites',GENESIS,'restore_backup','Backup.png','','','Back Up Your Favourites.db')	    
     if os.path.exists(FAVS):
         extras.addDir('','Backup Favourites.xml',FAVS,'restore_backup','Backup.png','','','Back Up Your favourites.xml')
     if os.path.exists(SOURCE):
@@ -552,19 +555,22 @@ def Restore_Option():
         extras.addDir('','Restore Your Addon UserData','addon_data','restore_zip','Restore.png','','','Restore Your Addon UserData')           
 
     if os.path.exists(os.path.join(USB,'guisettings.xml')):
-        extras.addDir('','Restore Guisettings.xml',GUI,'resore_backup','Restore.png','','','Restore Your guisettings.xml')
+        extras.addDir('','Restore Guisettings.xml',GUI,'restore_backup','Restore.png','','','Restore Your guisettings.xml')
     
     if os.path.exists(os.path.join(USB,'favourites.xml')):
-        extras.addDir('','Restore Favourites.xml',FAVS,'resore_backup','Restore.png','','','Restore Your favourites.xml')
+        extras.addDir('','Restore Favourites.xml',FAVS,'restore_backup','Restore.png','','','Restore Your favourites.xml')
+    
+    if os.path.exists(os.path.join(USB,'favourites.db')):
+        extras.addDir('','Restore Genesis Favourites',GENESIS,'restore_backup','Restore.png','','','Restore Your favourites.db')
         
     if os.path.exists(os.path.join(USB,'sources.xml')):
-        extras.addDir('','Restore Source.xml',SOURCE,'resore_backup','Restore.png','','','Restore Your sources.xml')
+        extras.addDir('','Restore Source.xml',SOURCE,'restore_backup','Restore.png','','','Restore Your sources.xml')
         
     if os.path.exists(os.path.join(USB,'advancedsettings.xml')):
-        extras.addDir('','Restore Advancedsettings.xml',ADVANCED,'resore_backup','Restore.png','','','Restore Your advancedsettings.xml')        
+        extras.addDir('','Restore Advancedsettings.xml',ADVANCED,'restore_backup','Restore.png','','','Restore Your advancedsettings.xml')        
 
     if os.path.exists(os.path.join(USB,'keyboard.xml')):
-        extras.addDir('','Restore Advancedsettings.xml',KEYMAPS,'resore_backup','Restore.png','','','Restore Your keyboard.xml')
+        extras.addDir('','Restore Advancedsettings.xml',KEYMAPS,'restore_backup','Restore.png','','','Restore Your keyboard.xml')
         
     if os.path.exists(os.path.join(USB,'RssFeeds.xml')):
         extras.addDir('','Restore RssFeeds.xml',RSS,'resore_backup','Restore.png','','','Restore Your RssFeeds.xml')    
