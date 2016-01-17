@@ -6,61 +6,64 @@ Dialog = xbmcgui.Dialog()
 addon_handle = int(sys.argv[1])
 
 
-#(Search_Name) this bit + ep off Get_imdb_TV_Episode(url) is what results i want from imdb search/ regex's to send through alluc search
-def Get_imdb_movie_search():
-    item_Data = []
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_Title = Search_Name.lower()
-    search_URL = 'http://www.imdb.com/find?ref_=nv_sr_fn&q=' + (Search_Name).replace(' ','+') + '&s=all'
-    HTML = OPEN_URL(search_URL)
-    match = re.compile('<td class=".+?"> <a href="(.+?)" ><img src="(.+?)" /></a> </td> <td class="result_text"> <a href=".+?" >(.+?)</a>.+?</td>',re.DOTALL).findall(HTML)
-    for url,img,name in match:
-        addDir3(name,'http://www.imdb.com' + url,107,(img).replace('UX32_CR0,0,32,44','UY1200_CR89,0,800,1200').replace('UY44_CR0,0,32,44','UY1200_CR126,0,800,1200').replace('UY44_CR11,0,32,44','UY1200_CR435,0,800,1200'),'','')
-    
-	   
-def Get_movie(item_Data,url,iconimage):
-    HTML = OPEN_URL(url)
-    match = re.compile(' <link rel=\'image_src\' href="(.+?)">.+?<meta property=\'og:title\' content="(.+?)" />.+?<meta name="description" content="(.+?)" />',re.DOTALL).findall(HTML)
-    for img,name,desc in match:
-       	addDir3(name,'',111,img,'',desc)
+def class IMDB:
+	def Get_imdb_movie_search():
+		Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+		SEARCH_NAME = Search_Name
+		Search_Title = Search_Name.lower()
+		search_URL = 'http://www.imdb.com/find?ref_=nv_sr_fn&q=' + (Search_Name).replace(' ','+') + '&s=all'
+		HTML = OPEN_URL(search_URL)
+		match = re.compile('<td class=".+?"> <a href="(.+?)" ><img src="(.+?)" /></a> </td> <td class="result_text"> <a href=".+?" >(.+?)</a>.+?</td>',re.DOTALL).findall(HTML)
+		for url,img,name in match:
+			addDir3(name,'http://www.imdb.com' + url,107,(img).replace('UX32_CR0,0,32,44','UY1200_CR89,0,800,1200').replace('UY44_CR0,0,32,44','UY1200_CR126,0,800,1200').replace('UY44_CR11,0,32,44','UY1200_CR435,0,800,1200'),'','')
 		
-	setView('tvshows', 'Media Info 3')
-    else:
-        match2 = re.compile('<a href="/title/(.+?)/episodes.+?season=(.+?)"\n>(.+?)</a>').findall(HTML)
-        for chn,url,name in match2:
-		    addDir3('Season - ' + name,'http://www.imdb.com/title/' + chn + '/episodes?season=' + url,108,img,'','')
-		
-		    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
-		
-		    setView('tvshows', 'List')
-
-    
+		   
+	def Get_movie(SEARCH_NAME,url,iconimage):
+		HTML = OPEN_URL(url)
+		SEARCH_NAME2 = SEARCH_NAME
+		match = re.compile(' <link rel=\'image_src\' href="(.+?)">.+?<meta property=\'og:title\' content="(.+?)" />.+?<meta name="description" content="(.+?)" />',re.DOTALL).findall(HTML)
+		for img,name,desc in match:
+			addDir3(name,'',111,img,'',desc)
 			
-def Get_imdb_TV_Episode(item_Data,url):
-    HTML = OPEN_URL(url)
-    match = re.compile('<img width.+?class=".+?" alt=".+?" src="(.+?)">\n<div>(.+?)</div>.+?itemprop="name">(.+?)</a>.+?itemprop="description">\n(.+?)</div>',re.DOTALL).findall(HTML)
-    for img,ep,name,desc in match:
-        addDir3(ep + '  :  ' + name,'',111,img,'',desc)
+		setView('tvshows', 'Media Info 3')
+		else:
+			match2 = re.compile('<a href="/title/(.+?)/episodes.+?season=(.+?)"\n>(.+?)</a>').findall(HTML)
+			for chn,url,name in match2:
+				addDir3('Season - ' + name,'http://www.imdb.com/title/' + chn + '/episodes?season=' + url,108,img,'','')
+			
+				xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
+			
+				setView('tvshows', 'List')
 
-       
 		
-	
-	setView('tvshows', 'Media Info 3')
+				
+	def Get_imdb_TV_Episode(SEARCH_NAME2,url):
+		SEARCH_NAME3 = SEARCH_NAME2
+		HTML = OPEN_URL(url)
+		match = re.compile('<img width.+?class=".+?" alt=".+?" src="(.+?)">\n<div>(.+?)</div>.+?itemprop="name">(.+?)</a>.+?itemprop="description">\n(.+?)</div>',re.DOTALL).findall(HTML)
+		for img,ep,name,desc in match:
+			EP = ep
+			addDir3(ep + '  :  ' + name,'',111,img,'',desc)
+			Final_Name = (SEARCH_NAME3).replace(' ','+') + '+' + EP
+		   
+			
+		
+		setView('tvshows', 'Media Info 3')
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Alluc Part Begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Alluc Part Begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-def find_Alluc_Link(Search_Name):
-    search_URL_Cleaned = 'http://www.alluc.ee/stream/' + (Search_Name).replace(' ','+').replace(',','%2C').replace(' : ','%3A') + 'host%3Aallmyvideos.net'
-    HTML = OPEN_URL(search_URL_Cleaned)
-    print '>>>>>>>>SEARCH URL CLEANED>>>>>>>>' + search_URL_Cleaned +'<<<<<<<<<<<<<SEARCH URL CLEANED<<<<<<<<<<<<<<<'
-    match = re.compile('<div class="title"><!--<h2>--><a href="(.+?)"   title=".+?" >(.+?)</a>',re.DOTALL).findall(HTML)
-    for url,name in match:
-        addDir4(name,'http://alluc.ee' + url,91,'')#wlist search result
-        print '>>>>>>>>>>>>>>>>' + url +'<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-#http://www.alluc.ee/stream/s1%2C+ep1+%3A+the+one+where+monica+gets+a+roommate+host%3Aallmyvideos.net		
-# need that episode to be included in the search mate to bring back
+	def find_Alluc_Link(Final_Name):
+		search_URL_Cleaned = 'http://www.alluc.ee/stream/' + (Final_Name).replace(' ','+').replace(',','%2C').replace(' : ','%3A') + 'host%3Aallmyvideos.net'
+		HTML = OPEN_URL(search_URL_Cleaned)
+		print '>>>>>>>>SEARCH URL CLEANED>>>>>>>>' + search_URL_Cleaned +'<<<<<<<<<<<<<SEARCH URL CLEANED<<<<<<<<<<<<<<<'
+		match = re.compile('<div class="title"><!--<h2>--><a href="(.+?)"   title=".+?" >(.+?)</a>',re.DOTALL).findall(HTML)
+		for url,name in match:
+			addDir4(name,'http://alluc.ee' + url,91,'')#wlist search result
+			print '>>>>>>>>>>>>>>>>' + url +'<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+	#http://www.alluc.ee/stream/s1%2C+ep1+%3A+the+one+where+monica+gets+a+roommate+host%3Aallmyvideos.net		
+	# need that episode to be included in the search mate to bring back
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. Alluc part ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>	
+	# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.. Alluc part ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>	
 	
 def auto_View(Vmode = ''):
 	xbmc.executebuiltin("Container.SetViewMode(" + Vmode +")")

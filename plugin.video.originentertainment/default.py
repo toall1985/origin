@@ -340,7 +340,7 @@ def Scraper():
     addDir('Site 1 Films','',77,ART + 'scraper.png',ART + 'background.png','')
     addDir('Search Alluc*in testing*','',90,ART + 'scraper.png', ART + 'background.png','')
     addDir('Scraped M3U8 Lists','',109,ART + 'scraper.png', ART + 'background.png','')
-	
+    addDir('IMDB Search','',106,ART + 'scraper.png', ART + 'background.png','')
 #    addDir('Site 2 TV Shows','',81,ART + 'scraper.png',ART + 'background.png','')
 
 
