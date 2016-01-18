@@ -59,8 +59,7 @@ def Search():
             find_URL = re.compile('<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(c)
             for url, name in find_URL:
                 if 'tube' in url:
-                    print url
-                    addDir(comic + '   -   ' + name + 'YOUTUBE',(url).replace('http://www.youtube.com/watch?v=','').replace('" target="_blank',''),9,'http://couchtripper.com/'+img,FANART,'')
+                    pass
                 elif 'stage' in url:
                     addDir(comic + '   -   ' + name,(url).replace('" target="_blank',''),3,'http://couchtripper.com/'+img,FANART,'')
                 elif 'vee' in url:
@@ -74,8 +73,7 @@ def TESTCATS():
 	find_URL = re.compile('<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(c)
         for url, name in find_URL:
             if 'tube' in url:
-                print url
-                addDir(comic + '   -   ' + name + '[COLORred]  ---- Not Working At Present[/COLOR]',(url).replace('http://www.youtube.com/watch?v=','').replace('" target="_blank',''),9,'http://couchtripper.com/'+img,FANART,'')
+                pass
             elif 'stage' in url:
 				addDir(comic + '   -   ' + name,(url).replace('" target="_blank',''),3,'http://couchtripper.com/'+img,FANART,'')
             elif 'vee' in url:

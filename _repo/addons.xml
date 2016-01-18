@@ -66,7 +66,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.1" provider-name="Origin">
+<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.2" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="2.1.2"/>
