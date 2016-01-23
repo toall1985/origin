@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
+<addon id="plugin.audio.kidible" name="Kidible" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Kidible</summary>
+	<description lang="en">An addon by origin for Audio Books</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.audio.kodible" name="Kodible" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Kodible</summary>
+	<description lang="en">An addon by origin for Audio Books</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -32,7 +66,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.2" provider-name="Origin">
+<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="2.1.2"/>
@@ -78,6 +112,23 @@
   <extension point="xbmc.addon.metadata">
 	<summary lang="en">Get up - Stand Up</summary>
 	<description lang="en">An addon by origin for stand up</description>
+	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.littlekids" name="Little Kids" version="1.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Little Kids</summary>
+	<description lang="en">An addon by origin for little and not so little kids</description>
 	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
 	<platform>all</platform>
   </extension>
