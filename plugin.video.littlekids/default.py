@@ -27,7 +27,7 @@ Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
 CAT=Decode('LnBocA==')
 Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
-addon_id='plugin.video.bigkids'
+addon_id='plugin.video.littlekids'
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
@@ -58,15 +58,25 @@ def Search():
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(HTML)
     for url,name in match:
         if Search_Name in name.lower():
-            addDirFolder(name,url,3,IMAGES,FANART,'')
+            if 'Dad!' in name:
+                pass
+            elif 'Family Guy' in name:
+                pass
+            else:
+                addDirFolder(name,url,3,IMAGES,FANART,'')
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
 def TESTCATS():
     html=OPEN_URL(BASE)
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
     for url,name in match:
-        addDirFolder(name,url,3,IMAGES,FANART,'')
-        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+            if 'Dad!' in name:
+                pass
+            elif 'Family Guy' in name:
+                pass
+            else:
+                addDirFolder(name,url,3,IMAGES,FANART,'')
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
     
 def LISTS(url):
     html=OPEN_URL(url)
@@ -90,7 +100,7 @@ def LISTS2(url,IMAGE):
         print name + '     ' + url
         if 'easy' in url:
             LISTS3(url)
-#second available playlink include 'panda'        
+        
 
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);			
 
