@@ -301,17 +301,24 @@ def M3UCATS5():
 #elif mode == 60 	: FootballFixturesChannel()
 
 def FootballFixturesDay():
-    html=OPEN_URL('http://liveonsat.com/quickindex.html')
+    html=OPEN_URL(Decode('aHR0cDovL2xpdmVvbnNhdC5jb20vcXVpY2tpbmRleC5odG1s'))
     match = re.compile('<a target="_self" href="(.+?)".+?src="(.+?)" alt="(.+?)"',re.DOTALL).findall(html)
     for url,img,name in match:
-        addDir3((name).replace('amp;',''),'http://liveonsat.com/%s'%url,59,'http://liveonsat.com/%s'%img)
+        addDir3((name).replace('amp;',''),Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + url,59,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + img)
 		
 def FootballFixturesGame(url):
-    html=OPEN_URL(url)	
-    match = re.compile('time_head>(.+?)</h2>.+?comp_head>(.+?)</span>.+?<div class = fLeft width = "250"><img src="(.+?)"></div>.+?ST: (.+?)</div>',re.DOTALL).findall(html)
-    for date,comp,img,time in match:
-		addDir3(date + ' - ' + comp + ' - ' + time,'',65,'http://liveonsat.com' + img)
+    HTML = OPEN_URL(url)
+    block = re.compile('AndClearL.+?><h2.+?head>(.*?)float',re.DOTALL).findall(HTML)
+    for block in block:
+        day = re.compile('(.*?)</h2>').findall(str(block))
+        for Day in day:
+            Day = Day
+        game = re.compile('comp_head>(.*?)</span>.*?<div class = fLeft width = ".*?"><img src="(.*?)">.*?</div>.*?ST:(.*?)</div>(.+?)<!-- around all of channel types ENDS 2-->',re.DOTALL).findall(str(block))
+        for comp,img,time,chan in game:
+            channel = re.compile(",CAPTION, '(.+?)&nbsp").findall(chan)
+            addDirPand2(Day + ' - ' + comp + ' - ' + time,'',65,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20=') + img,'',(str(channel)))
 
+    setView('tvshows', 'Media Info 3')
 		
 def Guidemenu():
 

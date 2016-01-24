@@ -45,6 +45,31 @@ FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 
 
 def Home_Menu():
+    addDirFolder('Highlights','',3,ART + 'icon.png',FANART,'')
+    addDirFolder('Fixtures','',4,ART + 'icon.png',FANART,'')
+
+def FootballFixturesDay():
+    html=OPEN_URL(Decode('aHR0cDovL2xpdmVvbnNhdC5jb20vcXVpY2tpbmRleC5odG1s'))
+    match = re.compile('<a target="_self" href="(.+?)".+?src="(.+?)" alt="(.+?)"',re.DOTALL).findall(html)
+    for url,img,name in match:
+        addDirFolder((name).replace('amp;',''),Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + url,5,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + img,FANART,'')
+		
+def FootballFixturesGame(url):
+    HTML = OPEN_URL(url)
+    block = re.compile('AndClearL.+?><h2.+?head>(.*?)float',re.DOTALL).findall(HTML)
+    for block in block:
+        day = re.compile('(.*?)</h2>').findall(str(block))
+        for Day in day:
+            Day = Day
+        game = re.compile('comp_head>(.*?)</span>.*?<div class = fLeft width = ".*?"><img src="(.*?)">.*?</div>.*?ST:(.*?)</div>(.+?)<!-- around all of channel types ENDS 2-->',re.DOTALL).findall(str(block))
+        for comp,img,time,chan in game:
+            channel = re.compile(",CAPTION, '(.+?)&nbsp").findall(chan)
+            addDirFolder(Day + ' - ' + comp + ' - ' + time,'',5,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20=') + img,FANART,(str(channel)))
+
+    setView('tvshows', 'Media Info 3')
+
+def Football_Highlights():
+
     addDirFolder('Shows','http://www.fullmatchesandshows.com/category/show/',1,'http://www.fm-base.co.uk/forum/attachments/club-competition-logos/3885-soccer-am-logo-socceram.png',ART + 'fanart.jpg','')
     addDirFolder('Premier League','http://www.fullmatchesandshows.com/premier-league/',1,'https://footballseasons.files.wordpress.com/2013/05/premier-league.png',ART + 'fanart.jpg','')
     addDirFolder('La Liga','http://www.fullmatchesandshows.com/la-liga/',1,'http://1.bp.blogspot.com/-c6kQ40ryhyo/U19cUlz25sI/AAAAAAAABak/qtn5chSFZm0/s1600/la-liga-logo_display_image.png',ART + 'fanart.jpg','')
@@ -233,6 +258,8 @@ def setView(content, viewType):
 if mode == None     : Home_Menu()
 elif mode == 1 		: get_All_Rows(url)
 elif mode == 2 		: Resolve(url)
-
+elif mode == 3 		: Football_Highlights()
+elif mode == 4 		: FootballFixturesDay()
+elif mode == 5 		: FootballFixturesGame(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
