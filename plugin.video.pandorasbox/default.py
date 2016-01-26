@@ -49,9 +49,13 @@ def Home_Menu():
     addDirPand2('Open Pandora\'s Box','',400,ART + 'icon.png',ART + 'fanart.jpg','')
     addDirPand2('Search','',1,ART + 'icon.png',ART + 'fanart.jpg','')
 
+    xbmcplugin.setContent(addon_handle, 'movies')
+	
 def Search_Menu():
 	addDirPand2('Search Pandoras Films','',424,ART + 'icon.png',ART + 'fanart.jpg','')
 	addDirPand2('Search Pandoras TV','',425,ART + 'icon.png',ART + 'fanart.jpg','')
+
+        xbmcplugin.setContent(addon_handle, 'movies')
 
 	
 def Pandoras_Box():
@@ -61,6 +65,9 @@ def Pandoras_Box():
     for name,desc,url,img,fanart,mode in match:
             addDirPand2(name,url,mode,img,fanart,desc)
 
+    xbmcplugin.setContent(addon_handle, 'movies')
+			
+			
 def Pandora_Menu(url):
         
         xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
