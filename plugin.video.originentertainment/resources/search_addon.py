@@ -46,6 +46,7 @@ def Search_Films_Lists():
     url4 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy8yMDEyLw=='))
     url6 = (Decode('aHR0cDovL2RsLmZpbG1paGEuY29tL01vdmllcy9BbmltYXRpb24v'))
     url7 = (Decode('aHR0cDovL2NvbnRlbnQubjN0dzNya3MuY29tL01vdmllcy8='))
+    url8 = (Decode('aHR0cDovL2xldHdhdGNoLnVzLz9vcD1zZWFyY2gmaz0=')) + (Search_Name).replace(' ','+')
 	
     HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
@@ -53,15 +54,21 @@ def Search_Films_Lists():
     HTML4 = OPEN_URL(url4)	
     HTML6 = OPEN_URL(url6)	
     HTML7 = OPEN_URL(url7)	
+    HTML8 = OPEN_URL(url8)
     if HTML != 'Failed':
 		match = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
 		for url,name in match:
 			if Search_Name in name.lower():
-				addDir4((name).replace('..&gt;','') + ' - Source 1',url1 + url,501,'')
+				addDir4((name).replace('..&gt;','') + ' - Source 10',url1 + url,401,'')
 				
 				setView('tvshows', 'Media Info 3')
     else: pass
 
+    if HTML8 != 'Failed':
+        match8 = re.compile('<div class="video_block video_block_default ">.+?<a href="#">.+?<a href="(.*?)".+?<img src="(.+?)" height=".+?" alt="(.+?)"',re.DOTALL).findall(HTML8)
+        for url,img,name in match8:
+            addDir4(name + ' - Source 7',url,501,img)	
+	
     if HTML3 != 'Failed':
 		match3 = re.compile('<td valign="top"><img src=".+?" alt=".+?"></td><td><a href="(.+?)">(.+?)</a></td>').findall(HTML3)
 		for url,name in match3:
@@ -157,6 +164,7 @@ def Search_TV_Lists():
     url5 = (Decode('aHR0cDovL2RsLnZpcG1heC1tb3ZpZS5pbi9BbWVyaWNhbiUyMFNlcmlhbC8='))
     url6 = (Decode('aHR0cDovL2RpemlsYWIuY29tL2Fyc2l2P2xpbWl0PSZ0dXI9Jm9yZGVyYnk9JnVsa2U9Jm9yZGVyPSZ5aWw9JmRpemlfYWRpPQ==' )) + (Search_Name).replace(' ','+')
     url8 = (Decode('aHR0cDovL3R2c2hvd3NhcHAuY29tL2ZlZWRzLw=='))
+    url9 = (Decode('aHR0cDovL2xldHdhdGNoLnVzLz9vcD1zZWFyY2gmaz0=')) + (Search_Name).replace(' ','+')
 	
     HTML = OPEN_URL(url1)
     HTML2 = OPEN_URL(url2)
@@ -165,12 +173,19 @@ def Search_TV_Lists():
     HTML5 = OPEN_URL(url5)
     HTML6 = OPEN_URL(url6)
     HTML8 = OPEN_URL(url8)
-
+    HTML9 = OPEN_URL(url9)
     if HTML != 'Failed':			
 		match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
 		for url,name in match:
 				if Search_Name in name.lower():
 					addList((name).replace('/','') + ' - Source 2',url1 + url,402,'')
+    if HTML9 != 'Failed':
+		match9 = re.compile('<div class="video_block video_block_default ">.+?<a href="#">.+?<a href="(.*?)".+?<img src="(.+?)" height=".+?" alt="(.+?)"',re.DOTALL).findall(HTML9)
+		for url,img,name in match9:
+			if Search_Name in name.lower():
+				addDir4(name + ' - Source 10',url,401,img)
+					
+				setView('tvshows', 'Media Info 3')	
 
     if HTML2 != 'Failed':			
 		match2 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML2)
