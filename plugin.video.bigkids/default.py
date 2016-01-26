@@ -48,6 +48,7 @@ BASE 		= Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=')
 
 def Home_Menu():
 
+    addDirFolder('Classics','',6,IMAGES,FANART,'')	
     addDirFolder('Cartoons','',1,IMAGES,FANART,'')
     addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')
 	
@@ -100,6 +101,37 @@ def LISTS3(url):
     for url in match:
         Resolve(url)
 
+def Classics1():
+    html=OPEN_URL(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8='))
+    match = re.compile('<a href="(.+?)" style="font-size:.8em;">(.+?)</a>').findall(html)
+    for url,name in match:
+			    addDirFolder(name,Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
+
+def Classics2(url):
+    html=OPEN_URL(url)
+    match = re.compile('<a href="(.+?)"><img src="(.+?)"').findall(html)
+    match2 = re.compile('<a href="(.+?)">.+?</a></td></tr></table>').findall(html)
+    for url,img in match:
+        if 'ol.gif' in img:
+            pass
+        elif 'link_block_' in img:
+            pass
+        elif '.png' in img:
+            pass
+        elif 'images/Dinky' in img:
+            pass
+        else:
+			    addDir((img).replace(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS9pbWFnZXMvaWNvbnMv'),'').replace('images/icons/','').replace('.jpg','').replace('_icon','').replace('_',' '),Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,8,img,FANART,'')
+    for url in match2:
+        addDirFolder('NEXT PAGE',Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
+
+def Classics3(url):
+    html=OPEN_URL(url)
+    match = re.compile('<iframe width="640" height="480" src="(.+?)" frameborder="0" allowfullscreen></iframe>').findall(html)
+    for url in match:
+        url2 = (url).replace('http://www.youtube.com/embed/','').replace('?autoplay=0','')
+        print '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'+url2+'>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+        yt.PlayVideo(url2)
 	
 
 def addDir(name,url,mode,iconimage,fanart,description):
@@ -221,5 +253,8 @@ elif mode == 2    	: Search()
 elif mode == 3    	: LISTS(url)
 elif mode == 4    	: LISTS2(url,iconimage)
 elif mode == 5    	: Resolve(url)
+elif mode == 6 		: Classics1()
+elif mode == 7 		: Classics2(url)
+elif mode == 8 		: Classics3(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
