@@ -40,13 +40,13 @@ AddonID    = 'plugin.program.originwizard'
 BASEURL    = 'http://URLHERE.COM'
 ADDON      =  xbmcaddon.Addon(id=AddonID)
 HOME       =  xbmc.translatePath('special://home/')
-ARTPATH    =  'http://shadowcrew.info/twins/Communtiy_Builds/art/' + os.sep
 zip        =  ADDON.getSetting('zip')
 dialog     =  xbmcgui.Dialog()
 dp         =  xbmcgui.DialogProgress()
 USERDATA   =  xbmc.translatePath(os.path.join('special://home/userdata',''))
 ADDON_DATA =  xbmc.translatePath(os.path.join(USERDATA,'addon_data'))
 ADDONS     =  xbmc.translatePath(os.path.join('special://home','addons'))
+ARTPATH    =  os.path.join(ADDONS,AddonID,'resources','art')+os.sep
 USB        =  xbmc.translatePath(os.path.join(zip))
 log_path   =  xbmc.translatePath('special://logpath/')
 skin       =  xbmc.getSkinDir()
@@ -57,6 +57,30 @@ FANART       =  xbmc.translatePath(os.path.join(ADDONS,AddonID,'fanart.jpg'))
 reseller     =  ADDON.getSetting('reseller')
 resellername =  ADDON.getSetting('resellername')
 resellerid   =  ADDON.getSetting('resellerid')
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+#AddDir for adding online images 
+
+def addDirNew(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
+
+def addDirNewFolder(name,url,mode,iconimage,fanart,description):
+
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
+        return ok
+
 #-----------------------------------------------------------------------------------------------------------------    
 #Popup class - thanks to whoever codes the help popup in TVAddons Maintenance for this section. Unfortunately there doesn't appear to be any author details in that code so unable to credit by name.
 class SPLASH(xbmcgui.WindowXMLDialog):
@@ -80,7 +104,27 @@ def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
         if len(iconimage) > 0:
             iconimage = iconimage
         else:
-            iconimage = 'http://totalxbmc.tv/addons/cache/images/4c79319887e240789ca125f144d989_addon-dummy.png'
+            iconimage = ARTPATH + iconimage
+    if type == 'wizard':
+        if len(iconimage)> 0:
+            iconimage = ARTPATH + 'icon.png'
+        else:
+            iconimage = ARTPATH + 'icon.png'
+    if type == 'wizard':
+        if len(fanart)> 0:
+            fanart = ARTPATH + 'fanart.jpg'
+        else:
+            fanart = ARTPATH + 'fanart.jpg'
+    if type == 'wizard2':
+        if len(iconimage)> 0:
+            iconimage = ARTPATH + 'icon.png'
+        else:
+            iconimage = ARTPATH + 'icon.png'
+    if type == 'wizard2':
+        if len(fanart)> 0:
+            fanart = ARTPATH + 'fanart.jpg'
+        else:
+            fanart = ARTPATH + 'fanart.jpg'
     if fanart == '':
         fanart = FANART
     u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&fanart="+urllib.quote_plus(fanart)+"&video="+urllib.quote_plus(video)+"&description="+urllib.quote_plus(description)
@@ -89,7 +133,7 @@ def addDir(type,name,url,mode,iconimage = '',fanart = '',video = '',description 
     liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
     liz.setProperty( "Fanart_Image", fanart )
     liz.setProperty( "Build.Video", video )
-    if (type=='folder') or (type=='folder2') or (type=='tutorial_folder') or (type=='news_folder'):
+    if (type=='folder') or (type=='folder2') or (type=='tutorial_folder') or (type=='news_folder') or (type=='wizard'):
         ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
     else:
         ok=Add_Directory_Item(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
