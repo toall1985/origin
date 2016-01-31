@@ -1,260 +1,260 @@
-'''
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-'''
-
+if 64 - 64: i11iIiiIii
+if 65 - 65: O0 / iIii1I11I1II1 % OoooooooOO - i1IIi
+if 73 - 73: II111iiii
+if 22 - 22: I1IiiI * Oo0Ooo / OoO0O00 . OoOoOO00 . o0oOOo0O0Ooo / I1ii11iIi11i
+if 48 - 48: oO0o / OOooOOo / I11i / Ii1I
+if 48 - 48: iII111i % IiII + I1Ii111 / ooOoO0o * Ii1I
+if 46 - 46: ooOoO0o * I11i - OoooooooOO
+if 30 - 30: o0oOOo0O0Ooo - O0 % o0oOOo0O0Ooo - OoooooooOO * O0 * OoooooooOO
+if 60 - 60: iIii1I11I1II1 / i1IIi * oO0o - I1ii11iIi11i + o0oOOo0O0Ooo
+if 94 - 94: i1IIi % Oo0Ooo
+if 68 - 68: Ii1I / O0
+if 46 - 46: O0 * II111iiii / IiII * Oo0Ooo * iII111i . I11i
+if 62 - 62: i11iIiiIii - II111iiii % I1Ii111 - iIii1I11I1II1 . I1ii11iIi11i . II111iiii
+if 61 - 61: oO0o / OoOoOO00 / iII111i * OoO0O00 . II111iiii
+if 1 - 1: II111iiii - I1ii11iIi11i % i11iIiiIii + IiII . I1Ii111
+if 55 - 55: iIii1I11I1II1 - I1IiiI . Ii1I * IiII * i1IIi / iIii1I11I1II1
 import sys
 import urlparse
-import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
+import urllib , urllib2 , datetime , re , os , base64 , xbmc , xbmcplugin , xbmcgui , xbmcaddon , xbmcvfs , traceback , cookielib , urlparse , httplib , time
 import urlresolver
 import time
-from t0mm0.common.addon import Addon
-from t0mm0.common.net import Net
+from t0mm0 . common . addon import Addon
+from t0mm0 . common . net import Net
 from datetime import datetime
-
-Dialog = xbmcgui.Dialog()
-Decode = base64.decodestring
-CAT=Decode('LnBocA==')
-Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
-addon_id='plugin.video.bigkids'
-base_url = sys.argv[0]
-addon_handle = int(sys.argv[1])
-args = urlparse.parse_qs(sys.argv[2][1:])
-PATH = "Big Kids"
-VERSION = "1.0.1"
-IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
-FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
-ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
-parental = 'true'
-adult_Carttons = ['americandad!','familyguy']
-
-ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
-ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
-FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
-IMAGES 		= ART + 'icon.png'
-BASE 		= Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=')
-
-def Home_Menu():
-
-    addDirFolder('Classics','',6,IMAGES,FANART,'')	
-    addDirFolder('Cartoons','',1,IMAGES,FANART,'')
-    addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')
-	
-def Search():
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_Title = Search_Name.lower()
-    HTML = OPEN_URL(BASE)
-    match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(HTML)
-    for url,name in match:
-        if Search_Name in name.lower():
-            addDirFolder(name,url,3,IMAGES,FANART,'')
-	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
-
-def TESTCATS():
-    html=OPEN_URL(BASE)
-    match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
-    for url,name in match:
-        addDirFolder(name,url,3,IMAGES,FANART,'')
-        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
-    
-def LISTS(url):
-    html=OPEN_URL(url)
-    match2 = re.compile('<img src="(.+?)" id="series_image" width="250" height="370" alt=".+?" />').findall(html)
-    for img in match2:
-        IMAGE = img
-    match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
-    for url in match3:
-	    addDirFolder('NEXT PAGE',url,4,IMAGE,FANART,'')
-    match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
-    for url,name in match:
-        addDir(name,url,4,IMAGE,FANART,'')
-	
-
-    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
-
-def LISTS2(url,IMAGE):
-    html=OPEN_URL(url)
-    match = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html)
-    for name,url in match:
-        print name + '     ' + url
-        if 'easy' in url:
-            LISTS3(url)
-#second available playlink include 'panda'        
-
-	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);			
-
-def LISTS3(url):
-    html=OPEN_URL(url)
-    match = re.compile("url: '(.+?)',").findall(html)
-    for url in match:
-        Resolve(url)
-
-def Classics1():
-    html=OPEN_URL(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8='))
-    match = re.compile('<a href="(.+?)" style="font-size:.8em;">(.+?)</a>').findall(html)
-    for url,name in match:
-			    addDirFolder(name,Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
-
-def Classics2(url):
-    html=OPEN_URL(url)
-    match = re.compile('<a href="(.+?)"><img src="(.+?)"').findall(html)
-    match2 = re.compile('<a href="(.+?)">.+?</a></td></tr></table>').findall(html)
-    for url,img in match:
-        if 'ol.gif' in img:
-            pass
-        elif 'link_block_' in img:
-            pass
-        elif '.png' in img:
-            pass
-        elif 'images/Dinky' in img:
-            pass
-        else:
-			    addDir((img).replace(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS9pbWFnZXMvaWNvbnMv'),'').replace('images/icons/','').replace('.jpg','').replace('_icon','').replace('_',' '),Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,8,img,FANART,'')
-    for url in match2:
-        addDirFolder('NEXT PAGE',Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
-
-def Classics3(url):
-    html=OPEN_URL(url)
-    match = re.compile('<iframe width="640" height="480" src="(.+?)" frameborder="0" allowfullscreen></iframe>').findall(html)
-    for url in match:
-        url2 = (url).replace('http://www.youtube.com/embed/','').replace('?autoplay=0','')
-        print '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'+url2+'>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-        yt.PlayVideo(url2)
-	
-
-def addDir(name,url,mode,iconimage,fanart,description):
-
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        return ok
-
-def addDirFolder(name,url,mode,iconimage,fanart,description):
-
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
-        return ok
-
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True 
-
-		
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-        
-        
-print str(PATH)+': '+str(VERSION)
-print "Mode: "+str(mode)
-print "URL: "+str(url)
-print "Name: "+str(name)
-print "IconImage: "+str(iconimage)
-
-def Resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
-
-def OPEN_URL(url):
-        req = urllib2.Request(url)
-        IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
-        FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-        IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
-        ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
-        response = urllib2.urlopen(req)
-        link=response.read()
-        response.close()
-        return link
-
-def setView(content, viewType):
-	if content:
-	    xbmcplugin.setContent(int(sys.argv[1]), content)
-
-
-if mode == None     : Home_Menu()
-elif mode == 1 		: TESTCATS()
-elif mode == 2    	: Search()
-elif mode == 3    	: LISTS(url)
-elif mode == 4    	: LISTS2(url,iconimage)
-elif mode == 5    	: Resolve(url)
-elif mode == 6 		: Classics1()
-elif mode == 7 		: Classics2(url)
-elif mode == 8 		: Classics3(url)
-
-xbmcplugin.endOfDirectory(int(sys.argv[1]))
+if 79 - 79: oO0o + I1Ii111 . ooOoO0o * IiII % I11i . I1IiiI
+O0o0o00o0Oo0 = xbmcgui . Dialog ( )
+ii11 = base64 . decodestring
+I1I1i1 = ii11 ( 'LnBocA==' )
+IiI1i = ( ii11 ( 'aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8=' ) )
+OOo0o0 = 'plugin.video.bigkids'
+O0OoOoo00o = sys . argv [ 0 ]
+iiiI11 = int ( sys . argv [ 1 ] )
+OOooO = urlparse . parse_qs ( sys . argv [ 2 ] [ 1 : ] )
+OOoO00o = "Big Kids"
+II111iiiiII = "1.0.1"
+oOoOo00oOo = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+Oo = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+o00O00O0O0O = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+OooO0OO = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
+iiiIi = 'true'
+IiIIIiI1I1 = [ 'americandad!' , 'familyguy' ]
+if 86 - 86: i11iIiiIii + Ii1I + ooOoO0o * I11i + o0oOOo0O0Ooo
+oOoO = xbmc . translatePath ( os . path . join ( 'special://home' , 'addons' , '' ) )
+oOo = os . path . join ( oOoO , OOo0o0 , 'resources' , 'art' ) + os . sep
+oOoOoO = xbmc . translatePath ( os . path . join ( oOoO , OOo0o0 , 'fanart.jpg' ) )
+ii1I = oOo + 'icon.png'
+OooO0 = ii11 ( 'aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=' )
+if 35 - 35: OOooOOo % I1Ii111 % i11iIiiIii / OoooooooOO
+def Ii11iI1i ( ) :
+ if 82 - 82: i11iIiiIii . OOooOOo / Oo0Ooo * O0 % oO0o % iIii1I11I1II1
+ Oo00OOOOO ( 'Classics' , '' , 6 , ii1I , oOoOoO , '' )
+ Oo00OOOOO ( 'Cartoons' , '' , 1 , ii1I , oOoOoO , '' )
+ Oo00OOOOO ( 'Search Cartoons' , '' , 2 , ii1I , oOoOoO , '' )
+ if 85 - 85: ooOoO0o . iII111i - OoO0O00 % ooOoO0o % II111iiii
+def OO0o00o ( ) :
+ oOOo0oo = O0o0o00o0Oo0 . input ( 'Search' , type = xbmcgui . INPUT_ALPHANUM )
+ o0oo0o0O00OO = oOOo0oo . lower ( )
+ o0oO = I1i1iii ( OooO0 )
+ i1iiI11I = re . compile ( '<td><a href="(.+?)">(.+)</a></td>' ) . findall ( o0oO )
+ for iiii , oO0o0O0OOOoo0 in i1iiI11I :
+  if oOOo0oo in oO0o0O0OOOoo0 . lower ( ) :
+   Oo00OOOOO ( oO0o0O0OOOoo0 , iiii , 3 , ii1I , oOoOoO , '' )
+  xbmcplugin . addSortMethod ( iiiI11 , xbmcplugin . SORT_METHOD_TITLE ) ;
+  if 48 - 48: O0 + O0 - I1ii11iIi11i . ooOoO0o / iIii1I11I1II1
+def OoOOO00oOO0 ( ) :
+ oOoo = I1i1iii ( OooO0 )
+ i1iiI11I = re . compile ( '<td><a href="(.+?)">(.+)</a></td>' ) . findall ( oOoo )
+ for iiii , oO0o0O0OOOoo0 in i1iiI11I :
+  Oo00OOOOO ( oO0o0O0OOOoo0 , iiii , 3 , ii1I , oOoOoO , '' )
+  xbmcplugin . addSortMethod ( iiiI11 , xbmcplugin . SORT_METHOD_TITLE ) ;
+  if 8 - 8: OoOoOO00
+def o00O ( url ) :
+ oOoo = I1i1iii ( url )
+ OOO0OOO00oo = re . compile ( '<img src="(.+?)" id="series_image" width="250" height="370" alt=".+?" />' ) . findall ( oOoo )
+ for Iii111II in OOO0OOO00oo :
+  iiii11I = Iii111II
+ Ooo0OO0oOO = re . compile ( '<li><a href="(.+?)">Next</a></li>' ) . findall ( oOoo )
+ for url in Ooo0OO0oOO :
+  Oo00OOOOO ( 'NEXT PAGE' , url , 4 , iiii11I , oOoOoO , '' )
+ i1iiI11I = re . compile ( '&nbsp;<a href="(.+?)">(.+?)</a>' ) . findall ( oOoo )
+ for url , oO0o0O0OOOoo0 in i1iiI11I :
+  ii11i1 ( oO0o0O0OOOoo0 , url , 4 , iiii11I , oOoOoO , '' )
+  if 29 - 29: I1ii11iIi11i % I1IiiI + ooOoO0o / o0oOOo0O0Ooo + OOooOOo * o0oOOo0O0Ooo
+  if 42 - 42: Ii1I + oO0o
+ xbmcplugin . addSortMethod ( iiiI11 , xbmcplugin . SORT_METHOD_TITLE ) ;
+ if 76 - 76: I1Ii111 - OoO0O00
+def oOooOOo00Oo0O ( url , IMAGE ) :
+ oOoo = I1i1iii ( url )
+ i1iiI11I = re . compile ( '"playlist">(.+?)</span></div><div><iframe src="(.+?)"' ) . findall ( oOoo )
+ for oO0o0O0OOOoo0 , url in i1iiI11I :
+  print oO0o0O0OOOoo0 + '     ' + url
+  if 'easy' in url :
+   O00oO ( url )
+   #second available playlink include 'panda'        
+   if 39 - 39: IiII - II111iiii * OoO0O00 % o0oOOo0O0Ooo * II111iiii % II111iiii
+  xbmcplugin . addSortMethod ( iiiI11 , xbmcplugin . SORT_METHOD_TITLE ) ;
+  if 59 - 59: iIii1I11I1II1 + I1IiiI - o0oOOo0O0Ooo - I1IiiI + OOooOOo / I1ii11iIi11i
+def O00oO ( url ) :
+ oOoo = I1i1iii ( url )
+ i1iiI11I = re . compile ( "url: '(.+?)'," ) . findall ( oOoo )
+ for url in i1iiI11I :
+  I1 ( url )
+  if 71 - 71: OOooOOo + ooOoO0o % i11iIiiIii + I1ii11iIi11i - IiII
+def oO0OOoO0 ( ) :
+ oOoo = I1i1iii ( ii11 ( 'aHR0cDovL3d3dy50b29uamV0LmNvbS8=' ) )
+ i1iiI11I = re . compile ( '<a href="(.+?)" style="font-size:.8em;">(.+?)</a>' ) . findall ( oOoo )
+ for iiii , oO0o0O0OOOoo0 in i1iiI11I :
+  Oo00OOOOO ( oO0o0O0OOOoo0 , ii11 ( 'aHR0cDovL3d3dy50b29uamV0LmNvbS8=' ) + iiii , 7 , ii1I , oOoOoO , '' )
+  if 34 - 34: IiII - IiII * I1IiiI + Ii1I % IiII
+def i111IiI1I ( url ) :
+ oOoo = I1i1iii ( url )
+ i1iiI11I = re . compile ( '<a href="(.+?)"><img src="(.+?)"' ) . findall ( oOoo )
+ OOO0OOO00oo = re . compile ( '<a href="(.+?)">.+?</a></td></tr></table>' ) . findall ( oOoo )
+ for url , Iii111II in i1iiI11I :
+  if 'ol.gif' in Iii111II :
+   pass
+  elif 'link_block_' in Iii111II :
+   pass
+  elif '.png' in Iii111II :
+   pass
+  elif 'images/Dinky' in Iii111II :
+   pass
+  else :
+   ii11i1 ( ( Iii111II ) . replace ( ii11 ( 'aHR0cDovL3d3dy50b29uamV0LmNvbS9pbWFnZXMvaWNvbnMv' ) , '' ) . replace ( 'images/icons/' , '' ) . replace ( '.jpg' , '' ) . replace ( '_icon' , '' ) . replace ( '_' , ' ' ) , ii11 ( 'aHR0cDovL3d3dy50b29uamV0LmNvbS8=' ) + url , 8 , Iii111II , oOoOoO , '' )
+ for url in OOO0OOO00oo :
+  Oo00OOOOO ( 'NEXT PAGE' , ii11 ( 'aHR0cDovL3d3dy50b29uamV0LmNvbS8=' ) + url , 7 , ii1I , oOoOoO , '' )
+  if 70 - 70: Ii1I . Oo0Ooo / o0oOOo0O0Ooo . Ii1I - O0 / IiII
+def ooOooo000oOO ( url ) :
+ oOoo = I1i1iii ( url )
+ i1iiI11I = re . compile ( '<iframe width="640" height="480" src="(.+?)" frameborder="0" allowfullscreen></iframe>' ) . findall ( oOoo )
+ for url in i1iiI11I :
+  Oo0oOOo = ( url ) . replace ( 'http://www.youtube.com/embed/' , '' ) . replace ( '?autoplay=0' , '' )
+  yt . PlayVideo ( Oo0oOOo )
+  if 58 - 58: II111iiii * OOooOOo * I1ii11iIi11i / OOooOOo
+  if 75 - 75: oO0o
+def ii11i1 ( name , url , mode , iconimage , fanart , description ) :
+ if 50 - 50: Ii1I / Oo0Ooo - oO0o - I11i % iII111i - oO0o
+ OOO0o = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
+ IiI1 = True
+ Oo0O00Oo0o0 = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
+ Oo0O00Oo0o0 . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
+ Oo0O00Oo0o0 . setProperty ( "Fanart_Image" , fanart )
+ IiI1 = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = OOO0o , listitem = Oo0O00Oo0o0 , isFolder = False )
+ return IiI1
+ if 87 - 87: ooOoO0o * Oo0Ooo % i11iIiiIii % OoOoOO00 - OOooOOo
+def Oo00OOOOO ( name , url , mode , iconimage , fanart , description ) :
+ if 68 - 68: I1Ii111 % i1IIi . IiII . I1ii11iIi11i
+ OOO0o = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
+ IiI1 = True
+ Oo0O00Oo0o0 = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
+ Oo0O00Oo0o0 . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
+ Oo0O00Oo0o0 . setProperty ( "Fanart_Image" , fanart )
+ IiI1 = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = OOO0o , listitem = Oo0O00Oo0o0 , isFolder = True )
+ return IiI1
+ if 92 - 92: iII111i . I1Ii111
+def i1i ( ) :
+ try :
+  iiI111I1iIiI = getSet ( "core-player" )
+  if ( iiI111I1iIiI == 'DVDPLAYER' ) : II = xbmc . PLAYER_CORE_DVDPLAYER
+  elif ( iiI111I1iIiI == 'MPLAYER' ) : II = xbmc . PLAYER_CORE_MPLAYER
+  elif ( iiI111I1iIiI == 'PAPLAYER' ) : II = xbmc . PLAYER_CORE_PAPLAYER
+  else : II = xbmc . PLAYER_CORE_AUTO
+ except : II = xbmc . PLAYER_CORE_AUTO
+ return II
+ return True
+ if 45 - 45: O0 * o0oOOo0O0Ooo % Oo0Ooo * OoooooooOO + iII111i . OoOoOO00
+ if 67 - 67: i11iIiiIii - i1IIi % I1ii11iIi11i . O0
+def o0oo ( ) :
+ oooooOoo0ooo = [ ]
+ I1I1IiI1 = sys . argv [ 2 ]
+ if len ( I1I1IiI1 ) >= 2 :
+  III1iII1I1ii = sys . argv [ 2 ]
+  oOOo0 = III1iII1I1ii . replace ( '?' , '' )
+  if ( III1iII1I1ii [ len ( III1iII1I1ii ) - 1 ] == '/' ) :
+   III1iII1I1ii = III1iII1I1ii [ 0 : len ( III1iII1I1ii ) - 2 ]
+  oo00O00oO = oOOo0 . split ( '&' )
+  oooooOoo0ooo = { }
+  for iIiIIIi in range ( len ( oo00O00oO ) ) :
+   ooo00OOOooO = { }
+   ooo00OOOooO = oo00O00oO [ iIiIIIi ] . split ( '=' )
+   if ( len ( ooo00OOOooO ) ) == 2 :
+    oooooOoo0ooo [ ooo00OOOooO [ 0 ] ] = ooo00OOOooO [ 1 ]
+    if 67 - 67: I11i * oO0o * I1ii11iIi11i + OOooOOo / i1IIi
+ return oooooOoo0ooo
+ if 11 - 11: Ii1I + iII111i - ooOoO0o * oO0o % i11iIiiIii - I1Ii111
+III1iII1I1ii = o0oo ( )
+iiii = None
+oO0o0O0OOOoo0 = None
+o0oOIIiIi1iI = None
+i1IiiiI1iI = None
+i1iIi = None
+if 68 - 68: i11iIiiIii % I1ii11iIi11i + i11iIiiIii
+if 31 - 31: II111iiii . I1IiiI
+try :
+ iiii = urllib . unquote_plus ( III1iII1I1ii [ "url" ] )
+except :
+ pass
+try :
+ oO0o0O0OOOoo0 = urllib . unquote_plus ( III1iII1I1ii [ "name" ] )
+except :
+ pass
+try :
+ o0oOIIiIi1iI = urllib . unquote_plus ( III1iII1I1ii [ "iconimage" ] )
+except :
+ pass
+try :
+ i1IiiiI1iI = int ( III1iII1I1ii [ "mode" ] )
+except :
+ pass
+try :
+ II1I = urllib . unquote_plus ( III1iII1I1ii [ "fanart" ] )
+except :
+ pass
+try :
+ i1iIi = urllib . unquote_plus ( III1iII1I1ii [ "description" ] )
+except :
+ pass
+ if 84 - 84: IiII . i11iIiiIii . IiII * I1ii11iIi11i - I11i
+ if 42 - 42: i11iIiiIii
+print str ( OOoO00o ) + ': ' + str ( II111iiiiII )
+print "Mode: " + str ( i1IiiiI1iI )
+print "URL: " + str ( iiii )
+print "Name: " + str ( oO0o0O0OOOoo0 )
+print "IconImage: " + str ( o0oOIIiIi1iI )
+if 33 - 33: iII111i - O0 * i1IIi * o0oOOo0O0Ooo - Oo0Ooo
+def I1 ( url ) :
+ iiIiI = xbmc . Player ( i1i ( ) )
+ import urlresolver
+ try : iiIiI . play ( url )
+ except : pass
+ if 91 - 91: iII111i % i1IIi % iIii1I11I1II1
+def I1i1iii ( url ) :
+ IIi1I11I1II = urllib2 . Request ( url )
+ oOoOo00oOo = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+ Oo = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+ o00O00O0O0O = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+ OooO0OO = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
+ IIi1I11I1II . add_header ( 'User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3' )
+ OooOoooOo = urllib2 . urlopen ( IIi1I11I1II )
+ ii11IIII11I = OooOoooOo . read ( )
+ OooOoooOo . close ( )
+ return ii11IIII11I
+ if 81 - 81: OoOoOO00 / O0 . IiII . I1IiiI
+def OoOO ( content , viewType ) :
+ if content :
+  xbmcplugin . setContent ( int ( sys . argv [ 1 ] ) , content )
+  if 53 - 53: Oo0Ooo
+  if 29 - 29: I1ii11iIi11i + oO0o % O0
+if i1IiiiI1iI == None : Ii11iI1i ( )
+elif i1IiiiI1iI == 1 : OoOOO00oOO0 ( )
+elif i1IiiiI1iI == 2 : OO0o00o ( )
+elif i1IiiiI1iI == 3 : o00O ( iiii )
+elif i1IiiiI1iI == 4 : oOooOOo00Oo0O ( iiii , o0oOIIiIi1iI )
+elif i1IiiiI1iI == 5 : I1 ( iiii )
+elif i1IiiiI1iI == 6 : oO0OOoO0 ( )
+elif i1IiiiI1iI == 7 : i111IiI1I ( iiii )
+elif i1IiiiI1iI == 8 : ooOooo000oOO ( iiii )
+if 10 - 10: I11i / I1Ii111 - I1IiiI * iIii1I11I1II1 - I1IiiI
+xbmcplugin . endOfDirectory ( int ( sys . argv [ 1 ] ) )
+# dd678faae9ac167bc83abf78e5cb2f3f0688d3a3
