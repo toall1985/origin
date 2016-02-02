@@ -649,41 +649,49 @@ def I111i1i1111 ( url , name ) :
    extract . all ( IIiI1i1i , O00Oo0 , iiIIIII1i1iI )
    I1i1iiI1 = xbmcgui . Dialog ( )
    I1i1iiI1 . ok ( "Origin" , "Press ok to finish install" , "[COLOR yellow]Brought To You By Origin[/COLOR]" )
-   if 49 - 49: iii11I111 / IIIii1II1II + O0 * OOOooOooo00O0
-   if 28 - 28: II11i1iIiII1 + i11iIiiIii / i1IiIIIII % I11iii1Ii % OoOo - O0
-   if 54 - 54: i1IIi + iiiIi1i1I
-   if 83 - 83: o0IiIIIiIi11i1 - II11iII + O0O0O
+   IIII1 ( )
+   if 10 - 10: O00Oo000ooO0 / II11i1iIiII1 + i11iIiiIii / Ii1i111I
+def IIII1 ( ) :
+ xbmc . executebuiltin ( 'UpdateLocalAddons' )
+ xbmc . executebuiltin ( 'UpdateAddonRepos' )
+ I1i1iiI1 = xbmcgui . Dialog ( )
+ I1i1iiI1 . ok ( "Origin" , '' , '                                 REFRESH SUCCESSFUL :)' , "                          [COLOR gold]Brought To You By Origin[/COLOR]" )
+ return
+ if 74 - 74: O0O0O + O0 + i1IIi - i1IIi + iiiIi1i1I
+ if 83 - 83: o0IiIIIiIi11i1 - II11iII + O0O0O
+ if 5 - 5: Ii1i111I
+ if 46 - 46: IIiI1I
 iIiiiI1IiI1I1 = xbmcaddon . Addon ( id = 'plugin.program.originwizard' )
 zip = iIiiiI1IiI1I1 . getSetting ( 'zip' )
-iIi1Ii1i1iI = xbmc . translatePath ( os . path . join ( 'special://home/addons/plugin.program.originwizard/Generated/' ) )
-IIiI1 = 'TEST'
-i1iI1 = iIi1Ii1i1iI + IIiI1
+ii1iIi1iIiI1i = xbmc . translatePath ( os . path . join ( 'special://home/addons/plugin.program.originwizard/Generated/' ) )
+iiI1iIii1i = 'TEST'
+OOooO0oo0o00o = ii1iIi1iIiI1i + iiI1iIii1i
 O0O0Oo00 = xbmcgui . Dialog ( )
 o0oO0 = xbmc . translatePath ( 'special://home/' )
 oOOoO0 = xbmc . translatePath ( os . path . join ( zip ) )
 iiIIIII1i1iI = xbmcgui . DialogProgress ( )
-if 1 - 1: i1IIi . i11iIiiIii % O0O0O
-def OooO0oo ( ) :
+if 100 - 100: OOOooOooo00O0
+def I1IiI11 ( ) :
  OOO = xbmc . translatePath ( os . path . join ( zip , 'testCBFolder' ) )
  if not os . path . exists ( zip ) :
   O0O0Oo00 . ok ( '[COLOR=white]Origin[/COLOR]' , 'The download location you have stored does not exist .\nPlease update the addon settings and try again.' , '' , '' )
   iIiiiI1IiI1I1 . openSettings ( sys . argv [ 0 ] )
-  if 89 - 89: Ii1i111I
-  if 76 - 76: II11i1iIiII1
-def IIIiI11ii1I ( url ) :
+  if 9 - 9: Ii1i111I
+  if 59 - 59: II11iII * iiiIi1i1I . O0
+def O000OoOO0 ( url ) :
  iiIIIII1i1iI . create ( "[COLOR=white]Origin[/COLOR]" , "Renaming paths..." , '' , 'Please Wait' )
- for IiiiI , O00OoOO0oo0 , oOO in os . walk ( url ) :
-  for file in oOO :
+ for i1IiIII111i1 , o000ooooo0 , OO0oOOoo in os . walk ( url ) :
+  for file in OO0oOOoo :
    if file . endswith ( ".xml" ) :
     iiIIIII1i1iI . update ( 0 , "Fixing" , file , 'Please Wait' )
-    O0o0OO0000ooo = open ( ( os . path . join ( IiiiI , file ) ) ) . read ( )
-    iIIII1iIIii = O0o0OO0000ooo . replace ( o0oO0 , 'special://home/' )
-    I1IIII1i = open ( ( os . path . join ( IiiiI , file ) ) , mode = 'w' )
-    I1IIII1i . write ( str ( iIIII1iIIii ) )
+    oOOO00o000o = open ( ( os . path . join ( i1IiIII111i1 , file ) ) ) . read ( )
+    iIi11i1 = oOOO00o000o . replace ( o0oO0 , 'special://home/' )
+    I1IIII1i = open ( ( os . path . join ( i1IiIII111i1 , file ) ) , mode = 'w' )
+    I1IIII1i . write ( str ( iIi11i1 ) )
     I1IIII1i . close ( )
-    if 52 - 52: OOOooOooo00O0 % OoOo
-class Oo000ooOOO ( ) :
- if 31 - 31: iIii1I11I1II1 % i1IiIIIII % II11i1iIiII1 . Ii1i111I - i1IiIIIII
+    if 71 - 71: II11i1iIiII1
+class Ooo0o00o0o ( ) :
+ if 7 - 7: O0 - OoOo + o0IiIIIiIi11i1 + iiiIi1i1I + iIii1I11I1II1
  def __init__ ( self , extra_build_name , extra_build_zip , extra_build_image , extra_build_fanart , extra_build_description , build_name , build_zip , build_image , build_fanart , build_description , save_path , txt_file_name , plugin_name , clean_plugin_name , build_url , clean_build_url , py_file_name , addon_file_name , action ) :
   self . build_name = ''
   self . build_zip = ''
@@ -695,7 +703,7 @@ class Oo000ooOOO ( ) :
   self . extra_build_image = ''
   self . extra_build_fanart = ''
   self . extra_build_description = ''
-  self . save_path = i1iI1
+  self . save_path = OOooO0oo0o00o
   self . txt_file_name = 'wizard.txt'
   self . plugin_name = ''
   self . clean_plugin_name = ''
@@ -708,54 +716,54 @@ class Oo000ooOOO ( ) :
   if self . action == 'textFile' :
    self . txt_file_inputs ( )
   else : pass
-  if 17 - 17: Ii1i111I
+  if 58 - 58: OOOooOooo00O0 / IIiI1I . I11iii1Ii / OoooooooOO + O00Oo000ooO0
  def Wizard_Inputs ( self ) :
   self . plugin_name = O0O0Oo00 . input ( '[COLOR red]Input Name of Wizard[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . Wizard_name = self . plugin_name . lower ( )
   self . clean_plugin_name = ( self . Wizard_name ) . replace ( ' ' , '' )
-  if 27 - 27: i11iIiiIii % iiiIi1i1I % i1IiIIIII . O0 - OoOo + I11iii1Ii
+  if 86 - 86: i1IiIIIII * II11iII + i1IiIIIII + iiiIi1i1I
   self . generate_wizard_py ( )
-  if 57 - 57: iIii1I11I1II1 / i1IiIIIII - i1IIi
-  if 51 - 51: IIiI1I
-  if 25 - 25: OoooooooOO + IIiI1I * o0IiIIIiIi11i1
+  if 8 - 8: O00Oo000ooO0 - OoOO00O / II11i1iIiII1
+  if 96 - 96: I11iii1Ii
+  if 29 - 29: o0IiIIIiIi11i1 / i1IIi . II11iII - I11iii1Ii - I11iii1Ii - Ii1i111I
  def txt_file_inputs ( self ) :
-  OooO0oo ( )
+  I1IiI11 ( )
   self . build_name = O0O0Oo00 . input ( '[COLOR red] Input Build Name[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . build_zip = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Zip Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . build_image = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Image Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . build_fanart = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Background Image[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . build_description = O0O0Oo00 . input ( '[COLOR red] Input Builds Description[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   iiIIIII1i1iI . create ( "[COLOR=white]Origin[/COLOR]" , "Creating Text File" , '' , 'Please Wait' )
-  if 92 - 92: II11iII + i1IiIIIII + O0 / OOOooOooo00O0 + O00Oo000ooO0
+  if 20 - 20: i1IIi % iii11I111 . II11iII / IIiI1I * i11iIiiIii * O0O0O
   self . Checker ( )
-  if 18 - 18: II11i1iIiII1 * I11iii1Ii . OoOO00O / o0IiIIIiIi11i1 / i11iIiiIii
+  if 85 - 85: OOOooOooo00O0 . I11iii1Ii / II11i1iIiII1 . O0 % O00Oo000ooO0
  def Checker ( self ) :
-  if 21 - 21: IIIii1II1II / o0IiIIIiIi11i1 + Ii1i111I + OoooooooOO
+  if 90 - 90: OoOo % O0 * iIii1I11I1II1 . OoOO00O
   oO0o00oo0 = OO0O0 ( o0OO00 ( 'aHR0cHM6Ly9hcmNoaXZlLm9yZy9kb3dubG9hZC9QaGVub21lbmFsL2J1aWxkc2VjdXJldXJscy50eHQ=' ) )
   I11I11 = re . compile ( "<url=>(.+?)</url>" ) . findall ( oO0o00oo0 )
   for o000O0O in I11I11 :
-   OoOoI1iI11iIiIi1 = o000O0O
-   o0O0O0ooo0oOO = OO0O0 ( OoOoI1iI11iIiIi1 )
-   oo000 = re . compile ( "<url=>(.+?)</url>" ) . findall ( o0O0O0ooo0oOO )
-   for iiOoO in oo000 :
-    if self . extra_build_zip == iiOoO :
-     Iiiiii111i1ii ( )
-    elif self . build_zip == iiOoO :
-     Iiiiii111i1ii ( )
+   I1iii11 = o000O0O
+   ooo0O = OO0O0 ( I1iii11 )
+   iII1iii = re . compile ( "<url=>(.+?)</url>" ) . findall ( ooo0O )
+   for i11i1iiiII in iII1iii :
+    if self . extra_build_zip == i11i1iiiII :
+     ooOO0oO0oo00o ( )
+    elif self . build_zip == i11i1iiiII :
+     ooOO0oO0oo00o ( )
     else :
      self . generate_wizard_text ( )
-     if 25 - 25: O0O0O - II11i1iIiII1 / i11iIiiIii
+     if 83 - 83: IIIii1II1II - iiiIi1i1I - OoOO00O
  def generate_wizard_text ( self ) :
-  if 41 - 41: i1IIi % OoOO00O + iIii1I11I1II1
-  Ii1IIIIi1ii1I = os . path . join ( iIi1ii1I1 , self . txt_file_name )
-  IiiIiI1Ii1i = open ( Ii1IIIIi1ii1I , "w+" )
-  if 22 - 22: IIiI1I / i11iIiiIii
-  IiiIiI1Ii1i . write ( r'name=<' + self . build_name + '>\n' )
-  IiiIiI1Ii1i . write ( r'url=<' + self . build_zip + '>\n' )
-  IiiIiI1Ii1i . write ( r'img=<' + self . build_image + '>\n' )
-  IiiIiI1Ii1i . write ( r'fanart=<' + self . build_fanart + '>\n' )
-  IiiIiI1Ii1i . write ( r'description=<' + self . build_description + '>\n' )
-  IiiIiI1Ii1i . close ( )
+  if 3 - 3: O00Oo000ooO0
+  i1iiIiI1Ii1i = os . path . join ( iIi1ii1I1 , self . txt_file_name )
+  i1iIi = open ( i1iiIiI1Ii1i , "w+" )
+  if 30 - 30: O0 - iIii1I11I1II1 / OoooooooOO
+  i1iIi . write ( r'name=<' + self . build_name + '>\n' )
+  i1iIi . write ( r'url=<' + self . build_zip + '>\n' )
+  i1iIi . write ( r'img=<' + self . build_image + '>\n' )
+  i1iIi . write ( r'fanart=<' + self . build_fanart + '>\n' )
+  i1iIi . write ( r'description=<' + self . build_description + '>\n' )
+  i1iIi . close ( )
   if self . keepAlive == True :
    II11iIiIIIiI = xbmcgui . Dialog ( ) . yesno ( "Is There Any More Builds?" , 'Would You like to add another build into txt file?' , '' , 'This Will also show in your wizard when generated' , yeslabel = 'Yes' , nolabel = 'No' )
    if II11iIiIIIiI == 1 :
@@ -766,7 +774,7 @@ class Oo000ooOOO ( ) :
     print "Wizard Inputs"
     self . Wizard_Inputs ( )
   else : pass
-  if 62 - 62: iii11I111 / o0IiIIIiIi11i1
+  if 89 - 89: OoOO00O - II11i1iIiII1 % OoOo % OOOooOooo00O0
  def txt_extra_file_inputs ( self ) :
   self . extra_build_name = O0O0Oo00 . input ( '[COLOR red] Input Build Name[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_build_zip = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Zip Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
@@ -775,18 +783,18 @@ class Oo000ooOOO ( ) :
   self . extra_build_description = O0O0Oo00 . input ( '[COLOR red] Input Builds Description[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_generate_wizard_text ( )
   print "Generating Wizard 1"
-  if 7 - 7: OoooooooOO . IIiI1I
+  if 49 - 49: OoOo - II11iII / IIiI1I / O0 % OOOooOooo00O0 * Ii1i111I
  def extra_generate_wizard_text ( self ) :
-  if 53 - 53: Ii1i111I % Ii1i111I * OOOooOooo00O0 + I11iii1Ii
-  Oooo00 = os . path . join ( iIi1ii1I1 , self . txt_file_name )
-  I111iIi1 = open ( Oooo00 , "w+" )
-  if 92 - 92: II11i1iIiII1
-  I111iIi1 . write ( r'name=<' + self . build_name + '>\n' )
-  I111iIi1 . write ( r'url=<' + self . build_zip + '>\n' )
-  I111iIi1 . write ( r'img=<' + self . build_image + '>\n' )
-  I111iIi1 . write ( r'fanart=<' + self . build_fanart + '>\n' )
-  I111iIi1 . write ( r'description=<' + self . build_description + '>\n' )
-  I111iIi1 . close ( )
+  if 100 - 100: O0O0O . OoOO00O / O0 * i1IIi * Ii1i111I * OoOo
+  OO00 = os . path . join ( iIi1ii1I1 , self . txt_file_name )
+  o0OOo00OoO = open ( OO00 , "w+" )
+  if 10 - 10: OOOooOooo00O0 / i11iIiiIii
+  o0OOo00OoO . write ( r'name=<' + self . build_name + '>\n' )
+  o0OOo00OoO . write ( r'url=<' + self . build_zip + '>\n' )
+  o0OOo00OoO . write ( r'img=<' + self . build_image + '>\n' )
+  o0OOo00OoO . write ( r'fanart=<' + self . build_fanart + '>\n' )
+  o0OOo00OoO . write ( r'description=<' + self . build_description + '>\n' )
+  o0OOo00OoO . close ( )
   if self . keepAlive == True :
    II11iIiIIIiI = xbmcgui . Dialog ( ) . yesno ( "Is There Any More Builds?" , 'Would You like to add another build into txt file?' , '' , 'This Will also show in your wizard when generated' , yeslabel = 'Yes' , nolabel = 'No' )
    if II11iIiIIIiI == 1 :
@@ -797,300 +805,300 @@ class Oo000ooOOO ( ) :
     print "Wizard Inputs"
     self . Wizard_Inputs ( )
   else : pass
-  if 22 - 22: OoOo % OoOO00O * o0IiIIIiIi11i1 / O0O0O % i11iIiiIii * i1IiIIIII
+  if 92 - 92: i1IiIIIII . O00Oo000ooO0
  def generate_wizard_py ( self ) :
-  if 95 - 95: OoooooooOO - IIiI1I * II11iII + I11iii1Ii
-  if 10 - 10: OOOooOooo00O0 / i11iIiiIii
-  o00oO = os . path . join ( self . save_path , self . py_file_name )
-  O00O0Ooooo00 = open ( o00oO , "w+" )
-  if 97 - 97: II11i1iIiII1 / O00Oo000ooO0 % i1IIi % o0IiIIIiIi11i1
-  if 18 - 18: iIii1I11I1II1 % i1IiIIIII
-  O00O0Ooooo00 . write ( r'import xbmc, xbmcaddon, xbmcgui, xbmcplugin,os' + '\n' )
-  O00O0Ooooo00 . write ( r'import shutil' + '\n' )
-  O00O0Ooooo00 . write ( r'import urllib2,urllib' + '\n' )
-  O00O0Ooooo00 . write ( r'import re,base64' + '\n' )
-  O00O0Ooooo00 . write ( r'import extract' + '\n' )
-  O00O0Ooooo00 . write ( r'import downloader' + '\n' )
-  O00O0Ooooo00 . write ( r'import time' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r"Decode = base64.decodestring" + "\n" )
-  O00O0Ooooo00 . write ( r"WIPE_ADDON 	 =  xbmc.translatePath(os.path.join('special://home/addons/plugin.program.originwizard/'))" + "\n" )
-  O00O0Ooooo00 . write ( r"ADDONS         =  xbmc.translatePath(os.path.join('special://home/addons/plugin.video." + self . clean_plugin_name + "'))" + "\n" )
-  O00O0Ooooo00 . write ( r"text_file_path = ADDONS + '/resources/text_file/'" + "\n" )
-  O00O0Ooooo00 . write ( r"USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'" + '\n' )
-  O00O0Ooooo00 . write ( r"base='" + self . plugin_name + '\'' + '\n' )
-  O00O0Ooooo00 . write ( r"ADDON=xbmcaddon.Addon(id='plugin.video." + self . clean_plugin_name + '\')' + '\n' )
-  O00O0Ooooo00 . write ( r'Dialog = xbmcgui.Dialog()' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'VERSION = "1.0.0"' + '\n' )
-  O00O0Ooooo00 . write ( r"PATH = '" + self . clean_plugin_name + '\'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def CATEGORIES()' + ':\n' )
-  O00O0Ooooo00 . write ( r"    py_complete_name = os.path.join(text_file_path,'wizard.txt')" + '\n' )
-  O00O0Ooooo00 . write ( r"    print_default_file = open(py_complete_name," r")" + '\n' )
-  O00O0Ooooo00 . write ( r'    file = print_default_file.read()' + '\n' )
-  O00O0Ooooo00 . write ( r"    match = re.compile('name=<(.+?)>.+?url=<(.+?)>.+?img=<(.+?)>.+?fanart=<(.+?)>.+?description=<(.+?)>',re.DOTALL).findall(file)" + "\n" )
-  O00O0Ooooo00 . write ( r'    print_default_file.close()' + '\n' )
-  O00O0Ooooo00 . write ( r'    for name,url,iconimage,fanart,description in match:' + '\n' )
-  O00O0Ooooo00 . write ( r'        NAME = name' + '\n' )
-  O00O0Ooooo00 . write ( r'        URL = url' + '\n' )
-  O00O0Ooooo00 . write ( r"        IMAGE = iconimage" + '\n' )
-  O00O0Ooooo00 . write ( r"        FANART = fanart" + "\n" )
-  O00O0Ooooo00 . write ( r"        DESC = description" + "\n" )
-  O00O0Ooooo00 . write ( r"        HTML = OPEN_URL(Decode('aHR0cHM6Ly9hcmNoaXZlLm9yZy9kb3dubG9hZC9QaGVub21lbmFsL2J1aWxkc2VjdXJldXJscy50eHQ='))" + "\n" )
-  O00O0Ooooo00 . write ( r"        match2 = re.compile('<url=>(.+?)</url>').findall(HTML)" + "\n" )
-  O00O0Ooooo00 . write ( r"        for url2 in match2:" + "\n" )
-  O00O0Ooooo00 . write ( r"            HTML2 = OPEN_URL(str(url2))" + "\n" )
-  O00O0Ooooo00 . write ( r"            match3 = re.compile('<url=>(.+?)</url>').findall(HTML2)" + "\n" )
-  O00O0Ooooo00 . write ( r"            for url3 in match3:" + "\n" )
-  O00O0Ooooo00 . write ( r"                if URL == url3:" + "\n" )
-  O00O0Ooooo00 . write ( r"                    Wipe_Wizard()" + "\n" )
-  O00O0Ooooo00 . write ( r"                elif url3 == 'kill all':" + "\n" )
-  O00O0Ooooo00 . write ( r"                    Wipe_Wizard()" + "\n" )
-  O00O0Ooooo00 . write ( r"        else:" + "\n" )
-  O00O0Ooooo00 . write ( r'            addDir(NAME,URL,1,IMAGE,FANART,DESC)' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def Wipe_Wizard():' + '\n' )
-  O00O0Ooooo00 . write ( r"    Dialog.ok('[COLOR=white]Naughty Naughty[/COLOR]', 'You are the weakest link goodbye', '','')" + "\n" )
-  O00O0Ooooo00 . write ( r"    addon_complete_name = os.path.join(WIPE_ADDON,'default.py')" + "\n" )
-  O00O0Ooooo00 . write ( r'    print_byebye_file = open(addon_complete_name,"w+")' + '\n' )
-  O00O0Ooooo00 . write ( r"    print_byebye_file.write(r'This Build Can NOT be copied')" + "\n" )
-  O00O0Ooooo00 . write ( r'    print_byebye_file.close()' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r"    addons_complete_name = os.path.join(ADDONS,'default.py')" + "\n" )
-  O00O0Ooooo00 . write ( r'    print_byebye_addon_file = open(addons_complete_name,"w+")' + '\n' )
-  O00O0Ooooo00 . write ( r"    print_byebye_addon_file.write(r'This Build Can NOT be copied')" + "\n" )
-  O00O0Ooooo00 . write ( r"    print_byebye_addon_file.close()" + "\n" )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def OPEN_URL(url):' + '\n' )
-  O00O0Ooooo00 . write ( r'    req = urllib2.Request(url)' + '\n' )
-  O00O0Ooooo00 . write ( r"    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')" + '\n' )
-  O00O0Ooooo00 . write ( r'    response = urllib2.urlopen(req)' + '\n' )
-  O00O0Ooooo00 . write ( r'    link=response.read()' + '\n' )
-  O00O0Ooooo00 . write ( r'    response.close()' + '\n' )
-  O00O0Ooooo00 . write ( r'    return link' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def wizard(name,url,description):' + '\n' )
-  O00O0Ooooo00 . write ( r"    path = xbmc.translatePath(os.path.join('special://home/addons','packages'))" + '\n' )
-  O00O0Ooooo00 . write ( r'    dp = xbmcgui.DialogProgress()' + '\n' )
-  O00O0Ooooo00 . write ( r'    dp.create("Your Build Is Downloading","This May Take Several Minutes","", "")' + '\n' )
-  O00O0Ooooo00 . write ( r"    lib=os.path.join(path, name+'.zip')" + '\n' )
-  O00O0Ooooo00 . write ( r'    try:' + '\n' )
-  O00O0Ooooo00 . write ( r'       os.remove(lib)' + '\n' )
-  O00O0Ooooo00 . write ( r'    except:' + '\n' )
-  O00O0Ooooo00 . write ( r'       pass' + '\n' )
-  O00O0Ooooo00 . write ( r'    downloader.download(url, lib, dp)' + '\n' )
-  O00O0Ooooo00 . write ( r"    addonfolder = xbmc.translatePath(os.path.join('special://','home'))" + '\n' )
-  O00O0Ooooo00 . write ( r'    time.sleep(2)' + '\n' )
-  O00O0Ooooo00 . write ( r'    dp.update(0,"", "Installing Your Build Please Wait")' + '\n' )
-  O00O0Ooooo00 . write ( r"    print '======================================='" + '\n' )
-  O00O0Ooooo00 . write ( r'    print addonfolder' + '\n' )
-  O00O0Ooooo00 . write ( r"    print '======================================='" + '\n' )
-  O00O0Ooooo00 . write ( r'    extract.all(lib,addonfolder,dp)' + '\n' )
-  O00O0Ooooo00 . write ( r'    dialog = xbmcgui.Dialog()' + '\n' )
-  O00O0Ooooo00 . write ( r'    dialog.ok("Your Media Centre", "[COLORred]Please Force Close Kodi To Take Effect If Pc Exit Task In TaskManager[/COLOR]","[COLORblue]Wizard Brought To You By Origin[/COLOR]")' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def addDir(name,url,mode,iconimage,fanart,description):' + '\n' )
-  O00O0Ooooo00 . write ( r'        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)' + '\n' )
-  O00O0Ooooo00 . write ( r'        ok=True' + '\n' )
-  O00O0Ooooo00 . write ( r'        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)' + '\n' )
-  O00O0Ooooo00 . write ( r'        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )' + '\n' )
-  O00O0Ooooo00 . write ( r'        liz.setProperty( "Fanart_Image", fanart )' + '\n' )
-  O00O0Ooooo00 . write ( r'        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)' + '\n' )
-  O00O0Ooooo00 . write ( r'        return ok' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def get_params():' + '\n' )
-  O00O0Ooooo00 . write ( r'        param=[]' + '\n' )
-  O00O0Ooooo00 . write ( r'        paramstring=sys.argv[2]' + '\n' )
-  O00O0Ooooo00 . write ( r'        if len(paramstring)>=2:' + '\n' )
-  O00O0Ooooo00 . write ( r'                params=sys.argv[2]' + '\n' )
-  O00O0Ooooo00 . write ( r"                cleanedparams=params.replace('?','')" + '\n' )
-  O00O0Ooooo00 . write ( r"                if (params[len(params)-1]=='/'):" + '\n' )
-  O00O0Ooooo00 . write ( r'                        params=params[0:len(params)-2]' + '\n' )
-  O00O0Ooooo00 . write ( r"                pairsofparams=cleanedparams.split('&')" + '\n' )
-  O00O0Ooooo00 . write ( r'                param={}' + '\n' )
-  O00O0Ooooo00 . write ( r'                for i in range(len(pairsofparams)):' + '\n' )
-  O00O0Ooooo00 . write ( r'                        splitparams={}' + '\n' )
-  O00O0Ooooo00 . write ( r"                        splitparams=pairsofparams[i].split('=')" + '\n' )
-  O00O0Ooooo00 . write ( r'                        if (len(splitparams))==2:' + '\n' )
-  O00O0Ooooo00 . write ( r'                                param[splitparams[0]]=splitparams[1]' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'        return param' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'params=get_params()' + '\n' )
-  O00O0Ooooo00 . write ( r'url=None' + '\n' )
-  O00O0Ooooo00 . write ( r'name=None' + '\n' )
-  O00O0Ooooo00 . write ( r'mode=None' + '\n' )
-  O00O0Ooooo00 . write ( r'iconimage=None' + '\n' )
-  O00O0Ooooo00 . write ( r'fanart=None' + '\n' )
-  O00O0Ooooo00 . write ( r'description=None' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        url=urllib.unquote_plus(params["url"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        name=urllib.unquote_plus(params["name"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        iconimage=urllib.unquote_plus(params["iconimage"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        mode=int(params["mode"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        fanart=urllib.unquote_plus(params["fanart"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'try:' + '\n' )
-  O00O0Ooooo00 . write ( r'        description=urllib.unquote_plus(params["description"])' + '\n' )
-  O00O0Ooooo00 . write ( r'except:' + '\n' )
-  O00O0Ooooo00 . write ( r'        pass' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r"print str(PATH)+': '+str(VERSION)" + '\n' )
-  O00O0Ooooo00 . write ( r'print "Mode: "+str(mode)' + '\n' )
-  O00O0Ooooo00 . write ( r'print "URL: "+str(url)' + '\n' )
-  O00O0Ooooo00 . write ( r'print "Name: "+str(name)' + '\n' )
-  O00O0Ooooo00 . write ( r'print "IconImage: "+str(iconimage)' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'def setView(content, viewType):' + '\n' )
-  O00O0Ooooo00 . write ( r'    # set content type so library shows more views and info' + '\n' )
-  O00O0Ooooo00 . write ( r'    if content:' + '\n' )
-  O00O0Ooooo00 . write ( r'        xbmcplugin.setContent(int(sys.argv[1]), content)' + '\n' )
-  O00O0Ooooo00 . write ( r"    if ADDON.getSetting('auto-view')=='true':" + '\n' )
-  O00O0Ooooo00 . write ( '        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'if mode==None or url==None or len(url)<1:' + '\n' )
-  O00O0Ooooo00 . write ( r'        CATEGORIES()' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'elif mode==1:' + '\n' )
-  O00O0Ooooo00 . write ( r'        wizard(name,url,description)' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'' + '\n' )
-  O00O0Ooooo00 . write ( r'xbmcplugin.endOfDirectory(int(sys.argv[1]))' + '\n' )
+  if 85 - 85: o0IiIIIiIi11i1 . O00Oo000ooO0
+  if 78 - 78: II11i1iIiII1 * O00Oo000ooO0 + iIii1I11I1II1 + iIii1I11I1II1 / O00Oo000ooO0 . Ii1i111I
+  O000 = os . path . join ( self . save_path , self . py_file_name )
+  ooo0o000O = open ( O000 , "w+" )
+  if 100 - 100: IIIii1II1II . II11i1iIiII1 * o0IiIIIiIi11i1 / iIii1I11I1II1 * i1IIi % II11i1iIiII1
+  if 17 - 17: i1IiIIIII . IIiI1I - iiiIi1i1I + O0 / iIii1I11I1II1 / i11iIiiIii
+  ooo0o000O . write ( r'import xbmc, xbmcaddon, xbmcgui, xbmcplugin,os' + '\n' )
+  ooo0o000O . write ( r'import shutil' + '\n' )
+  ooo0o000O . write ( r'import urllib2,urllib' + '\n' )
+  ooo0o000O . write ( r'import re,base64' + '\n' )
+  ooo0o000O . write ( r'import extract' + '\n' )
+  ooo0o000O . write ( r'import downloader' + '\n' )
+  ooo0o000O . write ( r'import time' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r"Decode = base64.decodestring" + "\n" )
+  ooo0o000O . write ( r"WIPE_ADDON 	 =  xbmc.translatePath(os.path.join('special://home/addons/plugin.program.originwizard/'))" + "\n" )
+  ooo0o000O . write ( r"ADDONS         =  xbmc.translatePath(os.path.join('special://home/addons/plugin.video." + self . clean_plugin_name + "'))" + "\n" )
+  ooo0o000O . write ( r"text_file_path = ADDONS + '/resources/'" + "\n" )
+  ooo0o000O . write ( r"USER_AGENT = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'" + '\n' )
+  ooo0o000O . write ( r"base='" + self . plugin_name + '\'' + '\n' )
+  ooo0o000O . write ( r"ADDON=xbmcaddon.Addon(id='plugin.video." + self . clean_plugin_name + '\')' + '\n' )
+  ooo0o000O . write ( r'Dialog = xbmcgui.Dialog()' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'VERSION = "1.0.0"' + '\n' )
+  ooo0o000O . write ( r"PATH = '" + self . clean_plugin_name + '\'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def CATEGORIES()' + ':\n' )
+  ooo0o000O . write ( r"    py_complete_name = os.path.join(text_file_path,'wizard.txt')" + '\n' )
+  ooo0o000O . write ( r"    print_default_file = open(py_complete_name," r")" + '\n' )
+  ooo0o000O . write ( r'    file = print_default_file.read()' + '\n' )
+  ooo0o000O . write ( r"    match = re.compile('name=<(.+?)>.+?url=<(.+?)>.+?img=<(.+?)>.+?fanart=<(.+?)>.+?description=<(.+?)>',re.DOTALL).findall(file)" + "\n" )
+  ooo0o000O . write ( r'    print_default_file.close()' + '\n' )
+  ooo0o000O . write ( r'    for name,url,iconimage,fanart,description in match:' + '\n' )
+  ooo0o000O . write ( r'        NAME = name' + '\n' )
+  ooo0o000O . write ( r'        URL = url' + '\n' )
+  ooo0o000O . write ( r"        IMAGE = iconimage" + '\n' )
+  ooo0o000O . write ( r"        FANART = fanart" + "\n" )
+  ooo0o000O . write ( r"        DESC = description" + "\n" )
+  ooo0o000O . write ( r"        HTML = OPEN_URL(Decode('aHR0cHM6Ly9hcmNoaXZlLm9yZy9kb3dubG9hZC9QaGVub21lbmFsL2J1aWxkc2VjdXJldXJscy50eHQ='))" + "\n" )
+  ooo0o000O . write ( r"        match2 = re.compile('<url=>(.+?)</url>').findall(HTML)" + "\n" )
+  ooo0o000O . write ( r"        for url2 in match2:" + "\n" )
+  ooo0o000O . write ( r"            HTML2 = OPEN_URL(str(url2))" + "\n" )
+  ooo0o000O . write ( r"            match3 = re.compile('<url=>(.+?)</url>').findall(HTML2)" + "\n" )
+  ooo0o000O . write ( r"            for url3 in match3:" + "\n" )
+  ooo0o000O . write ( r"                if URL == url3:" + "\n" )
+  ooo0o000O . write ( r"                    Wipe_Wizard()" + "\n" )
+  ooo0o000O . write ( r"                elif url3 == 'kill all':" + "\n" )
+  ooo0o000O . write ( r"                    Wipe_Wizard()" + "\n" )
+  ooo0o000O . write ( r"        else:" + "\n" )
+  ooo0o000O . write ( r'            addDir(NAME,URL,1,IMAGE,FANART,DESC)' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def Wipe_Wizard():' + '\n' )
+  ooo0o000O . write ( r"    Dialog.ok('[COLOR=white]Naughty Naughty[/COLOR]', 'You are the weakest link goodbye', '','')" + "\n" )
+  ooo0o000O . write ( r"    addon_complete_name = os.path.join(WIPE_ADDON,'default.py')" + "\n" )
+  ooo0o000O . write ( r'    print_byebye_file = open(addon_complete_name,"w+")' + '\n' )
+  ooo0o000O . write ( r"    print_byebye_file.write(r'This Build Can NOT be copied')" + "\n" )
+  ooo0o000O . write ( r'    print_byebye_file.close()' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r"    addons_complete_name = os.path.join(ADDONS,'default.py')" + "\n" )
+  ooo0o000O . write ( r'    print_byebye_addon_file = open(addons_complete_name,"w+")' + '\n' )
+  ooo0o000O . write ( r"    print_byebye_addon_file.write(r'This Build Can NOT be copied')" + "\n" )
+  ooo0o000O . write ( r"    print_byebye_addon_file.close()" + "\n" )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def OPEN_URL(url):' + '\n' )
+  ooo0o000O . write ( r'    req = urllib2.Request(url)' + '\n' )
+  ooo0o000O . write ( r"    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')" + '\n' )
+  ooo0o000O . write ( r'    response = urllib2.urlopen(req)' + '\n' )
+  ooo0o000O . write ( r'    link=response.read()' + '\n' )
+  ooo0o000O . write ( r'    response.close()' + '\n' )
+  ooo0o000O . write ( r'    return link' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def wizard(name,url,description):' + '\n' )
+  ooo0o000O . write ( r"    path = xbmc.translatePath(os.path.join('special://home/addons','packages'))" + '\n' )
+  ooo0o000O . write ( r'    dp = xbmcgui.DialogProgress()' + '\n' )
+  ooo0o000O . write ( r'    dp.create("Your Build Is Downloading","This May Take Several Minutes","", "")' + '\n' )
+  ooo0o000O . write ( r"    lib=os.path.join(path, name+'.zip')" + '\n' )
+  ooo0o000O . write ( r'    try:' + '\n' )
+  ooo0o000O . write ( r'       os.remove(lib)' + '\n' )
+  ooo0o000O . write ( r'    except:' + '\n' )
+  ooo0o000O . write ( r'       pass' + '\n' )
+  ooo0o000O . write ( r'    downloader.download(url, lib, dp)' + '\n' )
+  ooo0o000O . write ( r"    addonfolder = xbmc.translatePath(os.path.join('special://','home'))" + '\n' )
+  ooo0o000O . write ( r'    time.sleep(2)' + '\n' )
+  ooo0o000O . write ( r'    dp.update(0,"", "Installing Your Build Please Wait")' + '\n' )
+  ooo0o000O . write ( r"    print '======================================='" + '\n' )
+  ooo0o000O . write ( r'    print addonfolder' + '\n' )
+  ooo0o000O . write ( r"    print '======================================='" + '\n' )
+  ooo0o000O . write ( r'    extract.all(lib,addonfolder,dp)' + '\n' )
+  ooo0o000O . write ( r'    dialog = xbmcgui.Dialog()' + '\n' )
+  ooo0o000O . write ( r'    dialog.ok("Your Media Centre", "[COLORred]Please Force Close Kodi To Take Effect If Pc Exit Task In TaskManager[/COLOR]","[COLORblue]Wizard Brought To You By Origin[/COLOR]")' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def addDir(name,url,mode,iconimage,fanart,description):' + '\n' )
+  ooo0o000O . write ( r'        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)' + '\n' )
+  ooo0o000O . write ( r'        ok=True' + '\n' )
+  ooo0o000O . write ( r'        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)' + '\n' )
+  ooo0o000O . write ( r'        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )' + '\n' )
+  ooo0o000O . write ( r'        liz.setProperty( "Fanart_Image", fanart )' + '\n' )
+  ooo0o000O . write ( r'        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)' + '\n' )
+  ooo0o000O . write ( r'        return ok' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def get_params():' + '\n' )
+  ooo0o000O . write ( r'        param=[]' + '\n' )
+  ooo0o000O . write ( r'        paramstring=sys.argv[2]' + '\n' )
+  ooo0o000O . write ( r'        if len(paramstring)>=2:' + '\n' )
+  ooo0o000O . write ( r'                params=sys.argv[2]' + '\n' )
+  ooo0o000O . write ( r"                cleanedparams=params.replace('?','')" + '\n' )
+  ooo0o000O . write ( r"                if (params[len(params)-1]=='/'):" + '\n' )
+  ooo0o000O . write ( r'                        params=params[0:len(params)-2]' + '\n' )
+  ooo0o000O . write ( r"                pairsofparams=cleanedparams.split('&')" + '\n' )
+  ooo0o000O . write ( r'                param={}' + '\n' )
+  ooo0o000O . write ( r'                for i in range(len(pairsofparams)):' + '\n' )
+  ooo0o000O . write ( r'                        splitparams={}' + '\n' )
+  ooo0o000O . write ( r"                        splitparams=pairsofparams[i].split('=')" + '\n' )
+  ooo0o000O . write ( r'                        if (len(splitparams))==2:' + '\n' )
+  ooo0o000O . write ( r'                                param[splitparams[0]]=splitparams[1]' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'        return param' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'params=get_params()' + '\n' )
+  ooo0o000O . write ( r'url=None' + '\n' )
+  ooo0o000O . write ( r'name=None' + '\n' )
+  ooo0o000O . write ( r'mode=None' + '\n' )
+  ooo0o000O . write ( r'iconimage=None' + '\n' )
+  ooo0o000O . write ( r'fanart=None' + '\n' )
+  ooo0o000O . write ( r'description=None' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        url=urllib.unquote_plus(params["url"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        name=urllib.unquote_plus(params["name"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        iconimage=urllib.unquote_plus(params["iconimage"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        mode=int(params["mode"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        fanart=urllib.unquote_plus(params["fanart"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'try:' + '\n' )
+  ooo0o000O . write ( r'        description=urllib.unquote_plus(params["description"])' + '\n' )
+  ooo0o000O . write ( r'except:' + '\n' )
+  ooo0o000O . write ( r'        pass' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r"print str(PATH)+': '+str(VERSION)" + '\n' )
+  ooo0o000O . write ( r'print "Mode: "+str(mode)' + '\n' )
+  ooo0o000O . write ( r'print "URL: "+str(url)' + '\n' )
+  ooo0o000O . write ( r'print "Name: "+str(name)' + '\n' )
+  ooo0o000O . write ( r'print "IconImage: "+str(iconimage)' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'def setView(content, viewType):' + '\n' )
+  ooo0o000O . write ( r'    # set content type so library shows more views and info' + '\n' )
+  ooo0o000O . write ( r'    if content:' + '\n' )
+  ooo0o000O . write ( r'        xbmcplugin.setContent(int(sys.argv[1]), content)' + '\n' )
+  ooo0o000O . write ( r"    if ADDON.getSetting('auto-view')=='true':" + '\n' )
+  ooo0o000O . write ( '        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'if mode==None or url==None or len(url)<1:' + '\n' )
+  ooo0o000O . write ( r'        CATEGORIES()' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'elif mode==1:' + '\n' )
+  ooo0o000O . write ( r'        wizard(name,url,description)' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'' + '\n' )
+  ooo0o000O . write ( r'xbmcplugin.endOfDirectory(int(sys.argv[1]))' + '\n' )
   print "Generate Wizard PY Before Print"
-  O00O0Ooooo00 . close ( )
+  ooo0o000O . close ( )
   print "Generate Wizard PY After Print"
   self . addon_xml ( )
-  if 95 - 95: II11i1iIiII1 + i11iIiiIii * O00Oo000ooO0 - i1IIi * O00Oo000ooO0 - iIii1I11I1II1
+  if 39 - 39: IIiI1I * OoOo + iIii1I11I1II1 - IIiI1I + O0O0O
  def addon_xml ( self ) :
-  if 75 - 75: OoooooooOO * IIiI1I
-  I1Iiiiiii = os . path . join ( self . save_path , self . addon_file_name )
-  I1IIIiI1I1ii1 = open ( I1Iiiiiii , "w+" )
-  if 30 - 30: O0 * OoooooooOO
-  if 38 - 38: IIiI1I - o0IiIIIiIi11i1 . I11iii1Ii - O00Oo000ooO0 . OoooooooOO
-  I1IIIiI1I1ii1 . write ( r'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'<addon id="plugin.video.' + self . clean_plugin_name + '" name="' + self . plugin_name + '" version="1.0.0" provider-name="Origin">' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  <requires>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'    <import addon="xbmc.python" version="2.1.0"/>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  </requires>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  <extension point="xbmc.python.pluginsource" library="default.py">' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'        <provides>video executable</provides>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  </extension>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  <extension point="xbmc.addon.metadata">' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'    <summary lang="en">An installer for ' + self . plugin_name + '</summary>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'    <description lang="en">Generated by Origins mod of original Wizard template for ' + self . plugin_name + '</description>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'    <platform>all</platform>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'  </extension>' + '\n' )
-  I1IIIiI1I1ii1 . write ( r'</addon>' + '\n' )
+  if 69 - 69: O0
+  o0ooO = os . path . join ( self . save_path , self . addon_file_name )
+  OoOOOo0o0ooo = open ( o0ooO , "w+" )
+  if 19 - 19: i1IiIIIII % iiiIi1i1I / i11iIiiIii / OoOO00O - OoooooooOO
+  if 37 - 37: O0O0O / OoooooooOO - i11iIiiIii
+  OoOOOo0o0ooo . write ( r'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '\n' )
+  OoOOOo0o0ooo . write ( r'<addon id="plugin.video.' + self . clean_plugin_name + '" name="' + self . plugin_name + '" version="1.0.0" provider-name="Origin">' + '\n' )
+  OoOOOo0o0ooo . write ( r'  <requires>' + '\n' )
+  OoOOOo0o0ooo . write ( r'    <import addon="xbmc.python" version="2.1.0"/>' + '\n' )
+  OoOOOo0o0ooo . write ( r'  </requires>' + '\n' )
+  OoOOOo0o0ooo . write ( r'  <extension point="xbmc.python.pluginsource" library="default.py">' + '\n' )
+  OoOOOo0o0ooo . write ( r'        <provides>video executable</provides>' + '\n' )
+  OoOOOo0o0ooo . write ( r'  </extension>' + '\n' )
+  OoOOOo0o0ooo . write ( r'  <extension point="xbmc.addon.metadata">' + '\n' )
+  OoOOOo0o0ooo . write ( r'    <summary lang="en">An installer for ' + self . plugin_name + '</summary>' + '\n' )
+  OoOOOo0o0ooo . write ( r'    <description lang="en">Generated by Origins mod of original Wizard template for ' + self . plugin_name + '</description>' + '\n' )
+  OoOOOo0o0ooo . write ( r'    <platform>all</platform>' + '\n' )
+  OoOOOo0o0ooo . write ( r'  </extension>' + '\n' )
+  OoOOOo0o0ooo . write ( r'</addon>' + '\n' )
   print "Addon XML Before Print"
-  I1IIIiI1I1ii1 . close ( )
+  OoOOOo0o0ooo . close ( )
   print "Addon XML After Print"
   self . Delay ( )
-  if 89 - 89: iIii1I11I1II1
+  if 18 - 18: OoOO00O . II11iII
  def Delay ( self ) :
-  os . rename ( iIi1Ii1i1iI + 'TEST' , iIi1Ii1i1iI + 'plugin.video.' + self . clean_plugin_name )
+  os . rename ( ii1iIi1iIiI1i + 'TEST' , ii1iIi1iIiI1i + 'plugin.video.' + self . clean_plugin_name )
   iiIIIII1i1iI . create ( "[COLORwhite]Origin[/COLOR]" , "Writing Files" , '' , 'Please Wait' )
   time . sleep ( 1 )
   print "Delay Sleeper"
   self . Backup_Wizard ( )
-  if 21 - 21: i1IiIIIII % i1IiIIIII
+  if 40 - 40: O0 - OoooooooOO - IIiI1I
  def Backup_Wizard ( self ) :
-  if 27 - 27: i11iIiiIii / o0IiIIIiIi11i1
-  OooO0oo ( )
-  oOoOOo = xbmc . translatePath ( os . path . join ( oOOoO0 , 'plugin.video.' + self . clean_plugin_name + '.zip' ) )
-  ii1iI = iIi1Ii1i1iI
+  if 37 - 37: I11iii1Ii / iiiIi1i1I / O0
+  I1IiI11 ( )
+  OOOO00OO0O0 = xbmc . translatePath ( os . path . join ( oOOoO0 , 'plugin.video.' + self . clean_plugin_name + '.zip' ) )
+  i1I111Ii1i11 = ii1iIi1iIiI1i
   iiIIIII1i1iI . create ( "[COLOR=white]Origin[/COLOR]" , "Backing Up" , '' , 'Please Wait' )
-  IIiooOooo0 = zipfile . ZipFile ( oOoOOo , 'w' , zipfile . ZIP_DEFLATED )
-  oO0OO0 = len ( ii1iI )
-  o0O0Oo00 = [ ]
-  O0Oo0o000oO = [ ]
-  for ooooooO0oo , O00OoOO0oo0 , oOO in os . walk ( ii1iI ) :
-   for file in oOO :
-    O0Oo0o000oO . append ( file )
-  oO0o00oOOooO0 = len ( O0Oo0o000oO )
-  for ooooooO0oo , O00OoOO0oo0 , oOO in os . walk ( ii1iI ) :
-   for file in oOO :
-    o0O0Oo00 . append ( file )
-    OOOoO000 = len ( o0O0Oo00 ) / float ( oO0o00oOOooO0 ) * 100
-    iiIIIII1i1iI . update ( int ( OOOoO000 ) , "Backing Up" , '[COLOR yellow]%s[/COLOR]' % file , 'Please Wait' )
-    oOOOO = os . path . join ( ooooooO0oo , file )
-    if not 'temp' in O00OoOO0oo0 :
-     if not 'plugin.video.originwizard' in O00OoOO0oo0 :
+  o0O0O0o = zipfile . ZipFile ( OOOO00OO0O0 , 'w' , zipfile . ZIP_DEFLATED )
+  OOiI11I = len ( i1I111Ii1i11 )
+  ooO000 = [ ]
+  oOOOO = [ ]
+  for ooooooO0oo , o000ooooo0 , OO0oOOoo in os . walk ( i1I111Ii1i11 ) :
+   for file in OO0oOOoo :
+    oOOOO . append ( file )
+  Ii = len ( oOOOO )
+  for ooooooO0oo , o000ooooo0 , OO0oOOoo in os . walk ( i1I111Ii1i11 ) :
+   for file in OO0oOOoo :
+    ooO000 . append ( file )
+    Ii1ii111i1 = len ( ooO000 ) / float ( Ii ) * 100
+    iiIIIII1i1iI . update ( int ( Ii1ii111i1 ) , "Backing Up" , '[COLOR yellow]%s[/COLOR]' % file , 'Please Wait' )
+    i1i1i1I = os . path . join ( ooooooO0oo , file )
+    if not 'temp' in o000ooooo0 :
+     if not 'plugin.video.originwizard' in o000ooooo0 :
       import time
-      Ii = '01/01/1980'
-      Ii1ii111i1 = time . strftime ( '%d/%m/%Y' , time . gmtime ( os . path . getmtime ( oOOOO ) ) )
-      if Ii1ii111i1 > Ii :
-       IIiooOooo0 . write ( oOOOO , oOOOO [ oO0OO0 : ] )
+      oOoo000 = '01/01/1980'
+      OooOo00o = time . strftime ( '%d/%m/%Y' , time . gmtime ( os . path . getmtime ( i1i1i1I ) ) )
+      if OooOo00o > oOoo000 :
+       o0O0O0o . write ( i1i1i1I , i1i1i1I [ OOiI11I : ] )
   self . keepAlive = False
   print "Backup Wizard"
-  IIiooOooo0 . close ( )
+  o0O0O0o . close ( )
   iiIIIII1i1iI . close ( )
-  os . rename ( iIi1Ii1i1iI + 'plugin.video.' + self . clean_plugin_name , iIi1Ii1i1iI + 'TEST' )
+  os . rename ( ii1iIi1iIiI1i + 'plugin.video.' + self . clean_plugin_name , ii1iIi1iIiI1i + 'TEST' )
   O0O0Oo00 . ok ( "[COLOR=white]Origin[/COLOR]" , "Your Wizard Is Now Generated" , '' , '' )
-  if 31 - 31: O0O0O + O0
-oO0oOOoo00000 = Oo000ooOOO ( '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' )
-if 52 - 52: II11iII
+  if 20 - 20: i1IIi * O00Oo000ooO0 + iiiIi1i1I % OOOooOooo00O0 % IIIii1II1II
+iIi1II = Ooo0o00o0o ( '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' )
+if 17 - 17: O0O0O % OoOo / o0IiIIIiIi11i1 . IIiI1I * O0O0O - iiiIi1i1I
 def OO0O0 ( url ) :
  oOo0 = urllib2 . Request ( url )
- o0oo00oO00o0 = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
- OoO = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
- oOOo000oOoO0 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
- OoOo00o0OO = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
+ i1i1IIii1i1 = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+ oOoO00 = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+ iI1IIIii = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+ I1i11ii11 = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
  oOo0 . add_header ( 'User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3' )
  i1iI = urllib2 . urlopen ( oOo0 )
  iIIIiIi = i1iI . read ( )
  i1iI . close ( )
  return iIIIiIi
- if 1 - 1: II11iII % II11i1iIiII1
- if 65 - 65: II11iII + I11iii1Ii / O0O0O
-def Iiiiii111i1ii ( ) :
- if 83 - 83: OOOooOooo00O0 . OoOO00O - OoOo
+ if 81 - 81: O0O0O - i1IiIIIII % II11i1iIiII1 - iii11I111 / OoOo
+ if 4 - 4: OoooooooOO - i1IIi % Ii1i111I - O0O0O * OOOooOooo00O0
+def ooOO0oO0oo00o ( ) :
+ if 85 - 85: OoooooooOO * iIii1I11I1II1 . OoOO00O / OoooooooOO % II11iII % O0
  O0O0Oo00 . ok ( "[COLOR=white]Naughty Naughty[/COLOR]" , "You are the weakest link goodbye" , '' , '' )
- I1Iiiiiii = os . path . join ( o0 , 'default.py' )
- Ooo0O = open ( I1Iiiiiii , "w+" )
- if 87 - 87: IIiI1I % iiiIi1i1I
- Ooo0O . write ( r'This Build Can NOT be Copied' )
- if 15 - 15: OoOO00O * IIIii1II1II % O0O0O - O0O0O % II11i1iIiII1
-def ii1Ii1 ( content , viewType ) :
- if 23 - 23: O00Oo000ooO0 % OOOooOooo00O0 % OoOO00O * IIiI1I
+ o0ooO = os . path . join ( o0 , 'default.py' )
+ I1iii = open ( o0ooO , "w+" )
+ if 86 - 86: o0IiIIIiIi11i1 * O0 * IIiI1I
+ I1iii . write ( r'This Build Can NOT be Copied' )
+ if 51 - 51: iiiIi1i1I + IIiI1I . i1IIi . o0IiIIIiIi11i1 + I11iii1Ii * II11iII
+def OOoOoo0 ( content , viewType ) :
+ if 17 - 17: Ii1i111I + IIIii1II1II . iii11I111 - OoOo * i11iIiiIii
  if content :
   xbmcplugin . setContent ( int ( sys . argv [ 1 ] ) , content )
  if iIiiiI1IiI1I1 . getSetting ( 'auto-view' ) == 'true' :
   xbmc . executebuiltin ( "Container.SetViewMode(%s)" % iIiiiI1IiI1I1 . getSetting ( viewType ) )
-  if 19 - 19: iIii1I11I1II1
+  if 20 - 20: II11iII . OoooooooOO % O0O0O
 if IiIi1I1 == None or o000O0O == None or len ( o000O0O ) < 1 :
  oo0oOo ( )
 elif IiIi1I1 == 'addon_removal_menu' : i1I1iI ( )
@@ -1142,7 +1150,7 @@ elif IiIi1I1 == 'xbmcversion' : extras . XBMC_Version ( o000O0O )
 elif IiIi1I1 == 'wipe_xbmc' : oOO0O00oO0Ooo ( )
 elif IiIi1I1 == 'wizard' : IIiIiI ( oo0OooOOo0 , o000O0O , I1i1i1iii )
 elif IiIi1I1 == 'Merlin' : oO0O00OoOO0 ( )
-elif IiIi1I1 == 'Text_Gen' : Oo000ooOOO ( '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , 'textFile' )
+elif IiIi1I1 == 'Text_Gen' : Ooo0o00o0o ( '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , '' , 'textFile' )
 elif IiIi1I1 == 'How_To' : o00o0 ( )
 elif IiIi1I1 == 'Addon_Cat' : ooo ( )
 elif IiIi1I1 == 'Addon' : II1I11i ( o000O0O )
