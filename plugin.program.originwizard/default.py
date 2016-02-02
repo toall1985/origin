@@ -221,7 +221,7 @@ def oO0O00OoOO0 ( ) :
  if 95 - 95: II11iII + i11iIiiIii
  if 6 - 6: II11i1iIiII1 / i11iIiiIii + OoOO00O * IIIii1II1II
 def o00o0 ( ) :
- ii ( 'How To guide For Wizard Creation' , '1: First you will need to create a build and host somewhere online that it can be accessed\n\n\n2: Then you can run the Generate Txt File which will be what your wizard talks to in order to collect information about your build(s)\n\n\n3: Once Generated Host this file online somewhere so can be accessed by wizard\n\n\n4: Run the wizard generator and fill in relevant fields\n\n\n5: Get your zip and host online that will become your url that can be put into source in kodi\n\n\n6: Enjoy and do not forget to thank the devs, maybe donate to help them help you and visit some streaming sites suffer some ads to help keep them going aswell\n\n\n[COLORred]If you wish to add another build into your wizard simply duplicate the information in the .txt file thats generated then edit the information. May look at adding a funtion so you can add more builds easily in future[/COLOR]' )
+ ii ( 'How To guide For Wizard Creation' , '1: First you will need to create a build and host somewhere online that it can be accessed, aswell as an image for thumbnail and background\n\n\n2:Run Wizard Generator, it will ask you to set backup path if its not been set, try to keep local on the device\n\n\n3:Fill in the relevant fields, then let others enjoy your build. for FREE\n\n\n4:' )
  if 84 - 84: OOOooOooo00O0 % iiiIi1i1I . i11iIiiIii / iii11I111
  if 80 - 80: O00Oo000ooO0 . i11iIiiIii - OOOooOooo00O0
 def ii ( heading , announce ) :
@@ -775,33 +775,28 @@ class Oo000ooOOO ( ) :
   self . extra_build_image = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Image Url[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_build_fanart = O0O0Oo00 . input ( '[COLOR red] Input Builds Online Background Image[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
   self . extra_build_description = O0O0Oo00 . input ( '[COLOR red] Input Builds Description[/COLOR]' , type = xbmcgui . INPUT_ALPHANUM )
-  if choice == 1 :
-   self . txt_extra_file_inputs ( )
-   print "Choice Text Extra File Inputs"
-  elif choice == 0 :
-   O0O0Oo00 . ok ( "[COLOR=white]Origin[/COLOR]" , "Your Wizard Will Now Be Generated" , '' , '' )
-   self . extra_generate_wizard_text ( )
-   print "Generating Wizard 1"
-   if 7 - 7: OoooooooOO . IIiI1I
+  self . extra_generate_wizard_text ( )
+  print "Generating Wizard 1"
+  if 7 - 7: OoooooooOO . IIiI1I
  def extra_generate_wizard_text ( self ) :
   if 53 - 53: Ii1i111I % Ii1i111I * OOOooOooo00O0 + I11iii1Ii
   Oooo00 = os . path . join ( iIi1ii1I1 , self . txt_file_name )
-  I111iIi1 = open ( Oooo00 , "a" )
+  I111iIi1 = open ( Oooo00 , "w+" )
   if 92 - 92: II11i1iIiII1
-  I111iIi1 . write ( r'name=<' + self . extra_build_name + '>\n' )
-  I111iIi1 . write ( r'url=<' + self . extra_build_zip + '>\n' )
-  I111iIi1 . write ( r'img=<' + self . extra_build_image + '>\n' )
-  I111iIi1 . write ( r'fanart=<' + self . extra_build_fanart + '>\n' )
-  I111iIi1 . write ( r'description=<' + self . extra_build_description + '>\n' )
+  I111iIi1 . write ( r'name=<' + self . build_name + '>\n' )
+  I111iIi1 . write ( r'url=<' + self . build_zip + '>\n' )
+  I111iIi1 . write ( r'img=<' + self . build_image + '>\n' )
+  I111iIi1 . write ( r'fanart=<' + self . build_fanart + '>\n' )
+  I111iIi1 . write ( r'description=<' + self . build_description + '>\n' )
   I111iIi1 . close ( )
   if self . keepAlive == True :
    II11iIiIIIiI = xbmcgui . Dialog ( ) . yesno ( "Is There Any More Builds?" , 'Would You like to add another build into txt file?' , '' , 'This Will also show in your wizard when generated' , yeslabel = 'Yes' , nolabel = 'No' )
    if II11iIiIIIiI == 1 :
     self . txt_extra_file_inputs ( )
-    print "Choice Text Extra Generate File Inputs"
+    print "Generate Wizard Text"
    elif II11iIiIIIiI == 0 :
     O0O0Oo00 . ok ( "[COLOR=white]Origin[/COLOR]" , "Your Wizard Will Now Be Generated" , '' , '' )
-    print "Generating Wizard 2"
+    print "Wizard Inputs"
     self . Wizard_Inputs ( )
   else : pass
   if 22 - 22: OoOo % OoOO00O * o0IiIIIiIi11i1 / O0O0O % i11iIiiIii * i1IiIIIII
