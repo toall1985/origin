@@ -1,0 +1,5 @@
+name=<Droid Assault>
+url=<https://archive.org/download/Droidassault_20160114/droidassault.zip>
+img=<https://archive.org/download/Droidassault_20160114/1440_10209103236084540_3769380871467919885_n.jpg>
+fanart=<https://archive.org/download/Droidassault_20160114/1440_10209103236084540_3769380871467919885_n.jpg>
+description=<Droid Assault Test>

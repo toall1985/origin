@@ -1,0 +1,5 @@
+name=<a>
+url=<a>
+img=<a>
+fanart=<a>
+description=<a>
