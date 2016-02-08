@@ -87,24 +87,24 @@ def Home_Menu():
 
 #    addDir4('Change Log','',1000,ART+'ChangeLog.png')
     addList('24/7 Shows',BASE+'24-7'+CAT,400,ART + '24shows.png')
-    addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
-    addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
-    addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
+#    addDir('Lists','',53,ART + 'lists.png',ART + 'background.png','')
+#    addDir('Live TV','',41,ART + 'livetv.png',ART + 'background.png','')
+#    addDir('M3U8 Lists','',54,ART + 'm3u8.png',ART + 'background.png','')
     addDir('Movies','',10,ART + 'movies.png',ART + 'background.png','')
-    addDir('News','',72,ART + 'News2.png',ART + 'background.png','')
+#    addDir('News','',72,ART + 'News2.png',ART + 'background.png','')
     addDir('Pandoras Box','',55,ART + 'pandorasbox.png',ART + 'background.png','')
-    addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
-    addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')	
+#    addDir('Radio','',63,ART + 'radio.png',ART + 'background.png','')	
+#    addDir('Scraper','',76,ART + 'scraper.png',ART + 'background.png','')	
     addDir('Search','',175,ART + 'search.png',ART + 'background.png','')
-    addDir('Seo Guides','',186,ART + 'icon.png', ART + 'background.png','')
-    addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
+#    addDir('Seo Guides','',186,ART + 'icon.png', ART + 'background.png','')
+#    addDir('Sports','',64,ART + 'sports.png',ART + 'background.png','')
     addDir('Stand Up','',12,ART + 'comedy.png',ART + 'background.png','') 
-    addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
-    addDir('TV Guide','',69,ART + 'tvguide.png',ART + 'background.png','')
+#    addDir('Test Area','',52,ART + 'testarea.png',ART + 'background.png','')
+#    addDir('TV Guide','',69,ART + 'tvguide.png',ART + 'background.png','')
     addDir('TV Shows','',11,ART + 'tv.png',ART + 'background.png','')	
-    addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
-    if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
-        addList('Adult Movies','',1002,ART + 'icon.png')
+#    addList('World Cams',BASE+'worldcams'+CAT,400,ART + 'worldcams.png')
+#    if GetAdultPassword == Decode('Zm9yZGZpZXN0YQ=='):
+#        addList('Adult Movies','',1002,ART + 'icon.png')
 	
 	
 def Sports():
@@ -387,7 +387,7 @@ def TESTCATS():
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
     for url,name in match:
         addDir3(name,url,407,ART+'icon.png')
-
+'''
 def NewsCat():
     html=OPEN_URL('http://www.mirror.co.uk/')
     match = re.compile('<a href="(.+?)" data-type="section-head_.+?" data-action="section:.+?">(.+?)</a>').findall(html)
@@ -402,6 +402,7 @@ def NewsStory(url):
         addDir4((name).replace('amp;','').replace('&#x3a','').replace('&#xa; </a>','').replace('&#xa;','').replace('&quot;','').replace('&#x27;',''),url,74,img)
         print '>>>>>>>>>>' + url        
 
+'''
 		
 def LISTS(url):
     html=OPEN_URL(url)
