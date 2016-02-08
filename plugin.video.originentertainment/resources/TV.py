@@ -9,7 +9,7 @@ import base64
 import urlresolver
 from t0mm0.common.addon import Addon
 from t0mm0.common.net import Net
-from resources import streams
+from resources import streams,cloudflare,client,googleplus,cleantitle
 from resources import lists
 from resources import utube
 from datetime import datetime
@@ -41,7 +41,7 @@ net = Net()
 
 def TV_Shows():
 	
-	addDir('Recent Episodes','',184,ART + 'icon.png',ART + 'background.jpg','')
+	addDir('Recent Episodes','',185,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Animated','',14,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Action','',15,ART + 'icon.png',ART + 'background.jpg','')
 	addDir('Childrens','',16,ART + 'icon.png',ART + 'background.jpg','')
@@ -57,18 +57,12 @@ def TV_Shows():
 	xbmcplugin.endOfDirectory(addon_handle)
 
 	
-def Recent_Episodes_Now():
-
-    addList('Recent Episodes',BASE+'recentepisodesmove'+CAT,400,ART + 'icon.png')
-    addList('Recent Episodes Latest',BASE+'recentepisodesmove'+CAT,400,ART + 'search.png',ART + 'background.png','')
-
-    xbmcplugin.endOfDirectory(addon_handle)
 
 #goes to here, so you could just use this bit. which goes to
 	
 def Recent_Scraped():
 
-    html=OPEN_URL(Decode('aHR0cDovL2RpemlsYWIuY29t'))
+    html=cloudflare.source(Decode('aHR0cDovL2RpemlsYWIuY29t'))
     match = re.compile('<li id=".+?">.+?<a href="(.+?)">.+?<img width="40" height="40" src="(.+?)" alt=""/>.+?<span class="title">\n(.+?)</span>.+?<span class="alt-title">\n(.+?)</span>.+?</a>.+?</li>',re.DOTALL).findall(html)
     for url,img,name,episode in match:
         addDir3(name + '  -  ' + (episode).replace('sezon','Season').replace('bölüm','Episode'),url,183,img)
