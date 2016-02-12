@@ -155,7 +155,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.pandorasbox" name="Pandoras Box" version="1.0.6" provider-name="Origin">
+<addon id="plugin.video.pandorasbox" name="Pandoras Box" version="1.0.7" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="2.1.2"/>
@@ -224,22 +224,5 @@
             <description>Origin Builds Repo</description>
             <platform>all</platform>
     </extension>
-</addon>
-
-<addon id="script.module.urlresolver"
-     name="URLResolver"
-     version="2.10.8"
-     provider-name="Eldorado">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0" />
-    <import addon="script.module.t0mm0.common" version="2.0.0"/>
-    <import addon="script.module.simplejson" version="3.3.0"/>
-  </requires>
-  <extension point="xbmc.python.module" library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
-    <description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
-  </extension>
 </addon>
 </addons>

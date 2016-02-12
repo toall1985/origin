@@ -49,8 +49,8 @@ if 14 - 14: Oo0Ooo . I1IiiI / Ii1I
 if 38 - 38: II111iiii % i11iIiiIii . ooOoO0o - OOooOOo + Ii1I
 def Ooooo0Oo00oO0 ( ) :
  if 12 - 12: iIii1I11I1II1 * I1IiiI . ooOoO0o % I11i + O0
- O00 ( 'Open Pandora\'s Box' , '' , 400 , iiI1IiI + 'icon.png' , iiI1IiI + 'fanart.jpg' , '' )
- O00 ( 'Search' , '' , 1 , iiI1IiI + 'icon.png' , iiI1IiI + 'fanart.jpg' , '' )
+ O00 ( '[COLOR darkgoldenrod]Open Pandora\'s Box[/COLOR]' , '' , 400 , 'https://encrypted-tbn1.gstatic.com/images?q=tbn%3AANd9GcTQ9r4TA8yIw9ggxuwsHxWojo6tPVfgTe8QIOxOQwzNR2TavtCi6Q' , iiI1IiI + 'fanart.jpg' , '' )
+ O00 ( '[COLOR darkgoldenrod]Search[/COLOR]' , '' , 1 , 'http://icons.iconarchive.com/icons/icontexto/search/256/search-red-dark-icon.png' , iiI1IiI + 'fanart.jpg' , '' )
  if 61 - 61: ooOoO0o
  xbmcplugin . setContent ( OOooO , 'movies' )
  if 79 - 79: Oo0Ooo + I1IiiI - iII111i
