@@ -21,8 +21,6 @@ import urlparse
 import urllib , urllib2 , datetime , re , os , base64 , xbmc , xbmcplugin , xbmcgui , xbmcaddon , xbmcvfs , traceback , cookielib , urlparse , httplib , time
 import urlresolver
 import time
-from t0mm0 . common . addon import Addon
-from t0mm0 . common . net import Net
 from datetime import datetime
 import cloudflare , client , googleplus , cleantitle
 if 94 - 94: iII111i * Ii1I / IiII . i1IIi * iII111i

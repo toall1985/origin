@@ -19,8 +19,6 @@ import urlparse
 import urllib , urllib2 , datetime , re , os , base64 , xbmc , xbmcplugin , xbmcgui , xbmcaddon , xbmcvfs , traceback , cookielib , urlparse , httplib , time
 import urlresolver
 import time
-from t0mm0 . common . addon import Addon
-from t0mm0 . common . net import Net
 from datetime import datetime
 import yt
 if 79 - 79: oO0o + I1Ii111 . ooOoO0o * IiII % I11i . I1IiiI
