@@ -99,7 +99,7 @@ def I1III ( ) :
  if 63 - 63: OOooOOo % oO0o * oO0o * OoO0O00 / I1ii11iIi11i
  o0ooO = iiiii11iII1 . input ( 'Search' , type = xbmcgui . INPUT_ALPHANUM )
  O0o0O00Oo0o0 = o0ooO . lower ( )
- O00O0oOO00O00 = [ 'mova' , 'movb' , 'movc' , 'movd' , 'move' , 'movf' , 'movg' , 'movh' , 'movi' , 'movj' , 'movk' , 'movl' , 'movm' , 'movn' , 'movo' , 'movp' , 'movq' , 'movr' , 'movs' , 'movt' , 'movu' , 'movv' , 'movw' , 'movx' , 'movy' , 'movz' ]
+ O00O0oOO00O00 = [ '480p' , '720p' , '1080p' , 'mova' , 'movb' , 'movc' , 'movd' , 'move' , 'movf' , 'movg' , 'movh' , 'movi' , 'movj' , 'movk' , 'movl' , 'movm' , 'movn' , 'movo' , 'movp' , 'movq' , 'movr' , 'movs' , 'movt' , 'movu' , 'movv' , 'movw' , 'movx' , 'movy' , 'movz' ]
  if 11 - 11: IiII . I1ii11iIi11i
  for o0 in O00O0oOO00O00 :
   oo0oOo = IIIi1i1I + o0 + oO0
