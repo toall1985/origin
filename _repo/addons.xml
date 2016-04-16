@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.audio.kidible" name="Kidible" version="1.0.3" provider-name="Origin">
+<addon id="plugin.audio.kidible" name="Kidible" version="1.0.2" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -17,10 +17,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.audio.kodible" name="Kodible" version="1.0.3" provider-name="Origin">
+<addon id="plugin.audio.kodible" name="Kodible" version="1.0.2" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -34,10 +34,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.3" provider-name="Origin">
+<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.2" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -51,7 +51,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.program.originwizard" name="Origin Wizard" version="1.1.9" provider-name="Origin Wizard">
+<addon id="plugin.program.originwizard" name="Origin Wizard" version="1.1.7" provider-name="Origin Wizard">
   <requires>
 	<import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.addon.common" />
@@ -66,10 +66,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.6" provider-name="Origin">
+<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -83,10 +83,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.footballrepeat" name="Football Repeat" version="1.0.4" provider-name="Origin">
+<addon id="plugin.video.footballrepeat" name="Football Repeat" version="1.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -100,10 +100,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.4" provider-name="Origin">
+<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -117,10 +117,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.littlekids" name="Little Kids" version="1.0.5" provider-name="Origin">
+<addon id="plugin.video.littlekids" name="Little Kids" version="1.0.4" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -134,14 +134,14 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="2.1.9" provider-name="Origin">
+<addon id="plugin.video.originentertainment" name="Origin Entertainment" version="2.1.6" provider-name="Origin">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4" />
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.beautifulsoup4" />
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.requests" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -155,10 +155,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.pandorasbox" name="Pandoras Box" version="1.0.8" provider-name="Origin">
+<addon id="plugin.video.pandorasbox" name="Pandoras Box" version="1.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="2.1.2"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -187,5 +187,18 @@
             <description>Origin Builds Repo</description>
             <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.1" provider-name="Eldorado">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.python.pluginsource" library="lib/default.py" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
+		<description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
+	</extension>
 </addon>
 </addons>

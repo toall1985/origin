@@ -18,8 +18,6 @@ import sys
 import urlparse
 import urllib , urllib2 , datetime , re , os , base64 , xbmc , xbmcplugin , xbmcgui , xbmcaddon , xbmcvfs , traceback , cookielib , urlparse , httplib , time
 import urlresolver
-import time
-from datetime import datetime
 if 79 - 79: oO0o + I1Ii111 . ooOoO0o * IiII % I11i . I1IiiI
 O0o0o00o0Oo0 = xbmcgui . Dialog ( )
 ii11 = base64 . decodestring
@@ -82,183 +80,139 @@ def Iii111II ( ) :
  if 58 - 58: OOooOOo * i11iIiiIii / OoOoOO00 % I1Ii111 - I1ii11iIi11i / oO0o
  if 50 - 50: I1IiiI
 def Ii1i11IIii1I ( url ) :
- OOOoO0O0o = O0o0Oo ( url )
- O0o0Ooo = re . compile ( '<div class="td-block-row">(.*?)</div><!--./row-fluid-->' , re . DOTALL ) . findall ( OOOoO0O0o )
- for O00 in O0o0Ooo :
-  iI1Ii11iII1 ( O00 )
-  if 51 - 51: II111iiii * OoO0O00 % o0oOOo0O0Ooo * II111iiii % I1ii11iIi11i / ooOoO0o
-  if 49 - 49: o0oOOo0O0Ooo
-def iI1Ii11iII1 ( row ) :
- IIii1Ii1 = re . compile ( '<div class="td-block-span4">(.+?)<!-- ./td-block-span4 -->' , re . DOTALL ) . findall ( row )
- for I1II11IiII in IIii1Ii1 :
-  OOO0OOo ( I1II11IiII )
-  if 47 - 47: OOooOOo + IiII - IiII * I1IiiI + Ii1I % IiII
-  if 4 - 4: oO0o
-def OOO0OOo ( row_Item ) :
- OOoO0O00o0 = re . findall ( r'<a href="(.+?)" rel="bookmark" title="(.+?)">' , str ( row_Item ) )
- iII = [ ]
- o0 = ''
- for o0 , ooOooo000oOO in OOoO0O00o0 :
-  iII . append ( ooOooo000oOO )
-  o0 = o0
-  if 59 - 59: II111iiii + OoooooooOO * OoOoOO00 + i1IIi
- Oo0OoO00oOO0o ( iII , row_Item , o0 )
- if 80 - 80: oO0o + OOooOOo - OOooOOo % iII111i
- if 63 - 63: I1IiiI - I1ii11iIi11i + O0 % I11i / iIii1I11I1II1 / o0oOOo0O0Ooo
-def Oo0OoO00oOO0o ( item_Data , row_Item , link ) :
- O0o0O00Oo0o0 = re . compile ( '<img width=".+?" height=".+?" itemprop=".+?" class="entry-thumb" src="(.+?)" alt=".+?" title=".+?"/>' , re . DOTALL ) . findall ( row_Item )
- for O00O0oOO00O00 in O0o0O00Oo0o0 :
-  item_Data . append ( O00O0oOO00O00 )
-  if 11 - 11: IiII . I1ii11iIi11i
- o0oo0oOo ( item_Data , link )
- if 89 - 89: OoOoOO00
- # For Each Video In Row Get Play Link
- if 68 - 68: OoO0O00 * OoooooooOO % O0 + OoO0O00 + ooOoO0o
-def o0oo0oOo ( item_Data , link ) :
- i11i1I1 = O0o0Oo ( link )
- ii1I = re . compile ( '<script data-config="(.+?)" data-css=".+?" data-height=".+?" data-width=".+?" src=".+?" type="text/javascript"></script>' , re . DOTALL ) . findall ( i11i1I1 )
- for Oo0ooOo0o in ii1I :
-  item_Data . append ( Oo0ooOo0o )
-  if 22 - 22: iIii1I11I1II1 / i11iIiiIii * iIii1I11I1II1 * II111iiii . OOooOOo / i11iIiiIii
- Iiii ( item_Data )
- if 75 - 75: OoOoOO00 % o0oOOo0O0Ooo % o0oOOo0O0Ooo . I1Ii111
- if 5 - 5: o0oOOo0O0Ooo * ooOoO0o + OoOoOO00 . OOooOOo + OoOoOO00
-def Iiii ( item_Data ) :
- oO = item_Data [ 0 ]
- iIi1IIIi1 = item_Data [ 1 ]
- O0oOoOOOoOO = item_Data [ 2 ]
- if 38 - 38: I1Ii111
- if 7 - 7: O0 . iII111i % I1ii11iIi11i - I1IiiI - iIii1I11I1II1
- if 36 - 36: IiII % ooOoO0o % Oo0Ooo - I1ii11iIi11i
- oO = oO . replace ( '&#8211;' , '-' ) . replace ( '&#038;' , '&' )
- O0oOoOOOoOO = O0oOoOOOoOO . replace ( '/v2' , '' ) . replace ( 'zeus.json' , 'video-sd.mp4?hosting_id=21772' ) . replace ( 'config.playwire.com' , 'cdn.video.playwire.com' )
- print '~~~~~~~~~~~~~~~~~~~~'
- print oO
- print iIi1IIIi1
- print O0oOoOOOoOO
- print '~~~~~~~~~~~~~~~~~~~~'
- Ii1IO000OOo00oo ( oO , 'http:' + O0oOoOOOoOO , 2 , iIi1IIIi1 , i1I111I + 'fanart.jpg' , '' )
- if 71 - 71: i11iIiiIii + IiII
- if 57 - 57: oO0o . I11i . i1IIi
- if 42 - 42: I11i + I1ii11iIi11i % O0
-def Ii1IO000OOo00oo ( name , url , mode , iconimage , fanart , description ) :
- if 6 - 6: oO0o
- oOOo0oOo0 = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
- II = True
- ooooo = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
- ooooo . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
- ooooo . setProperty ( "Fanart_Image" , fanart )
- II = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = oOOo0oOo0 , listitem = ooooo , isFolder = False )
- return II
- if 1 - 1: Oo0Ooo / o0oOOo0O0Ooo % iII111i * IiII . i11iIiiIii
+ I11II1i = O0o0Oo ( url )
+ Oo00OOOOO = re . compile ( 'itemprop="image" class="entry-thumb" src="(.+?)".+?<h3 itemprop="name" class="entry-title td-module-title"><a itemprop="url" href="(.+?)" rel="bookmark" title=".+?">(.+?)</a></h3>' , re . DOTALL ) . findall ( I11II1i )
+ for O00o0OO , url , I11i1 in Oo00OOOOO :
+  OOOoO0O0o = I11i1 . replace ( '&#8211;' , '-' ) . replace ( '&#038;' , '&' )
+  O0o0Ooo ( '[COLORgreen]' + OOOoO0O0o + '[/COLOR]' , url , 2 , O00o0OO , '' , '' )
+  if 56 - 56: ooOoO0o . OoOoOO00 * iII111i . OoOoOO00
+def O00oO ( url ) :
+ I11II1i = O0o0Oo ( url )
+ Oo00OOOOO = re . compile ( '<script data-config="(.+?)" data-height' ) . findall ( I11II1i )
+ for I11i1I1I in Oo00OOOOO :
+  oO0Oo = ( I11i1I1I ) . replace ( '/v2' , '' ) . replace ( 'zeus.json' , 'video-sd.mp4?hosting_id=21772' ) . replace ( 'config.playwire.com' , 'cdn.video.playwire.com' )
+  oOOoo0Oo ( 'http:' + oO0Oo )
+  if 78 - 78: I11i
+  if 71 - 71: OOooOOo + ooOoO0o % i11iIiiIii + I1ii11iIi11i - IiII
+  if 88 - 88: OoOoOO00 - OoO0O00 % OOooOOo
+def O0o0Ooo ( name , url , mode , iconimage , fanart , description ) :
+ if 16 - 16: I1IiiI * oO0o % IiII
+ Oo000o = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
+ I11IiI1I11i1i = True
+ iI1ii1Ii = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
+ iI1ii1Ii . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
+ iI1ii1Ii . setProperty ( "Fanart_Image" , fanart )
+ I11IiI1I11i1i = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = Oo000o , listitem = iI1ii1Ii , isFolder = False )
+ return I11IiI1I11i1i
+ if 92 - 92: OoOoOO00
 def OO0O00 ( name , url , mode , iconimage , fanart , description ) :
- if 2 - 2: I1ii11iIi11i * I11i - iIii1I11I1II1 + I1IiiI . oO0o % iII111i
- oOOo0oOo0 = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
- II = True
- ooooo = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
- ooooo . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
- ooooo . setProperty ( "Fanart_Image" , fanart )
- II = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = oOOo0oOo0 , listitem = ooooo , isFolder = True )
- return II
- if 92 - 92: iII111i
-def IIiIiiIi ( ) :
+ if 26 - 26: iII111i . I1Ii111
+ Oo000o = sys . argv [ 0 ] + "?url=" + urllib . quote_plus ( url ) + "&mode=" + str ( mode ) + "&name=" + urllib . quote_plus ( name ) + "&iconimage=" + urllib . quote_plus ( iconimage ) + "&fanart=" + urllib . quote_plus ( fanart ) + "&description=" + urllib . quote_plus ( description )
+ I11IiI1I11i1i = True
+ iI1ii1Ii = xbmcgui . ListItem ( name , iconImage = "DefaultFolder.png" , thumbnailImage = iconimage )
+ iI1ii1Ii . setInfo ( type = "Video" , infoLabels = { "Title" : name , "Plot" : description } )
+ iI1ii1Ii . setProperty ( "Fanart_Image" , fanart )
+ I11IiI1I11i1i = xbmcplugin . addDirectoryItem ( handle = int ( sys . argv [ 1 ] ) , url = Oo000o , listitem = iI1ii1Ii , isFolder = True )
+ return I11IiI1I11i1i
+ if 68 - 68: OoO0O00
+def IIi1iIIiI ( ) :
  try :
-  O000oo = getSet ( "core-player" )
-  if ( O000oo == 'DVDPLAYER' ) : IIi1I11I1II = xbmc . PLAYER_CORE_DVDPLAYER
-  elif ( O000oo == 'MPLAYER' ) : IIi1I11I1II = xbmc . PLAYER_CORE_MPLAYER
-  elif ( O000oo == 'PAPLAYER' ) : IIi1I11I1II = xbmc . PLAYER_CORE_PAPLAYER
-  else : IIi1I11I1II = xbmc . PLAYER_CORE_AUTO
- except : IIi1I11I1II = xbmc . PLAYER_CORE_AUTO
- return IIi1I11I1II
+  O0OoO = getSet ( "core-player" )
+  if ( O0OoO == 'DVDPLAYER' ) : OO = xbmc . PLAYER_CORE_DVDPLAYER
+  elif ( O0OoO == 'MPLAYER' ) : OO = xbmc . PLAYER_CORE_MPLAYER
+  elif ( O0OoO == 'PAPLAYER' ) : OO = xbmc . PLAYER_CORE_PAPLAYER
+  else : OO = xbmc . PLAYER_CORE_AUTO
+ except : OO = xbmc . PLAYER_CORE_AUTO
+ return OO
  return True
- if 63 - 63: OoooooooOO - OoO0O00 . II111iiii / o0oOOo0O0Ooo . OoOoOO00 / O0
-def o0OOOO00O0Oo ( ) :
- ii = [ ]
- oOooOOOoOo = sys . argv [ 2 ]
- if len ( oOooOOOoOo ) >= 2 :
-  i1Iii1i1I = sys . argv [ 2 ]
-  OOoO00 = i1Iii1i1I . replace ( '?' , '' )
-  if ( i1Iii1i1I [ len ( i1Iii1i1I ) - 1 ] == '/' ) :
-   i1Iii1i1I = i1Iii1i1I [ 0 : len ( i1Iii1i1I ) - 2 ]
-  IiI111111IIII = OOoO00 . split ( '&' )
-  ii = { }
-  for i1Ii in range ( len ( IiI111111IIII ) ) :
-   ii111iI1iIi1 = { }
-   ii111iI1iIi1 = IiI111111IIII [ i1Ii ] . split ( '=' )
-   if ( len ( ii111iI1iIi1 ) ) == 2 :
-    ii [ ii111iI1iIi1 [ 0 ] ] = ii111iI1iIi1 [ 1 ]
-    if 78 - 78: OoO0O00 . OOooOOo + OoO0O00 / I11i / OoO0O00
- return ii
- if 54 - 54: OoOoOO00 % iII111i
-i1Iii1i1I = o0OOOO00O0Oo ( )
+ if 50 - 50: Ii1I / Oo0Ooo - oO0o - I11i % iII111i - oO0o
+def OOO0o ( ) :
+ IiI1 = [ ]
+ Oo0O00Oo0o0 = sys . argv [ 2 ]
+ if len ( Oo0O00Oo0o0 ) >= 2 :
+  O00O0oOO00O00 = sys . argv [ 2 ]
+  i1 = O00O0oOO00O00 . replace ( '?' , '' )
+  if ( O00O0oOO00O00 [ len ( O00O0oOO00O00 ) - 1 ] == '/' ) :
+   O00O0oOO00O00 = O00O0oOO00O00 [ 0 : len ( O00O0oOO00O00 ) - 2 ]
+  Oo00 = i1 . split ( '&' )
+  IiI1 = { }
+  for i1i in range ( len ( Oo00 ) ) :
+   iiI111I1iIiI = { }
+   iiI111I1iIiI = Oo00 [ i1i ] . split ( '=' )
+   if ( len ( iiI111I1iIiI ) ) == 2 :
+    IiI1 [ iiI111I1iIiI [ 0 ] ] = iiI111I1iIiI [ 1 ]
+    if 41 - 41: Oo0Ooo . ooOoO0o + O0 * o0oOOo0O0Ooo % Oo0Ooo * Oo0Ooo
+ return IiI1
+ if 19 - 19: iII111i
+O00O0oOO00O00 = OOO0o ( )
 O0O = None
 I11i1 = None
-IIiII111iiI1I = None
-Ii1i1iI1iIIi = None
-I1Ii = None
-if 94 - 94: Ii1I - II111iiii . OOooOOo % I11i . i11iIiiIii + O0
-if 26 - 26: I11i - iIii1I11I1II1 - I1IiiI / OoO0O00 . OoOoOO00 % iIii1I11I1II1
+IIi1iiIi1 = None
+iii1i1iiiiIi = None
+Iiii = None
+if 75 - 75: OoOoOO00 % o0oOOo0O0Ooo % o0oOOo0O0Ooo . I1Ii111
+if 5 - 5: o0oOOo0O0Ooo * ooOoO0o + OoOoOO00 . OOooOOo + OoOoOO00
 try :
- O0O = urllib . unquote_plus ( i1Iii1i1I [ "url" ] )
+ O0O = urllib . unquote_plus ( O00O0oOO00O00 [ "url" ] )
 except :
  pass
 try :
- I11i1 = urllib . unquote_plus ( i1Iii1i1I [ "name" ] )
+ I11i1 = urllib . unquote_plus ( O00O0oOO00O00 [ "name" ] )
 except :
  pass
 try :
- IIiII111iiI1I = urllib . unquote_plus ( i1Iii1i1I [ "iconimage" ] )
+ IIi1iiIi1 = urllib . unquote_plus ( O00O0oOO00O00 [ "iconimage" ] )
 except :
  pass
 try :
- Ii1i1iI1iIIi = int ( i1Iii1i1I [ "mode" ] )
+ iii1i1iiiiIi = int ( O00O0oOO00O00 [ "mode" ] )
 except :
  pass
 try :
- OO = urllib . unquote_plus ( i1Iii1i1I [ "fanart" ] )
+ oO = urllib . unquote_plus ( O00O0oOO00O00 [ "fanart" ] )
 except :
  pass
 try :
- I1Ii = urllib . unquote_plus ( i1Iii1i1I [ "description" ] )
+ Iiii = urllib . unquote_plus ( O00O0oOO00O00 [ "description" ] )
 except :
  pass
- if 25 - 25: OoO0O00
- if 62 - 62: OOooOOo + O0
+ if 7 - 7: o0oOOo0O0Ooo - I1IiiI
+ if 100 - 100: oO0o + I11i . OOooOOo * Ii1I
 print str ( OOoO00o ) + ': ' + str ( II111iiiiII )
-print "Mode: " + str ( Ii1i1iI1iIIi )
+print "Mode: " + str ( iii1i1iiiiIi )
 print "URL: " + str ( O0O )
 print "Name: " + str ( I11i1 )
-print "IconImage: " + str ( IIiII111iiI1I )
-if 98 - 98: o0oOOo0O0Ooo
-def OOOO0oo0 ( url ) :
- I11iiI1i1 = xbmc . Player ( IIiIiiIi ( ) )
+print "IconImage: " + str ( IIi1iiIi1 )
+if 73 - 73: i1IIi + I1IiiI
+def oOOoo0Oo ( url ) :
+ iII = xbmc . Player ( IIi1iIIiI ( ) )
  import urlresolver
- try : I11iiI1i1 . play ( url )
+ try : iII . play ( url )
  except : pass
- if 47 - 47: iII111i - Ii1I . II111iiii + OoooooooOO . i11iIiiIii
+ if 38 - 38: I1Ii111
 def O0o0Oo ( url ) :
- OOo0oO00ooO00 = urllib2 . Request ( url )
+ Ii1 = urllib2 . Request ( url )
  oOoOo00oOo = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
  Oo = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
  o00O00O0O0O = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
  OooO0OO = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
- OOo0oO00ooO00 . add_header ( 'User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3' )
- oOO0O00oO0Ooo = urllib2 . urlopen ( OOo0oO00ooO00 )
- o0 = oOO0O00oO0Ooo . read ( )
- oOO0O00oO0Ooo . close ( )
- return o0
- if 67 - 67: OoO0O00 - OOooOOo
+ Ii1 . add_header ( 'User-Agent' , 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3' )
+ OOooOO000 = urllib2 . urlopen ( Ii1 )
+ OOoOoo = OOooOO000 . read ( )
+ OOooOO000 . close ( )
+ return OOoOoo
+ if 85 - 85: I1ii11iIi11i % iII111i % ooOoO0o
 def iIii11I ( content , viewType ) :
  if content :
   xbmcplugin . setContent ( int ( sys . argv [ 1 ] ) , content )
-  if 36 - 36: IiII
-  if 36 - 36: ooOoO0o / O0 * Oo0Ooo - OOooOOo % iIii1I11I1II1 * oO0o
-if Ii1i1iI1iIIi == None : oo ( )
-elif Ii1i1iI1iIIi == 1 : Ii1i11IIii1I ( O0O )
-elif Ii1i1iI1iIIi == 2 : OOOO0oo0 ( O0O )
-elif Ii1i1iI1iIIi == 3 : Iii111II ( )
-elif Ii1i1iI1iIIi == 4 : Ii11iI1i ( )
-elif Ii1i1iI1iIIi == 5 : I11ii1 ( O0O )
-if 79 - 79: O0
+  if 82 - 82: i11iIiiIii - iII111i * OoooooooOO / I11i
+  if 31 - 31: IiII . OoO0O00 - iIii1I11I1II1
+if iii1i1iiiiIi == None : oo ( )
+elif iii1i1iiiiIi == 1 : Ii1i11IIii1I ( O0O )
+elif iii1i1iiiiIi == 2 : O00oO ( O0O )
+elif iii1i1iiiiIi == 3 : Iii111II ( )
+elif iii1i1iiiiIi == 4 : Ii11iI1i ( )
+elif iii1i1iiiiIi == 5 : I11ii1 ( O0O )
+if 64 - 64: I11i
 xbmcplugin . endOfDirectory ( int ( sys . argv [ 1 ] ) )
 # dd678faae9ac167bc83abf78e5cb2f3f0688d3a3

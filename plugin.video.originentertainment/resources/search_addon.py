@@ -3,7 +3,6 @@ import urllib, urllib2, re, Google,base64
 import urllib,urllib2, re, os, sys, HTMLParser, control
 from bs4 import BeautifulSoup
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-from resources import cloudflare,client,googleplus,cleantitle
 
 addon_id='plugin.video.originentertainment'
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
@@ -31,7 +30,7 @@ def Search_Addon_Menu():
 #	addDir('Search Pandoras Films','',176,ART + 'search.png',ART + 'background.png','')
 #	addDir('Search Pandoras TV','',177,ART + 'search.png',ART + 'background.png','')
     addDir('Search Films','',178,ART + 'search.png',ART + 'background.png','')
-#    addDir('Search Live TV','',179,ART + 'search.png',ART + 'background.png','')
+    addDir('Search Live TV','',179,ART + 'search.png',ART + 'background.png','')
     addDir('Search TV Shows','',180,ART + 'search.png',ART + 'background.png','')
     if GetTestPassword == Decode('aGlkZGVuZGVwdGhz'):
         addDir('Search Test',TestFinalURL,181,ART + 'icon.png','','')
@@ -172,7 +171,7 @@ def Search_TV_Lists():
     HTML3 = OPEN_URL(url3)
     HTML4 = OPEN_URL(url4)
     HTML5 = OPEN_URL(url5)
-    HTML6 = cloudflare.source(url6)
+    HTML6 = OPEN_URL(url6)
     HTML8 = OPEN_URL(url8)
     HTML9 = OPEN_URL(url9)
     if HTML != 'Failed':			
@@ -266,7 +265,7 @@ def Search_LiveTV():
 
 	
 def Get_Episode(url):
-    HTML = cloudflare.source(url)
+    HTML = OPEN_URL(url)
     match = re.compile('<a class="season" href="(.+?)">\n(.+?)\n</a>\n</span>\n<span>\n<a class="episode" href=".+?">\n(.+?)\n</a>\n</span>\n<span>\n<a class="episode-name" href=".+?">\n(.+?)</a>').findall(HTML)
     for url,season,episode,name in match:
         addDir50((season).replace('Sezon',' Season ') + (episode).replace('Bölüm',' Episode ') + name,url,183,'')
@@ -275,7 +274,7 @@ def Get_Episode(url):
 	
 		
 def Play_link(url):
-    html=cloudflare.source(url)
+    html=OPEN_URL(url)
     match = re.compile('file: "(.+?)",.+?label: "(.+?)",',re.DOTALL).findall(html)
     for url,name in match:
         addDir4(name,url,501,'')

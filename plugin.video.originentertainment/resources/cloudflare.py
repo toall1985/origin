@@ -19,8 +19,7 @@
 '''
 
 
-import re,urllib,urlparse,time,cache,client
-
+import re,urllib,urlparse,time
 
 
 def request(url, post=None, headers=None, mobile=False, safe=False, timeout='30'):
