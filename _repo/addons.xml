@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.audio.kidible" name="Kidible" version="1.0.4" provider-name="Origin">
+<addon id="plugin.audio.kidible" name="Kidible" version="1.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -17,7 +17,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.audio.kodible" name="Kodible" version="1.0.4" provider-name="Origin">
+<addon id="plugin.audio.kodible" name="Kodible" version="1.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -34,7 +34,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.4" provider-name="Origin">
+<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -66,7 +66,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.7" provider-name="Origin">
+<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.8" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -83,7 +83,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.footballrepeat" name="Football Repeat" version="1.0.5" provider-name="Origin">
+<addon id="plugin.video.footballrepeat" name="Football Repeat" version="1.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -100,7 +100,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.5" provider-name="Origin">
+<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
@@ -117,7 +117,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.littlekids" name="Little Kids" version="1.0.6" provider-name="Origin">
+<addon id="plugin.video.littlekids" name="Little Kids" version="1.0.7" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>
