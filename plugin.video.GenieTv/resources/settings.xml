@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="GtV Login">
+		<setting id="User" type="text" label="[COLORgreen]GenieTv User =[/COLOR]" default="insert_username" visible="true"/>
+		<setting id="Pass" type="text" label="[COLORgreen]GenieTv Pass =[/COLOR]" default="insert_password" visible="true"/>
+		<setting id="AdultPass" type="text" label="[COLORgreen]GenieTv AdultPass =[/COLOR]" default="insert_adultpass" visible="true"/>
+	    <setting id="zip" type="folder"    label="Set Build Backup Storage Location Here"      default=""/>
+    </category>	
+	<category label="Restore Build">
+		<setting label="Local Zip" type="file" id="Local" value="path_to_files"/>
+		<setting id="Build" type="text" label="Backup Url =" default="Enter Url Here" visible="true"/>
+    </category>	
+	<category label="Personalise Genie">
+        <setting id="Choose Menu" label="Pick Menu to personalise" type="labelenum" default="0" values="Main Menu|Streams" visible="True"/>	
+        <setting id="My Build" type="bool" label="My Build" default="true" visible="eq(-1,0)"/>
+    	<setting id="Streams" type="bool" label="Streams" default="true" visible="eq(-2,0)"/>
+    	<setting id="Music" type="bool" label="Music" default="true" visible="eq(-3,0)"/>
+    	<setting id="Builders Toolbox" type="bool" label="Builders Toolbox" default="true" visible="eq(-4,0)"/>
+    	<setting id="Source List" type="bool" label="Source List" default="true" visible="eq(-5,0)"/>
+    	<setting id="Maintainance" type="bool" label="Maintainance" default="true" visible="eq(-6,0)"/>
+    	<setting id="Addons" type="bool" label="Addons" default="true" visible="eq(-7,0)"/>
+    	<setting id="APK Tool" type="bool" label="APK Tool" default="true" visible="eq(-8,0)"/>
+    	<setting id="Rss Feed" type="bool" label="Rss Feed" default="true" visible="eq(-9,0)"/>
+    	<setting id="Addons Packs" type="bool" label="Addons Packs" default="true" visible="eq(-10,0)"/>
+    	<setting id="Favourites" type="bool" label="Favourites" default="true" visible="gt(0,-1)"/>
+    	<setting id="Search" type="bool" label="Search" default="true" visible="gt(0,-2)"/>
+    	<setting id="G-tv" type="bool" label="G-tv" default="true" visible="gt(0,-3)"/>
+    	<setting id="Popcorn Box" type="bool" label="Popcorn Box" default="true" visible="gt(0,-4)"/>
+    	<setting id="Dizzy Tv" type="bool" label="Dizzy Tv" default="true" visible="gt(0,-5)"/>
+    	<setting id="Watch Series" type="bool" label="Watch Series" default="true" visible="gt(0,-6)"/>
+    	<setting id="Recent Episodes" type="bool" label="Recent Episodes" default="true" visible="gt(0,-7)"/>
+    	<setting id="REQUESTS" type="bool" label="REQUESTS" default="true" visible="gt(0,-8)"/>
+    	<setting id="Scooby Streams" type="bool" label="Scooby Streams" default="true" visible="gt(0,-8)"/>
+    	<setting id="The Reaper" type="bool" label="The Reaper" default="true" visible="gt(0,-9)"/>
+    	<setting id="Pandoras Box" type="bool" label="Pandoras Box" default="true" visible="gt(0,-10)"/>
+    	<setting id="HeroVision" type="bool" label="HeroVision" default="true" visible="gt(0,-11)"/>
+    	<setting id="Silent Hunter" type="bool" label="Silent Hunter" default="true" visible="gt(0,-12)"/>
+        <setting id="Redemption Streams" type="bool" label="Redemption Streams" default="true" visible="gt(0,-29)"/>
+    	<setting id="Stand Up" type="bool" label="Stand Up" default="true" visible="gt(0,-13)"/>
+    	<setting id="Football" type="bool" label="Football" default="true" visible="gt(0,-14)"/>
+    	<setting id="Fitness" type="bool" label="Fitness" default="true" visible="gt(0,-15)"/>
+    	<setting id="Documentaries" type="bool" label="Documentaries" default="true" visible="gt(0,-16)"/>
+    	<setting id="CLASSIC MOVIES" type="bool" label="CLASSIC MOVIES" default="true" visible="gt(0,-17)"/>
+    	<setting id="CLASSIC TV" type="bool" label="CLASSIC TV" default="true" visible="gt(0,-18)"/>
+    	<setting id="Disclose" type="bool" label="Disclose" default="true" visible="gt(0,-19)"/>
+    	<setting id="Go Fishing" type="bool" label="Go Fishing" default="true" visible="gt(0,-20)"/>
+    	<setting id="GenieTv Kitchen" type="bool" label="GenieTv Kitchen" default="true" visible="gt(0,-21)"/>
+    	<setting id="Cartoons" type="bool" label="Cartoons" default="true" visible="gt(0,-22)"/>
+    	<setting id="Anime" type="bool" label="Anime" default="true" visible="gt(0,-23)"/>
+    	<setting id="CONCERTS" type="bool" label="CONCERTS" default="true" visible="gt(0,-24)"/>
+    	<setting id="M3u Streams" type="bool" label="M3u Streams" default="true" visible="gt(0,-25)"/>
+    	<setting id="Playlist Loader" type="bool" label="Playlist Loader" default="true" visible="gt(0,-26)"/>
+    	<setting id="CLASSICS" type="bool" label="Classics" default="true" visible="gt(0,-27)"/>
+    	<setting id="YOUTUBE" type="bool" label="Youtube" default="true" visible="gt(0,-28)"/>
+        <setting id="TV GUIDE" type="bool" label="TV GUIDE" default="true" visible="gt(0,-29)"/>
+        <setting id="WCO" type="bool" label="WCO" default="true" visible="gt(0,-29)"/>
+    </category>	
+    <category label="Playlist Loader">
+		<setting label="Local M3u" type="file" id="LocalM3u" value="path_to_files"/>
+		<setting id="Remote" type="text" label="M3u Url =" default="Enter Url Here" visible="true"/>
+    </category>	
+	<category label="Auto-View">
+		<setting id="auto-view" type="bool" label="Enable Auto View" default="true"/>
+		<setting id="MAIN" type="number" label="MAIN" default="500" enable="!eq(-1,false)"/>
+		<setting id="INFO" type="number" label="INFO" default="515" enable="!eq(-1,false)"/>
+        <setting id="message" type="bool" label="for messages" default="false" visible="false"/>
+        <setting id="pop_time" type="text" label="For POP UP" default="2000-01-01 00:00:00" visible="false"/>
+        <setting id="ga_time" type="text" label="GA Called" default="2000-01-01 00:00:00" visible="false"/>
+        <setting id="visitor_ga" type="text" label="GA visitor" default="" visible="false"/>
+   	</category>	   	
+	<category label="Tv Guide Settings">
+		<setting id="xmltv.type_select" label="30123" type="action" action="RunScript($CWD/imports/tvGuide/guideTypes.py)"/>
+        <setting id="xmltv.type" type="number" enable="false" visible="false"/>
+        <setting id="xmltv.interval" label="30128" type="enum" default="2" lvalues="30129|30130|30131|30132" />
+        <setting id="xmltv.file" label="30103" type="file" visible="eq(-2,6)" />
+        <setting id="xmltv.refresh" label="30149" type="bool" default="false" visible="eq(-3,6)"/>
+        <setting id="addons.ini.type" label="30144" type="enum" default="0" lvalues="30143|30142"/>
+        <setting id="addons.ini.file" label="30145" type="file" visible="eq(-1,1)" />
+		<setting id="skin" label="30141" type="fileenum" values="resources/skins" mask="/" default="Default" />
+		<setting id="logos.enabled" label="30117" type="bool" default="true" />
+        <setting id="logos.source" label="30146" type="enum" default="0" lvalues="30143|30147" visible="eq(-1,true)" />
+        <setting id="logos.folder" label="30116" type="folder" visible="eq(-2,true) + eq(-1,1)" />
+        <setting id="autostart" label="30900" type="bool" default="false" />
+		<setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" />
+		<setting label="30119" type="lsep" />
+		<setting id="alternative.playback" label="30120" type="bool" default="false" />
+		<setting label="30121" type="lsep" />
+		<setting id="background.service" label="30400" type="bool" default="false" />
+        <setting id="service.interval" label="30401" type="enum" default="1" lvalues="30402|30403|30404|30405" visible="eq(-1,true)" />
+		<setting id="notifications.enabled" label="30106" type="bool" default="true" />
+		<setting label="30108" type="action" action="RunScript($CWD/imports/tvGuide/notification.py)" />
+		<setting type="lsep" label="30137"/>
+		<setting type="lsep" label="30138"/>
+        <setting label="30139" type="action" action="RunScript($CWD/imports/tvGuide/ResetDatabase.py)" />
+    </category>
+
+</settings>
