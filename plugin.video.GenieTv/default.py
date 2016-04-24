@@ -52,7 +52,7 @@ def oo ( i , t1 , t2 = [ ] ) :
  if 87 - 87: OoOoOO00
  if 27 - 27: OOOo0 / Oo - Ooo00oOo00o . I1IiI
  if 73 - 73: OOooOOo / ii11ii1ii
-O00ooOO = "2.7.1"
+O00ooOO = "2.7.2"
 I1iII1iiII = xbmc . translatePath ( 'special://home/addons/repository.GenieTv' )
 iI1Ii11111iIi = xbmc . translatePath ( 'special://home/addons/' )
 i1i1II = xbmc . translatePath ( 'special://home/addonsbroke/' )
