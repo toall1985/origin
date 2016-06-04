@@ -28,7 +28,7 @@ O0OoOoo00o = sys . argv [ 0 ]
 iiiI11 = int ( sys . argv [ 1 ] )
 OOooO = urlparse . parse_qs ( sys . argv [ 2 ] [ 1 : ] )
 OOoO00o = "Football Repeat"
-II111iiiiII = "1.0.7"
+II111iiiiII = "1.0.1"
 oOoOo00oOo = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
 Oo = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
 o00O00O0O0O = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
@@ -66,6 +66,8 @@ def I11ii1 ( url ) :
  if 69 - 69: oO0o % I1Ii111 - o0oOOo0O0Ooo + I1Ii111 - O0 % OoooooooOO
 def Iii111II ( ) :
  if 9 - 9: OoO0O00
+ OO0O00 ( 'Latest' , 'http://www.fullmatchesandshows.com' , 1 , 'http://www.fancyicons.com/free-icons/125/miscellaneous/png/256/football_256.png' , i1I111I + 'fanart.jpg' , '' )
+ OO0O00 ( 'EURO 2016' , 'http://www.fullmatchesandshows.com/euro-2016/' , 1 , 'http://football.mywapblog.com/files/uefa-euro-2016-logo.png' , i1I111I + 'fanart.jpg' , '' )
  OO0O00 ( 'Shows' , 'http://www.fullmatchesandshows.com/category/show/' , 1 , 'http://www.fm-base.co.uk/forum/attachments/club-competition-logos/3885-soccer-am-logo-socceram.png' , i1I111I + 'fanart.jpg' , '' )
  OO0O00 ( 'Premier League' , 'http://www.fullmatchesandshows.com/premier-league/' , 1 , 'https://footballseasons.files.wordpress.com/2013/05/premier-league.png' , i1I111I + 'fanart.jpg' , '' )
  OO0O00 ( 'La Liga' , 'http://www.fullmatchesandshows.com/la-liga/' , 1 , 'http://1.bp.blogspot.com/-c6kQ40ryhyo/U19cUlz25sI/AAAAAAAABak/qtn5chSFZm0/s1600/la-liga-logo_display_image.png' , i1I111I + 'fanart.jpg' , '' )
