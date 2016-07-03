@@ -86,7 +86,7 @@
 <addon id="plugin.video.footballrepeat" name="Football Repeat" version="1.0.7" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.1"/>
+	<import addon="script.module.urlresolver"  version="2.1.2"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -134,6 +134,23 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.MultiTV" name="MultiTV" version="0.0.1" provider-name="Origin">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Blank</summary>
+	<description lang="en">A plugin for playing online lists</description>
+	<disclaimer lang="en">The original author neither hosts or stores any content, the original author has no affiliation with content hosts</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.originentertainment" name="Origin Entertainment" version="2.2.0" provider-name="Origin">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -177,9 +194,9 @@
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="Origin Repo">
-            <info compressed="false">https://raw.github.com/toall1985/origin/master/_repo/addons.xml</info>
-            <checksum>https://raw.github.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.github.com/toall1985/origin/master/_repo/</datadir>
+            <info compressed="false">https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/toall1985/origin/master/_repo/</datadir>
             <hashes>false</hashes>
         </extension>
         <extension point="xbmc.addon.metadata">
