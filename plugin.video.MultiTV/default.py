@@ -170,17 +170,15 @@ def Read_Favourite(name,url,mode):
             Menu(name,url,mode,ICON,FANART,'','','')
         elif mode == '20':
             Play(name,url,mode,ICON,FANART,'','','')
-    else:
-        Menu('[COLORred]If empty you need to add Favourites![/COLOR]','','','','','','','')
-        Menu('By bringing up context menu then adding to favourites','','','','','','','')
-        Menu('[COLORblue]Press C/Menu/Right click to bring up context menu[/COLOR]','','','','','','','')
+    if len(Fav_Regex)<=0:
+        Menu('[COLORred]You need to add favourites first[/COLOR]','','','','','','','')
 
 #####################################GET PLAYLINKS...WILL TRY SPEED UP WHEN I WORK OUT THREADING################################		
 class Watchseries():
 
         List = []
         source_list = []   
-        Sources = ['daclips','filehoot','thevideo','allmyvideos','vidspot','vodlocker']		
+        Sources = ['daclips','filehoot','thevideo','allmyvideos','vidspot','vodlocker','vidto']		
         def __init__(self,name,url):
 
             season_name = name
@@ -292,8 +290,23 @@ class Watchseries():
                                             t6=Thread(target=self.vodlocker,args=(url,season_name,source_name))
                                             dp.update(0,"", "Getting Vodlocker Links")
                                             t6.start()	
-                        
-                   
+                                        if 'vidto' in url:
+											source_name = 'VIDTO'
+											if source_name in Watchseries.source_list:
+												pass                                
+											else:
+												t6=Thread(target=self.vodlocker,args=(url,season_name,source_name))
+												dp.update(0,"", "Getting vidto Links")
+												t6.start()	
+
+
+        def vidto(self,url,season_name,source_name):
+            HTML = Open_Url(url)
+            match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
+            for Link,name in match:
+                    self.Printer(Link,season_name,source_name)
+
+												
         def allmyvid(self,url,season_name,source_name):
             HTML = Open_Url(url)
             match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
