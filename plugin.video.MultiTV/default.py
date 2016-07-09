@@ -17,10 +17,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon
+import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, time
 from threading import Thread
-Main = 'http://www.watchseries.li'
+Main = 'http://www.watchseries.ac'
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.MultiTV/')
+USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
+ADDON_DATA = USERDATA_PATH + '/Pilkified/'
+if not os.path.exists(ADDON_DATA):
+    os.makedirs(ADDON_DATA)
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 Dialog = xbmcgui.Dialog()
@@ -28,25 +32,40 @@ addon_id = 'plugin.video.MultiTV'
 ADDON = xbmcaddon.Addon(id=addon_id)
 PATH = 'Test Piece'
 VERSION = '0.0.1'
-favourites = ADDON_PATH + 'favourites.txt'
+favourites = ADDON_DATA + 'favourites.txt'
+if not os.path.exists(favourites):
+    open(favourites,'w+')
 favourites_read = open(favourites).read()
 dp = xbmcgui.DialogProgress()
 addon_handle = int(sys.argv[1])
 List = []
+temp_file = ADDON_PATH + 'Temp.txt'
 
+def Choice():
+    if not os.path.exists(temp_file):
+        TextBoxes('Potential Issue', 'After 20 seconds this window will be replaced with a choice!! It has been flagged on my laptop that the site being scraped may contain a virus.\n\n\n I believe it to be with the change in the url and it forcing you to redirect, some antivirus may stop this addon working but until I can verify this you will need to decide whether to continue, I have found nothing on my system but is up to you to decide on yours.\n\n\n If you Press Continue you are agreeing to use the site, Close and this option will keep coming up until you press yes or i can verify what is happening on the site. If you\'re unsure then do not use on a device with any private information, although im fairly certain its safe nothing is impossible')
+        time.sleep(20)
+        choice = xbmcgui.Dialog().yesno('Continue Using addon?', 'Continue will continue as normal', 'Close will close the addon', 'Accept my apologies and hopefully be back sorted soon', nolabel='Close',yeslabel='Continue')
+        if choice == 0:
+			pass
+        elif choice == 1:
+            open(temp_file,'w+')
+            Main_Menu()
+    elif os.path.exists(temp_file):
+        Main_Menu()
 
 def Main_Menu():
-    OPEN = Open_Url(Main)
-    Menu('Latest Episodes','http://www.watchseries.li/latest',1,ICON,FANART,'')
-    Menu('Popular Episodes','http://www.watchseries.li/new',2,ICON,FANART,'')
-    Menu('Genres','http://www.watchseries.li/',3,ICON,FANART,'')
-    Menu('Tv Schedule','http://www.watchseries.li/tvschedule',7,ICON,FANART,'')
+    Menu('Latest Episodes','http://www.watchseries.ac/latest',1,ICON,FANART,'')
+    Menu('Popular Episodes','http://www.watchseries.ac/new',2,ICON,FANART,'')
+    Menu('Genres','http://www.watchseries.ac/',3,ICON,FANART,'')
+    Menu('Tv Schedule','http://www.watchseries.ac/tvschedule',7,ICON,FANART,'')
     Menu('Search','',9,ICON,FANART,'')
     Menu('Favourites','',12,ICON,FANART,'')
 
+
 def Search():
     Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_url = 'http://www.watchseries.li/search/' + (Search_name).replace(' ','%20')
+    Search_url = 'http://www.watchseries.ac/search/' + (Search_name).replace(' ','%20')
     OPEN = Open_Url(Search_url)
     block = re.compile('<div class="home-page">.+?<div class="block-left-home responsive-lg-full">(.+?)<div class="block-left-home responsive-lg-full">',re.DOTALL).findall(OPEN)
     match = re.compile('<div class="block-left-home-inside col-sm-6 col-xs-12" title=".+?<a href="(.+?)".+?<img src="(.+?)".+?<b>(.+?)</b></a><br>(.+?)<br>.+?div class="block-left-home-inside-line"></div>',re.DOTALL).findall(str(block))
@@ -172,6 +191,18 @@ def Read_Favourite(name,url,mode):
             Play(name,url,mode,ICON,FANART,'','','')
     if len(Fav_Regex)<=0:
         Menu('[COLORred]You need to add favourites first[/COLOR]','','','','','','','')
+		
+def Remove_Favorite(name):
+        data = json.loads(open(favorites).read())
+        for index in range(len(data)):
+            if data[index][0]==name:
+                del data[index]
+                b = open(favorites, "w")
+                b.write(json.dumps(data))
+                b.close()
+                break
+        xbmc.executebuiltin("XBMC.Container.Refresh")
+
 
 #####################################GET PLAYLINKS...WILL TRY SPEED UP WHEN I WORK OUT THREADING################################		
 class Watchseries():
@@ -190,7 +221,7 @@ class Watchseries():
             HTML = Open_Url(URL)
             match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
             for url,name in match:
-                URL = 'http://www.watchseries.li/link/' + url
+                URL = 'http://www.watchseries.ac/link/' + url
                 self.Get_site_link(URL,season_name)
             if len(match)<=0:
                 Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','')
@@ -374,9 +405,32 @@ def Open_Url(url):
         link = 'Opened'
         return link
 
+def TextBoxes(heading,announce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try: f=open(announce); text=f.read()
+      except: text=announce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
+  TextBox()
+		
+		
 def setView(content, viewType):
-	if content:
-	    xbmcplugin.setContent(int(sys.argv[1]), content)
+    # set content type so library shows more views and info
+    if content:
+        xbmcplugin.setContent(int(sys.argv[1]), content)
+    if ADDON.getSetting('auto-view')=='true':
+        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )
 		
 		
 def Menu(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={}):
@@ -388,6 +442,9 @@ def Menu(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
         liz.setProperty( "Fanart_Image", fanart )
         if showcontext:
             contextMenu = []
+            if showcontext == 'fav':
+                contextMenu.append(('Remove from MultiTV Favorites','XBMC.RunPlugin(%s?mode=10056&name=%s)'
+                                    %(sys.argv[0], urllib.quote_plus(name))))
             if not name in favourites_read:
                 contextMenu.append(('Add to MultiTV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s)'
                          %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode)))
@@ -407,6 +464,9 @@ def Play(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
         liz.setProperty( "Fanart_Image", fanart )
         if showcontext:
             contextMenu = []
+            if showcontext == 'fav':
+                contextMenu.append(('Remove from MultiTV Favorites','XBMC.RunPlugin(%s?mode=10056&name=%s)'
+                                    %(sys.argv[0], urllib.quote_plus(name))))
             if not name in favourites_read:
                 contextMenu.append(('Add to Multi TV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s)'
                          %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode)))
@@ -515,7 +575,7 @@ print "Trailer: "+str(trailer)
 
 #####################################################END PROCESSES##############################################################		
 		
-if mode == None: Main_Menu()
+if mode == None: Choice()
 elif mode == 1 : Latest_Eps(url)
 elif mode == 2 : Popular(url)
 elif mode == 3 : Genres()
