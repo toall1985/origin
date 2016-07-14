@@ -22,7 +22,7 @@ from threading import Thread
 Main = 'http://www.watchseries.ac'
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.MultiTV/')
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
-ADDON_DATA = USERDATA_PATH + '/Pilkified/'
+ADDON_DATA = USERDATA_PATH + '/MultiTV/'
 if not os.path.exists(ADDON_DATA):
     os.makedirs(ADDON_DATA)
 ICON = ADDON_PATH + 'icon.png'
@@ -41,18 +41,29 @@ addon_handle = int(sys.argv[1])
 List = []
 temp_file = ADDON_PATH + 'Temp.txt'
 
-def Choice():
-    if not os.path.exists(temp_file):
-        TextBoxes('Potential Issue', 'After 20 seconds this window will be replaced with a choice!! It has been flagged on my laptop that the site being scraped may contain a virus.\n\n\n I believe it to be with the change in the url and it forcing you to redirect, some antivirus may stop this addon working but until I can verify this you will need to decide whether to continue, I have found nothing on my system but is up to you to decide on yours.\n\n\n If you Press Continue you are agreeing to use the site, Close and this option will keep coming up until you press yes or i can verify what is happening on the site. If you\'re unsure then do not use on a device with any private information, although im fairly certain its safe nothing is impossible')
-        time.sleep(20)
-        choice = xbmcgui.Dialog().yesno('Continue Using addon?', 'Continue will continue as normal', 'Close will close the addon', 'Accept my apologies and hopefully be back sorted soon', nolabel='Close',yeslabel='Continue')
-        if choice == 0:
-			pass
-        elif choice == 1:
-            open(temp_file,'w+')
-            Main_Menu()
-    elif os.path.exists(temp_file):
-        Main_Menu()
+def TextBoxes(heading,announce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try: f=open(announce); text=f.read()
+      except: text=announce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
+  TextBox()
+  
+if not os.path.exists(temp_file):
+        TextBoxes('Update 14/07/16 - 0.0.4', 'Issue with anitviruses bring up error now resolved so warning removed, have fixed tv schedule to now bring up the season list of the episode it shows in case you want a recap on previous episodes')
+        open(temp_file,'w+')
+
 
 def Main_Menu():
     Menu('Latest Episodes','http://www.watchseries.ac/latest',1,ICON,FANART,'')
@@ -75,10 +86,13 @@ def Search():
 	
 def Tv_Schedule(url):
     OPEN = Open_Url(url)
-    match = re.compile('<li><a href="(.+?)">(.+?)</a></li>',re.DOTALL).findall(OPEN)
+    match = re.compile('<li><a href="(.+?)".*?>(.+?)</a></li>').findall(OPEN)
     for url,date in match:
+        date = (date).replace('&amp;','&').replace('&#039','\'')
         url = Main + url
         if date in List:
+            pass
+        elif 'TV Schedule' in date:
             pass
         elif 'Home' in date:
             pass
@@ -100,7 +114,10 @@ def Schedule_Grab(url):
     for url,name,year,img,season,desc in match:
         url = Main + url
         image = Main + img
-        Menu(name + ' ' + year + ' - [COLORred]'+season+'[/COLOR]',url,10,img,FANART,desc)
+        name = (name).replace('&amp;','&').replace('&#039;','\'').replace('&quot;','"')
+        Menu(name + ' ' + year + ' - [COLORred]'+season+'[/COLOR]',url,5,img,FANART,desc)
+    if len(match) <= 0:
+        Menu('No Data Available Unfortunately','','','','','')
 		
 def Genres():
     OPEN = Open_Url(Main)
@@ -112,17 +129,9 @@ def Genres():
 
 def Genres_Page(url):
     OPEN = Open_Url(url)
-    Next_Page = re.compile('<ul class="pagination">.+?<li><a href=".+?" style="font-weight: bold; color:#000;">.+?</a></li>.+?<li><a href="(.+?)">.+?</a></li>',re.DOTALL).findall(OPEN)
-    for url in Next_Page:
-        if 'Next_Page' in List:
-            pass
-        else:
-            url = Main+url
-            Menu('NEXT PAGE',url,4,ICON,FANART,'')
-            List.append('Next_Page')
     match = re.compile('<li class="col-md-6 col-xs-12 list-movies-li"><a href="(.+?)" title=".+?">(.+?)<span class="epnum">(.+?)</span></a></li>').findall(OPEN)
     for url,name,year in match:
-        name = (name).replace('&#039;','\'').replace('&quot;','"')
+        name = (name).replace('&amp;','&').replace('&#039;','\'').replace('&quot;','"')
         url = Main + url
         if 'hack/' in name:
             pass
@@ -134,7 +143,14 @@ def Genres_Page(url):
             pass
         else:
             Menu(name+' - [COLORred]'+year+'[/COLOR]',url,5,ICON,FANART,'')
-
+    Next_Page = re.compile('<ul class="pagination">.+?<li><a href=".+?" style="font-weight: bold; color:#000;">.+?</a></li>.+?<li><a href="(.+?)">.+?</a></li>',re.DOTALL).findall(OPEN)
+    for url in Next_Page:
+        if 'Next_Page' in List:
+            pass
+        else:
+            url = Main+url
+            Menu('NEXT PAGE',url,4,ICON,FANART,'')
+            List.append('Next_Page')
 def Popular(url):
     OPEN = Open_Url(url)
     match = re.compile('<div class="block-left-home-inside-image">.+?<img src="(.+?)".+?<a href="(.+?)".+?<b>(.+?)</b>.+?<span class=".+?">(.+?)</span></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
@@ -404,25 +420,6 @@ def Open_Url(url):
     else:
         link = 'Opened'
         return link
-
-def TextBoxes(heading,announce):
-  class TextBox():
-    WINDOW=10147
-    CONTROL_LABEL=1
-    CONTROL_TEXTBOX=5
-    def __init__(self,*args,**kwargs):
-      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
-      self.win=xbmcgui.Window(self.WINDOW) # get window
-      xbmc.sleep(500) # give window time to initialize
-      self.setControls()
-    def setControls(self):
-      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
-      try: f=open(announce); text=f.read()
-      except: text=announce
-      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
-      return
-  TextBox()
-  TextBox()
 		
 		
 def setView(content, viewType):
@@ -575,7 +572,7 @@ print "Trailer: "+str(trailer)
 
 #####################################################END PROCESSES##############################################################		
 		
-if mode == None: Choice()
+if mode == None: Main_Menu()
 elif mode == 1 : Latest_Eps(url)
 elif mode == 2 : Popular(url)
 elif mode == 3 : Genres()
