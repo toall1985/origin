@@ -40,6 +40,7 @@ dp = xbmcgui.DialogProgress()
 addon_handle = int(sys.argv[1])
 List = []
 temp_file = ADDON_PATH + 'Temp.txt'
+IMDB = 'http://www.imdb.com'
 
 def TextBoxes(heading,announce):
   class TextBox():
@@ -61,28 +62,49 @@ def TextBoxes(heading,announce):
   TextBox()
   
 if not os.path.exists(temp_file):
-        TextBoxes('Update 14/07/16 - 0.0.4', 'Issue with anitviruses bring up error now resolved so warning removed, have fixed tv schedule to now bring up the season list of the episode it shows in case you want a recap on previous episodes')
+        TextBoxes('Update 15/07/16 - 0.0.5', 'Made it all pretty now, if you search or go in through tv schedule it will now grab images etc. Am working on getting description for each episode but that will keep for now. Loading time will be a little longer but make sure you add to favourites and shouldnt be too bad')
         open(temp_file,'w+')
 
 
 def Main_Menu():
-    Menu('Latest Episodes','http://www.watchseries.ac/latest',1,ICON,FANART,'')
-    Menu('Popular Episodes','http://www.watchseries.ac/new',2,ICON,FANART,'')
-    Menu('Genres','http://www.watchseries.ac/',3,ICON,FANART,'')
-    Menu('Tv Schedule','http://www.watchseries.ac/tvschedule',7,ICON,FANART,'')
-    Menu('Search','',9,ICON,FANART,'')
-    Menu('Favourites','',12,ICON,FANART,'')
+    Menu('Latest Episodes','http://www.watchseries.ac/latest',1,ICON,FANART,'','')
+    Menu('Popular Episodes','http://www.watchseries.ac/new',2,ICON,FANART,'','')
+    Menu('Genres','http://www.watchseries.ac/',3,ICON,FANART,'','')
+    Menu('Tv Schedule','http://www.watchseries.ac/tvschedule',7,ICON,FANART,'','')
+    Menu('Search','',9,ICON,FANART,'','')
+    Menu('Favourites','',12,ICON,FANART,'','')
 
 
 def Search():
+    image = ''
+    description = ''
+    fanart = ''
     Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_url = 'http://www.watchseries.ac/search/' + (Search_name).replace(' ','%20')
-    OPEN = Open_Url(Search_url)
-    block = re.compile('<div class="home-page">.+?<div class="block-left-home responsive-lg-full">(.+?)<div class="block-left-home responsive-lg-full">',re.DOTALL).findall(OPEN)
-    match = re.compile('<div class="block-left-home-inside col-sm-6 col-xs-12" title=".+?<a href="(.+?)".+?<img src="(.+?)".+?<b>(.+?)</b></a><br>(.+?)<br>.+?div class="block-left-home-inside-line"></div>',re.DOTALL).findall(str(block))
-    for url,img,name,desc in match:
-        url = Main + url
-        Menu(name,url,5,img,FANART,desc)		
+    if Search_name == '':
+        pass
+    else:
+		OPEN = Open_Url(Search_url)
+		block = re.compile('<div class="home-page">.+?<div class="block-left-home responsive-lg-full">(.+?)<div class="block-left-home responsive-lg-full">',re.DOTALL).findall(OPEN)
+		match = re.compile('<div class="block-left-home-inside col-sm-6 col-xs-12" title=".+?<a href="(.+?)".+?<img src="(.+?)".+?<b>(.+?)</b></a><br>(.+?)<br>.+?div class="block-left-home-inside-line"></div>',re.DOTALL).findall(str(block))
+		for url,img,name,desc in match:
+			name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
+			url = Main + url
+			OPEN2 = Open_Url('http://www.imdb.com/find?ref_=nv_sr_fn&q='+(name).replace(' ','+')+'&s=all')
+			match2 = re.compile('</a>Titles</h3>.+?<table class="findList">.+?<tr class="findResult odd">.+?<a href="/title/(.+?)" >',re.DOTALL).findall(OPEN2)
+			for url2 in match2:
+				IMDB_PAGE_URL = IMDB +'/title/'+ url2
+			OPEN3 = Open_Url(IMDB_PAGE_URL)
+			match3 = re.compile('<div class="poster">.+?<a href="(.+?)".+?src="(.+?)".+?<div class="summary_text" itemprop="description">(.+?)</div>',re.DOTALL).findall(OPEN3)
+			for fanart,image,description in match3:
+				image = image
+				description = (description).replace('\n','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','')
+				Get_art = Open_Url(IMDB + fanart)
+				match_art = re.compile('"src":"(.+?)"').findall(Get_art)
+				for fanart in match_art:
+					fanart = fanart
+			Menu(name,url,5,image,fanart,description,name)		
+			setView('Movies', 'INFO')
 	
 def Tv_Schedule(url):
     OPEN = Open_Url(url)
@@ -105,7 +127,7 @@ def Tv_Schedule(url):
         elif 'Newest' in date:
             pass
         else:
-            Menu(date,url,8,ICON,FANART,'')
+            Menu(date,url,8,ICON,FANART,'','')
             List.append(date)
 			
 def Schedule_Grab(url):
@@ -114,8 +136,8 @@ def Schedule_Grab(url):
     for url,name,year,img,season,desc in match:
         url = Main + url
         image = Main + img
-        name = (name).replace('&amp;','&').replace('&#039;','\'').replace('&quot;','"')
-        Menu(name + ' ' + year + ' - [COLORred]'+season+'[/COLOR]',url,5,img,FANART,desc)
+        name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('(2014)','')
+        Menu(name + ' ' + year + ' - [COLORred]'+season+'[/COLOR]',url,5,img,FANART,'',name)
     if len(match) <= 0:
         Menu('No Data Available Unfortunately','','','','','')
 		
@@ -125,13 +147,13 @@ def Genres():
     match = re.compile('<a href="(.+?)" class="sr-header">(.+?)</a>').findall(str(block))
     for url,name in match:
         url = Main + url
-        Menu(name,url,4,ICON,FANART,'')			
+        Menu(name,url,4,ICON,FANART,'','')			
 
 def Genres_Page(url):
     OPEN = Open_Url(url)
     match = re.compile('<li class="col-md-6 col-xs-12 list-movies-li"><a href="(.+?)" title=".+?">(.+?)<span class="epnum">(.+?)</span></a></li>').findall(OPEN)
     for url,name,year in match:
-        name = (name).replace('&amp;','&').replace('&#039;','\'').replace('&quot;','"')
+        name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
         url = Main + url
         if 'hack/' in name:
             pass
@@ -142,71 +164,96 @@ def Genres_Page(url):
         elif '\'t' in name:
             pass
         else:
-            Menu(name+' - [COLORred]'+year+'[/COLOR]',url,5,ICON,FANART,'')
+            Menu(name+' - [COLORred]'+year+'[/COLOR]',url,5,ICON,FANART,name)
     Next_Page = re.compile('<ul class="pagination">.+?<li><a href=".+?" style="font-weight: bold; color:#000;">.+?</a></li>.+?<li><a href="(.+?)">.+?</a></li>',re.DOTALL).findall(OPEN)
     for url in Next_Page:
         if 'Next_Page' in List:
             pass
         else:
             url = Main+url
-            Menu('NEXT PAGE',url,4,ICON,FANART,'')
+            Menu('NEXT PAGE',url,4,ICON,FANART,'','')
             List.append('Next_Page')
 def Popular(url):
     OPEN = Open_Url(url)
     match = re.compile('<div class="block-left-home-inside-image">.+?<img src="(.+?)".+?<a href="(.+?)".+?<b>(.+?)</b>.+?<span class=".+?">(.+?)</span></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
     for img,url,name,season,desc in match:
         url = Main + url
-        Menu(name+' - '+season,url,10,img,FANART,desc)		
-  
+        name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
+        Menu(name+' - '+season,url,10,img,FANART,desc,name)		
+
+'''		
 def Grab_Prog(url):
     OPEN = Open_Url(url)
     match = re.compile('<div class="home-page">.+?<img src="(.+?)".+?<a href="(.+?)" title=".+?"><b>(.+?)</b></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
     for img,url,name,desc in match:
-        url = Main + url
-        Menu(name,url,2,img,FANART,desc)
+    	url = Main + url
+        Menu('bob',url,2,img,FANART,desc)
+'''		
 		
-def Grab_Season(url):
+def Grab_Season(url,extra):
+    image = ''
+    description = ''
+    fanart = ''
+    main_name = (extra).replace(' ','+')
+    OPEN2 = Open_Url('http://www.imdb.com/find?ref_=nv_sr_fn&q='+(main_name).replace(' ','+')+'&s=all')
+    match2 = re.compile('</a>Titles</h3>.+?<table class="findList">.+?<tr class="findResult odd">.+?<a href="/title/(.+?)" >',re.DOTALL).findall(OPEN2)
+    for url2 in match2:
+        IMDB_PAGE_URL = IMDB +'/title/'+ url2
+    OPEN3 = Open_Url(IMDB_PAGE_URL)
+    match3 = re.compile('<div class="poster">.+?<a href="(.+?)".+?src="(.+?)".+?<div class="summary_text" itemprop="description">(.+?)</div>',re.DOTALL).findall(OPEN3)
+    for fanart,image,description in match3:
+        image = image
+        description = (description).replace('\n','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','')
+        Get_art = Open_Url(IMDB + fanart)
+        match_art = re.compile('"src":"(.+?)"').findall(Get_art)
+        for fanart in match_art:
+            fanart = fanart
     OPEN = Open_Url(url)
     match = re.compile('<h2 class="lists"><a href="(.+?)" itemprop="url"><span itemprop="name">(.+?)</span></a></h2>').findall(OPEN)
     for url,season in match:
         url = Main + url
-        Menu(season,url,6,ICON,FANART,'')
-		
-def Grab_Episode(url):
+        Menu(season,url,6,image,fanart,description,main_name)
+    	setView('Movies', 'INFO')
+	
+def Grab_Episode(url,name,fanart,extra,iconimage):
+    main_name = extra 
+    season = name
     OPEN = Open_Url(url)
-    image = re.compile('<img src="(.+?)" alt').findall(OPEN)
-    for image in image:
-        image = image
+    image = iconimage
     match = re.compile('<li itemprop="episode".+?<meta itemprop="url" content="(.+?)">.+?<span class="" itemprop="name">(.+?)</span>.+?<span itemprop="datepublished">(.+?)</span></span>.+?</li>',re.DOTALL).findall(OPEN)
     for url,name,date in match:
         name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
         url = Main+url
         date = date
-        Menu(name+' - [COLORred]'+date+'[/COLOR]',url,10,image,FANART,'Aired : '+date)
+        Menu(name+' - [COLORred]'+date+'[/COLOR]',url,10,image,fanart,'Aired : '+date,'')
+
 	
 def Latest_Eps(url):
     OPEN = Open_Url(url)
     match = re.compile('<li class="col-md-6 col-xs-12 list-movies-li"><a href="(.+?)" title=".+?">(.+?)<span class="epnum">(.+?)</span></a></li>').findall(OPEN)
     for url,name,date in match:
         url = Main + url
-        name = (name).replace('Seas.','Season').replace('Ep.','Episode')
-        Menu(name+' - [COLORred]'+date+'[/COLOR]',url,10,ICON,FANART,'')
+        name = (name).replace('Seas.','Season').replace('Ep.','Episode').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
+        Menu(name+' - [COLORred]'+date+'[/COLOR]',url,10,ICON,FANART,'','')
+    	setView('Movies', 'INFO')
 		
-def Write_Favourite(name,url,mode):
+def Write_Favourite(name,url,mode,iconimage,fanart,description):
     print_text_file = open(favourites,"a")
-    print_text_file.write('url="'+str(url)+'">name="'+str(name)+'"'+'>mode="'+str(mode)+'"<END>\n')
+    print_text_file.write('url="'+str(url)+'">name="'+str(name)+'"'+'>mode="'+str(mode)+'">image="'+str(iconimage)+'">fanart="'+str(fanart)+'">description="'+str(description)+'"<END>\n')
     print_text_file.close
 
-def Read_Favourite(name,url,mode):
+def Read_Favourite():
     Fav = open(favourites).read()
-    Fav_Regex = re.compile('url="(.+?)">name="(.+?)">mode="(.+?)"<END>').findall(Fav)
-    for url,name,mode in Fav_Regex:
+    Fav_Regex = re.compile('url="(.+?)">name="(.+?)">mode="(.+?)">image="(.+?)">fanart="(.+?)">description="(.+?)"<END>').findall(Fav)
+    for url,name,mode,image,fanart,description in Fav_Regex:
         if not mode == '20':
-            Menu(name,url,mode,ICON,FANART,'','','')
+            Menu(name,url,mode,image,fanart,description,name)
+            setView('Movies', 'INFO')
         elif mode == '20':
-            Play(name,url,mode,ICON,FANART,'','','')
+            Play(name,url,mode,image,fanart,description,name)
+            setView('Movies', 'INFO')
     if len(Fav_Regex)<=0:
-        Menu('[COLORred]You need to add favourites first[/COLOR]','','','','','','','')
+        Menu('[COLORred]You need to add favourites first[/COLOR]','','','','','','')
 		
 def Remove_Favorite(name):
         data = json.loads(open(favorites).read())
@@ -240,7 +287,7 @@ class Watchseries():
                 URL = 'http://www.watchseries.ac/link/' + url
                 self.Get_site_link(URL,season_name)
             if len(match)<=0:
-                Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','')
+                Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
 
 				
         def Get_site_link(self,url,season_name):
@@ -397,7 +444,7 @@ class Watchseries():
                 elif source_name in Watchseries.source_list:
 				    pass
                 else:
-                    Play(source_name,Link,20,ICON,FANART,'')
+                    Play(source_name,Link,20,ICON,FANART,'','')
                     dp.update(100,"", "Got Source")
                     Watchseries.List.append(Link)                    
                     Watchseries.source_list.append(source_name)
@@ -430,9 +477,9 @@ def setView(content, viewType):
         xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )
 		
 		
-def Menu(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={}):
+def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
         fav_mode = mode
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)+"&extra="+urllib.quote_plus(extra)
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
@@ -443,8 +490,8 @@ def Menu(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
                 contextMenu.append(('Remove from MultiTV Favorites','XBMC.RunPlugin(%s?mode=10056&name=%s)'
                                     %(sys.argv[0], urllib.quote_plus(name))))
             if not name in favourites_read:
-                contextMenu.append(('Add to MultiTV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s)'
-                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode)))
+                contextMenu.append(('Add to MultiTV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
+                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode, urllib.quote_plus(fanart), urllib.quote_plus(description))))
             liz.addContextMenuItems(contextMenu)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
@@ -452,9 +499,9 @@ def Menu(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
         
 
 		
-def Play(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={}):
+def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
         fav_mode = mode
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)+"&extra="+urllib.quote_plus(extra)
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
@@ -465,8 +512,8 @@ def Play(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
                 contextMenu.append(('Remove from MultiTV Favorites','XBMC.RunPlugin(%s?mode=10056&name=%s)'
                                     %(sys.argv[0], urllib.quote_plus(name))))
             if not name in favourites_read:
-                contextMenu.append(('Add to Multi TV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s)'
-                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode)))
+                contextMenu.append(('Add to MultiTV Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
+                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode, urllib.quote_plus(fanart), urllib.quote_plus(description))))
             liz.addContextMenuItems(contextMenu)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
@@ -521,10 +568,10 @@ fanart=None
 description=None
 trailer=None
 fav_mode=None
-choice=None
+extra=None
 
 try:
-    choice=int(params["choice"])
+    extra=urllib.unquote_plus(params["extra"])
 except:
     pass
 
@@ -577,13 +624,13 @@ elif mode == 1 : Latest_Eps(url)
 elif mode == 2 : Popular(url)
 elif mode == 3 : Genres()
 elif mode == 4 : Genres_Page(url)
-elif mode == 5 : Grab_Season(url)
-elif mode == 6 : Grab_Episode(url)
+elif mode == 5 : Grab_Season(url,extra)
+elif mode == 6 : Grab_Episode(url,name,fanart,extra,iconimage)
 elif mode == 7 : Tv_Schedule(url)
 elif mode == 8 : Schedule_Grab(url)
 elif mode == 9 : Search()
 elif mode == 10: Watchseries(name,url)
-elif mode == 11: Write_Favourite(name,url,fav_mode)
-elif mode == 12: Read_Favourite(name,url,fav_mode)
+elif mode == 11: Write_Favourite(name,url,fav_mode,iconimage,fanart,description)
+elif mode == 12: Read_Favourite()
 elif mode == 20: resolve(url)
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
