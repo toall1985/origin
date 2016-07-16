@@ -46,6 +46,7 @@ List = []
 watched_list = []
 temp_file = ADDON_PATH + 'Temp.txt'
 IMDB = 'http://www.imdb.com'
+genre_list = ['Drama','Horror','Adventure','Fantasy','Sci-Fi','Thriller','Comedy','Romance','Mystery','Action','Family','Music','Crime','Animation']
 
 def TextBoxes(heading,announce):
   class TextBox():
@@ -81,42 +82,31 @@ def Main_Menu():
 
 
 def Search():
-    image = ''
+    IMDB_PAGE_URL = ''
+    image = ICON
     description = ''
-    fanart = ''
+    fanart = FANART
     Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_url = 'http://www.watchseries.ac/search/' + (Search_name).replace(' ','%20')
     if Search_name == '':
         pass
     else:
-		OPEN = Open_Url(Search_url)
-		block = re.compile('<div class="home-page">.+?<div class="block-left-home responsive-lg-full">(.+?)<div class="block-left-home responsive-lg-full">',re.DOTALL).findall(OPEN)
-		match = re.compile('<div class="block-left-home-inside col-sm-6 col-xs-12" title=".+?<a href="(.+?)".+?<img src="(.+?)".+?<b>(.+?)</b></a><br>(.+?)<br>.+?div class="block-left-home-inside-line"></div>',re.DOTALL).findall(str(block))
-		for url,img,name,desc in match:
-			name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
-			url = Main + url
-			OPEN2 = Open_Url('http://www.imdb.com/find?ref_=nv_sr_fn&q='+(name).replace(' ','+')+'&s=all')
-			match2 = re.compile('</a>Titles</h3>.+?<table class="findList">.+?<tr class="findResult odd">.+?<a href="/title/(.+?)" >',re.DOTALL).findall(OPEN2)
-			for url2 in match2:
-				IMDB_PAGE_URL = IMDB +'/title/'+ url2
-			OPEN3 = Open_Url(IMDB_PAGE_URL)
-			match3 = re.compile('<div class="poster">.+?<a href="(.+?)".+?src="(.+?)".+?<div class="summary_text" itemprop="description">(.+?)</div>',re.DOTALL).findall(OPEN3)
-			for fanart,image,description in match3:
-				image = image
-				description = (description).replace('\n','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','')
-				Get_art = Open_Url(IMDB + fanart)
-				match_art = re.compile('"src":"(.+?)"').findall(Get_art)
-				for fanart in match_art:
-					fanart = fanart
-			Menu(name,url,5,image,fanart,description,name)		
-			setView('Movies', 'INFO')
+        OPEN = Open_Url(Search_url)
+        match = re.compile('<div class="block-left-home-inside col-sm-9 col-xs-12" title=".+?">.+?<a href="(.+?)" title=.+?<img src="(.+?)" alt=.+?<b>(.+?)</b></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
+        for url,img,name,desc in match:
+            name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
+            url = Main + url
+            image = Main + img
+            description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
+            Menu(name,url,5,image,fanart,description,name)		
+            setView('Movies', 'INFO')
 	
 def Tv_Schedule(url):
     OPEN = Open_Url(url)
-    match = re.compile('<li><a href="(.+?)".*?>(.+?)</a></li>').findall(OPEN)
+    match = re.compile('<li><a href="/tvschedule/(.+?)".*?>(.+?)</a></li>').findall(OPEN)
     for url,date in match:
         date = (date).replace('&amp;','&').replace('&#039','\'')
-        url = Main + url
+        url = Main + '/tvschedule/' + url
         if date in List:
             pass
         elif 'TV Schedule' in date:
@@ -148,10 +138,9 @@ def Schedule_Grab(url):
 		
 def Genres():
     OPEN = Open_Url(Main)
-    block = re.compile('<li><a href="/genres/drama">TV Show Genres</a>(.+?)</li>',re.DOTALL).findall(OPEN)
-    match = re.compile('<a href="(.+?)" class="sr-header">(.+?)</a>').findall(str(block))
+    match = re.compile('<li><a href="/genres/(.+?)" class="sr-header">(.+?)</a></li>').findall(OPEN)
     for url,name in match:
-        url = Main + url
+        url = Main +'/genres/'+ url
         Menu(name,url,4,ICON,FANART,'','')			
 
 def Genres_Page(url):
@@ -169,7 +158,7 @@ def Genres_Page(url):
         elif '\'t' in name:
             pass
         else:
-            Menu(name+' - [COLORred]'+year+'[/COLOR]',url,5,ICON,FANART,name)
+            Menu(name+' - [COLORred]'+year+'[/COLOR]',url,5,ICON,FANART,'',name)
     Next_Page = re.compile('<ul class="pagination">.+?<li><a href=".+?" style="font-weight: bold; color:#000;">.+?</a></li>.+?<li><a href="(.+?)">.+?</a></li>',re.DOTALL).findall(OPEN)
     for url in Next_Page:
         if 'Next_Page' in List:
@@ -178,6 +167,7 @@ def Genres_Page(url):
             url = Main+url
             Menu('NEXT PAGE',url,4,ICON,FANART,'','')
             List.append('Next_Page')
+			
 def Popular(url):
     OPEN = Open_Url(url)
     match = re.compile('<div class="block-left-home-inside-image">.+?<img src="(.+?)".+?<a href="(.+?)".+?<b>(.+?)</b>.+?<span class=".+?">(.+?)</span></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
@@ -196,29 +186,23 @@ def Grab_Prog(url):
 '''		
 		
 def Grab_Season(url,extra):
-    image = ''
-    description = ''
-    fanart = ''
-    main_name = (extra).replace(' ','+')
-    OPEN2 = Open_Url('http://www.imdb.com/find?ref_=nv_sr_fn&q='+(main_name).replace(' ','+')+'&s=all')
-    match2 = re.compile('</a>Titles</h3>.+?<table class="findList">.+?<tr class="findResult odd">.+?<a href="/title/(.+?)" >',re.DOTALL).findall(OPEN2)
-    for url2 in match2:
-        IMDB_PAGE_URL = IMDB +'/title/'+ url2
-    OPEN3 = Open_Url(IMDB_PAGE_URL)
-    match3 = re.compile('<div class="poster">.+?<a href="(.+?)".+?src="(.+?)".+?<div class="summary_text" itemprop="description">(.+?)</div>',re.DOTALL).findall(OPEN3)
-    for fanart,image,description in match3:
-        image = image
-        description = (description).replace('\n','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','')
-        Get_art = Open_Url(IMDB + fanart)
-        match_art = re.compile('"src":"(.+?)"').findall(Get_art)
-        for fanart in match_art:
-            fanart = fanart
+    image = ' '
+    description = ' '
+    fanart = ' '
+    season = ' '
     OPEN = Open_Url(url)
-    match = re.compile('<h2 class="lists"><a href="(.+?)" itemprop="url"><span itemprop="name">(.+?)</span></a></h2>').findall(OPEN)
+    image = re.compile('<img src="(.+?)">').findall(OPEN)
+    for image in image:
+        image = image	
+    background = re.compile('style="background-image: url\((.+?)\)">').findall(OPEN)
+    for fanart in background:
+        fanart = fanart	
+    match = re.compile('itemprop="season".+?href=".+?" href="(.+?)".+?aria-hidden=".+?"></i>.+?S(.+?)</span>',re.DOTALL).findall(OPEN)
     for url,season in match:
+        season = 'S'+(season).replace('  ','').replace('\n','').replace('    ','').replace('	','')
         url = Main + url
-        Menu(season,url,6,image,fanart,description,main_name)
-    	setView('Movies', 'INFO')
+        Menu((season).replace('  ',''),url,6,image,fanart,description,'')
+        setView('Movies', 'INFO')
 	
 def Grab_Episode(url,name,fanart,extra,iconimage):
     main_name = extra 
