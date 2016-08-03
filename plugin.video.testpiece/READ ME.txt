@@ -1,0 +1,78 @@
+First you'll need to edit the addon.xml - check whats in caps, where it says PUT FOLDER NAME NAME, try to keep that simple so you dont get any errors creating folders across platforms,
+keep lower case and try keep numbers out, whatever you name this ('plugin.video.whatever') you need to then rename the folder that contains your addon to exactly the same !!!!!
+do this before installing into kodi!!!!
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.PUT FOLDER NAME HERE" name="PUT NEW ADDON NAME HERE" version="0.0.1" provider-name="PUT YOUR AUTHOR NAME HERE">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.urlresolver"  version="3.0.0"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Blank</summary>
+	<description lang="en">PUT WHAT THE PLUGIN WILL BE FOR</description>
+	<disclaimer lang="en">PUT A DISCLAIMER IF YOU WISH</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
+
+
+Thats the addon.xml set up and folder named correctly
+Next open up the default.py and edit the 5 parts in this section near the top
+
+####################################PARTS TO EDIT#######################################
+ADDON_NAME = 'Test Piece'           ### CHANGE THIS NEW NAME OF ADDON
+addon_id = 'plugin.video.testpiece' ### CHANGE THIS TO NEW FOLDER NAME - plugin.video.***   just change 'testpiece'
+Base_Url = 'http://back2basicsbuild.co.uk/tv_test/'   ###Change this to the location of the folder/url where you will be storing all your files, must end with /
+Main_Menu_File_Name = 'demo.php'    ### Change this to the name of the file that you wish to be your main menu when you open the addon in kodi
+search_filenames = ['demosearch1','demosearch2','demosearch3','demosearch4'] ### ADD YOUR PHP FILE NAMES IN HERE TO BE INCLUDED IN SEARCHES
+########################################################################################
+
+ADDON_NAME - being whatever you want the name of the addon to be (whatever you put in addon.xml where i've put above PUT NEW ADDON NAME HERE)
+addon_id - will be plugin.video.PUT FOLDER NAME HERE , make sure these match as this is what it uses to get to settings etc from within your addons folder
+Base_Url - will be where you are going to host your files online (avoid dropbox as sometimes a pain to get correct urls)
+Main_Menu_File_Name - Be the file you want the addon to initially point to in order to grab info for your main menu, inside this you will link to other files and create a structure
+for your addon
+search_filenames - This is what will be used in the search, so any files with any info (mainly playlinks) include just the filename in here (i've already linked it with Base_Url
+ in code) so it knows where to go just doesnt know which files to include.
+
+Thats the default set up.
+
+Finally you just need to set up your files online - VERY IMPORTANT make sure that certain parts remain exactly the same, the addon is literally checking character by 
+character to determine what information to grab. See below for what it is regexing (the info it will grab will be (.+?) so anything inbetween a character before and after this
+it will pull back BUT all the characters before need to match or it will skip this 
+
+<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>
+
+you'll edit to 
+
+<NAME>Add name in here</NAME><URL>Add url</URL><ICON>Add Icon</ICON><FANART>Add Fanart</FANART><DESC>Add description</DESC>
+
+YOU DO NOT have to fill them all in, say you don't have a description, but don't leave it blank leave a space ie <DESC> </DESC> not <DESC></DESC>
+
+thats pretty much it, add as many as you want of these and each one will display as a seperate menu item within your addon, this is main menu on the addon as default
+
+<NAME>Movie</NAME><URL>http://back2basicsbuild.co.uk/tv_test/demo2.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://best-wallpaper.net/wallpaper/1920x1080/1107/Turtle-carrying-a-hat-in-rain_1920x1080.jpg</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Tv Shows</NAME><URL>demo2.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://best-wallpaper.net/wallpaper/1920x1080/1107/Turtle-carrying-a-hat-in-rain_1920x1080.jpg</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Music</NAME><URL>demo2.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://best-wallpaper.net/wallpaper/1920x1080/1107/Turtle-carrying-a-hat-in-rain_1920x1080.jpg</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Search</NAME><URL> </URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://best-wallpaper.net/wallpaper/1920x1080/1107/Turtle-carrying-a-hat-in-rain_1920x1080.jpg</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Favourites</NAME><URL> </URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://best-wallpaper.net/wallpaper/1920x1080/1107/Turtle-carrying-a-hat-in-rain_1920x1080.jpg</FANART><DESC>THE DESCRIPTION</DESC>
+
+
+You can see most urls are blank or have a non url type in there just for demo purposes, except Movie which links to this file 
+
+<NAME>Demo 1</NAME><URL>http://back2basicsbuild.co.uk/tv_test/demosearch1.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://hdpix.top/images/75778-awesome-wallpapers-1920x1080.png</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Demo 2</NAME><URL>http://back2basicsbuild.co.uk/tv_test/demosearch2.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://hdpix.top/images/75778-awesome-wallpapers-1920x1080.png</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Demo 3</NAME><URL>http://back2basicsbuild.co.uk/tv_test/demosearch3.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://hdpix.top/images/75778-awesome-wallpapers-1920x1080.png</FANART><DESC>THE DESCRIPTION</DESC>
+<NAME>Demo 4</NAME><URL>http://back2basicsbuild.co.uk/tv_test/demosearch4.php</URL><ICON>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRRVrmhII7EGdg5peUwK1WuxOPWQQ7yvsCPruA4JtMISmdF35mw</ICON><FANART>http://hdpix.top/images/75778-awesome-wallpapers-1920x1080.png</FANART><DESC>THE DESCRIPTION</DESC>
+
+which then links to other files and so on. This is how you create your playlists, they just point to each other.
+Also the addon has been set up to act differently if you name something exactly 'Search' or 'Favourites' without '' so that you can enable a search and favourites menu if you choose
+This will only work on the main menu and name needs to be EXACTLY the same as its typed here!!!
+Will do a video aswell as admittedly this isnt the prettiest to look at. Hope you enjoy and be sure to check out http://kodification.tech2guides.co.uk   for more to come in future
+
+
