@@ -23,6 +23,7 @@ try:
     import json
 except:
     import simplejson as json
+import yt
 ####################################PARTS TO EDIT#######################################
 ADDON_NAME = 'Test Piece'           ### CHANGE THIS NEW NAME OF ADDON
 addon_id = 'plugin.video.testpiece' ### CHANGE THIS TO NEW FOLDER NAME - plugin.video.***   just change 'testpiece'
@@ -334,7 +335,12 @@ print "IconImage: "+str(iconimage)
 		
 if mode == None: Main_Menu()
 elif mode == 1 : Second_Menu(url)
-elif mode == 2 : resolve(url)
+elif mode == 2 :     
+    if 'youtube' in url:
+        url = (url).replace('https://www.youtube.com/watch?v=','').replace('http://www.youtube.com/watch?v=','')
+        yt.PlayVideo(url)
+    else:
+    	resolve(url)
 elif mode == 3 : Search()
 elif mode==4:
     addon_log("addFavorite")
