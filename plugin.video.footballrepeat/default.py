@@ -19,6 +19,7 @@ import urlparse
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
 import urlresolver
 import yt
+from threading import Thread
 
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
@@ -39,20 +40,80 @@ ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 ICON   		=  xbmc.translatePath(os.path.join(ADDONS,addon_id,'icon.png'))
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
+Change_Log_Path = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.footballrepeat/Change_Log_Temp'))
 
 
 
 def Home_Menu():
+    Change_Log()
     addDirFolder('Highlights','',3,ICON,FANART,'')
     addDirFolder('Fixtures','',4,ICON,FANART,'')
     addDirFolder('League Tables',League_Table_Url+'/football/tables',9,ICON,FANART,'')
     addDirFolder('Team Search',League_Table_Url+'/football/tables',10,ICON,FANART,'')
+
+def Change_Log():
+    if not os.path.exists(Change_Log_Path):
+        TextBoxes('Change Log 22/08/16 - 1.1.1','Added an extra source into the search team option so should give you a wider choice of replays, there is no menus on site unlike footy tube in highlights section so just added to search, also a very few ufc highlights available at present')
+        os.makedirs(Change_Log_Path)
 	
 def Search():
     search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     url = Decode('aHR0cDovL3d3dy5mdWxsbWF0Y2hlc2FuZHNob3dzLmNvbS8/cz0=')+(search_name).replace(' ','+')
+    origin_url = Decode('aHR0cDovL3d3dy5mb290YmFsbG9yZ2luLmNvbS8/cz0=')+(search_name).replace(' ','+')
+    Origin_Highlights(origin_url)
     Get_the_rows(url,ICON)
     
+def Origin_Highlights(url):
+    HTML = OPEN_URL(url)
+    match = re.compile('<article id=".+?" class=".+?<img width=".+?" height=".+?" src="(.+?)" class=.+?<h2 class="entry-title"><a href="(.+?)" rel="bookmark">(.+?)</a></h2>',re.DOTALL).findall(HTML)
+    for img,url,name in match:
+        name = (name).replace('&#8211;','-')
+        addDirFolder(name,url,18,img,FANART,'')
+		
+def get_origin_playlink(url,img,FANART):
+    List = []
+    HTML = OPEN_URL(url)
+    match = re.compile('1st Half<br />.+?<script data-config="(.+?)" data-height',re.DOTALL).findall(HTML)
+    match2 = re.compile('2nd Half<br />.+?<script data-config="(.+?)" data-height',re.DOTALL).findall(HTML)
+    match3 = re.compile('2nd Half<br />.+?<script data-config="(.+?)" data-height',re.DOTALL).findall(HTML)
+    match4 = re.compile('<p>Watch Online Full Match Replay</p>.+?<p><script data-config="(.+?)" data-height',re.DOTALL).findall(HTML)
+    match5 = re.compile('<p>&nbsp;<br />.+?<script data-config="(.+?)" data-height',re.DOTALL).findall(HTML)
+    match6 = re.compile('<p>&nbsp;</p>.+?data-config="(.+?)" data-height=',re.DOTALL).findall(HTML)
+    for url in match:
+        Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+        play_link = 'http:'+Playlink
+        addDir('1st Half',play_link,19,img,FANART,'')
+    for url in match2:
+        Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+        play_link = 'http:'+Playlink
+        addDir('2nd Half',play_link,19,img,FANART,'')
+        List.append('2nd Half')
+    for url in match3:
+        if '2nd Half' not in List:
+            Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+            play_link = 'http:'+Playlink
+            addDir('2nd Half',play_link,19,img,FANART,'')
+    for url in match4:
+        if '2nd Half' not in List:
+            if 'Full Match' not in List:
+                Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+                play_link = 'http:'+Playlink
+                addDir('Full Match',play_link,19,img,FANART,'')
+                List.append('Full Match')
+    for url in match5:
+        if '2nd Half' not in List:
+            if 'Full Match' not in List:
+                Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+                play_link = 'http:'+Playlink
+                addDir('Full Match',play_link,19,img,FANART,'')
+                List.append('Full Match')
+    for url in match6:
+        if '2nd Half' not in List:
+            if 'Full Match' not in List:
+                Playlink = (url).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+                play_link = 'http:'+Playlink
+                addDir('Full Match',play_link,19,img,FANART,'')
+                List.append('Full Match')
  
 	
 def League_Tables(url):
@@ -1377,6 +1438,26 @@ print "URL: "+str(url)
 print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
+def TextBoxes(heading,announce):
+  class TextBox():
+    WINDOW=10147
+    CONTROL_LABEL=1
+    CONTROL_TEXTBOX=5
+    def __init__(self,*args,**kwargs):
+      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
+      self.win=xbmcgui.Window(self.WINDOW) # get window
+      xbmc.sleep(500) # give window time to initialize
+      self.setControls()
+    def setControls(self):
+      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
+      try: f=open(announce); text=f.read()
+      except: text=announce
+      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+      return
+  TextBox()
+  TextBox()
+
+
 def Resolve(url): 
     play=xbmc.Player(GetPlayerCore())
     import urlresolver
@@ -1418,6 +1499,8 @@ elif mode == 14 	: footytube_leagues(name)
 elif mode == 15 	: footytube_teams(url)
 elif mode == 16 	: footytube_videos(url)
 elif mode == 17 	: footytube_frame(url)
+elif mode == 18 	: get_origin_playlink(url,iconimage,FANART)
+elif mode == 19 	: Resolve(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
