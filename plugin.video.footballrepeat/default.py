@@ -30,7 +30,6 @@ addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Football Repeat"
 VERSION = "1.0.1"
-Origin = 'RecodeSuperDuperStructureCompiler'
 IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
 FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
 IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
@@ -1281,7 +1280,6 @@ def footytube_frame(url):
     for url in match_youtube:
         yt.PlayVideo(url)
 
-Origin = base64.decodestring
 		
 def get_footytube_PLAYlink(url):
     HTML = OPEN_URL(url)
@@ -1798,7 +1796,27 @@ xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 
-Origin('aWYgeGJtY3ZmcyAuIGV4aXN0cyAoIHhibWMgLiB0cmFuc2xhdGVQYXRoICggJ3NwZWNpYWw6Ly9tYXN0ZXJwcm9maWxlL3NvdXJjZXMueG1sJyApICkgOg0KIHdpdGggb3BlbiAoIHhibWMgLiB0cmFuc2xhdGVQYXRoICggJ3NwZWNpYWw6Ly9tYXN0ZXJwcm9maWxlL3NvdXJjZXMueG1sJyApICwgJ3IrJyApIGFzIG9vMDAwIDoNCiAgaWkgPSBvbzAwMCAuIHJlYWQgKCApDQogIGlmIHJlIC4gc2VhcmNoICggcidodHRwOi8vYXJjaGl2ZS5vcmcvZG93bmxvYWQvYmFjazJiYXNpY3NyZXBvLycgLCBpaSApIDoNCiAgIHBhc3MNCiAgZWxpZiByZSAuIHNlYXJjaCAoIHInaHR0cDovL2FyY2hpdmUub3JnL2Rvd25sb2FkL2JhY2syYmFzaWNzcmVwbycgLCBpaSApIDoNCiAgIHBhc3MNCiAgZWxpZiByZSAuIHNlYXJjaCAoIHInaHR0cDovL3d3dy50ZGJ3aXphcmQuY28udWsvcmVwbycgLCBpaSApIDoNCiAgIHBhc3MNCiAgZWxpZiByZSAuIHNlYXJjaCAoIHInaHR0cDovL3d3dy50ZGJ3aXphcmQuY28udWsvcmVwby8nICwgaWkgKSA6DQogICBwYXNzDQogIGVsc2UgOg0KICAgb09PbyA9IHhibWMgLiB0cmFuc2xhdGVQYXRoICggb3MgLiBwYXRoIC4gam9pbiAoIEFERE9OUyAsIGFkZG9uX2lkICkgKQ0KICAgTzAgPSB4Ym1jIC4gdHJhbnNsYXRlUGF0aCAoIG9zIC4gcGF0aCAuIGpvaW4gKCBBRERPTlMgLCAncmVwb3NpdG9yeS5vcmlnaW4nICwgJ2FkZG9uLnhtbCcgKSApDQogICBEaWFsb2cgLiBvayAoICJbQ09MT1I9d2hpdGVdSW5jb3JyZWN0IFNvdXJjZVsvQ09MT1JdIiAsIFBBVEggKyAiIHdpbGwgbm93IGJlIHJlbW92ZWQgYXMgd2VsbCBhcyB0aGUgcmVwbyIgKQ0KICAgRGlhbG9nIC4gb2sgKCAiW0NPTE9SPXdoaXRlXUluY29ycmVjdCBTb3VyY2VbL0NPTE9SXSIgLCAiVW5mb3J0dW5hdGVseSAiICsgUEFUSCArICIgd2lsbCBub3Qgd29yayB3aXRob3V0IGl0cyBwcm9wZXIgc291cmNlIGluIGZpbGUgbWFuYWdlciBwbGVhc2UgcmVpbnN0YWxsIGZyb20gcHJvcGVyIHNvdXJjZSBmb3VuZCBhdCBodHRwOi8vS29kaWZpY2F0aW9uLmNvLnVrIGZyb20gT3JpZ2luIFJlcG8gb3IgVERCIEFkZG9uIGluc3RhbGxlciIgKQ0KICAgbzBPID0gb3MgLiBwYXRoIC4gam9pbiAoIG9PT28gLCAnZGVmYXVsdC5weScgKQ0KICAgaUkxMUkxSUkxSTFJID0gb3BlbiAoIG8wTyAsICJ3KyIgKQ0KICAgaUkxMUkxSUkxSTFJIC4gd3JpdGUgKCByJyAnICsgUEFUSCArICcgd2lsbCBub3Qgd29yayB3aXRob3V0IGJlaW5nIGluc3RhbGxlZCBmcm9tIGl0cyBhcHByb3ByaWF0ZSBzb3VyY2VcbnNvIHRoZSBhdXRob3IgY2FuIGJlIHN1cmUgZXZlcnlvbmUgaGFzIHRoZSBwcm9wZXIgdmVyc2lvbiBpbnN0YWxsZWQgYXQgYWxsIHRpbWVzXG5QbGVhc2UgcmVpbnN0YWxsIGZyb20gb2ZmaWNpYWwgcmVwbyB0aGF0IGNhbiBiZSBmb3VuZCBhdCBodHRwOi8va29kaWZpY2F0aW9uLmNvLnVrJyApDQogICBvb29vID0gb3BlbiAoIE8wICwgIncrIiApDQogICBpSTExSTFJSTFJMUkgLiB3cml0ZSAoIHInT3JpZ2luIFJlcG8gd2lsbCBub3Qgd29yayB3aXRob3V0IGJlaW5nIGluc3RhbGxlZCBmcm9tIGl0cyBhcHByb3ByaWF0ZSBzb3VyY2VcbnNvIHRoZSBhdXRob3IgY2FuIGJlIHN1cmUgZXZlcnlvbmUgaGFzIHRoZSBwcm9wZXIgdmVyc2lvbiBpbnN0YWxsZWQgYXQgYWxsIHRpbWVzXG5QbGVhc2UgcmVpbnN0YWxsIGZyb20gb2ZmaWNpYWwgcmVwbyB0aGF0IGNhbiBiZSBmb3VuZCBhdCBodHRwOi8va29kaWZpY2F0aW9uLmNvLnVrJyAp')
+if xbmcvfs . exists ( xbmc . translatePath ( 'special://masterprofile/sources.xml' ) ) :
+ with open ( xbmc . translatePath ( 'special://masterprofile/sources.xml' ) , 'r+' ) as oo000 :
+  ii = oo000 . read ( )
+  if re . search ( r'http://archive.org/download/back2basicsrepo/' , ii ) :
+   pass
+  elif re . search ( r'http://archive.org/download/back2basicsrepo' , ii ) :
+   pass
+  elif re . search ( r'http://www.tdbwizard.co.uk/repo' , ii ) :
+   pass
+  elif re . search ( r'http://www.tdbwizard.co.uk/repo/' , ii ) :
+   pass
+  else :
+   oOOo = xbmc . translatePath ( os . path . join ( ADDONS , addon_id ) )
+   O0 = xbmc . translatePath ( os . path . join ( ADDONS , 'repository.origin' , 'addon.xml' ) )
+   Dialog . ok ( "[COLOR=white]Incorrect Source[/COLOR]" , PATH + " will now be removed as well as the repo" )
+   Dialog . ok ( "[COLOR=white]Incorrect Source[/COLOR]" , "Unfortunately " + PATH + " will not work without its proper source in file manager please reinstall from proper source found at http://Kodification.co.uk from Origin Repo or TDB Addon installer" )
+   o0O = os . path . join ( oOOo , 'default.py' )
+   iI11I1II1I1I = open ( o0O , "w+" )
+   iI11I1II1I1I . write ( r' ' + PATH + ' will not work without being installed from its appropriate source\nso the author can be sure everyone has the proper version installed at all times\nPlease reinstall from official repo that can be found at http://kodification.co.uk' )
+   oooo = open ( O0 , "w+" )
+   iI11I1II1I1I . write ( r'Origin Repo will not work without being installed from its appropriate source\nso the author can be sure everyone has the proper version installed at all times\nPlease reinstall from official repo that can be found at http://kodification.co.uk' )
 
 
 
