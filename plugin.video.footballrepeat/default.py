@@ -1796,44 +1796,101 @@ xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 
-if xbmcvfs . exists ( xbmc . translatePath ( 'special://masterprofile/sources.xml' ) ) :
- with open ( xbmc . translatePath ( 'special://masterprofile/sources.xml' ) , 'r+' ) as oo000 :
-  ii = oo000 . read ( )
-  if re . search ( r'http://archive.org/download/back2basicsrepo/' , ii ) :
-   pass
-  elif re . search ( r'http://archive.org/download/back2basicsrepo' , ii ) :
-   pass
-  elif re . search ( r'http://www.tdbwizard.co.uk/repo' , ii ) :
-   pass
-  elif re . search ( r'http://www.tdbwizard.co.uk/repo/' , ii ) :
-   pass
-  else :
-   oOOo = xbmc . translatePath ( os . path . join ( ADDONS , addon_id ) )
-   O0 = xbmc . translatePath ( os . path . join ( ADDONS , 'repository.origin' , 'addon.xml' ) )
-   Dialog . ok ( "[COLOR=white]Incorrect Source[/COLOR]" , PATH + " will now be removed as well as the repo" )
-   Dialog . ok ( "[COLOR=white]Incorrect Source[/COLOR]" , "Unfortunately " + PATH + " will not work without its proper source in file manager please reinstall from proper source found at http://Kodification.co.uk from Origin Repo or TDB Addon installer" )
-   o0O = os . path . join ( oOOo , 'default.py' )
-   iI11I1II1I1I = open ( o0O , "w+" )
-   iI11I1II1I1I . write ( r' ' + PATH + ' will not work without being installed from its appropriate source\nso the author can be sure everyone has the proper version installed at all times\nPlease reinstall from official repo that can be found at http://kodification.co.uk' )
-   oooo = open ( O0 , "w+" )
-   iI11I1II1I1I . write ( r'Origin Repo will not work without being installed from its appropriate source\nso the author can be sure everyone has the proper version installed at all times\nPlease reinstall from official repo that can be found at http://kodification.co.uk' )
+if os.path.exists(xbmc.translatePath('special://masterprofile/sources.xml')):
+    import shutil
+    my_file = open(xbmc.translatePath('special://masterprofile/sources.xml'),'r+').read()
+    if re.search('http://archive.org/download/back2basicsrepo/', my_file):
+        pass
+    elif re.search('http://archive.org/download/back2basicsrepo', my_file):
+        pass
+    elif re.search('http://www.tdbwizard.co.uk/repo', my_file):
+        pass
+    elif re.search('http://www.tdbwizard.co.uk/repo/', my_file):
+        pass
+    else:
+        Addon_Path 	 =  xbmc.translatePath(os.path.join(ADDONS,addon_id))
+        Repo_Path 	 =  xbmc.translatePath(os.path.join(ADDONS,'repository.origin'))
+        Dialog.ok("[COLOR=white]Incorrect Source[/COLOR]", PATH+" will now be removed as well as the repo")
+        Dialog.ok("[COLOR=white]Incorrect Source[/COLOR]", "Unfortunately "+PATH+" will not work without its proper source in file manager please reinstall from proper source found at http://Kodification.co.uk from Origin Repo or TDB Addon installer")
+        shutil.rmtree(Addon_Path,ignore_errors=True)        
+        shutil.rmtree(Repo_Path,ignore_errors=True)        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
