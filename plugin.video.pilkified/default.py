@@ -30,7 +30,7 @@ Dialog = xbmcgui.Dialog()
 addon_id = 'plugin.video.pilkified'
 ADDON = xbmcaddon.Addon(id=addon_id)
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
-PATH = 'Test Piece'
+PATH = 'Pilk-ified'
 VERSION = '0.0.1'
 favourites = ADDON_DATA + 'favourites.txt'
 if not os.path.exists(favourites):

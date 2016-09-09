@@ -31,7 +31,7 @@ FANART = ADDON_PATH + 'fanart.jpg'
 Dialog = xbmcgui.Dialog()
 addon_id = 'plugin.video.MultiTV'
 ADDON = xbmcaddon.Addon(id=addon_id)
-PATH = 'Test Piece'
+PATH = 'Multi TV'
 VERSION = '0.0.1'
 watched = ADDON_DATA + 'watched.txt'
 if not os.path.exists(watched):

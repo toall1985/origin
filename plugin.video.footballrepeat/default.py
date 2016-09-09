@@ -13,12 +13,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 '''
+# Credit to MK for Live Mix (which i studied to work out how GUI Windows work, have adapted some of the code to suit)    
 
 import sys
 import urlparse
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
 import urlresolver
 import yt
+import pyxbmct
 from threading import Thread
 
 Dialog = xbmcgui.Dialog()
@@ -29,11 +31,6 @@ base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 PATH = "Football Repeat"
-VERSION = "1.0.1"
-IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
-FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
-ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
 League_Table_Url = 'http://www.sportinglife.com'
 footy = 'http://footytube.com'
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
@@ -41,6 +38,255 @@ ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 ICON   		=  xbmc.translatePath(os.path.join(ADDONS,addon_id,'icon.png'))
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 Change_Log_Path = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.footballrepeat/Change_Log_Temp'))
+icon = ICON
+text = '0xffffffff'
+background = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/fixtureback.jpg')
+power = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/power.png')
+power_focus = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/power_focus.png')
+addon_button = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/addon_button.png')
+addon_button_focus = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/addon_button_focus.png')
+metalliq_button = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/metalliq.jpg')
+metalliq_button_focus = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/metalliq_focus.jpg')
+
+window  = pyxbmct.AddonDialogWindow('')
+window.setGeometry(1250, 650, 100, 50)
+
+Background=pyxbmct.Image(background)
+List = pyxbmct.addonwindow.List(_space=11,_itemTextYOffset=0,textColor=text)
+Icon=pyxbmct.Image('', aspectRatio=2)
+addon_label = pyxbmct.Label('[B][COLORsteelblue]What channels are in addons :-[/COLOR][/B]', alignment=pyxbmct.ALIGN_LEFT)
+label = pyxbmct.Label('Kodification.co.uk', alignment=pyxbmct.ALIGN_LEFT)
+metalliq_label = pyxbmct.Label('[B][COLORsteelblue]Use Metallic search[/COLOR][/B]', alignment=pyxbmct.ALIGN_LEFT)
+button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+one = pyxbmct.Button('1',focusTexture=addon_button_focus,noFocusTexture=addon_button,textColor=text,focusedColor=text)
+two = pyxbmct.Button('2', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+three = pyxbmct.Button('3', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+four = pyxbmct.Button('4', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+five = pyxbmct.Button('5', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+six = pyxbmct.Button('6', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+seven = pyxbmct.Button('7', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+eight = pyxbmct.Button('8', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+nine = pyxbmct.Button('9', noFocusTexture=addon_button,focusTexture=addon_button_focus)
+metalliq = pyxbmct.Button('', noFocusTexture=metalliq_button,focusTexture=metalliq_button_focus)
+text_channel = pyxbmct.TextBox(textColor='0xFFFFFFFF')
+
+window.placeControl(Background, -5, 0, 110, 51)
+window.placeControl(List, 65, 1, 50, 20)
+window.placeControl(Icon, 30, 0, 60, 18)
+window.placeControl(addon_label, 35, 0, columnspan=15)
+window.placeControl(label, 110, 0, columnspan=15)
+window.placeControl(metalliq_label, 39, 23, columnspan=15)
+window.placeControl(button, 110,48,10,3)
+window.placeControl(text_channel, -5, 0, columnspan=40, rowspan=40)
+window.placeControl(one, 43,0,7,4)
+window.placeControl(two, 43,4,7,4)
+window.placeControl(three, 43,8,7,4)
+window.placeControl(four, 43,12,7,4)
+window.placeControl(five, 43,16,7,4)
+window.placeControl(six, 50,2,7,4)
+window.placeControl(seven, 50,6,7,4)
+window.placeControl(eight,50,10,7,4)
+window.placeControl(nine, 50,14,7,4)
+window.placeControl(metalliq, 45,25,12,4)
+
+
+window.connect(button, window.close)
+window.connect(pyxbmct.ACTION_NAV_BACK, window.close)
+
+one.controlRight(two)
+one.controlLeft(five)
+one.controlDown(six)
+one.controlUp(button)
+two.controlRight(three)
+two.controlLeft(one)
+two.controlDown(seven)
+two.controlUp(button)
+three.controlRight(four)
+three.controlLeft(two)
+three.controlDown(eight)
+three.controlUp(button)
+four.controlRight(five)
+four.controlLeft(three)
+four.controlDown(nine)
+four.controlUp(button)
+five.controlRight(metalliq)
+five.controlLeft(four)
+five.controlDown(nine)
+five.controlUp(button)
+six.controlRight(seven)
+six.controlLeft(nine)
+six.controlDown(List)
+six.controlUp(one)
+seven.controlRight(eight)
+seven.controlLeft(six)
+seven.controlDown(List)
+seven.controlUp(two)
+eight.controlRight(nine)
+eight.controlLeft(seven)
+eight.controlDown(List)
+eight.controlUp(three)
+nine.controlRight(metalliq)
+nine.controlLeft(eight)
+nine.controlDown(List)
+nine.controlUp(four)
+metalliq.controlRight(button)
+metalliq.controlLeft(five)
+metalliq.controlDown(List)
+metalliq.controlUp(button)
+List.controlRight(button)
+List.controlLeft(button)
+List.controlUp(seven)
+button.controlLeft(List)
+button.controlRight(List)
+button.controlDown(two)
+button.controlUp(metalliq)
+
+def ONE():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    label = pyxbmct.Label('[B][COLORsteelblue]Press enter to return to last menu if back doesn\'t work --->[/COLOR][/B]', alignment=pyxbmct.ALIGN_LEFT) 
+    window_addon.placeControl(label, 111, 22, columnspan=25)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST1.jpg')
+    Background_one=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_one, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def TWO():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST2.jpg')
+    Background_two=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_two, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def THREE():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST3.jpg')
+    Background_three=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_three, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def FOUR():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST4.jpg')
+    Background_four=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_four, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def FIVE():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST5.jpg')
+    Background_five=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_five, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def SIX():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST6.jpg')
+    Background_six=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_six, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def SEVEN():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST7.jpg')
+    Background_seven=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_seven, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def EIGHT():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST8.jpg')
+    Background_eight=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_eight, -5, 0, 110, 51)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+
+def NINE():
+    window_addon  = pyxbmct.AddonDialogWindow('')
+    window_addon.setGeometry(1250, 650, 100, 50)
+    button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+    bckg = xbmc.translatePath('special://home/addons/plugin.video.footballrepeat/media/SPORTS_LIST9.jpg')
+    Background_nine=pyxbmct.Image(bckg)
+    window_addon.placeControl(Background_nine, -5, 0, 110, 51)
+    window_addon.placeControl(button, 110,48,10,3)
+    window_addon.connect(button, window_addon.close)
+    window_addon.setFocus(button)
+    window_addon.doModal()
+    window_addon.connect(pyxbmct.ACTION_NAV_BACK, window_addon.close)
+    del window_addon	
+	
+
+def METALLIQ_SEARCH():
+    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/live/search)")
+	
+def METALLIQ():
+    xbmc.executebuiltin("ActivateWindow(10025,plugin://plugin.video.metalliq/live,return)")
+	
+window.connect(one,ONE)
+window.connect(two,TWO)
+window.connect(three,THREE)
+window.connect(four,FOUR)
+window.connect(five,FIVE)
+window.connect(six,SIX)
+window.connect(seven,SEVEN)
+window.connect(eight,EIGHT)
+window.connect(nine,NINE)
+window.connect(metalliq,METALLIQ_SEARCH)
+
 
 
 
@@ -51,6 +297,76 @@ def Home_Menu():
     addDirFolder('League Tables',League_Table_Url+'/football/tables',9,ICON,FANART,'')
     addDirFolder('Team Search',League_Table_Url+'/football/tables',10,ICON,FANART,'')
 
+
+def FootballFixturesDay():
+    html=OPEN_URL(Decode('aHR0cDovL2xpdmVvbnNhdC5jb20vcXVpY2tpbmRleC5odG1s'))
+    match = re.compile('<a target="_self" href="([^"]*)">.+?<img border="0" src="([^"]*)" alt="([^"]*)" width=".+?" height=".+?"></a>',re.DOTALL).findall(html)
+    for url,img,name in match:
+        if '</a>' in img:
+            pass
+        addDirFolder((name).replace('amp;',''),Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + url,5,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + img,FANART,'')
+		
+def FootballFixturesGame(url,img):
+    addDirFolder('[COLORblue]Metalliq Live TV List[/COLOR] - [COLORwhite]You will need to close Metalliq and[/COLOR]','',21,ICON,FANART,'')
+    addDirFolder('[COLORwhite]return here if you press this[/COLOR]','',21,ICON,FANART,'')
+    HTML = OPEN_URL(url)
+    block = re.compile('AndClearL.+?><h2.+?= time_head>(.+?)</h2>(.*?)float',re.DOTALL).findall(HTML)
+    for date,block in block:
+        addDir(date,'',20,img,FANART,block)
+
+def cleanHex(text):
+	def fixup(m):
+		text = m.group(0)
+		if text[:3] == "&#x": return unichr(int(text[3:-1], 16)).encode('utf-8')
+		else: return unichr(int(text[2:-1])).encode('utf-8')
+	try :return re.sub("(?i)&#\w+;", fixup, text.decode('ISO-8859-1').encode('utf-8'))
+	except:return re.sub("(?i)&#\w+;", fixup, text.encode("ascii", "ignore").encode('utf-8'))
+
+		
+def FootballFixturesSingle(block):
+    global channel_list
+    global icon_list
+    icon_list = []
+    channel_list = []
+    fix_List = []
+    game = re.compile('comp_head>(.+?)-- around all of channel types ENDS 2-->',re.DOTALL).findall(str(block))
+    for item in game:
+        game = re.compile('comp_head>(.*?)</span>.*?<div class = fLeft width = ".*?"><img src="(.*?)">.*?</div>.*?ST:(.*?)</div>(.+?)<!-- around all of channel types ENDS 2-->',re.DOTALL).findall(str(block))
+        for comp,img,time,chan in game:
+            channel = re.compile(",CAPTION, '(.+?)&nbsp").findall(chan)
+            channel_final = (str(channel)).replace('[$]','').replace('\\xc3','n').replace('\'','').replace('[','').replace(']','').replace('\\xe2','').replace('\\x80','').replace('\\x99','').replace('\\xb1a','i')
+            name = str(comp) + ' - ' + str(time)
+            image = Decode('aHR0cDovL2xpdmVvbnNhdC5jb20=') + str(img)
+            if not channel_final in fix_List:
+#                addDirFolder(name,'',5,image,FANART,channel_final)
+                fix_List.append(channel_final)
+                List.addItem(name)
+#                text_channel.addLabel(channel_final)
+                channel_list.append(channel_final)
+                icon_list.append(image)
+                create_window(name,image,channel_final)
+    if len(block)<= 0:
+        addDirFolder('No Fixtures available yet, come back when season has started','','','','','')
+#    addDirFolder('[COLORred]Set view to media info 2 for full listings[/COLOR]','','','','','')
+#    setView('tvshows', 'Media Info 3')
+
+def create_window(name,img,channel_final):
+    window.setFocus(one)
+    #capture mouse moves or up down arrows
+    window.connectEventList(
+    [pyxbmct.ACTION_MOVE_DOWN,
+    pyxbmct.ACTION_MOVE_UP,
+    pyxbmct.ACTION_MOUSE_MOVE],
+    LIST_UPDATE)
+    
+def LIST_UPDATE():
+    if window.getFocus() == List:    	
+        pos=List.getSelectedPosition()
+        iconimage=icon_list[pos]
+        Icon.setImage(iconimage)
+        channel_label = channel_list[pos]
+        text_channel.setText(channel_label)
+		
 def Change_Log():
     if not os.path.exists(Change_Log_Path):
         TextBoxes('Change Log 22/08/16 - 1.1.1','Added an extra source into the search team option so should give you a wider choice of replays, there is no menus on site unlike footy tube in highlights section so just added to search, also a very few ufc highlights available at present')
@@ -1198,32 +1514,7 @@ def Cleaner(pos,team,pl,w,d,l,f,a,pts,dif):
             spacer_a = '      '
         addDirFolder(team+gap+pos_space+pl+spacer_pl+w+spacer_w+d+spacer_d+l+spacer_l+f+spacer_f+a+spacer_a+pts,(Decode('aHR0cDovL3d3dy5mdWxsbWF0Y2hlc2FuZHNob3dzLmNvbS8/cz0=')+team).replace(' ','+'),1,image,FANART,'')
 
-def Champs_League(url):
-    pass		
 
-def FootballFixturesDay():
-    html=OPEN_URL(Decode('aHR0cDovL2xpdmVvbnNhdC5jb20vcXVpY2tpbmRleC5odG1s'))
-    match = re.compile('<a target="_self" href="(.+?)".+?src="(.+?)" alt="(.+?)"',re.DOTALL).findall(html)
-    for url,img,name in match:
-        addDirFolder((name).replace('amp;',''),Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + url,5,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20v') + img,FANART,'')
-
-right = 'decodestring'
-		
-def FootballFixturesGame(url):
-    HTML = OPEN_URL(url)
-    block = re.compile('AndClearL.+?><h2.+?head>(.*?)float',re.DOTALL).findall(HTML)
-    for block in block:
-        day = re.compile('(.*?)</h2>').findall(str(block))
-        for Day in day:
-            Day = Day
-        game = re.compile('comp_head>(.*?)</span>.*?<div class = fLeft width = ".*?"><img src="(.*?)">.*?</div>.*?ST:(.*?)</div>(.+?)<!-- around all of channel types ENDS 2-->',re.DOTALL).findall(str(block))
-        for comp,img,time,chan in game:
-            channel = re.compile(",CAPTION, '(.+?)&nbsp").findall(chan)
-            addDirFolder(Day + ' - ' + comp + ' - ' + time,'',5,Decode('aHR0cDovL2xpdmVvbnNhdC5jb20=') + img,FANART,(str(channel)).replace('[$]','').replace('\xc3\81','A').replace('\'','').replace('[','').replace(']',''))
-    if len(block)<= 0:
-        addDirFolder('No Fixtures available yet, come back when season has started','','','','','')
-    addDirFolder('[COLORred]Set view to media info 2 for full listings[/COLOR]','','','','','')
-    setView('tvshows', 'Media Info 3')
 
 def Football_Highlights():
 
@@ -1372,16 +1663,6 @@ def addDirFolder(name,url,mode,iconimage,fanart,description):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True 
 	
 def get_params():
         param=[]
@@ -1435,7 +1716,6 @@ except:
         pass
         
         
-print str(PATH)+': '+str(VERSION)
 print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
@@ -1462,7 +1742,7 @@ def TextBoxes(heading,announce):
 
 
 def Resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
+    play=xbmc.Player()
     import urlresolver
     try: play.play(url)
     except: pass
@@ -1489,7 +1769,7 @@ elif mode == 1 		: get_All_Rows(url,iconimage)
 elif mode == 2 		: get_PLAYlink(url)
 elif mode == 3 		: Football_Highlights()
 elif mode == 4 		: FootballFixturesDay()
-elif mode == 5 		: FootballFixturesGame(url)
+elif mode == 5 		: FootballFixturesGame(url,iconimage)
 elif mode == 6 	 	: Prem_Table(url)
 elif mode == 7 		: get_Multi_Links(url,iconimage)
 elif mode == 8 		: Get_the_rows(url,iconimage)
@@ -1503,7 +1783,12 @@ elif mode == 15 	: footytube_teams(url)
 elif mode == 16 	: footytube_videos(url)
 elif mode == 17 	: footytube_frame(url)
 elif mode == 18 	: get_origin_playlink(url,iconimage,FANART)
-elif mode == 19 	: Resolve(url)						
+elif mode == 19 	: Resolve(url)
+elif mode == 20 	: 
+    FootballFixturesSingle(description)					
+    window.doModal()
+    del window
+elif mode == 21 	: METALLIQ()
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
