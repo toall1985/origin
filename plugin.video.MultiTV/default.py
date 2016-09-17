@@ -432,9 +432,10 @@ class Watchseries():
                     print_text_file.close
                     Watchseries.List.append(full_name) 
                 else:
-                    Play(source_name,Link,20,ICON,FANART,'','')
-                    dp.update(100,"", "Got Source")
-                    Watchseries.List.append(Link)                    
+                    if 'http:/' in Link:
+                        Play(Link,Link,20,ICON,FANART,'','')
+                        dp.update(100,"", "Got Source")
+                        Watchseries.List.append(Link)                    
                                        
 
 					
