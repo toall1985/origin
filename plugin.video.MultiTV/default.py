@@ -294,34 +294,22 @@ class Watchseries():
             for url in match:
                 for item in self.Sources:
                     if item in url:
-                        if item not in List:
-                            s1=Thread(target=self.main,args=(url,season_name,full_name))
-                            s1.start()
-                            List.append(item)
-                        else:
-                            pass
+                        s1=Thread(target=self.main,args=(url,season_name,full_name))
+                        s1.start()
                     else:
                         pass
             for url in match2:
                 for item in self.Sources:
                     if item in url:
-                        if item not in List:
-                            s2=Thread(target=self.main,args=(url,season_name,full_name))
-                            s2.start()
-                            List.append(item)
-                        else:
-                            pass
+                        s2=Thread(target=self.main,args=(url,season_name,full_name))
+                        s2.start()
                     else:
                         pass
             for url in match3:
                 for item in self.Sources:
                     if item in url:
-                        if item not in List:
-                            s3=Thread(target=self.main,args=(url,season_name,full_name))
-                            s3.start()
-                            List.append(item)
-                        else:
-                            pass
+                        s3=Thread(target=self.main,args=(url,season_name,full_name))
+                        s3.start()
                     else:
                         pass
 
@@ -413,7 +401,7 @@ class Watchseries():
             HTML = Open_Url(url)
             match = re.compile("{ label: '.+?', file: '(.+?)' }").findall(HTML)
             for Link in match:
-                    self.Printer(Link,season_name,source_name,full_name)
+                    pass
 
         def vodlocker(self,url,season_name,source_name,full_name):
             HTML = Open_Url(url)
@@ -435,10 +423,9 @@ class Watchseries():
 
         def Printer(self,Link,season_name,source_name,full_name):
 
+
                 if Link in Watchseries.List:
                     pass
-                elif source_name in Watchseries.source_list:
-				    pass
                 elif full_name not in Watchseries.List:
                     print_text_file = open(watched,"a")
                     print_text_file.write('item="'+full_name+'"\n')
@@ -448,7 +435,6 @@ class Watchseries():
                     Play(source_name,Link,20,ICON,FANART,'','')
                     dp.update(100,"", "Got Source")
                     Watchseries.List.append(Link)                    
-                    Watchseries.source_list.append(source_name)
                                        
 
 					
