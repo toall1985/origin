@@ -190,7 +190,7 @@ def grab_youtube_playlist(url):
         url = re.compile('data-video-ids="(.+?)">').findall(str(block))
         for url in url:
             url = url
-        Play('[COLORred]'+duration+'[/COLOR] : '+name,url,9,image,FANART,'','' )
+        Play('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),str(url),9,str(image),FANART,'','' )
 
 
 #    image = ''
