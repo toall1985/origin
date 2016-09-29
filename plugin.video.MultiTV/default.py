@@ -48,6 +48,7 @@ watched_list = []
 temp_file = ADDON_PATH + 'Temp.txt'
 IMDB = 'http://www.imdb.com'
 genre_list = ['Drama','Horror','Adventure','Fantasy','Sci-Fi','Thriller','Comedy','Romance','Mystery','Action','Family','Music','Crime','Animation']
+Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker']		
 
 def TextBoxes(heading,announce):
   class TextBox():
@@ -83,6 +84,9 @@ def Main_Menu():
 
 
 def Search():
+    Menu('Father Ted','http://www.watchseries.ac/serie/father_ted',5,'https://pbs.twimg.com/profile_images/670345562097627137/OgizKymo.jpg','https://images.metadata.sky.com/pd-image/b93f0c08-e986-43a6-9ee2-ce453f1fef29/16-9','','Father Ted')
+
+'''
     IMDB_PAGE_URL = ''
     image = ICON
     description = ''
@@ -99,8 +103,8 @@ def Search():
             url = Main + url
             image = Main + img
             description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
-            Menu(name,url,5,image,fanart,description,name)		
-            setView('Movies', 'INFO')
+            Menu(url,url,5,image,fanart,description,name)		
+            setView('Movies', 'INFO')'''
 	
 def Tv_Schedule(url):
     OPEN = Open_Url(url)
@@ -263,183 +267,79 @@ def Remove_Favorite(name):
 
 
 #####################################GET PLAYLINKS...WILL TRY SPEED UP WHEN I WORK OUT THREADING################################		
-class Watchseries():
 
-        List = []
-        source_list = []   
-        Sources = ['daclips','filehoot','thevideo','allmyvideos','vidspot','vodlocker','vidto']		
-        def __init__(self,name,url,full_name):
-
-            full_name = full_name
-            season_name = name
-            self.Get_Sources(url,season_name,full_name)
-			
-
-        def Get_Sources(self,URL,season_name,full_name):
-            dp = xbmcgui.DialogProgress()
-            HTML = Open_Url(URL)
-            match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
-            for url,name in match:
+def Get_Sources(name,URL,iconimage,fanart):
+    HTML = Open_Url(URL)
+    match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
+    for url,name in match:
+        for item in Sources:
+            if item in url:
                 URL = 'http://www.watchseries.ac/link/' + url
-                self.Get_site_link(URL,season_name,full_name)
-            if len(match)<=0:
-                Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
+                Play(name,URL,13,ICON,FANART,'','')
+    if len(match)<=0:
+        Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
+		
+		
+def Get_site_link(url,name):
+    season_name = name
+    HTML = Open_Url(url)
+    match = re.compile('<iframe style=.+?" src="(.+?)"').findall(HTML)
+    match2 = re.compile('<IFRAME SRC="(.+?)"').findall(HTML)
+    match3 = re.compile('<IFRAME style=".+?" SRC="(.+?)"').findall(HTML)
+    for url in match:
+        main(url,season_name)
+    for url in match2:
+        main(url,season_name)
+    for url in match3:
+        main(url,season_name)
 
-				
-        def Get_site_link(self,url,season_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('<iframe style=.+?" src="(.+?)"').findall(HTML)
-            match2 = re.compile('<IFRAME SRC="(.+?)"').findall(HTML)
-            match3 = re.compile('<IFRAME style=".+?" SRC="(.+?)"').findall(HTML)
-            for url in match:
-                for item in self.Sources:
-                    if item in url:
-                        s1=Thread(target=self.main,args=(url,season_name,full_name))
-                        s1.start()
-                    else:
-                        pass
-            for url in match2:
-                for item in self.Sources:
-                    if item in url:
-                        s2=Thread(target=self.main,args=(url,season_name,full_name))
-                        s2.start()
-                    else:
-                        pass
-            for url in match3:
-                for item in self.Sources:
-                    if item in url:
-                        s3=Thread(target=self.main,args=(url,season_name,full_name))
-                        s3.start()
-                    else:
-                        pass
+def main(url,season_name):
+    if 'daclips.in' in url:
+        daclips(url,season_name)
+    elif 'filehoot.com' in url:
+        filehoot(url,season_name)
+    elif 'allmyvideos.net' in url:
+        allmyvid(url,season_name)
+    elif 'vidspot.net' in url:
+        vidspot(url,season_name)
+    elif 'vodlocker' in url:
+        vodlocker(url,season_name)	
 
-        def main(self,url,season_name,full_name):
-                dp.create("[COLORwhite]Origin[/COLOR]","Getting Sources",'','Please Wait')
-                if 'daclips.in' in url:
-                    source_name = 'DACLIPS'
-                    if source_name in Watchseries.source_list:
-					    pass
-                    else:
-                        t1 = Thread(target=self.daclips,args=(url,season_name,source_name,full_name))
-                        dp.update(0,"", "Getting Daclips Links")
-                        t1.start()
-                else:
-                    if 'filehoot.com' in url:
-                        source_name = 'FILEHOOT'
-                        if source_name in Watchseries.source_list:
-					        pass
-                        else:         
-                            dp.update(0,"", "Getting Filehoot Links")
-                            t2 = Thread(target=self.filehoot,args=(url,season_name,source_name,full_name))
-                            t2.start()
-                    else:
-                        if 'thevideo.me' in url:
-                            source_name = 'THEVIDEO'
-                            if source_name in Watchseries.source_list:
-					            pass					        
-                            else:                           
-                                t3=Thread(target=self.thevideo,args=(url,season_name,source_name,full_name))
-                                dp.update(0,"", "Getting Thevideo Links")
-                                t3.start()								
-                        else:
-                            if 'allmyvideos.net' in url:
-                                source_name = 'ALLMYVIDEOS'
-                                if source_name in Watchseries.source_list:
-                                    pass                    
-                                else:						
-                                    t4=Thread(target=self.allmyvid,args=(url,season_name,source_name,full_name))
-                                    dp.update(0,"", "Getting Allmyvideo Links")
-                                    t4.start()
-                            else:
-                                if 'vidspot.net' in url:
-                                    source_name = 'VIDSPOT'
-                                    if source_name in Watchseries.source_list:
-					                    pass                            
-                                    else:
-                                        t5=Thread(target=self.vidspot,args=(url,season_name,source_name,full_name))
-                                        dp.update(0,"", "Getting Vidspot Links")
-                                        t5.start()
-                                else:
-                                    if 'vodlocker' in url:
-                                        source_name = 'VODLOCKER'
-                                        if source_name in Watchseries.source_list:
-					                        pass                                
-                                        else:
-                                            t6=Thread(target=self.vodlocker,args=(url,season_name,source_name,full_name))
-                                            dp.update(0,"", "Getting Vodlocker Links")
-                                            t6.start()	
-                                        if 'vidto' in url:
-											source_name = 'VIDTO'
-											if source_name in Watchseries.source_list:
-												pass                                
-											else:
-												t6=Thread(target=self.vodlocker,args=(url,season_name,source_name,full_name))
-												dp.update(0,"", "Getting vidto Links")
-												t6.start()	
-
-
-        def vidto(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
-            for Link,name in match:
-                    self.Printer(Link,season_name,source_name,full_name)
 
 												
-        def allmyvid(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
-            for Link,name in match:
-                    self.Printer(Link,season_name,source_name,full_name)
+def allmyvid(url,season_name):
+    HTML = Open_Url(url)
+    match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
+    for Link,name in match:
+        Printer(Link,season_name)
 
-        def vidspot(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"').findall(HTML)
-            for Link,name in match:
-                    self.Printer(Link,season_name,source_name,full_name)
+def vidspot(url,season_name):
+    HTML = Open_Url(url)
+    match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"').findall(HTML)
+    for Link,name in match:
+        Printer(Link,season_name)
 
-        def thevideo(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile("{ label: '.+?', file: '(.+?)' }").findall(HTML)
-            for Link in match:
-                    pass
+def vodlocker(url,season_name):
+    HTML = Open_Url(url)
+    match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
+    for Link in match:
+        Printer(Link,season_name)
 
-        def vodlocker(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
-            for Link in match:
-                    self.Printer(Link,season_name,source_name,full_name)
+def daclips(url,season_name):
+    HTML = Open_Url(url)
+    match = re.compile('{ file: "(.+?)", type:"video" }').findall(HTML)
+    for Link in match:
+        Printer(Link,season_name)
 
-        def daclips(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('{ file: "(.+?)", type:"video" }').findall(HTML)
-            for Link in match:
-                    self.Printer(Link,season_name,source_name,full_name)
+def filehoot(url,season_name):
+    HTML = Open_Url(url)
+    match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
+    for Link in match:
+        Printer(Link,season_name)
 
-        def filehoot(self,url,season_name,source_name,full_name):
-            HTML = Open_Url(url)
-            match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
-            for Link in match:
-                    self.Printer(Link,season_name,source_name,full_name)
-
-        def Printer(self,Link,season_name,source_name,full_name):
-
-
-                if Link in Watchseries.List:
-                    pass
-                elif full_name not in Watchseries.List:
-                    print_text_file = open(watched,"a")
-                    print_text_file.write('item="'+full_name+'"\n')
-                    print_text_file.close
-                    Watchseries.List.append(full_name) 
-                else:
-                    if 'http:/' in Link:
-                        Play(source_name,Link,20,ICON,FANART,'','')
-                        dp.update(100,"", "Got Source")
-                        Watchseries.List.append(Link)                    
-                                       
-
-					
-		    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+def Printer(Link,season_name):
+    if 'http:/' in Link:
+        resolve(Link)
 
 ####################################################################PROCESSES###################################################
 def Open_Url(url):
@@ -619,7 +519,8 @@ elif mode == 6 : Grab_Episode(url,name,fanart,extra,iconimage)
 elif mode == 7 : Tv_Schedule(url)
 elif mode == 8 : Schedule_Grab(url)
 elif mode == 9 : Search()
-elif mode == 10: Watchseries(name,url,extra)
+elif mode == 10: Get_Sources(name,url,iconimage,fanart)
+elif mode == 13: Get_site_link(url,name)
 elif mode == 11: Write_Favourite(name,url,fav_mode,iconimage,fanart,description)
 elif mode == 12: Read_Favourite()
 elif mode == 20: resolve(url)
