@@ -59,11 +59,14 @@ def Main_Menu():
     Menu('Stand Up','',6,IMAGES,FANART,'','')
     Menu('Tv Shows','http://herovision.x10host.com/GetUpStandUp/TV_Shows.php',4,IMAGES,FANART,'','')
     Menu('Movies','http://herovision.x10host.com/GetUpStandUp/Movies.php',4,IMAGES,FANART,'','')
+    Menu('Search','',8,IMAGES,FANART,'','')
     Menu('Favourites','',103,IMAGES,FANART,'','')
 	
 def Stand_up_Menu():
     Menu('Youtube Playlists','http://herovision.x10host.com/GetUpStandUp/yt_standup_playlist.php',4,IMAGES,FANART,'','')
-    Menu('Couch Tripper','',1,IMAGES,FANART,'','')
+#    Menu('Couch Tripper','',1,IMAGES,FANART,'','')
+    Menu('Stand up','http://herovision.x10host.com/GetUpStandUp/standup_playlist.php',4,IMAGES,FANART,'','')
+	
 	
 def Regex(url):
     HTML = OPEN_URL(url)
@@ -86,6 +89,34 @@ def Regex(url):
             
     	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);		
 	
+
+def Search():
+    filename = ['Movies','yt_standup_playlist','TV_Shows']
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) 
+    Search_Title = Search_Name.lower()
+    for file_name in filename:
+        Search_Url = 'http://herovision.x10host.com/GetUpStandUp/'+file_name+'.php'
+        HTML = OPEN_URL(Search_Url)
+        match = re.compile('<NAME="(.+?)"<URL="(.+?)"<MODE="(.+?)"<IMAGE="(.+?)"<FANART="(.+?)"<DESC="(.+?)"').findall(HTML)
+        for name,url,mode,image,fanart,desc in match:
+            if Search_Title in name.lower():
+                if image == 'IMAGES':
+                    image = IMAGES
+                if fanart == 'FANART':
+                    fanart = FANART
+                if '.php' in url:
+                    Menu(name,url,4,image,fanart,desc,'')
+                if mode == 'single':
+                    Play(name,url,9,image,fanart,desc,'')
+                elif mode == 'playlist':
+                    Menu(name,url,7,image,fanart,desc,'')
+                elif mode == 'watchseries':
+                    Menu(name,url,100,image,fanart,desc,name)
+                elif mode == 'normal':
+                    Play(name,url,5,image,fanart,desc,'')
+            
+    	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);		
+        
 	
 def grab_youtube_playlist(url):
 
@@ -139,7 +170,8 @@ def Stand_up():
 	find_URL = re.compile('<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(c)
         for url, name in find_URL:
             if 'tube' in url:
-                pass
+                url = (url).replace('http://www.youtube.com/watch?v=','')
+                Play(url,url,9,'','','','')
             elif 'stage' in url:
 				Play(comic + '   -   ' + name,(url).replace('" target="_blank',''),3,'http://couchtripper.com/'+img,FANART,'','')
             elif 'vee' in url:
@@ -500,11 +532,9 @@ elif mode == 3 		: Play_Stage(url)
 elif mode == 4 		: Regex(url)
 elif mode == 5    	: Resolve(url)
 elif mode == 6 		: Stand_up_Menu()
-
 elif mode == 7 		: grab_youtube_playlist(url)
+elif mode == 8 		: Search()
 elif mode == 9 	 	: yt.PlayVideo(url)
-
-
 elif mode == 100 	: Grab_Season(iconimage,url,extra)
 elif mode == 101 	: Grab_Episode(url,name,fanart,extra,iconimage)
 elif mode == 102	: Get_Sources(name,url,iconimage,fanart)
