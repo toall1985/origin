@@ -101,24 +101,6 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.1.1" provider-name="Origin">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
-	<import addon="script.module.addon.common" />
-	<import addon="plugin.video.youtube" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Get up - Stand Up</summary>
-	<description lang="en">An addon by origin for stand up freely found on the internet</description>
-	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
-	<platform>all</platform>
-  </extension>
-</addon>
-
 <addon id="plugin.video.littlekids" name="Little Kids" version="1.0.8" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -221,7 +203,7 @@
     </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="3.0.1" provider-name="Eldorado">
+<addon id="script.module.urlresolver" name="URLResolver" version="3.0.21" provider-name="Eldorado">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>

@@ -15,14 +15,12 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-import re
 from urlresolver.resolver import UrlResolver, ResolverError
 
 class YoutubeResolver(UrlResolver):
     name = "youtube"
     domains = ['youtube.com', 'youtu.be']
-    pattern = '(?://|\.)(youtube.com|youtu.be)/(?:embed/|.+?\?v=|.+?\&v=|v/)([0-9A-Za-z_\-]+)'
+    pattern = '''https?://(?:[0-9A-Z-]+\.)?(?:(youtu\.be|youtube(?:-nocookie)?\.com)/?\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|</a>))[?=&+%\w.-]*'''
 
     def get_media_url(self, host, media_id):
         plugin = 'plugin://plugin.video.youtube/play/?video_id=' + media_id
@@ -30,16 +28,6 @@ class YoutubeResolver(UrlResolver):
 
     def get_url(self, host, media_id):
         return 'http://youtube.com/watch?v=%s' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
 
     @classmethod
     def get_settings_xml(cls):

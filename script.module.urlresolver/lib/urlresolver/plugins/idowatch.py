@@ -17,13 +17,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import re
+import urllib
+from lib import jsunpack
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
 class IDoWatchResolver(UrlResolver):
-    name = "idowatch"
-    domains = ["idowatch.net"]
-    pattern = '(?://|\.)(idowatch\.net)/([0-9a-zA-Z]+)\.html'
+    name = 'idowatch'
+    domains = ['idowatch.net']
+    pattern = '(?://|\.)(idowatch\.net)/(?:embed-)?([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -31,24 +33,22 @@ class IDoWatchResolver(UrlResolver):
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
         html = self.net.http_GET(web_url).content
-        match = re.search('''["']?sources['"]?\s*:\s*\[(.*?)\]''', html, re.DOTALL)
+
+        if 'File Not Found' in html:
+            raise ResolverError('File Removed')
+            
+        try: html += jsunpack.unpack(re.search('(eval\(function.*?)</script>', html, re.DOTALL).group(1))
+        except: pass
+
+        match = re.findall('''["']?sources['"]?\s*:\s*\[(.*?)\]''', html)
+
         if match:
-            for match in re.finditer('''['"]?file['"]?\s*:\s*['"]?([^'"]+)''', match.group(1), re.DOTALL):
-                stream_url = match.group(1)
-                if not stream_url.endswith('smil'):
-                    return match.group(1) + '|User-Agent=%s' % (common.FF_USER_AGENT)
+            stream_url = re.findall('''['"]?file['"]?\s*:\s*['"]?([^'"]+)''', match[0])
+            stream_url = [i for i in stream_url if not i.endswith('smil')]
+            if stream_url:
+                return stream_url[0] + '|' + urllib.urlencode({'User-Agent': common.FF_USER_AGENT})
 
         raise ResolverError('Unable to resolve idowatch link. Filelink not found.')
 
     def get_url(self, host, media_id):
-        return 'http://idowatch.net/%s' % (media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+        return 'http://idowatch.net/%s.html' % (media_id)

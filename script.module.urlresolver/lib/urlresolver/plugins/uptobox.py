@@ -17,6 +17,7 @@
 """
 
 import re
+from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 import xbmc
@@ -39,23 +40,16 @@ class UpToBoxResolver(UrlResolver):
             self.headers['Referer'] = web_url
 
             html = self.net.http_GET(web_url, headers=self.headers).content
-            if isinstance(html, unicode):
-                html = html.encode('utf-8', 'ignore')
+            if isinstance(html, unicode): html = html.encode('utf-8', 'ignore')
 
             if 'Uptobox.com is not available in your country' in html:
-                raise Exception()
+                raise ResolverError('Unavailable in your country')
 
             r = re.search('(You have to wait (?:[0-9]+ minute[s]*, )*[0-9]+ second[s]*)', html)
             if r:
-                raise Exception()
+                raise ResolverError('Cooldown in effect')
 
-            r = re.search('<form\sname\s*=[\'"]F1[\'"].+?>(.+?)<br\s*/*>', html, re.DOTALL).group(1)
-
-            data = {}
-            for match in re.finditer(r'type="hidden"\s+name="(.+?)"\s+value="(.*?)"', html):
-                key, value = match.groups()
-                data[key] = value
-
+            data = helpers.get_hidden(html)
             for i in range(0, 3):
                 try:
                     html = self.net.http_POST(web_url, data, headers=self.headers).content
@@ -74,11 +68,10 @@ class UpToBoxResolver(UrlResolver):
             self.headers['Referer'] = web_url
 
             html = self.net.http_GET(web_url, headers=self.headers).content
-            if isinstance(html, unicode):
-                html = html.encode('utf-8', 'ignore')
+            if isinstance(html, unicode): html = html.encode('utf-8', 'ignore')
 
             if 'Uptobox.com is not available in your country' in html:
-                raise Exception()
+                raise ResolverError('Unavailable in your country')
             '''
             r = re.search('(You have reached the limit of *[0-9]+ minute[s]*)', html)
             if r:
@@ -104,13 +97,3 @@ class UpToBoxResolver(UrlResolver):
 
     def get_stream_url(self, host, media_id):
         return 'http://uptostream.com/%s' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

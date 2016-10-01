@@ -1,6 +1,7 @@
 """
     Kodi urlresolver plugin
     Copyright (C) 2014  smokdpi
+    Updated by Gujal (c) 2016
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,13 +19,14 @@
 
 import re
 from lib import jsunpack
+from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
 class FlashxResolver(UrlResolver):
     name = "flashx"
     domains = ["flashx.tv"]
-    pattern = '(?://|\.)(flashx\.tv)/(?:embed-|dl\?)?([0-9a-zA-Z/-]+)'
+    pattern = '(?://|\.)(flashx\.tv)/(?:embed-|dl\?|embed.php\?c=)?([0-9a-zA-Z/-]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -32,40 +34,39 @@ class FlashxResolver(UrlResolver):
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
         html = self.net.http_GET(web_url).content
+        data = helpers.get_hidden(html)
+        data['imhuman'] = 'Proceed+to+video'
+        furl = 'http://www.flashx.tv/dl?%s' % (media_id)
+        headers = {'User-Agent': common.FF_USER_AGENT, 'Referer': web_url, 'Cookie': self.__get_cookies(html)}
+        
+        common.kodi.sleep(5000)
+        html = self.net.http_POST(url=furl, form_data=data, headers=headers).content
+        sources = []
+        for match in re.finditer('(eval\(function.*?)</script>', html, re.DOTALL):
+            packed_data = jsunpack.unpack(match.group(1))
+            sources += self.__parse_sources_list(packed_data)
+        source = helpers.pick_source(sources, self.get_setting('auto_pick') == 'true')
+        return source
 
-        r = re.search('href="([^"]+)', html)
-        if r:
-            web_url = r.group(1)
-            html = self.net.http_GET(web_url).content
-
-            try: html = jsunpack.unpack(re.search('(eval\(function.*?)</script>', html, re.DOTALL).group(1))
-            except: pass
-
-            best = 0
-            best_link = ''
-
-            for stream in re.findall('file\s*:\s*"(http.*?)"\s*,\s*label\s*:\s*"(\d+)', html, re.DOTALL):
-                if int(stream[1]) > best:
-                    best = int(stream[1])
-                    best_link = stream[0]
-
-        if best_link:
-            return best_link
-        else:
-            raise ResolverError('Unable to resolve Flashx link. Filelink not found.')
+    def __get_cookies(self, html):
+        cookies = ['ref_url=http%3A%2F%2Fwww.flashx.tv%2F']
+        for match in re.finditer("\$\.cookie\(\s*'([^']+)'\s*,\s*'([^']+)", html):
+            key, value = match.groups()
+            cookies.append('%s=%s' % (key, value))
+        return '; '.join(cookies)
+    
+    def __parse_sources_list(self, html):
+        sources = []
+        match = re.search('sources\s*:\s*\[(.*?)\]', html, re.DOTALL)
+        if match:
+            for match in re.finditer('''['"]?file['"]?\s*:\s*['"]([^'"]+)['"][^}]*['"]?label['"]?\s*:\s*['"]([^'"]*)''', match.group(1), re.DOTALL):
+                stream_url, label = match.groups()
+                stream_url = stream_url.replace('\/', '/')
+                sources.append((label, stream_url))
+        return sources
 
     def get_url(self, host, media_id):
-        return 'http://www.flashx.tv/embed-%s.html' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+        return 'http://www.flashx.tv/%s.html' % media_id
 
     @classmethod
     def get_settings_xml(cls):

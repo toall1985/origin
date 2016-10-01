@@ -20,6 +20,7 @@ import re
 import json
 import urllib
 import urlparse
+from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 import xbmc
@@ -45,11 +46,8 @@ class AllmyvideosResolver(UrlResolver):
         headers = {'User-Agent': common.IE_USER_AGENT, 'Referer': url}
         html = self.net.http_GET(url, headers=headers).content
 
-        data = {}
-        r = re.findall(r'type="hidden"\s+name="(.+?)"\s+value="(.*?)"', html)
-        for name, value in r: data[name] = value
+        data = helpers.get_hidden(html)
         html = self.net.http_POST(url, data, headers=headers).content
-
         stream_url = self.__get_best_source(html)
         if stream_url:
             xbmc.sleep(2000)
@@ -76,13 +74,3 @@ class AllmyvideosResolver(UrlResolver):
 
     def get_url1st(self, host, media_id):
         return 'http://allmyvideos.net/embed-%s.html' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

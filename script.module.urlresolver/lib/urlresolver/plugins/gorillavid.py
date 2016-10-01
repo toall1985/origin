@@ -17,6 +17,7 @@
 """
 
 import re
+from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
@@ -36,10 +37,7 @@ class GorillavidResolver(UrlResolver):
         if r:
             raise ResolverError('File Not Found or removed')
         post_url = resp.get_url()
-        form_values = {}
-        for i in re.finditer('<input type="hidden" name="(.+?)" value="(.+?)">', html):
-            form_values[i.group(1)] = i.group(2)
-
+        form_values = helpers.get_hidden(html)
         html = self.net.http_POST(post_url, form_data=form_values).content
         r = re.search('file: "(.+?)"', html)
         if r:
@@ -49,13 +47,3 @@ class GorillavidResolver(UrlResolver):
 
     def get_url(self, host, media_id):
         return 'http://gorillavid.in/%s' % (media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

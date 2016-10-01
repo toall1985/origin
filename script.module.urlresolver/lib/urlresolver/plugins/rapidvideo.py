@@ -34,7 +34,7 @@ class RapidVideoResolver(UrlResolver):
 
         html = self.net.http_GET(web_url).content
 
-        for match in re.finditer('(eval.*?\)\)\))', html, re.DOTALL):
+        for match in re.finditer('(eval\(function\(.*?)</script>', html, re.DOTALL):
             js_data = jsunpack.unpack(match.group(1))
             js_data = js_data.replace('\\\'', '\'')
 
@@ -49,13 +49,3 @@ class RapidVideoResolver(UrlResolver):
 
     def get_url(self, host, media_id):
         return 'http://rapidvideo.ws/embed-%s.html' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

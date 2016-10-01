@@ -20,6 +20,7 @@ from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 from lib import captcha_lib
 from lib import jsunpack
+from lib import helpers
 import re
 
 MAX_TRIES = 3
@@ -38,10 +39,7 @@ class KingFilesResolver(UrlResolver):
 
         tries = 0
         while tries < MAX_TRIES:
-            data = {}
-            for match in re.finditer('input type="hidden" name="([^"]+)" value="([^"]+)', html):
-                key, value = match.groups()
-                data[key] = value
+            data = helpers.get_hidden(html)
             data['method_free'] = 'Free Download'
             data.update(captcha_lib.do_captcha(html))
 
@@ -64,13 +62,3 @@ class KingFilesResolver(UrlResolver):
 
     def get_url(self, host, media_id):
         return 'http://kingfiles.net/%s' % (media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
