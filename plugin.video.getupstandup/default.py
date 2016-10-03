@@ -44,8 +44,10 @@ if not os.path.exists(ADDON_DATA):
 if os.path.exists(favourites)==True:
     FAV = open(favourites).read()
 else: FAV = []
-Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker','vidto']		
-
+Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker']
+List = []
+Global_list = []
+Main_link = 'http://www.watchseries.ac/link/'
 
 
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
@@ -54,13 +56,42 @@ FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 IMAGES 		=  ART + 'icon.png'
 Main 		= 'http://www.watchseries.ac'
 
+
 def Main_Menu():
 
     Menu('Stand Up','',6,IMAGES,FANART,'','')
     Menu('Tv Shows','http://herovision.x10host.com/GetUpStandUp/TV_Shows.php',4,IMAGES,FANART,'','')
-    Menu('Movies','http://herovision.x10host.com/GetUpStandUp/Movies.php',4,IMAGES,FANART,'','')
+    Menu('Movies','',10,IMAGES,FANART,'','')
     Menu('Search','',8,IMAGES,FANART,'','')
     Menu('Favourites','',103,IMAGES,FANART,'','')
+	
+def Movies_Menu():
+    Menu('Pubfilm Comedy Movies','http://www.pubfilm.biz/movies/comedy/',11,IMAGES,FANART,'','')
+    Menu('Youtube Playlist Movies','http://herovision.x10host.com/GetUpStandUp/Movies.php',4,IMAGES,FANART,'','')
+	
+def Pubfilm_Comedy_Grab(url):
+    HTML = OPEN_URL(url)
+    match = re.compile('<a class="short-img" href="(.+?)" data-label=".+?">.+?<img src="(.+?)" height="317".+?title="(.+?)" />',re.DOTALL).findall(HTML)
+    for url,img,name in match:
+        image = 'http://www.pubfilm.biz' + img
+        Next(name,url,image)
+    Next_Page = re.compile('<a href="(.+?)">Next</a></span>').findall(HTML)
+    for item in Next_Page:
+        Menu('Next Page',item,11,IMAGES,FANART,'','')
+	
+
+def Next(name,url,image):
+    HTML = OPEN_URL(url)
+    match = re.compile('<iframe width="660" height="400" scrolling="no" frameborder="0" src="http://mystream.la/external/(.+?)" allowFullScreen></iframe>').findall(HTML)
+    for end in match:
+        url = 'http://mystream.la/external/'+end
+        final (name,url,image)
+
+def final(name,url,image):
+    HTML = OPEN_URL(url)
+    match = re.compile('file:"(.+?)",label:"(.+?)"}').findall(HTML)
+    for playlink,quality in match:
+        Play(name,playlink,5,image,FANART,'','')   
 	
 def Stand_up_Menu():
     Menu('Youtube Playlists','http://herovision.x10host.com/GetUpStandUp/yt_standup_playlist.php',4,IMAGES,FANART,'','')
@@ -143,26 +174,6 @@ def grab_youtube_playlist(url):
         Play('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),str(url),9,str(image),FANART,'','' )
 
 
-#    image = ''
-#    HTML = OPEN_URL(url)
-#    block_set = re.compile('<li class="yt-uix-scroller-scroll-unit "(.+?)</li>',re.DOTALL).findall(HTML)
-#    for block in block_set:
-#        name = re.compile('data-video-title="(.+?)"').findall(str(block))
-#        for name in name:
-#            name = (name).replace('&quot;','').replace('&#39;','\'').replace('&amp;','&')
-#        url = re.compile('<a href="/w(.+?)&').findall(str(block))
-#       for url in url:
-#            url = (url).replace('atch?v=','')
-#        image = re.compile('data-thumbnail-url="(.+?)"').findall(str(block))
-#        for image in image:
-#            image = image
-#        if 'elete' in name:
-#            pass
-#        if 'rivate ' in name:
-#            pass        
-#        else:
-#            Play(name,url,9,image,FANART,'','')
-
 def Stand_up():
     HTML = OPEN_URL(BASE)
     Block = re.compile('<tr>.+?<td width=".+?" align=".+?">.+?<img border=".+?" src="..(.+?)" width=".+?" height=".+?"></td>.+?<td width=".+?" valign=".+?" align=".+?"><font size=".+?">(.+?)</font></td>.+?<td width=".+?">(.+?)</td>',re.DOTALL).findall(HTML)
@@ -179,9 +190,6 @@ def Stand_up():
 			    
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
-
-def Youtube_StandUP_grab():
-    pass
 	
 ###########################Watch series Grab##########################################
 
@@ -223,11 +231,20 @@ def Get_Sources(name,URL,iconimage,fanart):
     for url,name in match:
         for item in Sources:
             if item in url:
-                URL = 'http://www.watchseries.ac/link/' + url
-                Play(name,URL,106,IMAGES,FANART,'','')
+                URL = Main_link + url
+                List.append(name)
+                selector(name,URL)
     if len(match)<=0:
         Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
-		
+
+def selector(name, URL):
+    qty_check = List.count(name)
+    if str(qty_check)<=2:
+        name = name + ' - Link '+ str(qty_check)
+        Play(name,URL,106,IMAGES,FANART,'','')
+    if int(qty_check)==1:
+        Play(name,URL,106,IMAGES,FANART,'','')
+    
 		
 def Get_site_link(url,name):
     season_name = name
@@ -535,6 +552,8 @@ elif mode == 6 		: Stand_up_Menu()
 elif mode == 7 		: grab_youtube_playlist(url)
 elif mode == 8 		: Search()
 elif mode == 9 	 	: yt.PlayVideo(url)
+elif mode == 10 	: Movies_Menu()
+elif mode == 11 	: Pubfilm_Comedy_Grab(url)
 elif mode == 100 	: Grab_Season(iconimage,url,extra)
 elif mode == 101 	: Grab_Episode(url,name,fanart,extra,iconimage)
 elif mode == 102	: Get_Sources(name,url,iconimage,fanart)
@@ -566,19 +585,3 @@ elif mode==105:
     rmFavorite(name)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-#def Search():
-#    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-#    Search_Title = Search_Name.lower()
-#    HTML = OPEN_URL(BASE)
-#    Block = re.compile('<tr>.+?<td width=".+?" align=".+?">.+?<img border=".+?" src="..(.+?)" width=".+?" height=".+?"></td>.+?<td width=".+?" valign=".+?" align=".+?"><font size=".+?">(.+?)</font></td>.+?<td width=".+?">(.+?)</td>',re.DOTALL).findall(HTML)
-#    for img, comic, c in Block:
-#        for Search_Name in comic:
-#            find_URL = re.compile('<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(c)
-#            for url, name in find_URL:
-#                if 'tube' in url:
-#                    pass
-#                elif 'stage' in url:
-#                    Play(comic + '   -   ' + name,(url).replace('" target="_blank',''),3,'http://couchtripper.com/'+img,FANART,'')
-#                elif 'vee' in url:
-#			        pass
