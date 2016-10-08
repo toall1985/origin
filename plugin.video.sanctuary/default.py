@@ -47,7 +47,7 @@ def Main_Menu():
     process.Menu('Raider','',1100,RAIDER_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
-        process.Menu('Just For Men','',1400,NINJA_ICON,FANART,'','')
+        process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
     process.Menu('Favourites [COLORred]Some teething issues will be fixed in updates[/COLOR]','',10,'http://herovision.x10host.com/freeview/favs.png',FANART,'','')
     process.setView('movies', 'MAIN')	
