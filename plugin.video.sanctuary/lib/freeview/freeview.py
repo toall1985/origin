@@ -251,7 +251,7 @@ def CATEGORIES():
 		if selfAddon.getSetting('Only_Film') == 'false':
 			addLink('Blaze | Direct','http://live.blaze.simplestreamcdn.com/live/blaze/bitrate1.isml/bitrate1-audio_track=64000-video=3500000.m3u8',1201,logos+'blaze.png')
 		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL)
-
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	else:
 		#4Music
 		if selfAddon.getSetting('four_music') == 'Direct': addLink('4Music','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel6/hls/4/playlist.m3u8',1201,logos_tvp+'128.png')
@@ -557,7 +557,7 @@ def CATEGORIES():
 		if selfAddon.getSetting('trutv') == 'TVPlayer': addLink('truTV','295',1202,logos_tvp+'295.png')
 		if selfAddon.getSetting('trutv') == 'FilmOn': addLink('truTV','http://www.filmon.tv/tv/tru-tv',1201,logos_tvp+'295.png')
 		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL)
-	
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 def play(url):
 	resolved = liveresolver.resolve(url)
 	item = xbmcgui.ListItem(path=resolved)

@@ -23,7 +23,7 @@
     Just sometimes i find it best not to rewrite what works well, mostly to a higher standard that my current understanding
 '''
 import xbmcplugin, xbmc, xbmcaddon
-from lib import comedy, process, Big_Kids, Football_Repeat, Movies, multitv, Kodible, radio_gaga, xxx_vids, Pandora, apprentice, ninja
+from lib import comedy, process, Big_Kids, Football_Repeat, Movies, multitv, Kodible, radio_gaga, xxx_vids, Pandora, apprentice, ninja, search
 from lib.pyramid import pyramid
 from lib.freeview import freeview
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
@@ -39,17 +39,20 @@ PANDORA_ICON = 'https://s32.postimg.org/ov9s6ipf9/icon.png'
 RAIDER_ICON = 'http://herovision.x10host.com/freeview/pyramid.png'
 FREEVIEW_ICON = 'http://herovision.x10host.com/freeview/freeview.png'
 NINJA_ICON = 'http://herovision.x10host.com/freeview/ninja2.png'
+JOKER_ICON = 'http://herovision.x10host.com/freeview/joker.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     process.Menu('The Apprentice','',1300,APPRENTICE_ICON,FANART,'','')
     process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
     process.Menu('Raider','',1100,RAIDER_ICON,FANART,'','')
+    process.Menu('Jokers TV','',1128,JOKER_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
     process.Menu('Favourites [COLORred]Some teething issues will be fixed in updates[/COLOR]','',10,'http://herovision.x10host.com/freeview/favs.png',FANART,'','')
+    process.Menu('Search','',1500,'http://herovision.x10host.com/freeview/search.png',FANART,'','')
     process.setView('movies', 'MAIN')	
 
 def Origin_Main():
@@ -145,7 +148,10 @@ elif mode == 700: xxx_vids.X_vid_Menu();    xbmcplugin.endOfDirectory(int(sys.ar
 elif mode == 800: Big_Kids.Big_Kids_Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 900: Pandora.Pandora_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1100: pyramid.SKindex()
-elif mode == 1200: freeview.CATEGORIES();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1128: pyramid.SKindex_Joker()
+elif mode == 1200: freeview.CATEGORIES()
 elif mode == 1300: apprentice.apprentice_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1400: ninja.CATEGORIES();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1500: search.Search_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

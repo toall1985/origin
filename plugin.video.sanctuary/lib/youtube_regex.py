@@ -62,7 +62,7 @@ def Youtube_Playlist_Grab_Duration(url):
         url = re.compile('data-video-ids="(.+?)"').findall(str(block))
         for url in url:
             url = url
-        process.Play('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),str(url),10003,str(image),FANART,'','' )
+        process.Play('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),str(url),10003,str(image),'','','' )
 	
 def get_params():
         param=[]

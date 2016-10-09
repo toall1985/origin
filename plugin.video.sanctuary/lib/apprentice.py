@@ -2,7 +2,7 @@
 
 
 
-import re, xbmcplugin, xbmcgui, process, base64, sys, urllib
+import re, xbmcplugin, xbmcgui, process, base64, sys, urllib, comedy, yt, youtube_regex
 
 addon_handle = int(sys.argv[1])
 Dialog = xbmcgui.Dialog()
@@ -14,21 +14,45 @@ source_file2 = Base_appren + 'source_file2.php'
 #1000
 def apprentice_Main():
     
-    process.Menu('[COLOR red]Suggested Movies[/COLOR]','',1301,'Base_appren + mov.png','Base_appren + movback.png','','')
-    process.Menu('[COLOR red]Suggested Tv Shows[/COLOR]','',1302,'Base_appren + tv.png','Base_appren + tvback.png','','')
-    process.Menu('[COLOR skyblue]Movies[/COLOR]','',1304,'Base_appren + mov.png','Base_appren + movback.png','','')
-    process.Menu('[COLOR skyblue]Tv Shows[/COLOR]','',1306,'Base_appren + tv.png','Base_appren + tvback.png','','')
+    process.Menu('[COLOR red]Suggested Movies[/COLOR]','',1301,Base_appren + 'mov.png',Base_appren + 'movback.png','','')
+    process.Menu('[COLOR red]Suggested Tv Shows[/COLOR]','',1302,Base_appren + 'tv.png','Base_appren + tvback.png','','')
+    process.Menu('[COLOR skyblue]Movies[/COLOR]','',1304,Base_appren + 'mov.png',Base_appren + 'movback.png','','')
+    process.Menu('[COLOR skyblue]Tv Shows[/COLOR]','',1306,Base_appren + 'tv.png',Base_appren + 'tvback.png','','')
+    process.Menu('[COLOR yellow]abracadabra[/COLOR]','',10004,Base_appren + 'abra.png',Base_appren + 'abra.jpg','','')
+	
 #    process.Menu('[COLOR green]Search[/COLOR]','',1303,'Base_appren + images.jpg','','','')
 
     xbmcplugin.setContent(addon_handle, 'movies')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))		
 #1001
+def Magic_Menu():
+    OPEN = process.OPEN_URL(Base_appren +Decode('bWFnaWMucGhw'))
+    Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
+    for url,img,desc,fanart,name in Regex:
+        if 'php' in url:
+            process.Menu(name,url,1303,img,fanart,desc,'')
+        elif 'playlist' in url:
+            process.Menu(name,url,10002,img,fanart,desc,'')
+        elif 'watchseries' in url:
+            process.Menu(name,url,112,img,fanart,desc,'')
+        elif not 'http' in url:
+            process.Play(name,url,10003,img,fanart,desc,'')
+        else:
+            process.Play(name,url,1307,img,fanart,desc,'')
+    xbmcplugin.setContent(addon_handle, 'movies')
+	
 def Mov_Menu():
     OPEN = process.OPEN_URL(Base_appren +Decode('bWFpbjIucGhw'))
     Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
     for url,img,desc,fanart,name in Regex:
         if 'php' in url:
             process.Menu(name,url,1303,img,fanart,desc,'')
+        elif 'playlink' in url:
+            process.Menu(name,url,10002,img,fanart,desc,'')
+        elif 'watchseries' in url:
+            process.Menu(name,url,112,img,fanart,desc,'')
+        elif not 'http' in url:
+            process.Play(name,url,10003,img,fanart,desc,'')
         else:
             process.Play(name,url,1307,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
@@ -39,6 +63,12 @@ def Tv_Menu():
     for url,img,desc,fanart,name in Regex:
         if 'php' in url:
             process.Menu(name,url,1303,img,fanart,desc,'')
+        elif 'playlink' in url:
+            process.Menu(name,url,10002,img,fanart,desc,'')
+        elif 'watchseries' in url:
+            process.Menu(name,url,112,img,fanart,desc,'')
+        elif not 'http' in url:
+            process.Play(name,url,10003,img,fanart,desc,'')
         else:
             process.Play(name,url,1307,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
@@ -50,6 +80,12 @@ def Second_Menu(url):
     for url,img,desc,fanart,name in Regex:
         if 'php' in url:
             process.Menu(name,url,1303,img,fanart,desc,'')
+        elif 'playlist' in url:
+            process.Menu(name,url,10002,img,fanart,desc,'')
+        elif 'watchseries' in url:
+            process.Menu(name,url,112,img,fanart,desc,'')
+        elif not 'http' in url:
+            process.Play(name,url,10003,img,fanart,desc,'')
         else:
             process.Play(name,url,1307,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
@@ -193,3 +229,7 @@ elif mode == 1307 : process.Big_Resolve(url)
 elif mode == 1304 : Index_List_Mov()
 elif mode == 1305 : Main_Loop(url)
 elif mode == 1306 : Index_List_Tv()
+elif mode == 112  : comedy.Grab_Season(iconimage,url)
+elif mode == 10002: youtube_regex.Youtube_Playlist_Grab_Duration(url)
+elif mode == 10003: yt.PlayVideo(url)
+elif mode == 10004: Magic_Menu()

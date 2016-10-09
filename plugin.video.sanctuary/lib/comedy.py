@@ -175,6 +175,7 @@ def Grab_Season(iconimage,url):
         url = Main + url
         process.Menu((season).replace('  ',''),url,113,image,fanart,description,'')
         process.setView('Movies', 'INFO')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def Grab_Episode(url,name,fanart,iconimage):
     main_name = '' 
