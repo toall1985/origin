@@ -50,9 +50,9 @@ def Main_Menu():
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
-    xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
     process.Menu('Favourites [COLORred]Some teething issues will be fixed in updates[/COLOR]','',10,'http://herovision.x10host.com/freeview/favs.png',FANART,'','')
     process.Menu('Search','',1500,'http://herovision.x10host.com/freeview/search.png',FANART,'','')
+    xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
     process.setView('movies', 'MAIN')	
 
 def Origin_Main():

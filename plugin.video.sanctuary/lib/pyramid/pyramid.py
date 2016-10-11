@@ -38,14 +38,15 @@ addon = _Edit.addon
 addon_version = addon.getAddonInfo('version')
 profile = xbmc.translatePath(addon.getAddonInfo('profile').decode('utf-8'))
 home = xbmc.translatePath(addon.getAddonInfo('path').decode('utf-8'))
+ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
 ADDON_DATA = USERDATA_PATH + '/Sanctuary/'
 favorites = ADDON_DATA + 'favourites'
 history = os.path.join(profile, 'history')
 
 REV = os.path.join(profile, 'list_revision')
-icon = os.path.join(home, 'icon.png')
-FANART = os.path.join(home, 'fanart.jpg')
+icon = ADDON_PATH + 'icon.png'
+FANART = ADDON_PATH + 'fanart.jpg'
 source_file = os.path.join(profile, 'source_file')
 functions_dir = profile
 
@@ -86,12 +87,13 @@ def makeRequest(url, headers=None):
 				
 def SKindex():
     addon_log("SKindex")
-    addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
+    addDir('[B][COLOR gold]THE PYRAMID MOVIE SEARCH[/B][/COLOR]','http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_Edit.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Joker():
     addon_log("SKindex")
+    addDir('[B][COLOR green]JOKER MOVIE SEARCH[/B][/COLOR]','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_EditJoker.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -111,41 +113,30 @@ def Open_Url(url):
         link = 'Opened'
         return link
 	
-def Search_loop():
+def Search_input(url):
     Dialog = xbmcgui.Dialog()
-    Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    Search_name = Search_title.lower()
     if Search_name == '':
         pass
     else:
-        HTML = Open_Url('http://tombraiderbuilds.co.uk/addon/')
-        match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-        for url2, name in match:
-            if '?C' in url2:
+        Search_loop(Search_name,url)    
+	
+def Search_loop(Search_name,url):
+    HTML = Open_Url(url)
+    if HTML != 'Failed':
+        match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+        for name,image,url,fanart in match:
+            if not 'http:' in url:
                 pass
             else:
-                url2 = 'http://tombraiderbuilds.co.uk/addon/' + url2
-                second_menu(Search_name, url2)
-
-def second_menu(Search_name, url2):
-    HTML = Open_Url(url2)
-    match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-    for url3, name in match:
-        if 'txt' in url3:
-            url4 = url2 + url3
-            third_menu(Search_name, url4)
-           
-def third_menu(Search_name, url4):
-    HTML = Open_Url(url4)
-    match = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
-    for name,url,img in match:
-        if '<title>' in name:
-            pass
-        else:
-            if Search_name.lower() in name.lower():
-                addLink(url, name,img,FANART,'','','','',None,'',1)
-				
-
-	
+                Search_loop(Search_name,url)
+        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+        for name,url,image,fanart in match2:
+            if 'http:' in url:
+                if Search_name.lower() in name.lower():
+                    addLink(url, name,image,fanart,'','','','',None,'',1)
+					
 def getSources():
         if os.path.exists(favorites) == True:
             addDir('Favorites','url',1104,os.path.join(home, 'resources', 'favorite.png'),FANART,'','','','')
@@ -2283,6 +2274,8 @@ def pluginquerybyJSON(url):
 
 def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlist,regexs,total,setCookie=""):
         #print 'url,name',url,name
+        if fanart == '':
+            fanart = FANART
         contextMenu =[]
         try:
             name = name.encode('utf-8')
@@ -2641,9 +2634,10 @@ elif mode==1140:
     SetViewThumbnail()
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1141 : 
-    Search_loop()
+    Search_input(url)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1142: RESOLVE(url)	
+elif mode == 1142: RESOLVE(url)
+	
 elif mode==1153:
     addon_log("Requesting JSON-RPC Items")
     pluginquerybyJSON(url)
