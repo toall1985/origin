@@ -43,7 +43,7 @@ def XPornstars(url):
 	  
 def XNew_Videos(url):
     HTML = process.OPEN_URL(url)
-    match = re.compile('<div class="thumb-inside">.+?<img src="(.+?)" id=".+?<p><a href="(.+?)" title="(.+?)">.+?<span class="bg"><strong>(.+?)</strong> - (.+?) %',re.DOTALL).findall(HTML)
+    match = re.compile('<div class=".+?"><script>.+?<img src="(.+?)".+?<a href="(.+?)" title=".+?">(.+?)</a></p>.+?uration">(.+?)</span>.+?Porn quality:(.+?) %.+?</span>',re.DOTALL).findall(HTML)
     for img,url,name,length,rating in match:
         process.Play((name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','') + ' - Porn Quality : ' + rating + '% - ' + length,'http://www.xvideos.com'+url,506,img,FANART,rating + '% - ' + length,'')	
     next_button2 = re.compile('<li><a href="([^"]*)" class="no-page">Next</a></li></ul></div>').findall(HTML)

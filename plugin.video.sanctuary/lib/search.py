@@ -1,8 +1,6 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, Football_Repeat, comedy, yt, Pandora, Big_Kids, multitv, sys, xbmcplugin, youtube_regex, pyxbmct
-from pyramid import pyramid, _EditOblivion
-from freeview import freeview
+import re, process, urllib, urllib2, xbmcgui, base64, Football_Repeat, comedy, yt, Pandora, Big_Kids, multitv, sys, xbmcplugin, youtube_regex
 from threading import Thread
-freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
+from pyramid import pyramid
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
 addon_handle = int(sys.argv[1])
@@ -13,7 +11,7 @@ Pans_files_TV = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 def Search_Menu():
     process.Menu('TV','TV',1501,'','','','')
     process.Menu('Movies','Movies',1501,'','','','')
-    process.Menu('Live TV','Live TV',1501,'','','','')
+#    process.Menu('Live TV','Live TV',1501,'','','','')
     process.Menu('Cartoons','cartoon',1501,'','','','')
     process.Menu('Football Team','Football',1501,'','','','')
     process.Menu('Audiobooks','Music',1501,'','','','')
@@ -176,19 +174,7 @@ def Music(Search_name):
 
 				
 def Live_TV(Search_name):
-    HTML = open(freeview_py).read()
-    block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
-    match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
-    for name,url,mode,img in match:
-    	if Search_name in name.lower():
-            freeview.addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
-    Oblivion_url = _EditOblivion.MainBase
-    HTML2 = process.OPEN_URL(Oblivion_url)
-    match = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML2)
-    for ignore,name,url in match:
-    	if Search_name in name.lower():
-            if 'http' in url:
-        		process.Play('[COLORblue]Oblivion [/COLOR]'+name,url,1307,'','','','')    
+    pass
 #    HTML = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
 #	HTML2 = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
 
