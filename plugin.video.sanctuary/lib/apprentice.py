@@ -47,7 +47,7 @@ def Mov_Menu():
     for url,img,desc,fanart,name in Regex:
         if 'php' in url:
             process.Menu(name,url,1303,img,fanart,desc,'')
-        elif 'playlist' in url:
+        elif 'playlink' in url:
             process.Menu(name,url,10002,img,fanart,desc,'')
         elif 'watchseries' in url:
             process.Menu(name,url,112,img,fanart,desc,'')
@@ -233,4 +233,3 @@ elif mode == 112  : comedy.Grab_Season(iconimage,url)
 elif mode == 10002: youtube_regex.Youtube_Playlist_Grab_Duration(url)
 elif mode == 10003: yt.PlayVideo(url)
 elif mode == 10004: Magic_Menu()
-

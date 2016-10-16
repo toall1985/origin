@@ -1,0 +1,1 @@
+exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.b64decode("NCAwCgozID0gJ2E6Ly9kLjIuYy84LmInCjYgPSAwLjkoJzUuNy4xJyk=")))(lambda a,b:b[int("0x"+a.group(1),16)],"xbmcaddon|OblivionStreams|oblivionbuilds|MainBase|import|plugin|addon|video|IPTV4|Addon|http|m3u|com|vps".split("|")))
