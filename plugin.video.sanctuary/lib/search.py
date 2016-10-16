@@ -1,6 +1,9 @@
-import re, process, urllib, urllib2, xbmcgui, base64, Football_Repeat, comedy, yt, Pandora, Big_Kids, multitv, sys, xbmcplugin, youtube_regex
-from threading import Thread
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, Football_Repeat, comedy, yt, Pandora, Big_Kids, multitv, sys, xbmcplugin, youtube_regex, pyxbmct
 from pyramid import pyramid
+from pyramid._EditOblivion import MainBase as OblivionMain
+from freeview import freeview
+from threading import Thread
+freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
 addon_handle = int(sys.argv[1])
@@ -11,7 +14,7 @@ Pans_files_TV = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 def Search_Menu():
     process.Menu('TV','TV',1501,'','','','')
     process.Menu('Movies','Movies',1501,'','','','')
-#    process.Menu('Live TV','Live TV',1501,'','','','')
+    process.Menu('Live TV','Live TV',1501,'','','','')
     process.Menu('Cartoons','cartoon',1501,'','','','')
     process.Menu('Football Team','Football',1501,'','','','')
     process.Menu('Audiobooks','Music',1501,'','','','')
@@ -174,7 +177,26 @@ def Music(Search_name):
 
 				
 def Live_TV(Search_name):
-    pass
+#    Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
+#    Raider_live_list = ['http://jokerswizard.esy.es/joker/data/livetv/iptv.xml','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
+#	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',]
+    HTML = open(freeview_py).read()
+    block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
+    match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
+    for name,url,mode,img in match:
+    	if Search_name in name.lower():
+            freeview.addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
+    HTML2 = process.OPEN_URL('http://vps.oblivionbuilds.com/IPTV4.m3u')
+    match = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML2)
+    for ignore,name,url in match:
+        if Search_name in name.lower():
+            pyramid.addLink(url,'[COLORlightblue]Oblivion [/COLOR]'+name,'','','','','','',None,'',1)
+    Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
+    Raider_Live_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt')	
+#    Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
+ #   Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
+  #  Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
+ 
 #    HTML = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
 #	HTML2 = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
 
@@ -196,7 +218,24 @@ def Raider_Loop(Search_name,url):
             if 'http:' in url:
                 if Search_name.lower() in name.lower():
                     pyramid.addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
-	
+
+def Raider_Live_Loop(Search_name,url):
+    if 'joker' in url:
+        ADD_NAME = '[COLORgreen]Joker[/COLOR]'
+    if 'raider' in url:
+        ADD_NAME = '[COLORblue]Raider[/COLOR]'
+    HTML = process.OPEN_URL(url)
+    match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
+    for name,url,img in match: 
+    	if Search_name in name.lower():
+            url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +url
+            pyramid.addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
+    match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
+    for ignore,name,url in match2:
+    	if Search_name in name.lower():
+            if 'http' in url:
+        		pyramid.addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
+                            
 	
 def get_params():
         param=[]
