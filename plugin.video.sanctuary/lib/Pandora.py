@@ -21,6 +21,7 @@ def Search_Menu():
 	process.Menu('[COLOR darkgoldenrod][I]Search Pandoras TV[/I][/COLOR]','',905,'http://icons.iconarchive.com/icons/icontexto/search/256/search-red-dark-icon.png','','','')
 
         xbmcplugin.setContent(addon_handle, 'movies')
+        xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 	
 def Pandoras_Box():
@@ -31,16 +32,16 @@ def Pandoras_Box():
             process.Menu(name,url,mode,img,fanart,desc,'')
 
     xbmcplugin.setContent(addon_handle, 'movies')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 			
 			
 def Pandora_Menu(url):
         
-        xbmcplugin.addSortMethod( handle=int( sys.argv[ 1 ] ), sortMethod=xbmcplugin.SORT_METHOD_TITLE )
         link = process.OPEN_URL(url)
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
             process.Play(name,url,906,iconimage,background,desc,'')
-            xbmcplugin.setContent(addon_handle, 'movies')			
+            xbmcplugin.endOfDirectory(int(sys.argv[1]))
             xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
 def Search_Pandoras_Films():
@@ -89,6 +90,7 @@ def open_Menu(url):
 
         xbmcplugin.setContent(addon_handle, 'movies')
         xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def get_params():
         param=[]
