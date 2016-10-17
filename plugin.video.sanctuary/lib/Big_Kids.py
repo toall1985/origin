@@ -23,6 +23,7 @@ def Search():
         if Search_Name in name.lower():
             process.Menu(name,url,803,ICON,FANART,'','')
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 def TESTCATS():
     html=process.OPEN_URL(BASE)
@@ -30,6 +31,7 @@ def TESTCATS():
     for url,name in match:
         process.Menu(name,url,803,ICON,FANART,'','')
         xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
     
 def LISTS(url):
     html=process.OPEN_URL(url)
@@ -42,6 +44,7 @@ def LISTS(url):
     match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
     for url in match3:
 	    process.Menu('NEXT PAGE',url,804,IMAGE,FANART,'','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
@@ -51,17 +54,18 @@ def LISTS2(url,IMAGE):
     match = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html)
     for name,url in match:
         print name + '     ' + url
-        if 'easy' in url:
+        if 'panda' in url:
             LISTS3(url)
-#second available playlink include 'panda'        
+#second available playlink includes 'easy'        
 
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);			
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 def LISTS3(url):
     html=process.OPEN_URL(url)
     match = re.compile("url: '(.+?)',").findall(html)
     for url in match:
-        process.Resolve(url)	
+        process.Big_Resolve(url)	
 
 def get_params():
         param=[]

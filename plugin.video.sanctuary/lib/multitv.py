@@ -7,7 +7,7 @@ ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 addon_handle = int(sys.argv[1])
-Main = 'http://www.watchseries.ac'
+Main = 'http://www.watchseriesgo.to/'
 List = []
 IMDB = 'http://www.imdb.com'
 genre_list = ['Drama','Horror','Adventure','Fantasy','Sci-Fi','Thriller','Comedy','Romance','Mystery','Action','Family','Music','Crime','Animation']
@@ -16,10 +16,10 @@ Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker']
 
 
 def multiv_Main_Menu():
-    process.Menu('Latest Episodes','http://www.watchseries.ac/latest',301,ICON,FANART,'','')
-    process.Menu('Popular Episodes','http://www.watchseries.ac/new',302,ICON,FANART,'','')
-    process.Menu('Genres','http://www.watchseries.ac/',303,ICON,FANART,'','')
-    process.Menu('Tv Schedule','http://www.watchseries.ac/tvschedule',307,ICON,FANART,'','')
+    process.Menu('Latest Episodes',Main + 'latest',301,ICON,FANART,'','')
+    process.Menu('Popular Episodes',Main + 'new',302,ICON,FANART,'','')
+    process.Menu('Genres',Main + '',303,ICON,FANART,'','')
+    process.Menu('Tv Schedule',Main + 'tvschedule',307,ICON,FANART,'','')
     process.Menu('Search','',309,ICON,FANART,'','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
@@ -29,7 +29,7 @@ def Search():
     description = ''
     fanart = FANART
     Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_url = 'http://www.watchseries.ac/search/' + (Search_name).replace(' ','%20')
+    Search_url = Main + 'search/' + (Search_name).replace(' ','%20')
     if Search_name == '':
         pass
     else:
@@ -42,6 +42,7 @@ def Search():
             description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
             process.Menu(name,url,305,image,fanart,description,name)		
             process.setView('Movies', 'INFO')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def Tv_Schedule(url):
     OPEN = process.OPEN_URL(url)
@@ -66,6 +67,7 @@ def Tv_Schedule(url):
         else:
             process.Menu(date,url,308,ICON,FANART,'','')
             List.append(date)
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 			
 def Schedule_Grab(url):
     OPEN = process.OPEN_URL(url)
@@ -76,7 +78,8 @@ def Schedule_Grab(url):
         name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('(2014)','')
         process.Menu(name + ' ' + year + ' - [COLORred]'+season+'[/COLOR]',url,305,img,FANART,'',name)
     if len(match) <= 0:
-        process.Menu('No Data Available Unfortunately','','','','','')
+        process.Menu('No Data Available Unfortunately','','','','','','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 		
 def Genres():
     OPEN = process.OPEN_URL(Main)
@@ -84,6 +87,7 @@ def Genres():
     for url,name in match:
         url = Main +'/genres/'+ url
         process.Menu(name,url,304,ICON,FANART,'','')			
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 def Genres_Page(url):
     OPEN = process.OPEN_URL(url)
@@ -109,6 +113,7 @@ def Genres_Page(url):
             url = Main+url
             process.Menu('NEXT PAGE',url,304,ICON,FANART,'','')
             List.append('Next_Page')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 			
 def Popular(url):
     OPEN = process.OPEN_URL(url)
@@ -117,6 +122,7 @@ def Popular(url):
         url = Main + url
         name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
         process.Menu(name+' - '+season,url,310,img,FANART,desc,name)		
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 		
 def Grab_Season(url,extra):
@@ -137,6 +143,7 @@ def Grab_Season(url,extra):
         url = Main + url
         process.Menu((season).replace('  ',''),url,306,image,fanart,description,'')
         process.setView('Movies', 'INFO')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def Grab_Episode(url,name,fanart,extra,iconimage):
     main_name = extra 
@@ -150,6 +157,7 @@ def Grab_Episode(url,name,fanart,extra,iconimage):
         date = date
         full_name = name+' - [COLORred]'+date+'[/COLOR]'
         process.Menu(full_name,url,310,image,fanart,'Aired : '+date,full_name)
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 	
 def Latest_Eps(url):
@@ -160,6 +168,7 @@ def Latest_Eps(url):
         name = (name).replace('Seas.','Season').replace('Ep.','Episode').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
         process.Menu(name+' - [COLORred]'+date+'[/COLOR]',url,310,ICON,FANART,'','')
     	process.setView('Movies', 'INFO')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 		
 
 
@@ -167,11 +176,11 @@ def Latest_Eps(url):
 
 def Get_Sources(name,URL,iconimage,fanart):
     HTML = process.OPEN_URL(URL)
-    match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
+    match = re.compile('<td>.+?<a href="/link/(.+?)".+?title="(.+?)"',re.DOTALL).findall(HTML)
     for url,name in match:
         for item in Sources:
             if item in url:
-                URL = 'http://www.watchseries.ac/link/' + url
+                URL = Main + 'link/' + url
                 List.append(name)
                 selector(name,URL)
     if len(match)<=0:
@@ -192,7 +201,7 @@ def selector(name, URL):
     for url,name in match:
         for item in Sources:
             if item in url:
-                URL = 'http://www.watchseries.ac/link/' + url
+                URL = Main + 'link/' + url
                 process.Play(name,URL,313,ICON,FANART,'','')
     if len(match)<=0:
         process.Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')'''

@@ -5,6 +5,7 @@ from freeview import freeview
 from threading import Thread
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 Dialog = xbmcgui.Dialog()
+dp =  xbmcgui.DialogProgress()
 Decode = base64.decodestring
 addon_handle = int(sys.argv[1])
 Base_Pand = (Decode('aHR0cDovL2dlbmlldHZjdW50cy5jby51ay9QYW5zQm94L09SSUdJTlMv'))
@@ -44,16 +45,28 @@ def Search_Input(extra):
             process.Menu('NOT WORKING - '+extra,'','','','','','')
 		
 def Movies(Search_name):
+    dp.create('Checking for streams')
+    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
     Pans_Search_Movies(Search_name)
+    dp.update(40,'',"Checking Apprentice",'Please Wait')
     Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php')
+    dp.update(60,'',"Checking Raider",'Please Wait')
     Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
+    dp.update(80,'',"Checking Joker",'Please Wait')
     Raider_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/quality/quality.txt')
-
+    dp.update(100,'',"Finished checking",'Please Wait')
+    dp.close()
+	
 def TV(Search_name):
+    dp.create('Checking for streams')
+    dp.update(25,'',"Checking Pandoras Box",'Please Wait')
     Pans_Search_TV(Search_name) 
+    dp.update(50,'',"Checking Apprentice",'Please Wait')
     Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchtv.php')
+    dp.update(75,'',"Checking Origin",'Please Wait')
     Search_WatchSeries(Search_name)
-    Search_GetUpStandUp(Search_name)	
+    dp.update(100,'',"Finished checking",'Please Wait')
+    dp.close()
 
 def Search_GetUpStandUp(Search_name):
     filename = ['Movies','yt_standup_playlist','TV_Shows']
@@ -80,13 +93,13 @@ def Search_GetUpStandUp(Search_name):
                     process.Play(name,url,105,image,fanart,desc,'')
 
 def Search_WatchSeries(Search_name):
-    Search_url = 'http://www.watchseries.ac/search/' + (Search_name).replace(' ','%20')
+    Search_url = 'http://www.watchseriesgo.to/search/' + (Search_name).replace(' ','%20')
     OPEN = process.OPEN_URL(Search_url)
     match3 = re.compile('<div class="block-left-home-inside col-sm-9 col-xs-12" title=".+?">.+?<a href="(.+?)" title=.+?<img src="(.+?)" alt=.+?<b>(.+?)</b></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
     for url,img,name,desc in match3:
         name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
-        url3 = 'http://www.watchseries.ac' + url
-        image = 'http://www.watchseries.ac' + img
+        url3 = 'http://www.watchseriesgo.to/' + url
+        image = 'http://www.watchseriesgo.to/' + img
         description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
         name = '[COLORred]Origin [/COLOR]' + name
         process.Menu(name,url3,305,image,fanart,description,name)		
@@ -174,31 +187,66 @@ def Music(Search_name):
         if Search_name in name.lower():
             name = '[COLORred]Origin [/COLOR]' + str(name)		
             process.Menu(name,str(url),10001,str(image),'','','')   
-
 				
 def Live_TV(Search_name):
-#    Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
-#    Raider_live_list = ['http://jokerswizard.esy.es/joker/data/livetv/iptv.xml','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
-#	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',]
+    dp.create('Checking for streams')
+    Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
+    Joker_live_list = ['http://jokerswizard.esy.es/joker/data/sports/sports.txt','http://jokerstv.no-ip.org/data/livetv/worldtv.xml','http://jokerstv.no-ip.org/data/livetv/news.xml',
+	'http://jokerstv.no-ip.org/data/livetv/iptv.xml']
+    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
+	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
+    dp.update(0,'',"Checking Freeview",'Please Wait')
     for name,url,mode,img in match:
     	if Search_name in name.lower():
             freeview.addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
-    HTML2 = process.OPEN_URL('http://vps.oblivionbuilds.com/IPTV4.m3u')
-    match = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML2)
-    for ignore,name,url in match:
-        if Search_name in name.lower():
-            pyramid.addLink(url,'[COLORlightblue]Oblivion [/COLOR]'+name,'','','','','','',None,'',1)
-    Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
-    Raider_Live_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt')	
+    dp.update(25,'',"Checking Oblivion",'Please Wait')
+    for item in Oblivion_list:
+        Raider_Live_Loop(Search_name,(OblivionMain).replace('Free.xml',item))
+    dp.update(50,'',"Checking Joker",'Please Wait')
+    for item in Joker_live_list:
+        Raider_Live_Loop(Search_name,item)
+    dp.update(75,'',"Checking Raider",'Please Wait')
+    for item in Raider_live_list:
+        Raider_Live_Loop(Search_name,item)
+    dp.update(100,'',"Finished checking",'Please Wait')
+    dp.close()
+#	Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
+#    dp.update(60,'',"Finished checking",'Please Wait')
+#    Raider_Live_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt')	
+#    dp.update(100,'',"Finished checking",'Please Wait')
+#    dp.close()
 #    Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
  #   Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
   #  Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
  
 #    HTML = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
 #	HTML2 = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
+
+def Raider_Live_Loop(Search_name,url):
+    if 'joker' in url:
+        ADD_NAME = '[COLORgreen]Joker[/COLOR]'
+    if 'raider' in url:
+        ADD_NAME = '[COLORblue]Raider[/COLOR]'
+    if 'oblivion' in url:
+        ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
+    HTML = process.OPEN_URL(url)
+    loop = re.compile('<name>.+?</name>.+?<thumbnail>.+?</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>.+?</fanart>',re.DOTALL).findall(HTML)
+    for url in loop:
+        Raider_Live_Loop(Search_name,url)
+    match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
+    for name,url,img in match: 
+    	if Search_name in name.lower():
+            url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +url
+            pyramid.addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
+    match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
+    for ignore,name,url in match2:
+    	if Search_name in name.lower():
+            if 'http' in url:
+        		pyramid.addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
+
 
 def Raider_Loop(Search_name,url):
     if 'joker' in url:
@@ -218,23 +266,6 @@ def Raider_Loop(Search_name,url):
             if 'http:' in url:
                 if Search_name.lower() in name.lower():
                     pyramid.addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
-
-def Raider_Live_Loop(Search_name,url):
-    if 'joker' in url:
-        ADD_NAME = '[COLORgreen]Joker[/COLOR]'
-    if 'raider' in url:
-        ADD_NAME = '[COLORblue]Raider[/COLOR]'
-    HTML = process.OPEN_URL(url)
-    match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
-    for name,url,img in match: 
-    	if Search_name in name.lower():
-            url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +url
-            pyramid.addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
-    match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
-    for ignore,name,url in match2:
-    	if Search_name in name.lower():
-            if 'http' in url:
-        		pyramid.addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
                             
 	
 def get_params():

@@ -20,8 +20,8 @@ def Search_Menu():
 	process.Menu('[COLOR darkgoldenrod][I]Search Pandoras Films[/I][/COLOR]','',904,'http://icons.iconarchive.com/icons/icontexto/search/256/search-red-dark-icon.png','','','')
 	process.Menu('[COLOR darkgoldenrod][I]Search Pandoras TV[/I][/COLOR]','',905,'http://icons.iconarchive.com/icons/icontexto/search/256/search-red-dark-icon.png','','','')
 
-        xbmcplugin.setContent(addon_handle, 'movies')
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	xbmcplugin.setContent(addon_handle, 'movies')
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 	
 def Pandoras_Box():
@@ -41,12 +41,12 @@ def Pandora_Menu(url):
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
             process.Play(name,url,906,iconimage,background,desc,'')
-            xbmcplugin.endOfDirectory(int(sys.argv[1]))
             xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+        xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def Search_Pandoras_Films():
     
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_Title = Search_Name.lower()
     filenames = ['hey1080p','hey3D','hey','480p','720p','1080p','mova', 'movb', 'movc', 'movd', 'move', 'movf', 'movg', 'movh', 'movi', 'movj', 'movk', 'movl', 'movm', 'movn', 'movo', 'movp', 'movq', 'movr', 'movs', 'movt', 'movu', 'movv', 'movw', 'movx', 'movy', 'movz','720paction','720padventure','720panimation','720pcomedy','720pcrime','720pdocumentary','720pdrama','720pfamily','720pfantasy','720phorror','720pmystery','720promance','720psci-Fi','720psport','720pthriller','720pwestern','1080paction','1080padventure','1080panimation','1080pcomedy','1080pcrime','1080pdocumentary','1080pdrama','1080pfamily','1080pfantasy','1080phorror','1080pmystery','1080promance','1080psci-Fi','1080psport','1080pthriller','1080pwestern','top10action','top10animation','top10biography','top10comedy','top10crime','top10documentary','top10drama','top10family','top10fantasy','top10horror','top10music','top10mystery','top10romance','top10sci-fi','top10sport','top10thriller','top10western']
     for file_Name in filenames:
@@ -64,7 +64,7 @@ def Search_Pandoras_Films():
 				
 def Search_Pandoras_TV():
     
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM) # what you type in
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_Title = Search_Name.lower()
     filenames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 

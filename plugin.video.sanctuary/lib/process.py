@@ -1,4 +1,4 @@
-import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, time
+import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, time, urlresolver
 
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
@@ -254,7 +254,7 @@ def Big_Resolve(url):
     except: pass
     from urlresolver import common
     dp = xbmcgui.DialogProgress()
-    dp.create('LOADING','Opening %s Now'%(name))
+    dp.create('LOADING','Opening Stream')
     play=xbmc.Player(GetPlayerCore())
     url=urlresolver.HostedMediaFile(url).resolve() 
     if dp.iscanceled(): 
