@@ -1,4 +1,4 @@
-import urllib2,re,os,xbmc,xbmcplugin,xbmcaddon,xbmcgui,urlparse,urllib,sys,base64,process,youtube_regex
+import urllib2,re,os,xbmc,xbmcplugin,xbmcaddon,xbmcgui,urlparse,urllib,sys,base64,process
 
 addon_handle = int(sys.argv[1])
 Decode = base64.decodestring
@@ -41,9 +41,9 @@ def Kids_AZ_Audio(url):
         if '</a>' in name:
             pass
         elif '(' in name:
-            process.Menu((name).replace('&nbsp;','').replace('  ','').replace('.mp3','').replace('	',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9ib29rc19hdWRpby8=') + url,605,ICON,FANART,'','')
+            process.Menu((name).replace('&nbsp;','').replace('  ','').replace('.mp3','').replace('	','').replace('\n',' '),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9ib29rc19hdWRpby8=') + url,605,ICON,FANART,'','')
         else:
-            process.Play((name).replace('&nbsp;','').replace('  ','').replace('.mp3','').replace('	',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9ib29rc19hdWRpby8=') + url,604,ICON,FANART,'','')
+            process.Play((name).replace('&nbsp;','').replace('  ','').replace('.mp3','').replace('	','').replace('\n',' '),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9ib29rc19hdWRpby8=') + url,604,ICON,FANART,'','')
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);		
 	
@@ -57,9 +57,9 @@ def Search_Kids():
             if '</a>' in name:
                 pass
             elif '(' in name:
-                process.Menu((name).replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,605,ICON,FANART,'','')
+                process.Menu((name).replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3','').replace('\n',' '),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,605,ICON,FANART,'','')
             else:
-                process.Play((name).replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,604,ICON,FANART,'','')
+                process.Play((name).replace('\n',' ').replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,604,ICON,FANART,'','')
 	
 	
 def Kids_Audio():   
@@ -96,64 +96,3 @@ def Kids_Play_Multi(url):
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
         
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-
-if mode   == 600    : Kodible_Main_Menu()
-elif mode == 602    : process.Resolve(url)
-elif mode == 603 	: Kids_Audio()
-elif mode == 604 	: Kids_Play(url)
-elif mode == 605 	: Kids_Play_Multi(url)
-elif mode == 606 	: Kids_Menu()
-elif mode == 607 	: Kids_AZ()
-elif mode == 608 	: Kids_AZ_Audio(url)
-elif mode == 10000 	: youtube_regex.Youtube_Grab_Playlist_Page(url)
-elif mode == 614 	: Search_Kids()

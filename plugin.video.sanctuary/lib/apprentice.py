@@ -18,7 +18,7 @@ def apprentice_Main():
     process.Menu('[COLOR red]Suggested Tv Shows[/COLOR]','',1302,Base_appren + 'tv.png','Base_appren + tvback.png','','')
     process.Menu('[COLOR skyblue]Movies[/COLOR]','',1304,Base_appren + 'mov.png',Base_appren + 'movback.png','','')
     process.Menu('[COLOR skyblue]Tv Shows[/COLOR]','',1306,Base_appren + 'tv.png',Base_appren + 'tvback.png','','')
-    process.Menu('[COLOR yellow]abracadabra[/COLOR]','',10004,Base_appren + 'abra.png',Base_appren + 'abra.jpg','','')
+    process.Menu('[COLOR yellow]abracadabra[/COLOR]','',1307,Base_appren + 'abra.png',Base_appren + 'abra.jpg','','')
 	
 #    process.Menu('[COLOR green]Search[/COLOR]','',1303,'Base_appren + images.jpg','','','')
 
@@ -38,7 +38,7 @@ def Magic_Menu():
         elif not 'http' in url:
             process.Play(name,url,10003,img,fanart,desc,'')
         else:
-            process.Play(name,url,1307,img,fanart,desc,'')
+            process.Play(name,url,906,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
 	
 def Mov_Menu():
@@ -54,7 +54,7 @@ def Mov_Menu():
         elif not 'http' in url:
             process.Play(name,url,10003,img,fanart,desc,'')
         else:
-            process.Play(name,url,1307,img,fanart,desc,'')
+            process.Play(name,url,906,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
 #1002
 def Tv_Menu():
@@ -70,7 +70,7 @@ def Tv_Menu():
         elif not 'http' in url:
             process.Play(name,url,10003,img,fanart,desc,'')
         else:
-            process.Play(name,url,1307,img,fanart,desc,'')
+            process.Play(name,url,906,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
 	
 #1003	
@@ -87,7 +87,7 @@ def Second_Menu(url):
         elif not 'http' in url:
             process.Play(name,url,10003,img,fanart,desc,'')
         else:
-            process.Play(name,url,1307,img,fanart,desc,'')
+            process.Play(name,url,906,img,fanart,desc,'')
     xbmcplugin.setContent(addon_handle, 'movies')
 #1004
 def Index_List_Mov():
@@ -159,77 +159,5 @@ def Clean_name(name,url3):
     name25=(name24).replace('e02','').replace('e03','').replace('e04','').replace('e05','').replace('e06','').replace('e07','').replace('e08','').replace('e09','').replace('e01','')
     clean_name = name15
     search_name = name25
-    process.Play(clean_name,url3,1307,'','','','')
+    process.Play(clean_name,url3,906,'','','','')
 
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-extra=None
-fav_mode=None
-
-try:
-    fav_mode=int(params["fav_mode"])
-except:
-    pass
-try:
-    extra=urllib.unquote_plus(params["extra"])
-except:
-    pass
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-					
-if mode == 1300 : apprentice_Main()
-elif mode == 1301 : Mov_Menu()
-elif mode == 1302 : Tv_Menu()
-elif mode == 1303 : Second_Menu(url)
-elif mode == 1307 : process.Big_Resolve(url)
-elif mode == 1304 : Index_List_Mov()
-elif mode == 1305 : Main_Loop(url)
-elif mode == 1306 : Index_List_Tv()
-elif mode == 112  : comedy.Grab_Season(iconimage,url)
-elif mode == 10002: youtube_regex.Youtube_Playlist_Grab_Duration(url)
-elif mode == 10003: yt.PlayVideo(url)
-elif mode == 10004: Magic_Menu()

@@ -22,11 +22,8 @@
     If i have used code that you wrote i can only apologise for not thanking you personally and ensure you no offence was meant.
     Just sometimes i find it best not to rewrite what works well, mostly to a higher standard that my current understanding
 '''
-import xbmcplugin, xbmc, xbmcaddon
-from lib import comedy, process, Big_Kids, Football_Repeat, Movies, multitv, Kodible, radio_gaga, xxx_vids, Pandora, apprentice, ninja, search
-from lib import brettus_anime
-from lib.pyramid import pyramid
-from lib.freeview import freeview
+import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui
+from lib import process
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
 addon_id = 'plugin.video.sanctuary'
@@ -109,6 +106,7 @@ iconimage=None
 mode=None
 description=None
 extra=None
+fanart=None
 fav_mode=None
 
 try:
@@ -144,29 +142,221 @@ try:
 except:
         pass
 	
-if mode == None: Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+if mode == None: Main_Menu()
 #elif mode == 1 : 
-elif mode == 2 : Music();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 2 : Music()
 #elif mode == 3 : 
 elif mode == 4 : Origin_Main()
-elif mode == 10: process.getFavourites();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 10: from lib import process;process.getFavourites()
+elif mode==11:
+    try:
+        name = name.split('\\ ')[1]
+    except:
+        pass
+    try:
+        name = name.split('  - ')[0]
+    except:
+        pass
+    process.addFavorite(name,url,iconimage,fanart,fav_mode)
+elif mode==12:
+    try:
+        name = name.split('\\ ')[1]
+    except:
+        pass
+    try:
+        name = name.split('  - ')[0]
+    except:
+        pass
+    process.rmFavorite(name)
 elif mode == 20: Recent()
-elif mode == 100: comedy.Comedy_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 200: Movies.Movie_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 300: multitv.multiv_Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 400: Football_Repeat.footy_Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 500: radio_gaga.Radio_Country();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 600: Kodible.Kodible_Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 700: xxx_vids.X_vid_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 800: Big_Kids.Big_Kids_Main_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 900: Pandora.Pandora_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1100: pyramid.SKindex()
-elif mode == 1128: pyramid.SKindex_Joker()
-elif mode == 1129: pyramid.SKindex_Oblivion()
-elif mode == 1200: freeview.CATEGORIES()
-elif mode == 1300: apprentice.apprentice_Main();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1400: ninja.CATEGORIES();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1500: search.Search_Menu();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1600: brettus_anime.GetList();    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 100: from lib import comedy;comedy.Comedy_Main()
+elif mode == 101: from lib import comedy;comedy.Stand_up()
+elif mode == 102: from lib import comedy;comedy.Search()
+elif mode == 103: from lib import comedy;comedy.Play_Stage(url)
+elif mode == 104: from lib import comedy;comedy.Regex(url)
+elif mode == 105: process.Resolve(url)
+elif mode == 106: from lib import comedy;comedy.Stand_up_Menu()
+elif mode == 107: from lib import comedy;comedy.grab_youtube_playlist(url)
+elif mode == 108: from lib import comedy;comedy.Search()
+elif mode == 109: from lib import yt;yt.PlayVideo(url)
+elif mode == 110: from lib import comedy;comedy.Movies_Menu()
+elif mode == 111: from lib import comedy;comedy.Pubfilm_Comedy_Grab(url)
+elif mode == 112: from lib import comedy;comedy.Grab_Season(iconimage,url)
+elif mode == 113: from lib import comedy;comedy.Grab_Episode(url,name,fanart,iconimage)
+elif mode == 114: from lib import comedy;comedy.Get_Sources(name,url,iconimage,fanart)
+elif mode == 115: from lib import comedy;comedy.Get_site_link(url,name)
+elif mode == 116: from lib import comedy;comedy.final(url)
+elif mode == 200: from lib import Movies;Movies.Movie_Main()
+elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
+elif mode == 203 : from lib import Movies;Movies.Pubfilm_Grab(url)
+elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
+elif mode == 205 : from lib import Movies;Movies.Get_playlink(url)
+elif mode == 300: from lib import multitv;multitv.multiv_Main_Menu()
+elif mode == 301 : from lib import multitv;multitv.Latest_Eps(url)
+elif mode == 302 : from lib import multitv;multitv.Popular(url)
+elif mode == 303 : from lib import multitv;multitv.Genres()
+elif mode == 304 : from lib import multitv;multitv.Genres_Page(url)
+elif mode == 305 : from lib import multitv;multitv.Grab_Season(url,extra)
+elif mode == 306 : from lib import multitv;multitv.Grab_Episode(url,name,fanart,extra,iconimage)
+elif mode == 307 : from lib import multitv;multitv.Tv_Schedule(url)
+elif mode == 308 : from lib import multitv;multitv.Schedule_Grab(url)
+elif mode == 309 : from lib import multitv;multitv.Search()
+elif mode == 310: from lib import multitv;multitv.Get_Sources(name,url,iconimage,fanart)
+elif mode == 313: from lib import multitv;multitv.Get_site_link(url,name)
+elif mode == 400: from lib import Football_Repeat;Football_Repeat.footy_Main_Menu()
+elif mode == 401: from lib import Football_Repeat;Football_Repeat.get_All_Rows(url,iconimage)
+elif mode == 402: from lib import Football_Repeat;Football_Repeat.get_PLAYlink(url)
+elif mode == 403: from lib import Football_Repeat;Football_Repeat.Football_Highlights()
+elif mode == 404: from lib import Football_Repeat;Football_Repeat.FootballFixturesDay()
+elif mode == 405: from lib import Football_Repeat;Football_Repeat.FootballFixturesGame(url,iconimage)
+elif mode == 406: from lib import Football_Repeat;Football_Repeat.Prem_Table(url)
+elif mode == 407: from lib import Football_Repeat;Football_Repeat.get_Multi_Links(url,iconimage)
+elif mode == 408: from lib import Football_Repeat;Football_Repeat.Get_the_rows(url,iconimage)
+elif mode == 409: from lib import Football_Repeat;Football_Repeat.League_Tables(url)
+elif mode == 410: from lib import Football_Repeat;Football_Repeat.Search()
+elif mode == 411: from lib import Football_Repeat;Football_Repeat.Prem_Table2(url)
+elif mode == 412: from lib import Football_Repeat;Football_Repeat.champ_league(url)
+elif mode == 413: from lib import Football_Repeat;Football_Repeat.footytube(url)
+elif mode == 414: from lib import Football_Repeat;Football_Repeat.footytube_leagues(name)
+elif mode == 415: from lib import Football_Repeat;Football_Repeat.footytube_teams(url)
+elif mode == 416: from lib import Football_Repeat;Football_Repeat.footytube_videos(url)
+elif mode == 417: from lib import Football_Repeat;Football_Repeat.footytube_frame(url)
+elif mode == 418: from lib import Football_Repeat;Football_Repeat.get_origin_playlink(url,iconimage,FANART)
+elif mode == 419: from lib import Football_Repeat;Football_Repeat.Resolve(url)
+elif mode == 420: from lib import Football_Repeat;Football_Repeat.FootballFixturesSingle(description);Football_Repeat.window.doModal();del Football_Repeat.window
+elif mode == 421: from lib import Football_Repeat;Football_Repeat.METALLIQ()
+elif mode == 500: from lib import radio_gaga;radio_gaga.Radio_Country()
+elif mode == 501: from lib import radio_gaga;radio_gaga.Radio(url)
+elif mode == 502: process.Resolve(url)
+elif mode == 600: from lib import Kodible;Kodible.Kodible_Main_Menu()
+elif mode == 602: process.Resolve(url)
+elif mode == 603: from lib import Kodible;Kodible.Kids_Audio()
+elif mode == 604: from lib import Kodible;Kodible.Kids_Play(url)
+elif mode == 605: from lib import Kodible;Kodible.Kids_Play_Multi(url)
+elif mode == 606: from lib import Kodible;Kodible.Kids_Menu()
+elif mode == 607: from lib import Kodible;Kodible.Kids_AZ()
+elif mode == 608: from lib import Kodible;Kodible.Kids_AZ_Audio(url)
+elif mode == 614: from lib import Kodible;Kodible.Search_Kids()
+elif mode == 700: from lib import xxx_vids;xxx_vids.X_vid_Menu()
+elif mode == 701: from lib import xxx_vids;xxx_vids.XNew_Videos(url)
+elif mode == 702: from lib import xxx_vids;xxx_vids.XGenres(url)
+elif mode == 703: from lib import xxx_vids;xxx_vids.XPornstars(url)
+elif mode == 704: from lib import xxx_vids;xxx_vids.XSearch_X()
+elif mode == 705: from lib import xxx_vids;xxx_vids.Xtags(url)
+elif mode == 706: from lib import xxx_vids;xxx_vids.XPlayLink(url)
+elif mode == 800: from lib import Big_Kids;Big_Kids.Big_Kids_Main_Menu()
+elif mode == 801: from lib import Big_Kids;Big_Kids.TESTCATS()
+elif mode == 802: from lib import Big_Kids;Big_Kids.Search()
+elif mode == 803: from lib import Big_Kids;Big_Kids.LISTS(url)
+elif mode == 804: from lib import Big_Kids;Big_Kids.LISTS2(url,iconimage)
+elif mode == 805: process.Resolve(url)
+elif mode == 806: from lib import Big_Kids;Big_Kids.Classics1()
+elif mode == 807: from lib import Big_Kids;Big_Kids.Classics2(url)
+elif mode == 808: from lib import Big_Kids;Big_Kids.Classics3(url)
+elif mode == 900: from lib import Pandora;Pandora.Pandora_Main()
+elif mode == 901: from lib import Pandora;Pandora.Pandoras_Box()
+elif mode == 423: from lib import Pandora;Pandora.open_Menu(url)
+elif mode == 426: from lib import Pandora;Pandora.Pandora_Menu(url)
+elif mode == 903: from lib import Pandora;Pandora.Search_Menu()
+elif mode == 904: from lib import Pandora;Pandora.Search_Pandoras_Films()
+elif mode == 905: from lib import Pandora;Pandora.Search_Pandoras_TV()
+elif mode == 906: process.Big_Resolve(url)
+elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex()
+elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
+elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
+elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1104:from lib.pyramid import pyramid;pyramid.getFavorites();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1105:
+    try:
+        name = name.split('\\ ')[1]
+    except:
+        pass
+    try:
+        name = name.split('  - ')[0]
+    except:
+        pass
+    from lib.pyramid import pyramid;pyramid.addFavorite(name,url,iconimage,fanart,fav_mode)
+elif mode==1106:
+    try:
+        name = name.split('\\ ')[1]
+    except:
+        pass
+    try:
+        name = name.split('  - ')[0]
+    except:
+        pass
+    from lib.pyramid import pyramid;pyramid.rmFavorite(name)
+elif mode==1107:from lib.pyramid import pyramid;pyramid.addSource(url)
+elif mode==1108:from lib.pyramid import pyramid;pyramid.rmSource(name)
+elif mode==1109:from lib.pyramid import pyramid;pyramid.download_file(name, url)
+elif mode==1110:from lib.pyramid import pyramid;pyramid.getCommunitySources()
+elif mode==1111:from lib.pyramid import pyramid;pyramid.addSource(url)
+elif mode==1112:
+    from lib.pyramid import pyramid
+    if not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
+        item = xbmcgui.ListItem(path=url)
+        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+    else:
+        print 'Not setting setResolvedUrl'
+        xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
+elif mode==1113:from lib.pyramid import pyramid;pyramid.play_playlist(name, playlist)
+elif mode==1114:from lib.pyramid import pyramid;pyramid.get_xml_database(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1115:from lib.pyramid import pyramid;pyramid.get_xml_database(url, True);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1116:from lib.pyramid import pyramid;pyramid.getCommunitySources(True);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1117:
+    url,setresolved = getRegexParsed(regexs, url)
+    if url:
+        from lib.pyramid import pyramid;pyramid.playsetresolved(url,name,iconimage,setresolved)
+    else:
+        xbmc.executebuiltin("XBMC.Notification(ThePyramid ,Failed to extract regex. - "+"this"+",4000,"+icon+")")
+elif mode==1118:
+    try:
+        from lib.pyramid import youtubedl
+    except Exception:
+        xbmc.executebuiltin("XBMC.Notification(ThePyramid,Please [COLOR yellow]install the Youtube Addon[/COLOR] module ,10000,"")")
+    stream_url=youtubedl.single_YD(url)
+    from lib.pyramid import pyramid;pyramid.playsetresolved(stream_url,name,iconimage)
+elif mode==1119:from lib.pyramid import pyramid;pyramid.playsetresolved (pyramid.urlsolver(url),name,iconimage,True)	
+elif mode==1121:from lib.pyramid import pyramid;pyramid.ytdl_download('',name,'video')
+elif mode==1123:from lib.pyramid import pyramid;pyramid.ytdl_download(url,name,'video') 
+elif mode==1124:from lib.pyramid import pyramid;pyramid.ytdl_download(url,name,'audio')
+elif mode==1125:from lib.pyramid import pyramid;pyramid.search(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode==1126:
+    name = name.split(':')
+    from lib.pyramid import pyramid;pyramid.search(url,search_term=name[1])
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1127:
+    from lib.pyramid import pyramid;pyramid.pulsarIMDB=search(url)
+    xbmc.Player().play(pulsarIMDB) 
+elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)	
+elif mode == 1140:from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1141 : from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)	
+elif mode == 1153:from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
+elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
+elif mode == 1202: from lib.freeview import freeview;freeview.tvplayer(url)
+elif mode == 1300: from lib import apprentice;apprentice.apprentice_Main()
+elif mode == 1301 : from lib import apprentice;apprentice.Mov_Menu()
+elif mode == 1302 : from lib import apprentice;apprentice.Tv_Menu()
+elif mode == 1303 : from lib import apprentice;apprentice.Second_Menu(url)
+elif mode == 1304 : from lib import apprentice;apprentice.Index_List_Mov()
+elif mode == 1305 : from lib import apprentice;apprentice.Main_Loop(url)
+elif mode == 1306 : from lib import apprentice;apprentice.Index_List_Tv()
+elif mode == 1307 : from lib import apprentice;apprentice.Magic_Menu()
+elif mode == 1400 : from lib import ninja;ninja.CATEGORIES()
+elif mode == 1401 : from lib import ninja;ninja.VIDEOLIST(url)
+elif mode == 1402 : from lib import ninja;ninja.PLAYVIDEO(url)
+elif mode == 1500 : from lib import search;search.Search_Menu()
+elif mode == 1501 : from lib import search;search.Search_Input(url)
+elif mode == 1600 : from lib import brettus_anime;brettus_anime.GetList()
+elif mode == 1601 : from lib import brettus_anime;brettus_anime.GetContent(url,iconimage)
+elif mode == 1602 : from lib import brettus_anime;brettus_anime.PLAYLINK(url,iconimage)
+elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
+elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
+elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
+elif mode == 10003: from lib import yt;yt.PlayVideo(url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

@@ -85,12 +85,12 @@ def makeRequest(url, headers=None):
 				
 def SKindex():
     addon_log("SKindex")
-    addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
+    addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_Edit.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Joker():
-    addon_log("SKindex")
+    addDir('[B][COLOR lime]Jokers Movie Search[/B][/COLOR]','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_EditJoker.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -99,7 +99,29 @@ def SKindex_Oblivion():
     getData(_EditOblivion.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
+def Search_input(url):
+    Dialog = xbmcgui.Dialog()
+    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    Search_name = Search_title.lower()
+    if Search_name == '':
+        pass
+    else:
+        Search_loop(Search_name,url)    
 	
+def Search_loop(Search_name,url):
+    HTML = Open_Url(url)
+    if HTML != 'Failed':
+        match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+        for name,image,url,fanart in match:
+            if not 'http:' in url:
+                pass
+            else:
+                Search_loop(Search_name,url)
+        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+        for name,url,image,fanart in match2:
+            if 'http:' in url:
+                if Search_name.lower() in name.lower():
+                    addLink(url, name,image,fanart,'','','','',None,'',1)	
 	
 def Open_Url(url):
     req = urllib2.Request(url)
@@ -117,38 +139,6 @@ def Open_Url(url):
         link = 'Opened'
         return link
 	
-def Search_loop():
-    Dialog = xbmcgui.Dialog()
-    Search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    if Search_name == '':
-        pass
-    else:
-        HTML = Open_Url('http://tombraiderbuilds.co.uk/addon/')
-        match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-        for url2, name in match:
-            if '?C' in url2:
-                pass
-            else:
-                url2 = 'http://tombraiderbuilds.co.uk/addon/' + url2
-                second_menu(Search_name, url2)
-
-def second_menu(Search_name, url2):
-    HTML = Open_Url(url2)
-    match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-    for url3, name in match:
-        if 'txt' in url3:
-            url4 = url2 + url3
-            third_menu(Search_name, url4)
-           
-def third_menu(Search_name, url4):
-    HTML = Open_Url(url4)
-    match = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
-    for name,url,img in match:
-        if '<title>' in name:
-            pass
-        else:
-            if Search_name.lower() in name.lower():
-                addLink(url, name,img,FANART,'','','','',None,'',1)
 				
 
 	
@@ -446,14 +436,14 @@ def getData(url,fanart):
                     if name == '[B][COLORgold]YOU ARE IN THE MOVIE ZONE[/B][/COLOR]':
                         addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                         addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
-                    elif 'KODI ZONE' in name:
-                        pass
-                    elif 'KIDS ZONE' in name:
-                        pass
-                    elif 'DOCUMENTARIES ZONE' in name:
-                        pass
-                    elif 'MUSIC ZONE' in name:
-                        pass
+#                    elif 'KODI ZONE' in name:
+#                        pass
+#                    elif 'KIDS ZONE' in name:
+#                        pass
+#                    elif 'DOCUMENTARIES ZONE' in name:
+#                        pass
+#                    elif 'MUSIC ZONE' in name:
+#                        pass
                     elif linkedUrl=='':
                         addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                     else:
@@ -2497,164 +2487,4 @@ except:
     pass
 
 
-if mode==1100:
-    addon_log("Index")
-    SKindex()	
-
-elif mode==1128:
-    addon_log("Index")
-    SKindex_Joker()	
 	
-elif mode==1129:
-    addon_log("Index")
-    SKindex_Oblivion()
-	
-elif mode==1101:
-    addon_log("getData")
-    getData(url,fanart)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1102:
-    addon_log("getChannelItems")
-    getChannelItems(name,url,fanart)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1103:
-    addon_log("getSubChannelItems")
-    getSubChannelItems(name,url,fanart)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1104:
-    addon_log("getFavorites")
-    getFavorites()
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1105:
-    addon_log("addFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    addFavorite(name,url,iconimage,fanart,fav_mode)
-
-elif mode==1106:
-    addon_log("rmFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    rmFavorite(name)
-
-elif mode==1107:
-    addon_log("addSource")
-    addSource(url)
-
-elif mode==1108:
-    addon_log("rmSource")
-    rmSource(name)
-
-elif mode==1109:
-    addon_log("download_file")
-    download_file(name, url)
-
-elif mode==1110:
-    addon_log("getCommunitySources")
-    getCommunitySources()
-
-elif mode==1111:
-    addon_log("addSource")
-    addSource(url)
-
-elif mode==1112:
-    addon_log("setResolvedUrl")
-    if not url.startswith("plugin://plugin") or not any(x in url for x in g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
-        item = xbmcgui.ListItem(path=url)
-        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
-    else:
-        print 'Not setting setResolvedUrl'
-        xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
-
-
-elif mode==1113:
-    addon_log("play_playlist")
-    play_playlist(name, playlist)
-
-elif mode==1114:
-    addon_log("get_xml_database")
-    get_xml_database(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1115:
-    addon_log("browse_xml_database")
-    get_xml_database(url, True)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1116:
-    addon_log("browse_community")
-    getCommunitySources(True)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1117:
-    addon_log("getRegexParsed")
-    url,setresolved = getRegexParsed(regexs, url)
-    if url:
-        playsetresolved(url,name,iconimage,setresolved)
-    else:
-        xbmc.executebuiltin("XBMC.Notification(ThePyramid ,Failed to extract regex. - "+"this"+",4000,"+icon+")")
-elif mode==1118:
-    addon_log("youtubedl")
-    try:
-        import youtubedl
-    except Exception:
-        xbmc.executebuiltin("XBMC.Notification(ThePyramid,Please [COLOR yellow]install the Youtube Addon[/COLOR] module ,10000,"")")
-    stream_url=youtubedl.single_YD(url)
-    playsetresolved(stream_url,name,iconimage)
-elif mode==1119:
-	addon_log("Genesiscommonresolvers")
-	playsetresolved (urlsolver(url),name,iconimage,True)	
-
-elif mode==1121:
-    addon_log("download current file using youtube-dl service")
-    ytdl_download('',name,'video')
-elif mode==1123:
-    addon_log("get info then download")
-    ytdl_download(url,name,'video') 
-elif mode==1124:
-    addon_log("Audio only youtube download")
-    ytdl_download(url,name,'audio')
-elif mode==1125:
-    addon_log("YouTube/DMotion")
-    search(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode==1126:
-    addon_log("YouTube/DMotion From Search History")
-    name = name.split(':')
-    search(url,search_term=name[1])
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode==1127:
-    addon_log("Using IMDB id to play in Pulsar")
-    pulsarIMDB=search(url)
-    xbmc.Player().play(pulsarIMDB) 
-elif mode==1130:
-    GetSublinks(name,url,iconimage,fanart)
-	
-elif mode==1140:
-    SearchChannels()
-    SetViewThumbnail()
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1141 : 
-    Search_loop()
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1142: RESOLVE(url)	
-elif mode==1153:
-    addon_log("Requesting JSON-RPC Items")
-    pluginquerybyJSON(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))

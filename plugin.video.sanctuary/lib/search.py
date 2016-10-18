@@ -1,8 +1,5 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, Football_Repeat, comedy, yt, Pandora, Big_Kids, multitv, sys, xbmcplugin, youtube_regex, pyxbmct
-from pyramid import pyramid
-from pyramid._EditOblivion import MainBase as OblivionMain
-from freeview import freeview
-from threading import Thread
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin
+
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 Dialog = xbmcgui.Dialog()
 dp =  xbmcgui.DialogProgress()
@@ -22,7 +19,7 @@ def Search_Menu():
 
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-def Search_Input(extra):
+def Search_Input(url):
     Dialog = xbmcgui.Dialog()
     Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_name = Search_title.lower()
@@ -51,7 +48,7 @@ def Movies(Search_name):
     dp.update(40,'',"Checking Apprentice",'Please Wait')
     Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php')
     dp.update(60,'',"Checking Raider",'Please Wait')
-    Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
+#    Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
     dp.update(80,'',"Checking Joker",'Please Wait')
     Raider_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/quality/quality.txt')
     dp.update(100,'',"Finished checking",'Please Wait')
@@ -100,6 +97,7 @@ def Search_WatchSeries(Search_name):
         name = (name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
         url3 = 'http://www.watchseriesgo.to/' + url
         image = 'http://www.watchseriesgo.to/' + img
+        fanart=''
         description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
         name = '[COLORred]Origin [/COLOR]' + name
         process.Menu(name,url3,305,image,fanart,description,name)		
@@ -201,29 +199,21 @@ def Live_TV(Search_name):
     dp.update(0,'',"Checking Freeview",'Please Wait')
     for name,url,mode,img in match:
     	if Search_name in name.lower():
-            freeview.addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
+            from freeview.freeview import addLink
+            addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
     dp.update(25,'',"Checking Oblivion",'Please Wait')
     for item in Oblivion_list:
+        from pyramid._EditOblivion import MainBase as OblivionMain
         Raider_Live_Loop(Search_name,(OblivionMain).replace('Free.xml',item))
     dp.update(50,'',"Checking Joker",'Please Wait')
     for item in Joker_live_list:
         Raider_Live_Loop(Search_name,item)
-    dp.update(75,'',"Checking Raider",'Please Wait')
-    for item in Raider_live_list:
-        Raider_Live_Loop(Search_name,item)
+#    dp.update(75,'',"Checking Raider",'Please Wait')
+#    for item in Raider_live_list:
+#        Raider_Live_Loop(Search_name,item)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
-#	Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
-#    dp.update(60,'',"Finished checking",'Please Wait')
-#    Raider_Live_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt')	
-#    dp.update(100,'',"Finished checking",'Please Wait')
-#    dp.close()
-#    Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
- #   Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
-  #  Raider_Live_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')	
- 
-#    HTML = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
-#	HTML2 = process.OPEN_URL('view-source:http://jokerswizard.esy.es/joker/data/livetv/iptv.xml')
+
 
 def Raider_Live_Loop(Search_name,url):
     if 'joker' in url:
@@ -239,13 +229,15 @@ def Raider_Live_Loop(Search_name,url):
     match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
     for name,url,img in match: 
     	if Search_name in name.lower():
+            from pyramid.pyramid import addLink
             url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +url
-            pyramid.addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
+            addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
     match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
     for ignore,name,url in match2:
     	if Search_name in name.lower():
             if 'http' in url:
-        		pyramid.addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
+                from pyramid.pyramid import addLink
+                addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
 
 
 def Raider_Loop(Search_name,url):
@@ -265,90 +257,6 @@ def Raider_Loop(Search_name,url):
         for name,url,image,fanart in match2:
             if 'http:' in url:
                 if Search_name.lower() in name.lower():
-                    pyramid.addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
+                    from pyramid.pyramid import addLink
+                    addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
                             
-	
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-extra=None
-fav_mode=None
-
-try:
-    fav_mode=int(params["fav_mode"])
-except:
-    pass
-try:
-    extra=urllib.unquote_plus(params["extra"])
-except:
-    pass
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-					
-if mode == 900    : Pandora.Pandora_Main()
-elif mode == 901  : Pandora.Pandoras_Box()
-elif mode == 423  : Pandora.open_Menu(url)
-elif mode == 426  : Pandora.Pandora_Menu(url)
-elif mode == 903  : Pandora.Search_Menu()
-elif mode == 904  : Pandora.Search_Pandoras_Films()
-elif mode == 905  : Pandora.Search_Pandoras_TV()
-elif mode == 906  : process.Big_Resolve(url)
-elif mode == 104  : comedy.Regex(url)
-elif mode == 105  : process.Resolve(url)
-elif mode == 107  : comedy.grab_youtube_playlist(url)
-elif mode == 109  : yt.PlayVideo(url)
-elif mode == 112  : comedy.Grab_Season(iconimage,url)
-elif mode == 803  : Big_Kids.LISTS(url)
-elif mode == 305  : multitv.Grab_Season(url,extra)
-elif mode == 1501 : Search_Input(extra)
-elif mode == 1303 : apprentice.Second_Menu(url)
-elif mode == 1307 : process.Big_Resolve(url)
-elif mode == 112  : comedy.Grab_Season(iconimage,url)
-elif mode == 10000: youtube_regex.Youtube_Grab_Playlist_Page(url)
-elif mode == 10001: youtube_regex.Youtube_Playlist_Grab(url)
-elif mode == 10002: youtube_regex.Youtube_Playlist_Grab_Duration(url)
-elif mode == 10003: yt.PlayVideo(url)
-

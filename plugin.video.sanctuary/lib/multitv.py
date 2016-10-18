@@ -349,15 +349,3 @@ except:
 
 #####################################################END PROCESSES##############################################################		
 		
-if mode == 300: multiv_Main_Menu()
-elif mode == 301 : Latest_Eps(url)
-elif mode == 302 : Popular(url)
-elif mode == 303 : Genres()
-elif mode == 304 : Genres_Page(url)
-elif mode == 305 : Grab_Season(url,extra)
-elif mode == 306 : Grab_Episode(url,name,fanart,extra,iconimage)
-elif mode == 307 : Tv_Schedule(url)
-elif mode == 308 : Schedule_Grab(url)
-elif mode == 309 : Search()
-elif mode == 310: Get_Sources(name,url,iconimage,fanart)
-elif mode == 313: Get_site_link(url,name)

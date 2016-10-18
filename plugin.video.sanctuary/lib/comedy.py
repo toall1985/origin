@@ -11,13 +11,13 @@ BASE = 'http://www.couchtripper.com/forum2/page.php?page=3'
 Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker']
 List = []
 Global_list = []
-Main_link = 'http://www.watchseries.ac/link/'
+Main_link = 'http://www.watchseriesgo.to/link/'
 addon_handle = int(sys.argv[1])
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 
-Main 		= 'http://www.watchseries.ac'
+Main 		= 'http://www.watchseriesgo.to/'
 
 
 def Comedy_Main():
@@ -31,6 +31,7 @@ def Comedy_Main():
 def Movies_Menu():
     process.Menu('Comedy Movies','http://www.pubfilm.biz/movies/comedy/',111,ICON,FANART,'','')
     process.Menu('Youtube Playlist Movies','http://herovision.x10host.com/GetUpStandUp/Movies.php',104,ICON,FANART,'','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def Pubfilm_Comedy_Grab(url):
     HTML = process.OPEN_URL(url)
@@ -41,6 +42,7 @@ def Pubfilm_Comedy_Grab(url):
     Next_Page = re.compile('<a href="(.+?)">Next</a></span>').findall(HTML)
     for item in Next_Page:
         process.Menu('Next Page',item,111,ICON,FANART,'','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 
 def Next(name,url,image):
@@ -49,17 +51,20 @@ def Next(name,url,image):
     for end in match:
         url = 'http://mystream.la/external/'+end
         process.Play(name,url,116,image,FANART,'','')        
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 def final(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('file:"(.+?)",label:"(.+?)"}').findall(HTML)
     for playlink,quality in match:
         process.Resolve(playlink)
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def Stand_up_Menu():
     process.Menu('Youtube Playlists','http://herovision.x10host.com/GetUpStandUp/yt_standup_playlist.php',104,ICON,FANART,'','')
 #    process.Menu('Couch Tripper','',101,ICON,FANART,'','')
     process.Menu('Stand up','http://herovision.x10host.com/GetUpStandUp/standup_playlist.php',104,ICON,FANART,'','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 	
 def Regex(url):
@@ -82,6 +87,7 @@ def Regex(url):
             process.Play(name,url,105,image,fanart,desc,'')
             
     	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);		
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 
 def Search():
@@ -111,6 +117,7 @@ def Search():
                     process.Play(name,url,105,image,fanart,desc,'')
             
     	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);		
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
         
 	
 def grab_youtube_playlist(url):
@@ -136,6 +143,7 @@ def grab_youtube_playlist(url):
         for url in url:
             url = url
         process.Play('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),str(url),109,str(image),FANART,'','' )
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 
 def Stand_up():
@@ -154,6 +162,7 @@ def Stand_up():
 			    
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 ###########################Watch series Grab##########################################
 
@@ -192,7 +201,7 @@ def Grab_Episode(url,name,fanart,iconimage):
 
 def Get_Sources(name,URL,iconimage,fanart):
     HTML = process.OPEN_URL(URL)
-    match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
+    match = re.compile('<td>.+?<a href="/link/(.+?)".+?title="(.+?)"',re.DOTALL).findall(HTML)
     for url,name in match:
         for item in Sources:
             if item in url:
@@ -288,73 +297,3 @@ def Play_Stage(url):
         process.Resolve((url).replace('[','').replace(']','').replace('\'',''))
 
 		
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-
-
-#if mode == 100     		: Main_Menu()
-if mode   == 101	: Stand_up()
-elif mode == 102    : Search()
-elif mode == 103 	: Play_Stage(url)
-elif mode == 104 	: Regex(url)
-elif mode == 105    : process.Resolve(url)
-elif mode == 106 	: Stand_up_Menu()
-elif mode == 107 	: grab_youtube_playlist(url)
-elif mode == 108 	: Search()
-elif mode == 109 	: yt.PlayVideo(url)
-elif mode == 110 	: Movies_Menu()
-elif mode == 111 	: Pubfilm_Comedy_Grab(url)
-elif mode == 112 	: Grab_Season(iconimage,url)
-elif mode == 113 	: Grab_Episode(url,name,fanart,iconimage)
-elif mode == 114	: Get_Sources(name,url,iconimage,fanart)
-elif mode == 115 	: Get_site_link(url,name)
-elif mode == 116 	: final(url)
-

@@ -343,6 +343,7 @@ def FootballFixturesSingle(block):
 #    setView('tvshows', 'Media Info 3')
 
 def create_window(name,img,channel_final):
+    global window
     window.setFocus(one)
     #capture mouse moves or up down arrows
     window.connectEventList(
@@ -1651,63 +1652,6 @@ def addDirFolder(name,url,mode,iconimage,fanart,description):
         return ok
 
 	
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-description=None
-
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-        
-        
-print "Mode: "+str(mode)
-print "URL: "+str(url)
-print "Name: "+str(name)
-print "IconImage: "+str(iconimage)
-
 def TextBoxes(heading,announce):
   class TextBox():
     WINDOW=10147
@@ -1750,29 +1694,3 @@ def setView(content, viewType):
 	if content:
 	    xbmcplugin.setContent(int(sys.argv[1]), content)
 
-
-if mode == 400     : footy_Main_Menu()
-elif mode == 401 	: get_All_Rows(url,iconimage)
-elif mode == 402 	: get_PLAYlink(url)
-elif mode == 403 	: Football_Highlights()
-elif mode == 404 	: FootballFixturesDay()
-elif mode == 405 	: FootballFixturesGame(url,iconimage)
-elif mode == 406 	: Prem_Table(url)
-elif mode == 407 	: get_Multi_Links(url,iconimage)
-elif mode == 408 	: Get_the_rows(url,iconimage)
-elif mode == 409 	: League_Tables(url)
-elif mode == 410 	: Search()
-elif mode == 411 	: Prem_Table2(url)
-elif mode == 412 	: champ_league(url)
-elif mode == 413 	: footytube(url)
-elif mode == 414 	: footytube_leagues(name)
-elif mode == 415 	: footytube_teams(url)
-elif mode == 416 	: footytube_videos(url)
-elif mode == 417 	: footytube_frame(url)
-elif mode == 418 	: get_origin_playlink(url,iconimage,FANART)
-elif mode == 419 	: Resolve(url)
-elif mode == 420 	: 
-    FootballFixturesSingle(description)					
-    window.doModal()
-    del window
-elif mode == 421 	: METALLIQ()
