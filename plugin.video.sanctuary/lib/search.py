@@ -208,9 +208,9 @@ def Live_TV(Search_name):
     dp.update(50,'',"Checking Joker",'Please Wait')
     for item in Joker_live_list:
         Raider_Live_Loop(Search_name,item)
-#    dp.update(75,'',"Checking Raider",'Please Wait')
-#    for item in Raider_live_list:
-#        Raider_Live_Loop(Search_name,item)
+    dp.update(75,'',"Checking Raider",'Please Wait')
+    for item in Raider_live_list:
+        Raider_Live_Loop(Search_name,item)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
@@ -260,3 +260,5 @@ def Raider_Loop(Search_name,url):
                     from pyramid.pyramid import addLink
                     addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
                             
+#############################Football Searches####################################
+

@@ -51,6 +51,7 @@ def Main_Menu():
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
     process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
+    process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
@@ -76,10 +77,12 @@ def Origin_Main():
 
 
 def Music():
+    process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Music section to be added soon','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
-		
+
+def Music_Main():
+    process.Menu('UK Top 40','https://www.youtube.com/playlist?list=PLywWGW4ILrvpqqkgKRV8jpZMaUPohQipP',10002,'https://c1.staticflickr.com/5/4018/5122847915_c385e3e4a6.jpg','http://www.hutui6.com/data/out/203/67436984-uk-wallpapers.jpg','','')	
 
 def get_params():
         param=[]
@@ -143,7 +146,7 @@ except:
         pass
 	
 if mode == None: Main_Menu()
-#elif mode == 1 : 
+elif mode == 1 : Music_Main()
 elif mode == 2 : Music()
 #elif mode == 3 : 
 elif mode == 4 : Origin_Main()
@@ -354,6 +357,12 @@ elif mode == 1501 : from lib import search;search.Search_Input(url)
 elif mode == 1600 : from lib import brettus_anime;brettus_anime.GetList()
 elif mode == 1601 : from lib import brettus_anime;brettus_anime.GetContent(url,iconimage)
 elif mode == 1602 : from lib import brettus_anime;brettus_anime.PLAYLINK(url,iconimage)
+elif mode == 1700 : from lib import Now_thats_what_i_call_music;Now_thats_what_i_call_music.Now_Thats_What_I_Call_Music()
+elif mode == 1701 : from lib import Now_thats_what_i_call_music;Now_thats_what_i_call_music.Now_Loop(url,iconimage,fanart)
+elif mode == 1702 : from lib import Now_thats_what_i_call_music;Now_thats_what_i_call_music.Now_Playlinks(url,iconimage,fanart)
+elif mode == 1750 : from lib import todays_football;todays_football.Todays_Football_Menu()
+elif mode == 1751 : from lib import todays_football;todays_football.Todays_Football()
+elif mode == 1752 : from lib import todays_football;todays_football.Search_Channels_Mainstream(url)
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
