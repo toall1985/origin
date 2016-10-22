@@ -191,8 +191,8 @@ def Live_TV(Search_name):
     Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
     Joker_live_list = ['http://jokerswizard.esy.es/joker/data/sports/sports.txt','http://jokerstv.no-ip.org/data/livetv/worldtv.xml','http://jokerstv.no-ip.org/data/livetv/news.xml',
 	'http://jokerstv.no-ip.org/data/livetv/iptv.xml']
-    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
-	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
+#    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
+#	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
@@ -209,8 +209,8 @@ def Live_TV(Search_name):
     for item in Joker_live_list:
         Raider_Live_Loop(Search_name,item)
     dp.update(75,'',"Checking Raider",'Please Wait')
-    for item in Raider_live_list:
-        Raider_Live_Loop(Search_name,item)
+ #   for item in Raider_live_list:
+ #       Raider_Live_Loop(Search_name,item)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 

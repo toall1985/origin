@@ -24,7 +24,7 @@ except:
 import SimpleDownloader as downloader
 import time
 import requests
-import _Edit, _EditJoker, _EditOblivion
+import _Edit, _EditJoker, _EditOblivion, _EditTigensWorld
 
 resolve_url=['180upload.com', 'allmyvideos.net','gorillavid.in/', 'bestreams.net', 'clicknupload.com', 'cloudzilla.to', 'movshare.net', 'novamov.com', 'nowvideo.sx', 'videoweed.es', 'daclips.in', 'datemule.com', 'fastvideo.in', 'faststream.in', 'filehoot.com', 'filenuke.com', 'sharesix.com', 'docs.google.com', 'plus.google.com', 'picasaweb.google.com', 'gorillavid.com', 'gorillavid.in', 'grifthost.com', 'hugefiles.net', 'ipithos.to', 'ishared.eu', 'kingfiles.net', 'mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'mightyupload.com', 'mooshare.biz', 'movdivx.com', 'movpod.net', 'movpod.in', 'movreel.com', 'mrfile.me', 'uptostream.com', 'nosvideo.com', 'openload.co', 'played.to', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'primeshare.tv', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'sharerepo.com', 'stagevu.com', 'streamcloud.eu', 'streamin.to', 'thefile.me', 'thevideo.me', 'tusfiles.net', 'uploadc.com', 'zalaa.com', 'uploadrocket.net', 'uptobox.com', 'v-vids.com', 'veehd.com', 'vidbull.com', 'videomega.tv', 'vidplay.net', 'vidspot.net', 'vidto.me', 'vidzi.tv', 'vimeo.com', 'vk.com', 'vodlocker.com', 'xfileload.com', 'xvidstage.com', 'zettahost.tv']
 g_ignoreSetResolved=['plugin.video.dramasonline','plugin.video.f4mTester','plugin.video.shahidmbcnet','plugin.video.SportsDevil','plugin.stream.vaughnlive.tv','plugin.video.ZemTV-shani']
@@ -90,14 +90,19 @@ def SKindex():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Joker():
-    addDir('[B][COLOR lime]Jokers Movie Search[/B][/COLOR]','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
+    addDir('[B][COLOR lime]Maverick Movie Search[/B][/COLOR]','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_EditJoker.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Oblivion():
-    addon_log("SKindex")
     getData(_EditOblivion.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+def SKindex_TigensWorld():
+    addDir('Search Tigens World Movies','http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt',1141,'http://herovision.x10host.com/freeview/Tigen.png' ,  FANART,'','','','')
+    getData(_EditTigensWorld.MainBase,'')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	
 	
 def Search_input(url):
     Dialog = xbmcgui.Dialog()
@@ -436,14 +441,6 @@ def getData(url,fanart):
                     if name == '[B][COLORgold]YOU ARE IN THE MOVIE ZONE[/B][/COLOR]':
                         addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                         addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
-#                    elif 'KODI ZONE' in name:
-#                        pass
-#                    elif 'KIDS ZONE' in name:
-#                        pass
-#                    elif 'DOCUMENTARIES ZONE' in name:
-#                        pass
-#                    elif 'MUSIC ZONE' in name:
-#                        pass
                     elif linkedUrl=='':
                         addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                     else:

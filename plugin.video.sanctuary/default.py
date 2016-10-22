@@ -38,23 +38,24 @@ PANDORA_ICON = 'https://s32.postimg.org/ov9s6ipf9/icon.png'
 RAIDER_ICON = base_icons + 'pyramid.png'
 FREEVIEW_ICON = base_icons + 'freeview.png'
 NINJA_ICON = base_icons + 'ninja2.png'
-JOKER_ICON = base_icons + 'joker.png'
+MAVERICK_ICON = base_icons + 'maverick.png'
 BRETTUS_ICON = base_icons + 'brettus_anime.png'
 OBLIVION_ICON = base_icons + 'oblivion.png'
+TIGEN_ICON = base_icons + 'Tigen.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     process.Menu('The Apprentice','',1300,APPRENTICE_ICON,FANART,'','')
     process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
     process.Menu('Raider','',1100,RAIDER_ICON,FANART,'','')
-    process.Menu('Jokers TV','',1128,JOKER_ICON,FANART,'','')
+    process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
     process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
-    process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
+    process.Menu('Tegan\'s World','',1143,TIGEN_ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
-    xbmcplugin.setContent(int(sys.argv[1]), 'Movies')
+    process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
     process.Menu('Favourites','',10,base_icons + 'favs.png',FANART,'','')
     process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
 #    process.Menu('Recent','',20,base_icons + 'search.png',FANART,'','')
@@ -336,7 +337,8 @@ elif mode == 1127:
 elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)	
 elif mode == 1140:from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1141 : from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)	
+elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
+elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld()
 elif mode == 1153:from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
@@ -363,6 +365,7 @@ elif mode == 1702 : from lib import Now_thats_what_i_call_music;Now_thats_what_i
 elif mode == 1750 : from lib import todays_football;todays_football.Todays_Football_Menu()
 elif mode == 1751 : from lib import todays_football;todays_football.Todays_Football()
 elif mode == 1752 : from lib import todays_football;todays_football.Search_Channels_Mainstream(url)
+elif mode == 1800 : xbmc.executebuiltin('XBMC.RunScript(Q:\Scripts\myscript.py)')
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
