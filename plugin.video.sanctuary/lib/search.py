@@ -43,27 +43,48 @@ def Search_Input(url):
 		
 def Movies(Search_name):
     dp.create('Checking for streams')
-    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
+    dp.update(15,'',"Checking Pandoras Box",'Please Wait')
     Pans_Search_Movies(Search_name)
-    dp.update(40,'',"Checking Apprentice",'Please Wait')
+    dp.update(33,'',"Checking Apprentice",'Please Wait')
     Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php')
-    dp.update(60,'',"Checking Raider",'Please Wait')
-#    Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
-    dp.update(80,'',"Checking Joker",'Please Wait')
+    dp.update(50,'',"Checking Tigen\'s World",'Please Wait')
+    Raider_Loop(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt')
+    dp.update(65,'',"Checking Raider",'Please Wait')
+    Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
+    dp.update(84,'',"Checking Joker",'Please Wait')
     Raider_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/quality/quality.txt')
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
 def TV(Search_name):
     dp.create('Checking for streams')
-    dp.update(25,'',"Checking Pandoras Box",'Please Wait')
+    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
     Pans_Search_TV(Search_name) 
-    dp.update(50,'',"Checking Apprentice",'Please Wait')
+    dp.update(40,'',"Checking Apprentice",'Please Wait')
     Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchtv.php')
-    dp.update(75,'',"Checking Origin",'Please Wait')
+    dp.update(60,'',"Checking Origin",'Please Wait')
     Search_WatchSeries(Search_name)
+    dp.update(80,'',"Checking Cold As Ice",'Please Wait')
+    Cold_AS_Ice(Search_name)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
+	
+def Cold_AS_Ice(Search_name):
+	HTML = process.OPEN_URL('http://g10.x10host.com/coldasice/Boxsets/Index.txt')
+	match= re.compile('<link>(.+?)</link><thumbnail>(.+?)</thumbnail><title>(.+?)</title>').findall(HTML)
+	for url,image,name in match:
+		if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+			name = '[COLORsteelblue]Cold As Ice [/COLOR]' + name
+			if '/coldasice/' in url:
+				process.Menu(name,url,1801,image,'','','')
+			elif 'letwatch' in url:
+				name = '[COLORred]*[/COLOR]'+name
+				from freeview.freeview import addLink
+				addLink(name,url,1802,iconimage)
+			else:
+				from freeview.freeview import addLink
+				addLink(name,url,1802,iconimage)
+		
 
 def Search_GetUpStandUp(Search_name):
     filename = ['Movies','yt_standup_playlist','TV_Shows']
@@ -72,7 +93,7 @@ def Search_GetUpStandUp(Search_name):
         HTML = process.OPEN_URL(Search_Url)
         match = re.compile('<NAME="(.+?)"<URL="(.+?)"<MODE="(.+?)"<IMAGE="(.+?)"<FANART="(.+?)"<DESC="(.+?)"').findall(HTML)
         for name,url,mode,image,fanart,desc in match:
-            if Search_name in name.lower():
+            if (Search_name).replace(' ','') in (name).replace(' ','').lower():
                 name = '[COLORred]Origin [/COLOR]' + name
                 if image == 'IMAGES':
                     image = ''
@@ -108,7 +129,7 @@ def Apprentice_Search(Search_name,url):
     if HTML_app != 'Opened':
         match_app = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML_app)
         for url,img,desc,fanart,name in match_app:
-            if Search_name in name.lower():
+            if (Search_name).replace(' ','') in (name).replace(' ','').lower():
 				name = '[COLORwhitesmoke]Apprentice[/COLOR] '+name
 				if 'php' in url:
 					process.Menu(name,url,1303,img,fanart,desc,'')
@@ -128,7 +149,7 @@ def Pans_Search_Movies(Search_name):
         if HTML != 'Opened':
             match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML)
             for url,iconimage,desc,fanart,name in match:
-                if Search_name in name.lower():
+                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
                     name = '[COLOR darkgoldenrod]Pandora [/COLOR]' + name
                     process.Play(name,url,906,iconimage,fanart,desc,'')
 
@@ -139,7 +160,7 @@ def Pans_Search_TV (Search_name):
         if HTML != 'Opened':
             match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML)
             for name,desc,url,img,fanart,mode in match:
-                if Search_name in name.lower():
+                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
                     name = '[COLOR darkgoldenrod]Pandora [/COLOR]' + name
                     process.Menu(name,url,mode,img,fanart,desc,'')
 					
@@ -148,7 +169,7 @@ def Cartoons(Search_name):
     HTML2 = process.OPEN_URL(Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24='))
     match2 = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(HTML2)
     for url,name in match2:
-        if Search_name in name.lower():
+        if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             name = '[COLORred]Origin [/COLOR]' + name
             process.Menu(name,url,803,'','','','')
 	
@@ -162,7 +183,7 @@ def Music(Search_name):
     HTML4 = process.OPEN_URL(Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9jb21wbGV0ZV9saXN0Lmh0bQ=='))
     match4 = re.compile('<td width=".+?">.*?<b>.+?<a href="(.*?)">(.*?)</a></b></td>',re.DOTALL).findall(HTML4)
     for url,name in match4:
-        if Search_name in name.lower():			
+        if (Search_name).replace(' ','') in (name).replace(' ','').lower():			
             name = '[COLORred]Origin [/COLOR]' + (name).replace('\n',' ').replace('	','')
             if '</a>' in name:
                 pass
@@ -182,23 +203,23 @@ def Music(Search_name):
         image = re.compile('data-thumb="(.+?)"').findall(str(item))
         for image in image:
             image = image
-        if Search_name in name.lower():
+        if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             name = '[COLORred]Origin [/COLOR]' + str(name)		
             process.Menu(name,str(url),10001,str(image),'','','')   
 				
 def Live_TV(Search_name):
-    dp.create('Checking for streams')
+    dp.create('Checking for streams - ' + Search_name)
     Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
     Joker_live_list = ['http://jokerswizard.esy.es/joker/data/sports/sports.txt','http://jokerstv.no-ip.org/data/livetv/worldtv.xml','http://jokerstv.no-ip.org/data/livetv/news.xml',
 	'http://jokerstv.no-ip.org/data/livetv/iptv.xml']
-#    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
-#	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
+    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
+	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
     dp.update(0,'',"Checking Freeview",'Please Wait')
     for name,url,mode,img in match:
-    	if Search_name in name.lower():
+    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             from freeview.freeview import addLink
             addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
     dp.update(25,'',"Checking Oblivion",'Please Wait')
@@ -209,8 +230,8 @@ def Live_TV(Search_name):
     for item in Joker_live_list:
         Raider_Live_Loop(Search_name,item)
     dp.update(75,'',"Checking Raider",'Please Wait')
- #   for item in Raider_live_list:
- #       Raider_Live_Loop(Search_name,item)
+    for item in Raider_live_list:
+        Raider_Live_Loop(Search_name,item)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
@@ -223,18 +244,27 @@ def Raider_Live_Loop(Search_name,url):
     if 'oblivion' in url:
         ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
     HTML = process.OPEN_URL(url)
+    match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+    for name,link,image,fanart in match2:
+    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+            if 'sublink' in link:
+                from pyramid.pyramid import addDir
+                addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
+            else:
+                from pyramid.pyramid import addLink
+                addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)
     loop = re.compile('<name>.+?</name>.+?<thumbnail>.+?</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>.+?</fanart>',re.DOTALL).findall(HTML)
     for url in loop:
         Raider_Live_Loop(Search_name,url)
     match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
     for name,url,img in match: 
-    	if Search_name in name.lower():
+    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             from pyramid.pyramid import addLink
             url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +url
             addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
     match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
     for ignore,name,url in match2:
-    	if Search_name in name.lower():
+    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             if 'http' in url:
                 from pyramid.pyramid import addLink
                 addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
@@ -243,10 +273,21 @@ def Raider_Live_Loop(Search_name,url):
 def Raider_Loop(Search_name,url):
     if 'joker' in url:
         ADD_NAME = '[COLORgreen]Joker[/COLOR]'
-    if 'raider' in url:
+    elif 'raider' in url:
         ADD_NAME = '[COLORblue]Raider[/COLOR]'
+    elif 'kodeeresurrection' in url:	
+        ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR]'
     HTML = process.OPEN_URL(url)
     if HTML != 'Failed':
+        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+        for name,link,image,fanart in match2:
+            if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+                if 'sublink' in link:
+                    from pyramid.pyramid import addDir
+                    addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
+                else:
+                    from pyramid.pyramid import addLink
+                    addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)        
         match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
         for name,image,url,fanart in match:
             if not 'http:' in url:
@@ -256,7 +297,7 @@ def Raider_Loop(Search_name,url):
         match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
         for name,url,image,fanart in match2:
             if 'http:' in url:
-                if Search_name.lower() in name.lower():
+                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
                     from pyramid.pyramid import addLink
                     addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
                             

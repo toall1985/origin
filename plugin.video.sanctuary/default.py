@@ -42,6 +42,7 @@ MAVERICK_ICON = base_icons + 'maverick.png'
 BRETTUS_ICON = base_icons + 'brettus_anime.png'
 OBLIVION_ICON = base_icons + 'oblivion.png'
 TIGEN_ICON = base_icons + 'Tigen.png'
+COLD_ICON = base_icons + 'Cold.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
@@ -52,7 +53,8 @@ def Main_Menu():
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
     process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
-    process.Menu('Tegan\'s World','',1143,TIGEN_ICON,FANART,'','')
+    process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
+    process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
@@ -79,11 +81,10 @@ def Origin_Main():
 
 def Music():
     process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
-
-def Music_Main():
-    process.Menu('UK Top 40','https://www.youtube.com/playlist?list=PLywWGW4ILrvpqqkgKRV8jpZMaUPohQipP',10002,'https://c1.staticflickr.com/5/4018/5122847915_c385e3e4a6.jpg','http://www.hutui6.com/data/out/203/67436984-uk-wallpapers.jpg','','')	
+		
 
 def get_params():
         param=[]
@@ -147,7 +148,7 @@ except:
         pass
 	
 if mode == None: Main_Menu()
-elif mode == 1 : Music_Main()
+#elif mode == 1 : 
 elif mode == 2 : Music()
 #elif mode == 3 : 
 elif mode == 4 : Origin_Main()
@@ -365,7 +366,11 @@ elif mode == 1702 : from lib import Now_thats_what_i_call_music;Now_thats_what_i
 elif mode == 1750 : from lib import todays_football;todays_football.Todays_Football_Menu()
 elif mode == 1751 : from lib import todays_football;todays_football.Todays_Football()
 elif mode == 1752 : from lib import todays_football;todays_football.Search_Channels_Mainstream(url)
-elif mode == 1800 : xbmc.executebuiltin('XBMC.RunScript(Q:\Scripts\myscript.py)')
+elif mode == 1753 : from lib import todays_football;todays_football.Live_On_Sat()
+elif mode == 1800 : from lib import cold_as_ice;cold_as_ice.Cold_Menu()
+elif mode == 1801 : from lib import cold_as_ice;cold_as_ice.GetContent(url,iconimage)
+elif mode == 1802 : from lib import cold_as_ice;cold_as_ice.PLAYLINK(name,url,iconimage)
+elif mode == 2000 : from lib import index_regex;index_regex.Main_Loop(url)
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)

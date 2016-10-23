@@ -17,7 +17,7 @@ addon_id = xbmcaddon.Addon().getAddonInfo('id')
 selfAddon = xbmcaddon.Addon(id=addon_id)
 logos = 'http://herovision.x10host.com/freeview/'
 icon = logos + 'freeview.png'
-fanart = logos + 'freeview.jpg'
+fanart = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/fanart.jpg')
 logos_tvp = 'https://assets.tvplayer.com/common/logos/256/Inverted/'
 favourites = ADDON_DATA + 'favourites'
 if os.path.exists(favourites)==True:
