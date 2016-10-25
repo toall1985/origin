@@ -99,7 +99,7 @@ def SKindex_Oblivion():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_TigensWorld():
-    addDir('Search Tigens World Movies','http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt',1141,'http://herovision.x10host.com/freeview/Tigen.png' ,  FANART,'','','','')
+    addDir('Search Tigens World Movies','MULTILINK-TIGEN',1141,'http://herovision.x10host.com/freeview/Tigen.png' ,  FANART,'','','','')
     getData(_EditTigensWorld.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
@@ -114,19 +114,46 @@ def Search_input(url):
         Search_loop(Search_name,url)    
 	
 def Search_loop(Search_name,url):
-    HTML = Open_Url(url)
-    if HTML != 'Failed':
-        match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
-        for name,image,url,fanart in match:
-            if not 'http:' in url:
-                pass
+    if 'MULTILINK' in url:
+        if 'TIGEN' in url:
+            TigenList = ['http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/NUMBER%20TITLES.txt',
+	        'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/A-F.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/G-L.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/M-R.txt',
+	        'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/S-Z.txt','http://kodeeresurrection.com/LILYSPORTStxts/boxsetssub.txt']
+            List = TigenList
+        for item in List:
+            if 'boxset' in item:
+                HTML = Open_Url(item)
+                match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+                for name,image,url,fanart in match:
+                    if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
+                        addDir(name,url,1101,image,fanart,'','','','')
             else:
-                Search_loop(Search_name,url)
-        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
-        for name,url,image,fanart in match2:
-            if 'http:' in url:
-                if Search_name.lower() in name.lower():
-                    addLink(url, name,image,fanart,'','','','',None,'',1)	
+				HTML = Open_Url(item)
+				if HTML != 'Failed':
+					match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+					for name,image,url,fanart in match:
+						if 'http:' in url:
+							Search_loop(Search_name,url)
+					match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+					for name,url,image,fanart in match2:
+						if 'http:' in url:
+							if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
+								addLink(url, name,image,fanart,'','','','',None,'',1)	
+
+    else:			
+		HTML = Open_Url(url)
+		if HTML != 'Failed':
+			match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+			for name,image,url,fanart in match:
+				if not 'http:' in url:
+					pass
+				else:
+					Search_loop(Search_name,url)
+			match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+			for name,url,image,fanart in match2:
+				if 'http:' in url:
+					if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
+						addLink(url,name,image,fanart,'','','','',None,'',1)	
 	
 def Open_Url(url):
     req = urllib2.Request(url)

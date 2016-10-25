@@ -18,16 +18,20 @@ def Main_Loop(url):
         elif 'C=' in url2:
             pass
         elif '/' in url2:
-            process.Menu((name).replace('/','').replace('&amp;','&').replace('&quot;','"').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('_',' '),url3,2000,'','','','','')
+            process.Menu((name).replace('/','').replace('amp;','').replace('&quot;','"').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('_',' '),url3,2000,'','','','','')
         else:
             HTML = process.OPEN_URL(url3)
-            match = re.compile('<NAME="(.+?)"<URL="(.+?)"<MODE="(.+?)"<IMAGE="(.+?)"<FANART="(.+?)"<DESC="(.+?)"').findall(HTML)
-            for name,url4,mode,image,fanart,desc in match:
-                Clean_name(name,url4)
-
+            if 'herovision' in url3:
+                match = re.compile('<NAME="(.+?)"<URL="(.+?)"<MODE="(.+?)"<IMAGE="(.+?)"<FANART="(.+?)"<DESC="(.+?)"').findall(HTML)
+                for name,url4,mode,image,fanart,desc in match:
+                    Clean_name(name,url4)
+            else:
+                match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
+                for url2,name in match:
+                    Clean_name(name,url2)
 ################################### TIDY UP NAME #############################
 
-def Clean_name(name,url4):
+def Clean_name(name,url):
     name1 = (name).replace('S01E','S01 E').replace('(MovIran).mkv','').replace('The.Walking.Dead','').replace('.mkv','').replace('Tehmovies.com.mkv','').replace('Nightsdl','').replace('Ganool','')
     name2=(name1).replace('.',' ').replace(' (ParsFilm).mkv','').replace('_TehMovies.Com.mkv','').replace(' (SaberFun.IR).mkv','').replace('[UpFilm].mkv','').replace('(Bia2Movies)','')
     name3=(name2).replace('.mkv','').replace('.Film2Movie_INFO.mkv','').replace('.HEVC.Film2Movie_INFO.mkv','').replace('.ParsFilm.mkv ','').replace('(SaberFunIR)','')
@@ -44,11 +48,11 @@ def Clean_name(name,url4):
     name14=(name13).replace('DvDrip-aXXo','').replace('[','').replace(']','').replace('(','').replace(')','').replace('XviD-TLF-','').replace('CD1','').replace('CD2','')
     name15=(name14).replace('CD3','').replace('mp4','').replace('&amp;','&').replace('HDRip','').replace('-','').replace('  ',' ').replace('xvid','').replace('1080p','')
     name16=(name15).replace('  ',' ').replace('BluRay','').replace('rip','').replace('WEBDL','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'')
-    name17=(name16).replace('&amp;','&').replace('&quot;','"')
+    name17=(name16).replace('amp;','').replace('&quot;','"').replace('_',' ')
     clean_name = name17
 	
 
-    process.Play(clean_name,url4,105,'','','','','')
+    process.Play(clean_name,url,105,'','','','','')
 
 
 

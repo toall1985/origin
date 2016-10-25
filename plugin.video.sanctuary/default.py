@@ -48,7 +48,7 @@ def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     process.Menu('The Apprentice','',1300,APPRENTICE_ICON,FANART,'','')
     process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
-    process.Menu('Raider','',1100,RAIDER_ICON,FANART,'','')
+    process.Menu('Pyramid','',1100,RAIDER_ICON,FANART,'','')
     process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
@@ -84,6 +84,7 @@ def Music():
     process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Music Search','',1503,'','','','')
 		
 
 def get_params():
@@ -357,6 +358,8 @@ elif mode == 1401 : from lib import ninja;ninja.VIDEOLIST(url)
 elif mode == 1402 : from lib import ninja;ninja.PLAYVIDEO(url)
 elif mode == 1500 : from lib import search;search.Search_Menu()
 elif mode == 1501 : from lib import search;search.Search_Input(url)
+elif mode == 1502 : from lib import search;search.MUSIC(Search_name,url)
+elif mode == 1503 : from lib import search;search.Music_Search()
 elif mode == 1600 : from lib import brettus_anime;brettus_anime.GetList()
 elif mode == 1601 : from lib import brettus_anime;brettus_anime.GetContent(url,iconimage)
 elif mode == 1602 : from lib import brettus_anime;brettus_anime.PLAYLINK(url,iconimage)
