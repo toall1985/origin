@@ -95,6 +95,7 @@ def SKindex_Joker():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Oblivion():
+#    addDir('Test M3u','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_EditOblivion.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -494,36 +495,72 @@ def parse_m3u(data):
     total = len(match)
     print 'total m3u links',total
     for other,channel_name,stream_url in match:
-        if 'tvg-logo' in other:
-            thumbnail = re_me(other,'tvg-logo=[\'"](.*?)[\'"]')
-            if thumbnail:
-                if thumbnail.startswith('http'):
-                    thumbnail = thumbnail
-                
-                elif not addon.getSetting('logo-folderPath') == "":
-                    logo_url = addon.getSetting('logo-folderPath')
-                    thumbnail = logo_url + thumbnail
-
-                else:
-                    thumbnail = thumbnail
-            #else:
-            
+        if '{PQ},' in stream_url:
+            Decrypt_Link(other,channel_name,stream_url,total)
         else:
-            thumbnail = ''
-        if 'type' in other:
-            mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
-            if mode_type == 'yt-dl':
-                stream_url = stream_url +"&mode=1118"
-            elif mode_type == 'regex':
-                url = stream_url.split('&regexs=')
-                #print url[0] getSoup(url,data=None)
-                regexs = parse_regex(getSoup('',data=url[1]))
+            if 'tvg-logo' in other:
+                thumbnail = re_me(other,'tvg-logo=[\'"](.*?)[\'"]')
+                if thumbnail:
+                    if thumbnail.startswith('http'):
+                        thumbnail = thumbnail
                 
-                addLink(url[0], channel_name,thumbnail,'','','','','',None,regexs,total)
-                continue
-        addLink(stream_url, channel_name,thumbnail,'','','','','',None,'',total)
+                    elif not addon.getSetting('logo-folderPath') == "":
+                        logo_url = addon.getSetting('logo-folderPath')
+                        thumbnail = logo_url + thumbnail
+
+                    else:
+                        thumbnail = thumbnail
+            else:
+                thumbnail = ''
+            if 'type' in other:
+                mode_type = re_me(other,'type=[\'"](.*?)[\'"]')
+                if mode_type == 'yt-dl':
+                    stream_url = stream_url +"&mode=1118"
+                elif mode_type == 'regex':
+                    url = stream_url.split('&regexs=')
+                    regexs = parse_regex(getSoup('',data=url[1]))
+                    addLink(url[0], channel_name,thumbnail,'','','','','',None,regexs,total)
+                    continue
+            addLink(stream_url, channel_name,thumbnail,'','','','','',None,'',total)
 		
     xbmc.executebuiltin("Container.SetViewMode(50)")
+	
+
+def Decrypt_Link(other,channel_name,stream_url,total):
+ ii = ( stream_url ) . replace ( '{IX},' , 'http' ) . replace ( '{UD},' , '.com' )
+ oOOo = ( ii ) . replace ( '{LM},' , 'a' ) . replace ( '{XG},' , 'b' ) . replace ( '{JP},' , 'c' ) . replace ( '{WE},' , 'd' ) . replace ( '{PL},' , 'e' ) . replace ( '{JT},' , 'f' )
+ O0 = ( oOOo ) . replace ( '{XX},' , 'g' ) . replace ( '{HA},' , 'h' ) . replace ( '{YT},' , 'i' ) . replace ( '{PF},' , 'j' ) . replace ( '{hW},' , 'k' ) . replace ( '{RT},' , 'l' )
+ o0O = ( O0 ) . replace ( '{SF},' , 'm' ) . replace ( '{IF},' , 'n' ) . replace ( '{PW},' , 'o' ) . replace ( '{GF},' , 'p' ) . replace ( '{DD},' , 'q' ) . replace ( '{UO},' , 'r' )
+ iI11I1II1I1I = ( o0O ) . replace ( '{LE},' , 's' ) . replace ( '{WP},' , 't' ) . replace ( '{ZY},' , 'u' ) . replace ( '{UE},' , 'v' ) . replace ( '{PE},' , 'w' ) . replace ( '{JE},' , 'x' )
+ if 'tvg-logo' in other :
+  oooo = re_me ( other , 'tvg-logo=[\'"](.*?)[\'"]' )
+  if oooo :
+   if oooo . startswith ( 'http' ) :
+    oooo = oooo
+    if 11 - 11: ii1I - ooO0OO000o
+   elif not addon . getSetting ( 'logo-folderPath' ) == "" :
+    ii11i = addon . getSetting ( 'logo-folderPath' )
+    oooo = ii11i + oooo
+   else :
+    oooo = oooo
+ else :
+  oooo = ''
+ oOooOoO0Oo0O = ( iI11I1II1I1I ) . replace ( '{TH},' , 'y' ) . replace ( '{LK},' , 'z' ) . replace ( '{UN},' , '.' ) . replace ( '{IG},' , '(' ) . replace ( '{LO},' , ')' ) . replace ( '{LP},' , '/' )
+ iI1 = ( oOooOoO0Oo0O ) . replace ( '{ZH},' , '1' ) . replace ( '{PP},' , '2' ) . replace ( '{AM},' , '3' ) . replace ( '{TA},' , '4' ) . replace ( '{DP},' , '5' ) . replace ( '{JS},' , '6' )
+ i1I11i = ( iI1 ) . replace ( '{JJ},' , '7' ) . replace ( '{MM},' , '8' ) . replace ( '{FQ},' , '9' ) . replace ( '{HH},' , '0' ) . replace ( '{PQ},' , ':' ) . replace ( '{SC},' , '%' )
+ OoOoOO00 = ( i1I11i ) . replace ( '{UJ},' , '-' ) . replace ( '{XD},' , '_' ) . replace ( 'HAVE_A_NICE_DAY_NOW' , 'TV' )
+ if 'type' in other :
+  stream_url = OoOoOO00
+  I11i = re_me ( other , 'type=[\'"](.*?)[\'"]' )
+  if I11i == 'yt-dl' :
+   stream_url = stream_url + "&mode=1118"
+  elif I11i == 'regex' :
+   O0O = stream_url . split ( '&regexs=' )
+   Oo = parse_regex ( getSoup ( '' , data = O0O [ 1 ] ) )
+   if 2 - 2: o0 * i1 * ii1IiI1i % OOooOOo / I11iIi1I / IiiIII111iI
+   addLink ( O0O [ 0 ] , channel_name , oooo , '' , '' , '' , '' , '' , None , Oo , total )
+ stream_url = OoOoOO00
+ addLink ( stream_url , channel_name , oooo , '' , '' , '' , '' , '' , None , '' , total ) # dd678faae9ac167bc83abf78e5cb2f3f0688d3a3
 	
 def getChannelItems(name,url,fanart):
         soup = getSoup(url)
