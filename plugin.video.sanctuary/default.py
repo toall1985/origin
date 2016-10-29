@@ -52,16 +52,29 @@ def Main_Menu():
     process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
-    process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
+#    process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
     process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
     process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
+    process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart12.jpg',FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
+    process.Menu('Latest Episodes','',3,ICON,FANART,'','')
+    process.Menu('Recent Movies','',5,ICON,FANART,'','')
     process.Menu('Favourites','',10,base_icons + 'favs.png',FANART,'','')
     process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
 #    process.Menu('Recent','',20,base_icons + 'search.png',FANART,'','')
     process.setView('movies', 'MAIN')	
+	
+def Latest_Episodes():
+    process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
+    process.Menu('Origin Latest Episodes','http://www.watchseriesgo.to/latest',301,ICON,FANART,'','')
+
+def Recent_Movies():
+    process.Menu('Pandora Recent Movies','http://genietvcunts.co.uk/PansBox/ORIGINS/recentmovies.php',426,ICON,FANART,'','')
+    process.Menu('Pyramid Recent Movies','http://tombraiderbuilds.co.uk/addon/New%20Releaes/newreleases.txt',1101,ICON,FANART,'','')
+    process.Menu('Maverick Recent Movies','http://164.132.106.213/data/movies/2016.xml',1101,ICON,FANART,'','')
+    process.Menu('Supremacy Recent Movies','https://simplekore.com/wp-content/uploads/file-manager/steboy11/New%20Releases/New%20Releases.txt',1101,ICON,FANART,'','')
 
 def Recent():
     process.Menu('Recent Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -149,10 +162,11 @@ except:
         pass
 	
 if mode == None: Main_Menu()
-#elif mode == 1 : 
+elif mode == 1 : process.queueItem()
 elif mode == 2 : Music()
-#elif mode == 3 : 
+elif mode == 3 : Latest_Episodes()
 elif mode == 4 : Origin_Main()
+elif mode == 5 : Recent_Movies()
 elif mode == 10: from lib import process;process.getFavourites()
 elif mode==11:
     try:
@@ -270,6 +284,7 @@ elif mode == 906: process.Big_Resolve(url)
 elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex()
 elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
 elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
+elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy()	
 elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -338,10 +353,11 @@ elif mode == 1127:
     xbmc.Player().play(pulsarIMDB) 
 elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)	
 elif mode == 1140:from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1141 : from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1141: from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
 elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld()
-elif mode == 1153:from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1144: from lib.pyramid import pyramid;pyramid.queueItem()
+elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
 elif mode == 1202: from lib.freeview import freeview;freeview.tvplayer(url)

@@ -24,7 +24,7 @@ except:
 import SimpleDownloader as downloader
 import time
 import requests
-import _Edit, _EditJoker, _EditOblivion, _EditTigensWorld
+import _Edit, _EditJoker, _EditOblivion, _EditTigensWorld, _EditSupremacy
 
 resolve_url=['180upload.com', 'allmyvideos.net','gorillavid.in/', 'bestreams.net', 'clicknupload.com', 'cloudzilla.to', 'movshare.net', 'novamov.com', 'nowvideo.sx', 'videoweed.es', 'daclips.in', 'datemule.com', 'fastvideo.in', 'faststream.in', 'filehoot.com', 'filenuke.com', 'sharesix.com', 'docs.google.com', 'plus.google.com', 'picasaweb.google.com', 'gorillavid.com', 'gorillavid.in', 'grifthost.com', 'hugefiles.net', 'ipithos.to', 'ishared.eu', 'kingfiles.net', 'mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'mightyupload.com', 'mooshare.biz', 'movdivx.com', 'movpod.net', 'movpod.in', 'movreel.com', 'mrfile.me', 'uptostream.com', 'nosvideo.com', 'openload.co', 'played.to', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'primeshare.tv', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'sharerepo.com', 'stagevu.com', 'streamcloud.eu', 'streamin.to', 'thefile.me', 'thevideo.me', 'tusfiles.net', 'uploadc.com', 'zalaa.com', 'uploadrocket.net', 'uptobox.com', 'v-vids.com', 'veehd.com', 'vidbull.com', 'videomega.tv', 'vidplay.net', 'vidspot.net', 'vidto.me', 'vidzi.tv', 'vimeo.com', 'vk.com', 'vodlocker.com', 'xfileload.com', 'xvidstage.com', 'zettahost.tv']
 g_ignoreSetResolved=['plugin.video.dramasonline','plugin.video.f4mTester','plugin.video.shahidmbcnet','plugin.video.SportsDevil','plugin.stream.vaughnlive.tv','plugin.video.ZemTV-shani']
@@ -76,11 +76,11 @@ def makeRequest(url, headers=None):
             addon_log('URL: '+url)
             if hasattr(e, 'code'):
                 addon_log('We failed with error code - %s.' % e.code)
-                xbmc.executebuiltin("XBMC.Notification(ThePyramid,We failed with error code - "+str(e.code)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(Sanctuary ,We failed with error code - "+str(e.code)+",10000,"+icon+")")
             elif hasattr(e, 'reason'):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
-                xbmc.executebuiltin("XBMC.Notification(ThePyramid,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(Sanctuary ,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
 
 				
 def SKindex():
@@ -95,7 +95,6 @@ def SKindex_Joker():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Oblivion():
-#    addDir('Test M3u','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
     getData(_EditOblivion.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -104,6 +103,9 @@ def SKindex_TigensWorld():
     getData(_EditTigensWorld.MainBase,'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
+def SKindex_Supremacy():
+    getData(_EditSupremacy.MainBase,'')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def Search_input(url):
     Dialog = xbmcgui.Dialog()
@@ -2414,6 +2416,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
        
         if showcontext:
             contextMenu = []
+            contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
             if showcontext == 'fav':
                 contextMenu.append(
                     ('Remove from Sanctuary Favourites','XBMC.RunPlugin(%s?mode=1106&name=%s)'
@@ -2439,12 +2442,10 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                      %(sys.argv[0], urllib.quote_plus(playlist_name), urllib.quote_plus(str(playlist).replace(',','||'))))
                      ]
                 liz.addContextMenuItems(contextMenu_)
-        #print 'adding',name
- #       print url,totalitems
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,totalItems=total)
-        #print 'added',name
         return ok
 
+		
 def playsetresolved(url,name,iconimage,setresolved=True):
     if setresolved:
         liz = xbmcgui.ListItem(name, iconImage=iconimage)

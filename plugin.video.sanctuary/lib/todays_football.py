@@ -3,6 +3,9 @@ import re,process,urllib,search,base64
 def Todays_Football_Menu():
 	process.Menu('Mainstream Channels','',1751,'','','','')
 	process.Menu('[COLORred]BETA [/COLOR]LiveOnSat Channels - Some searchs may take a sec - if empty menu means no results','',1753,'','','','')
+	process.Menu('Pyramid - Today\'s Matches','http://tombraiderbuilds.co.uk/addon/liveevents/liveevents.txt',1101,'','','','')
+	process.Menu('Maverick - Today\'s Matches','http://164.132.106.213/data/sportslinks/prem.xml',1101,'','','','')
+	process.Menu('Lily Sports - Today\'s Matches','http://kodeeresurrection.com/LILYSPORTStxts/LiveEvents.txt',1101,'','','','')
 
 def Todays_Football():
 	HTML = process.OPEN_URL('http://www.live-footballontv.com/')

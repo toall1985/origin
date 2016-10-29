@@ -1,0 +1,1 @@
+MainBase = 'https://simplekore.com/wp-content/uploads/file-manager/steboy11/home.txt'

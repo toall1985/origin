@@ -70,11 +70,15 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
             if not name in FAV:
                 contextMenu.append(('Add to Sanctuary Favorites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                          %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+            contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
             liz.addContextMenuItems(contextMenu)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok		
         xbmcplugin.endOfDirectory(int(sys.argv[1]))		
+
 		
+def queueItem():
+    return xbmc.executebuiltin('Action(Queue)')		
 #===============================Favourites-----------Not sure whos code this is but credit due to them-------------------------------
 
 def addon_log(string):

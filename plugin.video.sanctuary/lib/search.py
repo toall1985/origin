@@ -97,8 +97,8 @@ def Movies(Search_name):
     Raider_Loop(Search_name,'MULTILINK-TIGEN')
     dp.update(65,'',"Checking Raider",'Please Wait')
     Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
-    dp.update(84,'',"Checking Joker",'Please Wait')
-    Raider_Loop(Search_name,'http://jokerswizard.esy.es/joker/data/quality/quality.txt')
+    dp.update(84,'',"Checking Maverick",'Please Wait')
+    Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt')
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -256,8 +256,8 @@ def Music(Search_name):
 def Live_TV(Search_name):
     dp.create('Checking for streams - ' + Search_name)
     Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
-    Joker_live_list = ['http://jokerswizard.esy.es/joker/data/sports/sports.txt','http://jokerstv.no-ip.org/data/livetv/worldtv.xml','http://jokerstv.no-ip.org/data/livetv/news.xml',
-	'http://jokerstv.no-ip.org/data/livetv/iptv.xml']
+    Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',
+	'http://164.132.106.213/data/livetv/iptv.xml']
     Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
 	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
@@ -273,7 +273,7 @@ def Live_TV(Search_name):
     for item in Oblivion_list:
         from pyramid._EditOblivion import MainBase as OblivionMain
         Raider_Live_Loop(Search_name,(OblivionMain).replace('Free.xml',item))
-    dp.update(40,'',"Checking Joker",'Please Wait')
+    dp.update(40,'',"Checking Maverick",'Please Wait')
     for item in Joker_live_list:
         Raider_Live_Loop(Search_name,item)
     dp.update(60,'',"Checking Raider",'Please Wait')
@@ -287,8 +287,8 @@ def Live_TV(Search_name):
 
 
 def Raider_Live_Loop(Search_name,url):
-    if 'joker' in url:
-        ADD_NAME = '[COLORgreen]Joker[/COLOR]'
+    if '164.132' in url:
+        ADD_NAME = '[COLORgreen]Maverick[/COLOR]'
     elif 'raider' in url:
         ADD_NAME = '[COLORblue]Raider[/COLOR]'
     elif 'oblivion' in url:
@@ -323,8 +323,8 @@ def Raider_Live_Loop(Search_name,url):
 
 
 def Raider_Loop(Search_name,url):
-    if 'joker' in url:
-        ADD_NAME = '[COLORgreen]Joker[/COLOR] '
+    if '164.132' in url:
+        ADD_NAME = '[COLORgreen]Maverick [/COLOR] '
     elif 'raider' in url:
         ADD_NAME = '[COLORblue]Raider[/COLOR] '
     elif 'kodeeresurrection' in url:	
