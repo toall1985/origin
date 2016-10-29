@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-'''This section was kindly donated by the dev of the Pyramid addon, give him a follow on twitter to say thanks for this amazing section - @TombBuild
-all issues with errors in this addon Sanctuary should be reported to @Origin_Ent but streams not working taken to original author/playlister'''
+'''The code on this section was taken from the original addons great work by whoever coded this masterpiece
+This section was kindly donated by the dev of the Pyramid,tigens world,maverick,oblivion,supremacy addons, give them a follow on twitter or fb to say thanks 
+for these amazing sections all issues with errors in this addon Sanctuary should be reported to @Origin_Ent but streams not working taken to original 
+author/playlister'''
 
 
 import urllib
@@ -2069,7 +2071,6 @@ def urlsolver(url):
     resolved=genesisresolvers.get(url).result
     if url == resolved or resolved is None:
         #import
-        xbmc.executebuiltin("XBMC.Notification([COLORblue]The Pyramid[/COLOR] ,[COLORgreen]Enjoy Your Viewing On The Pyramid[/COLOR] ,5000)")
         import urlresolver
         host = urlresolver.HostedMediaFile(url)
         if host:
@@ -2416,7 +2417,6 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
        
         if showcontext:
             contextMenu = []
-            contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
             if showcontext == 'fav':
                 contextMenu.append(
                     ('Remove from Sanctuary Favourites','XBMC.RunPlugin(%s?mode=1106&name=%s)'
@@ -2432,6 +2432,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                 if regexs:
                     fav_params += "&regexs="+regexs
                 contextMenu.append(('Add to Sanctuary Favourites','XBMC.RunPlugin(%s)' %fav_params))
+            contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
             liz.addContextMenuItems(contextMenu)
        
         if not playlist is None:
@@ -2444,6 +2445,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                 liz.addContextMenuItems(contextMenu_)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,totalItems=total)
         return ok
+        xbmcplugin.endOfDirectory(int(sys.argv[1]))		
 
 		
 def playsetresolved(url,name,iconimage,setresolved=True):

@@ -53,6 +53,7 @@ def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
 
 		
 def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
+    if not 'http' in url:
         if iconimage == '':
             iconimage = ICON
         if fanart == '':
@@ -62,6 +63,7 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
         liz.setProperty( "Fanart_Image", fanart )
+        liz.setProperty('IsPlayable', 'true')
         if showcontext:
             contextMenu = []
             if showcontext == 'fav':
@@ -74,7 +76,12 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
             liz.addContextMenuItems(contextMenu)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok		
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))		
+        xbmcplugin.endOfDirectory(int(sys.argv[1]))
+    else:
+        from pyramid import pyramid
+        pyramid.addLink(url,name,iconimage,fanart,description,'','',True,'','',1,'')
+
+        	
 
 		
 def queueItem():
