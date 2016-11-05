@@ -1,4 +1,4 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
@@ -51,6 +51,14 @@ def Search_Input(url):
             Music(Search_name)
         else:
             process.Menu('Search failed - '+url,'','','','','','')
+			
+class Thread(threading.Thread):
+    def __init__(self, target, *args):
+        self._target = target
+        self._args = args
+        threading.Thread.__init__(self)
+    def run(self):
+        self._target(*self._args)
 		
 def Music_Artist(Search_name,url):
     HTML = process.OPEN_URL(url)
@@ -90,28 +98,29 @@ def Music_Song(Search_name):
 def Movies(Search_name):
     dp.create('Checking for streams')
     dp.update(15,'',"Checking Pandoras Box",'Please Wait')
-    Pans_Search_Movies(Search_name)
+    Thread(target=Pans_Search_Movies(Search_name))
     dp.update(33,'',"Checking Apprentice",'Please Wait')
-    Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php')
+    Thread(target=Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php'))
     dp.update(50,'',"Checking Tigen\'s World",'Please Wait')
-    Raider_Loop(Search_name,'MULTILINK-TIGEN')
+    Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
     dp.update(65,'',"Checking Raider",'Please Wait')
-    Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt')
+    Thread(target=Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt'))
     dp.update(84,'',"Checking Maverick",'Please Wait')
-    Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt')
+    Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
 def TV(Search_name):
     dp.create('Checking for streams')
     dp.update(20,'',"Checking Pandoras Box",'Please Wait')
-    Pans_Search_TV(Search_name) 
+#    t1 = threading.Thread(target=)
+    Thread(target=Pans_Search_TV(Search_name))
     dp.update(40,'',"Checking Apprentice",'Please Wait')
-    Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchtv.php')
+    Thread(target=Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchtv.php'))
     dp.update(60,'',"Checking Origin",'Please Wait')
-    Search_WatchSeries(Search_name)
+    Thread(target=Search_WatchSeries(Search_name))
     dp.update(80,'',"Checking Cold As Ice",'Please Wait')
-    Cold_AS_Ice(Search_name)
+    Thread(target=Cold_AS_Ice(Search_name))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -269,19 +278,21 @@ def Live_TV(Search_name):
     	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             from freeview.freeview import addLink
             addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
-    dp.update(20,'',"Checking Oblivion",'Please Wait')
+    dp.update(15,'',"Checking Oblivion",'Please Wait')
     for item in Oblivion_list:
         from pyramid._EditOblivion import MainBase as OblivionMain
-        Raider_Live_Loop(Search_name,(OblivionMain).replace('Free.xml',item))
-    dp.update(40,'',"Checking Maverick",'Please Wait')
+        Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
+    dp.update(30,'',"Checking Maverick",'Please Wait')
     for item in Joker_live_list:
-        Raider_Live_Loop(Search_name,item)
-    dp.update(60,'',"Checking Raider",'Please Wait')
+        Thread(target=Raider_Live_Loop(Search_name,item))
+    dp.update(45,'',"Checking Raider",'Please Wait')
     for item in Raider_live_list:
-        Raider_Live_Loop(Search_name,item)
-    dp.update(80,'',"Checking Lily Sports",'Please Wait')
+        Thread(target=Raider_Live_Loop(Search_name,item))
+    dp.update(60,'',"Checking Lily Sports",'Please Wait')
     for item in Lily_List:
-        Raider_Live_Loop(Search_name,item)
+        Thread(target=Raider_Live_Loop(Search_name,item))
+    dp.update(75,'',"Checking Supremecy",'Please Wait')
+    Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
@@ -316,10 +327,16 @@ def Raider_Live_Loop(Search_name,url):
             addLink(url, ADD_NAME + ' ' +name,img,'','','','','',None,'',1)
     match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
     for ignore,name,url in match2:
+        total = len(match2)
     	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
             if 'http' in url:
                 from pyramid.pyramid import addLink
-                addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',1)
+                addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',total)
+            else:
+                if '{PQ},' in url:
+                    from pyramid.pyramid import Decrypt_Link
+                    Decrypt_Link(ignore,ADD_NAME+' '+name,url,total)
+
 
 
 def Raider_Loop(Search_name,url):

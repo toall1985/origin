@@ -19,18 +19,25 @@ cookie_handler = urllib2.HTTPCookieProcessor(cookiejar)
 opener = urllib2.build_opener(cookie_handler)
 addon_id = 'plugin.video.sanctuary'
 selfAddon = xbmcaddon.Addon(id=addon_id)
+Adult_Pass = selfAddon.getSetting('Adult')
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
 
 def CATEGORIES():
-    link = openURL('http://www.perfectgirls.net/')
-    match = re.compile('<a href="/category/([0-9][0-9])/(.*)">(.*)</a>').findall(link)
-    addDir('[COLOR red]Latest[/COLOR]', 'http://www.perfectgirls.net/', 1401, icon, 1)
-    addDir('---', '', 1401, '', 1)
-    for page_id, channame, name in match:
-        addDir(name,
-               ('http://www.perfectgirls.net/category/' + page_id + '/' + channame),
-               1401, icon, 1)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	if Adult_Pass == 'forefingeroffury':
+		link = openURL('http://www.perfectgirls.net/')
+		match = re.compile('<a href="/category/([0-9][0-9])/(.*)">(.*)</a>').findall(link)
+		addDir('[COLOR red]Latest[/COLOR]', 'http://www.perfectgirls.net/', 1401, icon, 1)
+		addDir('---', '', 1401, '', 1)
+		for page_id, channame, name in match:
+			addDir(name,
+				('http://www.perfectgirls.net/category/' + page_id + '/' + channame),
+				1401, icon, 1)
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	else:
+		addDir('[COLORred]Unfortunately you need to enter a password for this section,[/COLOR]','','','','')
+		addDir('[COLORwhite]as it contains adult content. You can obtain this[/COLOR]','','','','')
+		addDir('[COLORblue]from kodification.co.uk and searching for sanctuary[/COLOR]','','','','')
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def VIDEOLIST(url):
     link = openURL(url)
@@ -48,24 +55,6 @@ def PLAYVIDEO(url):
         match3 = ['http://' + str(match2[0])]
         if match2:
             xbmc.Player().play(match3[-1])
-
-
-def get_params():
-    param = []
-    paramstring = sys.argv[2]
-    if len(paramstring) >= 2:
-        params = sys.argv[2]
-        cleanedparams = params.replace('?', '')
-        if (params[len(params)-1] == '/'):
-            params = params[0:len(params)-2]
-        pairsofparams = cleanedparams.split('&')
-        param = {}
-        for i in range(len(pairsofparams)):
-            splitparams = {}
-            splitparams = pairsofparams[i].split('=')
-            if (len(splitparams)) == 2:
-                param[splitparams[0]] = splitparams[1]
-    return param
 
 
 def addLink(name, url, mode, iconimage):
@@ -97,36 +86,3 @@ def openURL(url):
     link = response.read()
     response.close()
     return link
-
-
-params = get_params()
-url = None
-name = None
-mode = None
-page = 1
-
-try:
-    url = urllib.unquote_plus(params["url"])
-except:
-    pass
-try:
-    name = urllib.unquote_plus(params["name"])
-except:
-    pass
-try:
-    mode = int(params["mode"])
-except:
-    pass
-try:
-    page = int(params["page"])
-except:
-    pass
-
-if mode == 1400:
-    CATEGORIES()
-
-elif mode == 1401:
-    VIDEOLIST(url)
-
-elif mode == 1402:
-    PLAYVIDEO(url)

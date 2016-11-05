@@ -1838,16 +1838,8 @@ def doEvalFunction(fun_call,page_data,Cookie_Jar,m):
 
 
 def getGoogleRecaptchaResponse(captchakey, cj,type=1): #1 for get, 2 for post, 3 for rawpost
-#    #headers=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; rv:14.0) Gecko/20100101 Firefox/14.0.1')]
-#    html_text=getUrl(url,noredir=True, cookieJar=cj,headers=headers)
- #   print 'html_text',html_text
     recapChallenge=""
     solution=""
-#    cap_reg="recap.*?\?k=(.*?)\""    
-#    match =re.findall(cap_reg, html_text)
-    
-        
-#    print 'match',match
     captcha=False
     captcha_reload_response_chall=None
     solution=None
@@ -1855,7 +1847,6 @@ def getGoogleRecaptchaResponse(captchakey, cj,type=1): #1 for get, 2 for post, 3
         captcha_url=captchakey
         if not captcha_url.startswith('http'):
             captcha_url='http://www.google.com/recaptcha/api/challenge?k='+captcha_url+'&ajax=1'
-#        print 'captcha_url',captcha_url
         captcha=True
 
         cap_chall_reg='challenge.*?\'(.*?)\''

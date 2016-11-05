@@ -44,6 +44,7 @@ OBLIVION_ICON = base_icons + 'oblivion.png'
 TIGEN_ICON = base_icons + 'Tigen.png'
 COLD_ICON = base_icons + 'Cold.png'
 FREEDOM_ICON = base_icons + 'freedom.png'
+RENEGADES_ICON = base_icons + 'renegades.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
@@ -53,13 +54,14 @@ def Main_Menu():
     process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
     process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
-#    process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
+    process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
     process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
     process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
     process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
-    if Adult_Pass == 'forefingeroffury':
-        process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
+    process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
+    process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
+    process.Menu('TV Schedule','',2200,ICON,FANART,'','')
     process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
     process.Menu('Latest Episodes','',3,ICON,FANART,'','')
     process.Menu('Recent Movies','',5,ICON,FANART,'','')
@@ -87,13 +89,12 @@ def Origin_Main():
     process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Football Replays + Highlights','',400,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
-
-
+		
 def Music():
     process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -328,7 +329,12 @@ elif mode==1110:from lib.pyramid import pyramid;pyramid.getCommunitySources()
 elif mode==1111:from lib.pyramid import pyramid;pyramid.addSource(url)
 elif mode==1112:
     from lib.pyramid import pyramid
-    if not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
+    if 'google' in url:
+        import urlresolver
+        resolved = urlresolver.resolve(url)
+        item = xbmcgui.ListItem(path=resolved)
+        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+    elif not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
         item = xbmcgui.ListItem(path=url)
         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
     else:
@@ -680,6 +686,20 @@ elif mode==1953:
     freedompluginquerybyJSON(url)
     #xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 2000 : from lib import index_regex;index_regex.Main_Loop(url)
+elif mode == 2100 : from lib import Sports_Replays;Sports_Replays.Sports_Repeats()
+elif mode == 2101 : from lib import Sports_Replays;Sports_Replays.Motor_Replays(url)
+elif mode == 2102 : from lib import Sports_Replays;Sports_Replays.motor_name(url)
+elif mode == 2103 : from lib import Sports_Replays;Sports_Replays.motor_race(extra)
+elif mode == 2104 : from lib import Sports_Replays;Sports_Replays.motor_single(extra)
+elif mode == 2105 : from lib import Sports_Replays;Sports_Replays.F1_Replays(url)
+elif mode == 2106 : from lib import Sports_Replays;Sports_Replays.F1_page(url)
+elif mode == 2107 : from lib import Sports_Replays;Sports_Replays.F1_items(url,iconimage)
+elif mode == 2108 : from lib import Sports_Replays;Sports_Replays.F1_Playlink(url)
+elif mode == 2150 : from lib import renegades;renegades.run()
+elif mode == 2151 : import plugintools;plugintools.add_item(mode,name,url,iconimage,fanart)
+elif mode == 2200 : from lib import tv_guide;tv_guide.whatsoncat()
+elif mode == 2201 : from lib import tv_guide;tv_guide.whatson(url)
+elif mode == 2202 : from lib import tv_guide;tv_guide.search_split(extra)
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
