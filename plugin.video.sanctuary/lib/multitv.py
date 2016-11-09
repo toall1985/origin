@@ -181,19 +181,9 @@ def Get_Sources(name,URL,iconimage,fanart):
         for item in Sources:
             if item in url:
                 URL = Main + 'link/' + url
-                List.append(name)
-                selector(name,URL)
+                process.Play(name,URL,313,ICON,FANART,'','')
     if len(match)<=0:
         process.Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
-
-def selector(name, URL):
-    qty_check = List.count(name)
-    if str(qty_check)>1:
-        name = name + ' - Link '+ str(qty_check)
-        process.Play(name,URL,313,ICON,FANART,'','')
-        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);
-    else:
-        process.Play(name,URL,313,ICON,FANART,'','')
 
 '''def Get_Sources(name,URL,iconimage,fanart):
     HTML = process.OPEN_URL(URL)
@@ -207,145 +197,72 @@ def selector(name, URL):
         process.Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')'''
 		
 		
-def Get_site_link(url,name):
-    season_name = name
+def Get_site_link(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('<iframe style=.+?" src="(.+?)"').findall(HTML)
     match2 = re.compile('<IFRAME SRC="(.+?)"').findall(HTML)
     match3 = re.compile('<IFRAME style=".+?" SRC="(.+?)"').findall(HTML)
     for url in match:
-        main(url,season_name)
+        main(url)
     for url in match2:
-        main(url,season_name)
+        main(url)
     for url in match3:
-        main(url,season_name)
+        main(url)
 
-def main(url,season_name):
+def main(url):
     if 'daclips.in' in url:
-        daclips(url,season_name)
+        daclips(url)
     elif 'filehoot.com' in url:
-        filehoot(url,season_name)
+        filehoot(url)
     elif 'allmyvideos.net' in url:
-        allmyvid(url,season_name)
+        allmyvid(url)
     elif 'vidspot.net' in url:
-        vidspot(url,season_name)
+        vidspot(url)
     elif 'vodlocker' in url:
-        vodlocker(url,season_name)	
+        vodlocker(url)	
     elif 'vidto' in url:
-        vidto(url,season_name)	
+        vidto(url)	
 
 
-def vidto(url,season_name):
+def vidto(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
     for Link,name in match:
-        Printer(Link,season_name)
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)
 
 												
-def allmyvid(url,season_name):
+def allmyvid(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"',re.DOTALL).findall(HTML)
     for Link,name in match:
-        Printer(Link,season_name)
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)
 
-def vidspot(url,season_name):
+def vidspot(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('"file" : "(.+?)",\n.+?"default" : .+?,\n.+?"label" : "(.+?)"').findall(HTML)
     for Link,name in match:
-        Printer(Link,season_name)
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)
 
-def vodlocker(url,season_name):
+def vodlocker(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
     for Link in match:
-        Printer(Link,season_name)
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)
 
-def daclips(url,season_name):
+def daclips(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('{ file: "(.+?)", type:"video" }').findall(HTML)
     for Link in match:
-        Printer(Link,season_name)
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)
 
-def filehoot(url,season_name):
+def filehoot(url):
     HTML = process.OPEN_URL(url)
     match = re.compile('file: "(.+?)",.+?skin',re.DOTALL).findall(HTML)
     for Link in match:
-        Printer(Link,season_name)
-
-def Printer(Link,season_name):
-    if 'http:/' in Link:
-        process.resolve_playercore(Link)
-
-####################################################################PROCESSES###################################################
-	
-	
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
-                cleanedparams=params.replace('?','')
-                if (params[len(params)-1]=='/'):
-                        params=params[0:len(params)-2]
-                pairsofparams=cleanedparams.split('&')
-                param={}    
-                for i in range(len(pairsofparams)):
-                        splitparams={}
-                        splitparams=pairsofparams[i].split('=')
-                        if (len(splitparams))==2:
-                                param[splitparams[0]]=splitparams[1]
-                                
-        return param
-        
-params=get_params()
-url=None
-name=None
-iconimage=None
-mode=None
-fanart=None
-description=None
-trailer=None
-fav_mode=None
-extra=None
-
-try:
-    extra=urllib.unquote_plus(params["extra"])
-except:
-    pass
-
-try:
-    fav_mode=int(params["fav_mode"])
-except:
-    pass
-
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        iconimage=urllib.unquote_plus(params["iconimage"])
-except:
-        pass
-try:        
-        mode=int(params["mode"])
-except:
-        pass
-try:        
-        fanart=urllib.unquote_plus(params["fanart"])
-except:
-        pass
-try:        
-        description=urllib.unquote_plus(params["description"])
-except:
-        pass
-try:        
-        trailer=urllib.unquote_plus(params["trailer"])
-except:
-        pass
-
-#####################################################END PROCESSES##############################################################		
-		
+        if 'http:/' in Link:
+            process.resolve_playercore(Link)

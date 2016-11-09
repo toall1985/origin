@@ -77,6 +77,14 @@ def main_list(params):
 
     plugintools.add_item( 
         #action="", 
+        title="[COLOR red]SELECT PLAYLISTS[/COLOR] 2016 PDC World Darts Championships",
+        url="plugin://plugin.video.youtube/channel/"+YOUTUBE_CHANNEL_ID_33+"/",
+        thumbnail="special://home/addons/plugin.video.renegadesdarts/resources/PDC Worlds 2016.jpg",
+		fanart=fanart,
+        folder=True )
+
+    plugintools.add_item( 
+        #action="", 
         title="2016 Premier League",
         url="plugin://plugin.video.youtube/playlist/"+YOUTUBE_CHANNEL_ID_1+"/",
         thumbnail="special://home/addons/plugin.video.renegadesdarts/resources/2016 premier league.jpg",
@@ -328,14 +336,6 @@ def main_list(params):
         title="9 Dart Finishes",
         url="plugin://plugin.video.youtube/playlist/"+YOUTUBE_CHANNEL_ID_32+"/",
         thumbnail="special://home/addons/plugin.video.renegadesdarts/resources/9 Darters.jpg",
-		fanart=fanart,
-        folder=True )
-
-    plugintools.add_item( 
-        #action="", 
-        title="[COLOR red]SELECT PLAYLISTS[/COLOR] 2016 PDC World Darts Championships",
-        url="plugin://plugin.video.youtube/channel/"+YOUTUBE_CHANNEL_ID_33+"/",
-        thumbnail="special://home/addons/plugin.video.renegadesdarts/resources/PDC Worlds 2016.jpg",
 		fanart=fanart,
         folder=True )
 

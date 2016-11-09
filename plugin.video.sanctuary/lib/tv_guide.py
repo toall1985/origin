@@ -20,9 +20,9 @@ def whatson(url):
     html=process.OPEN_URL(url)
     match = re.compile('<div class="channel_name">(.+?)<.+?<div class="programme  showing".+?channel_id=(.+?).+?>(.+?)</a>',re.DOTALL).findall(html)
     for name,id,whatson in match:
-        name = name.replace('(','').replace(')','').replace('Plus 1','+1')
+        name = name.replace('(','').replace(')','').replace('Plus 1','+1').replace('London','').replace('Five','5')
         process.Menu(name + ' - ' + whatson,'',2202,'','','',name)
 		
 def search_split(extra):
     import search
-    search.Live_TV(extra.lower())
+    search.Live_TV(extra.lower().replace('hd','').replace(' ',''))

@@ -264,11 +264,14 @@ def Music(Search_name):
 				
 def Live_TV(Search_name):
     dp.create('Checking for streams - ' + Search_name)
-    Oblivion_list = ['FreeSports.m3u','FreeKids.m3u','FreeMovies.m3u','FreeUK.m3u','FreeUS.m3u']
+    Oblivion_list = ['FreeSports.m3u','Server1.m3u','Server2.m3u','Server3.m3u','FreeUS.m3u']
     Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',
 	'http://164.132.106.213/data/livetv/iptv.xml']
-    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt','http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt',
-	'http://tombraiderbuilds.co.uk/addon/sportschannels/sportschannels.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt']
+    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',
+    'http://tombraiderbuilds.co.uk/addon/sportschannels/','http://tombraiderbuilds.co.uk/addon/ukentertainment/filmon.txt',
+    'http://tombraiderbuilds.co.uk/addon/ukentertainment/filmonmovies.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt',
+    'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt',
+    'http://tombraiderbuilds.co.uk/addon/newschannels/newschannels.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
@@ -301,7 +304,9 @@ def Raider_Live_Loop(Search_name,url):
     if '164.132' in url:
         ADD_NAME = '[COLORgreen]Maverick[/COLOR]'
     elif 'raider' in url:
-        ADD_NAME = '[COLORblue]Raider[/COLOR]'
+        ADD_NAME = '[COLORblue]Pyramid[/COLOR]'
+    elif 'simplekore' in url:
+        ADD_NAME = '[COLORred]Supremacy[/COLOR]'
     elif 'oblivion' in url:
         ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
     elif 'kodeeresurrection' in url:
@@ -309,7 +314,7 @@ def Raider_Live_Loop(Search_name,url):
     HTML = process.OPEN_URL(url)
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
     for name,link,image,fanart in match2:
-    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+    	if (Search_name).lower().replace('sports','sport').replace('sport','sports').replace(' ','') in (name).lower().replace(' ','').replace('sports','sport').replace('sport','sports'):
             if 'sublink' in link:
                 from pyramid.pyramid import addDir
                 addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
@@ -328,7 +333,7 @@ def Raider_Live_Loop(Search_name,url):
     match2 = re.compile(r'#EXTINF:(.+?),(.*?)[\n\r]+([^\n]+)').findall(HTML)
     for ignore,name,url in match2:
         total = len(match2)
-    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+    	if (Search_name).lower().replace(' ','').replace('sports','sport').replace('sport','sports') in (name).lower().replace(' ','').replace('sports','sport').replace('sport','sports'):
             if 'http' in url:
                 from pyramid.pyramid import addLink
                 addLink(url,ADD_NAME + ' ' +name,'','','','','','',None,'',total)
@@ -343,7 +348,7 @@ def Raider_Loop(Search_name,url):
     if '164.132' in url:
         ADD_NAME = '[COLORgreen]Maverick [/COLOR] '
     elif 'raider' in url:
-        ADD_NAME = '[COLORblue]Raider[/COLOR] '
+        ADD_NAME = '[COLORblue]Pyramid[/COLOR] '
     elif 'kodeeresurrection' in url:	
         ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR] '
     else:

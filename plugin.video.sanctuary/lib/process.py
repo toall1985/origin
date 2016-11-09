@@ -53,35 +53,38 @@ def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
 
 		
 def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
+    if iconimage == '':
+        iconimage = ICON
+    if fanart == '':
+        fanart = FANART
     if not 'http' in url:
-        if iconimage == '':
-            iconimage = ICON
-        if fanart == '':
-            fanart = FANART
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        liz.setProperty('IsPlayable', 'true')
-        if showcontext:
-            contextMenu = []
-            if showcontext == 'fav':
-                contextMenu.append(('Remove from Sanctuary Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
-                                    %(sys.argv[0], urllib.quote_plus(name))))
-            if not name in FAV:
-                contextMenu.append(('Add to Sanctuary Favorites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
-                         %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
-            contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
-            liz.addContextMenuItems(contextMenu)
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        return ok		
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
+        PLAY(name,url,mode,iconimage,fanart,description,extra)
+    elif 'watchseries' in url:
+        PLAY(name,url,mode,iconimage,fanart,description,extra)
     else:
         from pyramid import pyramid
         pyramid.addLink(url,name,iconimage,fanart,description,'','',True,'','',1,'')
 
-        	
+def PLAY(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):	
+    u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+    ok=True
+    liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+    liz.setProperty( "Fanart_Image", fanart )
+    liz.setProperty('IsPlayable', 'true')
+    if showcontext:
+        contextMenu = []
+        if showcontext == 'fav':
+            contextMenu.append(('Remove from Sanctuary Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
+                                %(sys.argv[0], urllib.quote_plus(name))))
+        if not name in FAV:
+            contextMenu.append(('Add to Sanctuary Favorites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
+                    %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+        contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
+        liz.addContextMenuItems(contextMenu)
+    ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+    return ok		
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 		
 def queueItem():
