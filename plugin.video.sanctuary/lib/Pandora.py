@@ -40,7 +40,7 @@ def Pandora_Menu(url):
         link = process.OPEN_URL(url)
         match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(link)
         for url,iconimage,desc,background,name in match:
-            process.Play(name,url,906,iconimage,background,desc,'')
+            process.Play(name,url,906,iconimage,background,desc,'Pans')
             xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -56,7 +56,7 @@ def Search_Pandoras_Films():
             match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML)
             for url,iconimage,desc,fanart,name in match:
                 if Search_Name in name.lower():
-                    process.Play(name,url,906,iconimage,fanart,desc,'')
+                    process.Play(name,url,906,iconimage,fanart,desc,'Pans')
 					
                     xbmcplugin.setContent(addon_handle, 'movies')
                     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	

@@ -22,7 +22,7 @@
     If i have used code that you wrote i can only apologise for not thanking you personally and ensure you no offence was meant.
     Just sometimes i find it best not to rewrite what works well, mostly to a higher standard that my current understanding
 '''
-import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback
+import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback, requests, re
 from lib import process
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
@@ -43,12 +43,11 @@ BRETTUS_ICON = base_icons + 'brettus_anime.png'
 OBLIVION_ICON = base_icons + 'oblivion.png'
 TIGEN_ICON = base_icons + 'Tigen.png'
 COLD_ICON = base_icons + 'Cold.png'
-FREEDOM_ICON = base_icons + 'freedom.png'
+BAMF_ICON = base_icons + 'BAMF.png'
 RENEGADES_ICON = base_icons + 'renegades.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
-    process.Menu('The Apprentice','',1300,APPRENTICE_ICON,FANART,'','')
     process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
     process.Menu('Pyramid','',1100,RAIDER_ICON,FANART,'','')
     process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
@@ -58,10 +57,10 @@ def Main_Menu():
     process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
     process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
-    process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
     process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
     process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
-    process.Menu('TV Schedule','',2200,ICON,FANART,'','')
+    process.Menu('BAMF IPTV','',1132,BAMF_ICON,FANART,'','')
+    process.Menu('TV Guide','',2200,ICON,FANART,'','')
     process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
     process.Menu('Latest Episodes','',3,ICON,FANART,'','')
     process.Menu('Recent Movies','',5,ICON,FANART,'','')
@@ -73,6 +72,7 @@ def Main_Menu():
 def Latest_Episodes():
     process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
     process.Menu('Origin Latest Episodes','http://www.watchseriesgo.to/latest',301,ICON,FANART,'','')
+    process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
 
 def Recent_Movies():
     process.Menu('Pandora Recent Movies','http://genietvcunts.co.uk/PansBox/ORIGINS/recentmovies.php',426,ICON,FANART,'','')
@@ -84,6 +84,28 @@ def Recent():
     process.Menu('Recent Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Recent TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
 
+def TV_Calender_Day(url):
+	process.Menu('[COLORred]Shows will typically appear in addons a day after aired on tv, some sooner[/COLOR]','',6,'','','','')
+	process.Menu('[COLORred]If you press on a show it will search addons in sanctuary for the show name, you will then need to select episode[/COLOR]','',6,'','','','')
+	HTML = process.OPEN_URL(url)
+	match = re.compile('<span class="dayofmonth">.+?<span class=".+?">(.+?)</span>(.+?)</span>(.+?)</div>',re.DOTALL).findall(HTML)
+	for Day_Month,Date,Block in match:
+		Date = Date.replace('\n','').replace('  ','').replace('	','')
+		Day_Month = Day_Month.replace('\n','').replace('  ','').replace('	','')
+		Final_Name = Day_Month.replace(',',' '+Date+' ')
+		process.Menu(Final_Name,'',7,'','','',Block)
+
+def TV_Calender_Prog(extra):
+	match = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(extra))
+	for prog, ep in match:
+		process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+		
+def send_to_search(extra):
+	from lib import search
+	Search_name = extra.lower().replace(' ','')
+	search.TV(Search_name)
+	
+	
 	
 def Origin_Main():
     process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -180,6 +202,9 @@ elif mode == 2 : Music()
 elif mode == 3 : Latest_Episodes()
 elif mode == 4 : Origin_Main()
 elif mode == 5 : Recent_Movies()
+elif mode == 6 : TV_Calender_Day(url)
+elif mode == 7 : TV_Calender_Prog(extra)
+elif mode == 8 : send_to_search(extra)
 elif mode == 10: from lib import process;process.getFavourites()
 elif mode==11:
     try:
@@ -298,6 +323,7 @@ elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex()
 elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
 elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
 elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy()
+elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF()
 elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -379,14 +405,6 @@ elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
 elif mode == 1202: from lib.freeview import freeview;freeview.tvplayer(url)
-elif mode == 1300: from lib import apprentice;apprentice.apprentice_Main();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1301 : from lib import apprentice;apprentice.Mov_Menu();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1302 : from lib import apprentice;apprentice.Tv_Menu();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1303 : from lib import apprentice;apprentice.Second_Menu(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1304 : from lib import apprentice;apprentice.Index_List_Mov();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1305 : from lib import apprentice;apprentice.Main_Loop(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1306 : from lib import apprentice;apprentice.Index_List_Tv();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1307 : from lib import apprentice;apprentice.Magic_Menu();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1400 : from lib import ninja;ninja.CATEGORIES()
 elif mode == 1401 : from lib import ninja;ninja.VIDEOLIST(url)
 elif mode == 1402 : from lib import ninja;ninja.PLAYVIDEO(url)

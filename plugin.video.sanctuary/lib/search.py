@@ -97,29 +97,24 @@ def Music_Song(Search_name):
 		
 def Movies(Search_name):
     dp.create('Checking for streams')
-    dp.update(15,'',"Checking Pandoras Box",'Please Wait')
+    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
     Thread(target=Pans_Search_Movies(Search_name))
-    dp.update(33,'',"Checking Apprentice",'Please Wait')
-    Thread(target=Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchmov.php'))
-    dp.update(50,'',"Checking Tigen\'s World",'Please Wait')
+    dp.update(40,'',"Checking Tigen\'s World",'Please Wait')
     Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
-    dp.update(65,'',"Checking Raider",'Please Wait')
+    dp.update(60,'',"Checking Raider",'Please Wait')
     Thread(target=Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt'))
-    dp.update(84,'',"Checking Maverick",'Please Wait')
+    dp.update(80,'',"Checking Maverick",'Please Wait')
     Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
 def TV(Search_name):
     dp.create('Checking for streams')
-    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
-#    t1 = threading.Thread(target=)
+    dp.update(25,'',"Checking Pandoras Box",'Please Wait')
     Thread(target=Pans_Search_TV(Search_name))
-    dp.update(40,'',"Checking Apprentice",'Please Wait')
-    Thread(target=Apprentice_Search(Search_name,'http://herovision.x10host.com/search/searchtv.php'))
-    dp.update(60,'',"Checking Origin",'Please Wait')
+    dp.update(50,'',"Checking Origin",'Please Wait')
     Thread(target=Search_WatchSeries(Search_name))
-    dp.update(80,'',"Checking Cold As Ice",'Please Wait')
+    dp.update(75,'',"Checking Cold As Ice",'Please Wait')
     Thread(target=Cold_AS_Ice(Search_name))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
@@ -179,23 +174,6 @@ def Search_WatchSeries(Search_name):
         process.Menu(name,url3,305,image,fanart,description,name)		
 	
 	
-def Apprentice_Search(Search_name,url):	
-    HTML_app = process.OPEN_URL(url)
-    if HTML_app != 'Opened':
-        match_app = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML_app)
-        for url,img,desc,fanart,name in match_app:
-            if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-				name = '[COLORwhitesmoke]Apprentice[/COLOR] '+name
-				if 'php' in url:
-					process.Menu(name,url,1303,img,fanart,desc,'')
-				elif 'playlist' in url:
-					process.Menu(name,url,10002,img,fanart,desc,'')
-				elif 'watchseries' in url:
-					process.Menu(name,url,112,img,fanart,desc,'')
-				elif not 'http' in url:
-					process.Play(name,url,10003,img,fanart,desc,'')
-				else:
-					process.Play(name,url,1307,img,fanart,desc,'')
 				
 def Pans_Search_Movies(Search_name):
     for file_Name in Pans_files_Movies:
@@ -296,6 +274,8 @@ def Live_TV(Search_name):
         Thread(target=Raider_Live_Loop(Search_name,item))
     dp.update(75,'',"Checking Supremecy",'Please Wait')
     Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
+    dp.update(85,'',"Checking BAMF",'Please Wait')
+    Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/iq4nogib32nnchd/BAMF%20IPTV.txt?dl=1'))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
@@ -311,6 +291,8 @@ def Raider_Live_Loop(Search_name,url):
         ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
     elif 'kodeeresurrection' in url:
         ADD_NAME = '[COLORpurple]Lily Sport\'s[/COLOR]'
+    elif 'dropbox' in url:
+        ADD_NAME = '[COLORwhite]BAMF[/COLOR]'
     HTML = process.OPEN_URL(url)
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
     for name,link,image,fanart in match2:
