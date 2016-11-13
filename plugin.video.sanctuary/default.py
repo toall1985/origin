@@ -49,28 +49,48 @@ RENEGADES_ICON = base_icons + 'renegades.png'
 QUICK_ICON = base_icons + 'quick.png'
 
 def Main_Menu():
-    process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
-    process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
-    process.Menu('Pyramid','',1100,RAIDER_ICON,FANART,'','')
-    process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
-    process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
-    process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
-    process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
-    process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
-    process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
-    process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
-    process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
-    process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
-    process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
-    process.Menu('BAMF IPTV','',1132,BAMF_ICON,FANART,'','')
-    process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
-    process.Menu('TV Guide','',2200,ICON,FANART,'','')
-    process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
-    process.Menu('Latest Episodes','',3,ICON,FANART,'','')
-    process.Menu('Recent Movies','',5,ICON,FANART,'','')
-    process.Menu('Favourites','',10,base_icons + 'favs.png',FANART,'','')
-    process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
-#    process.Menu('Recent','',20,base_icons + 'search.png',FANART,'','')
+    if ADDON.getSetting('Origin')=='true':
+        process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
+    if ADDON.getSetting('Pandoras_Box')=='true':
+        process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
+    if ADDON.getSetting('Pyramid')=='true':
+        process.Menu('Pyramid','',1100,RAIDER_ICON,FANART,'','')
+    if ADDON.getSetting('Maverick')=='true':
+        process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
+    if ADDON.getSetting('Freeview')=='true':
+        process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
+    if ADDON.getSetting('Brettus_Anime')=='true':
+        process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
+    if ADDON.getSetting('Oblivion')=='true':
+        process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
+    if ADDON.getSetting("Tigen's_World")=='true':
+        process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
+    if ADDON.getSetting('Cold_As_Ice')=='true':
+        process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
+    if ADDON.getSetting('Supremacy')=='true':
+        process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
+    if ADDON.getSetting('Freedom')=='true':
+        process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
+    if ADDON.getSetting('Renegades')=='true':
+        process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
+    if ADDON.getSetting('Just_For_Him')=='true':
+        process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
+    if ADDON.getSetting('BAMF')=='true':
+        process.Menu('BAMF IPTV','',1132,BAMF_ICON,FANART,'','')
+    if ADDON.getSetting('Quicksilver')=='true':
+        process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
+    if ADDON.getSetting('TV_Guide')=='true':
+        process.Menu('TV Guide','',2200,ICON,FANART,'','')
+    if ADDON.getSetting("Today's_Football")=='true':
+        process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
+    if ADDON.getSetting('Latest_Episodes')=='true':
+        process.Menu('Latest Episodes','',3,ICON,FANART,'','')
+    if ADDON.getSetting('Recent_Movies')=='true':
+        process.Menu('Recent Movies','',5,ICON,FANART,'','')
+    if ADDON.getSetting('Favourites')=='true':
+        process.Menu('Favourites','',10,base_icons + 'favs.png',FANART,'','')
+    if ADDON.getSetting('Search')=='true':
+        process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
     process.setView('movies', 'MAIN')	
 	
 	

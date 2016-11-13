@@ -1,7 +1,9 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
+addon_id = 'plugin.video.sanctuary'
+ADDON = xbmcaddon.Addon(id=addon_id)
 Dialog = xbmcgui.Dialog()
 dp =  xbmcgui.DialogProgress()
 Decode = base64.decodestring
@@ -97,25 +99,32 @@ def Music_Song(Search_name):
 		
 def Movies(Search_name):
     dp.create('Checking for streams')
-    dp.update(20,'',"Checking Pandoras Box",'Please Wait')
-    Thread(target=Pans_Search_Movies(Search_name))
-    dp.update(40,'',"Checking Tigen\'s World",'Please Wait')
-    Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
-    dp.update(60,'',"Checking Raider",'Please Wait')
-    Thread(target=Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt'))
-    dp.update(80,'',"Checking Maverick",'Please Wait')
-    Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
+    if ADDON.getSetting('Pandoras_Box_Search')=='true':
+        dp.update(20,'',"Checking Pandoras Box",'Please Wait')
+        Thread(target=Pans_Search_Movies(Search_name))
+    if ADDON.getSetting("Tigen's_World_Search")=='true':
+        dp.update(40,'',"Checking Tigen\'s World",'Please Wait')
+        Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
+    if ADDON.getSetting('Pyramid_Search')=='true':
+        dp.update(60,'',"Checking Pyramid",'Please Wait')
+        Thread(target=Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt'))
+    if ADDON.getSetting('Maverick_Search')=='true':
+        dp.update(80,'',"Checking Maverick",'Please Wait')
+        Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
 def TV(Search_name):
     dp.create('Checking for streams')
-    dp.update(25,'',"Checking Pandoras Box",'Please Wait')
-    Thread(target=Pans_Search_TV(Search_name))
-    dp.update(50,'',"Checking Origin",'Please Wait')
-    Thread(target=Search_WatchSeries(Search_name))
-    dp.update(75,'',"Checking Cold As Ice",'Please Wait')
-    Thread(target=Cold_AS_Ice(Search_name))
+    if ADDON.getSetting('Pandoras_Box_Search')=='true':
+        dp.update(25,'',"Checking Pandoras Box",'Please Wait')
+        Thread(target=Pans_Search_TV(Search_name))
+    if ADDON.getSetting('Origin_Search')=='true':
+        dp.update(50,'',"Checking Origin",'Please Wait')
+        Thread(target=Search_WatchSeries(Search_name))
+    if ADDON.getSetting('Cold_As_Ice_Search')=='true':
+        dp.update(75,'',"Checking Cold As Ice",'Please Wait')
+        Thread(target=Cold_AS_Ice(Search_name))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -242,7 +251,7 @@ def Music(Search_name):
 				
 def Live_TV(Search_name):
     dp.create('Checking for streams - ' + Search_name)
-    Oblivion_list = ['FreeSports.m3u','Server1.m3u','Server2.m3u','Server3.m3u','FreeUS.m3u']
+    Oblivion_list = ['FreeSports.m3u','FreeTesting.m3u','Server1.m3u','Server2.m3u','Kid.xml']
     Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',
 	'http://164.132.106.213/data/livetv/iptv.xml']
     Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',
@@ -254,28 +263,35 @@ def Live_TV(Search_name):
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
-    dp.update(0,'',"Checking Freeview",'Please Wait')
-    for name,url,mode,img in match:
-    	if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-            from freeview.freeview import addLink
-            addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
-    dp.update(15,'',"Checking Oblivion",'Please Wait')
-    for item in Oblivion_list:
-        from pyramid._EditOblivion import MainBase as OblivionMain
-        Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
-    dp.update(30,'',"Checking Maverick",'Please Wait')
-    for item in Joker_live_list:
-        Thread(target=Raider_Live_Loop(Search_name,item))
-    dp.update(45,'',"Checking Raider",'Please Wait')
-    for item in Raider_live_list:
-        Thread(target=Raider_Live_Loop(Search_name,item))
-    dp.update(60,'',"Checking Lily Sports",'Please Wait')
-    for item in Lily_List:
-        Thread(target=Raider_Live_Loop(Search_name,item))
-    dp.update(75,'',"Checking Supremecy",'Please Wait')
-    Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
-    dp.update(85,'',"Checking BAMF",'Please Wait')
-    Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/iq4nogib32nnchd/BAMF%20IPTV.txt?dl=1'))	
+    if ADDON.getSetting('Freeview_Search')=='true':
+        dp.update(0,'',"Checking Freeview",'Please Wait')
+        for name,url,mode,img in match:
+    	    if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+                from freeview.freeview import addLink
+                addLink('[COLORred]Freeview [/COLOR]'+name,url,mode,img)
+    if ADDON.getSetting('Oblivion_Search')=='true':
+        dp.update(15,'',"Checking Oblivion",'Please Wait')
+        for item in Oblivion_list:
+            from pyramid._EditOblivion import MainBase as OblivionMain
+            Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
+    if ADDON.getSetting('Maverick_Search')=='true':
+        dp.update(30,'',"Checking Maverick",'Please Wait')
+        for item in Joker_live_list:
+            Thread(target=Raider_Live_Loop(Search_name,item))
+    if ADDON.getSetting('Pyramid_Search')=='true':
+        dp.update(45,'',"Checking Pyramid",'Please Wait')
+        for item in Raider_live_list:
+            Thread(target=Raider_Live_Loop(Search_name,item))
+    if ADDON.getSetting("Tigen's_World_Search")=='true':
+        dp.update(60,'',"Checking Lily Sports",'Please Wait')
+        for item in Lily_List:
+            Thread(target=Raider_Live_Loop(Search_name,item))
+    if ADDON.getSetting('Supremacy_Search')=='true':
+        dp.update(75,'',"Checking Supremacy",'Please Wait')
+        Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
+    if ADDON.getSetting('BAMF_Search')=='true':
+        dp.update(85,'',"Checking BAMF",'Please Wait')
+        Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/iq4nogib32nnchd/BAMF%20IPTV.txt?dl=1'))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 

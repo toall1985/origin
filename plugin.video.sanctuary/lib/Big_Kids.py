@@ -40,29 +40,47 @@ def LISTS(url):
         IMAGE = img
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
     for url,name in match:
-        process.Play(name,url,804,IMAGE,FANART,'','')
+        process.Menu(name,url,804,IMAGE,FANART,'','')
     match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
     for url in match3:
 	    process.Menu('NEXT PAGE',url,804,IMAGE,FANART,'','')
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 
-    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
 def LISTS2(url,IMAGE):
+    sources = []
     html=process.OPEN_URL(url)
     match = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html)
-    for name,url in match:
-        print name + '     ' + url
-        if 'panda' in url:
-            LISTS3(url)
-#second available playlink includes 'easy'        
+    for name,url2 in match:
+        if 'panda' in url2:
+            HTML = process.OPEN_URL(url2)
+            match2 = re.compile("url: '(.+?)'").findall(HTML)
+            for url3 in match2:
+                if 'http' in url3:
+					sources.append({'source': 'playpanda', 'quality': 'SD', 'url': url3})
+        elif 'easy' in url2:
+            HTML2 = process.OPEN_URL(url2)
+            match3 = re.compile("url: '(.+?)'").findall(HTML2)
+            for url3 in match3:
+                if 'http' in url3:
+					sources.append({'source': 'easyvideo', 'quality': 'SD', 'url': url3})
+        elif 'zoo' in url2:
+            HTML3 = process.OPEN_URL(url2)
+            match4 = re.compile("url: '(.+?)'").findall(HTML3)
+            for url3 in match4:
+                if 'http' in url3:
+					sources.append({'source': 'videozoo', 'quality': 'SD', 'url': url3})
+    if len(sources)>=3:
+    	choice = Dialog.select('Select Playlink',
+	                                [link["source"] + " - " + " (" + link["quality"] + ")"
+	                                for link in sources])
+        if choice != -1:
+            url = sources[choice]['url']
+            isFolder=False
+            xbmc.Player().play(url)
 
-	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);			
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
-def LISTS3(url):
-    html=process.OPEN_URL(url)
-    match = re.compile("url: '(.+?)',").findall(html)
-    for url in match:
-        process.Big_Resolve(url)	
+	
