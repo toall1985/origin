@@ -44,7 +44,9 @@ OBLIVION_ICON = base_icons + 'oblivion.png'
 TIGEN_ICON = base_icons + 'Tigen.png'
 COLD_ICON = base_icons + 'Cold.png'
 BAMF_ICON = base_icons + 'BAMF.png'
+FREEDOM_ICON = base_icons + 'freedom.png'
 RENEGADES_ICON = base_icons + 'renegades.png'
+QUICK_ICON = base_icons + 'quick.png'
 
 def Main_Menu():
     process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
@@ -57,9 +59,11 @@ def Main_Menu():
     process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
     process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
+    process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
     process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
     process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
     process.Menu('BAMF IPTV','',1132,BAMF_ICON,FANART,'','')
+    process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
     process.Menu('TV Guide','',2200,ICON,FANART,'','')
     process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
     process.Menu('Latest Episodes','',3,ICON,FANART,'','')
@@ -68,6 +72,7 @@ def Main_Menu():
     process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
 #    process.Menu('Recent','',20,base_icons + 'search.png',FANART,'','')
     process.setView('movies', 'MAIN')	
+	
 	
 def Latest_Episodes():
     process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
@@ -324,6 +329,7 @@ elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
 elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
 elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy()
 elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF()
+elif mode == 1133: from lib.pyramid import pyramid;pyramid.SKindex_Quicksilver()
 elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -722,5 +728,6 @@ elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Pla
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
 elif mode == 10003: from lib import yt;yt.PlayVideo(url)
+
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
