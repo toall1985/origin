@@ -409,11 +409,9 @@ def getSoup(url,data=None):
 
 
 def getData(url,fanart):
-    print 'url-getData',url
     SetViewLayout = "List"
      
     soup = getSoup(url)
-    #print type(soup)
     if isinstance(soup,BeautifulSOAP):
         if len(soup('layoutype')) > 0:
             SetViewLayout = "Thumbnail"		    
@@ -421,15 +419,12 @@ def getData(url,fanart):
         if len(soup('channels')) > 0:
             channels = soup('channel')
             for channel in channels:
-#                print channel
-
                 linkedUrl=''
                 lcount=0
                 try:
                     linkedUrl =  channel('externallink')[0].string
                     lcount=len(channel('externallink'))
                 except: pass
-                #print 'linkedUrl',linkedUrl,lcount
                 if lcount>1: linkedUrl=''
 
                 name = channel('name')[0].string
@@ -490,7 +485,6 @@ def getData(url,fanart):
                 except:
                     addon_log('There was a problem adding directory from getData(): '+name.encode('utf-8', 'ignore'))
         else:
-            addon_log('No Channels: getItems')
             getItems(soup('item'),fanart)
     else:
         parse_m3u(soup)
@@ -818,7 +812,6 @@ def regex_from_to(text, from_string, to_string, excluding=True):
 
 def getItems(items,fanart):
         total = len(items)
-        print 'START GET ITEMS *****'
         addon_log('Total Items: %s' %total)
         for item in items:
             isXMLSource=False
@@ -861,7 +854,6 @@ def getItems(items,fanart):
                             sportsdevil = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url=' +i.string
                             referer = item('referer')[0].string
                             if referer:
-                                #print 'referer found'
                                 sportsdevil = sportsdevil + '%26referer=' +referer
                             url.append(sportsdevil)
                 elif len(item('p2p')) >0:
@@ -1018,14 +1010,20 @@ def getItems(items,fanart):
                         addLink('', name.encode('utf-8', 'ignore'),thumbnail,fanArt,desc,genre,date,True,playlist,regexs,total)
                 else:
                     if isXMLSource:
-                    	addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,fanart,desc,genre,date,None,'source')
+                    	addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
                     elif isJsonrpc:
                         addDir(name.encode('utf-8'),ext_url[0],1153,thumbnail,fanart,desc,genre,date,None,'source')
                     elif url[0].find('sublink') > 0:
                         addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,'','','','')
-                        #addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,desc,genre,date,'sublink')				
+                        #addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,desc,genre,date,'sublink')
                     else: 
-                        addLink(url[0],name.encode('utf-8', 'ignore'),thumbnail,fanArt,desc,genre,date,True,None,regexs,total)
+                        if not total:
+                            total = 1
+                        if not regexs:
+                            regexs = ''
+                        xbmc.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##############################~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#')
+                        xbmc.log('Trying to add Link')
+                        addLink(url[0],name.encode('utf-8', 'ignore'),thumbnail,FANART,desc,genre,date,True,None,regexs,total)
 
                     #print 'success'
             except:

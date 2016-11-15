@@ -125,10 +125,30 @@ def TV_Calender_Prog(extra):
 	for prog, ep in match:
 		process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
 		
-def send_to_search(extra):
+def send_to_search(name,extra):
 	from lib import search
 	Search_name = extra.lower().replace(' ','')
+	if Adult_Pass == 'test':
+		import nanscrapers
+		name_splitter = name + '<>'
+		name_split = re.compile('(.+?) - (.+?) E(.+?)<>').findall(str(name_splitter))
+		for name,season,episode in name_split:
+			name = name
+			season = season
+			episode = episode
+		links_scraper = nanscrapers.scrape_episode(name, '', '', season.replace('Season',''), episode.replace('pisode',''), '', None)
+		if links_scraper is False:
+			pass
+		else:
+			scraped_links = []
+			for scraper_links in links_scraper():
+				if scraper_links is not None:
+					scraped_links.extend(scraper_links)
+			for link in scraped_links:
+				process.Play('Direct Link - '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")",link["url"],'','','','','')
 	search.TV(Search_name)
+
+		
 	
 	
 	
@@ -178,6 +198,7 @@ extra=None
 fanart=None
 fav_mode=None
 regexs=None
+playlist=None
 
 try:
     regexs=params["regexs"]
@@ -220,6 +241,15 @@ try:
     playitem=urllib.unquote_plus(params["playitem"])
 except:
     pass
+try:
+    playlist=eval(urllib.unquote_plus(params["playlist"]).replace('||',','))
+except:
+    pass
+try:
+    regexs=params["regexs"]
+except:
+    pass
+
 	
 if mode == None: Main_Menu()
 elif mode == 1 : process.queueItem()
@@ -229,7 +259,7 @@ elif mode == 4 : Origin_Main()
 elif mode == 5 : Recent_Movies()
 elif mode == 6 : TV_Calender_Day(url)
 elif mode == 7 : TV_Calender_Prog(extra)
-elif mode == 8 : send_to_search(extra)
+elif mode == 8 : send_to_search(name,extra)
 elif mode == 10: from lib import process;process.getFavourites()
 elif mode==11:
     try:

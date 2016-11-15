@@ -87,9 +87,10 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.2.3" provider-name="Communal">
+<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.2.4" provider-name="Communal">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.nanscrapers" optional="true"/>
 	<import addon="script.module.beautifulsoup4" />
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
