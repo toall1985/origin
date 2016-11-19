@@ -363,7 +363,7 @@ def LIST_UPDATE():
 def Search():
     search_name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     url = Decode('aHR0cDovL3d3dy5mdWxsbWF0Y2hlc2FuZHNob3dzLmNvbS8/cz0=')+(search_name).replace(' ','+')
-    origin_url = Decode('aHR0cDovL3d3dy5mb290YmFsbG9yZ2luLmNvbS8/cz0=')+(search_name).replace(' ','+')
+    origin_url = Decode('http://www.footballorgin.com/?s=')+(search_name).replace(' ','+')
     Origin_Highlights(origin_url)
     Get_the_rows(url,ICON)
     

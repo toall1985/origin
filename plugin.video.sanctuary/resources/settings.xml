@@ -19,6 +19,7 @@
 		<setting id="Just_For_Him" type="bool" label="Just for him" default="true"/>
 		<setting id="BAMF" type="bool" label="BAMF" default="true"/>
 		<setting id="Quicksilver" type="bool" label="Quicksilver" default="true"/>
+		<setting id="Rays_Ravers" type="bool" label="Rays Ravers" default="true"/>
 		<setting id="TV_Guide" type="bool" label="TV Guide" default="true"/>
 		<setting id="Today's_Football" type="bool" label="Today's Football" default="true"/>
 		<setting id="Latest_Episodes" type="bool" label="Latest Episodes" default="true"/>
@@ -29,7 +30,7 @@
     <category label="Select Search Sources">
 		<setting id="Origin_Search" type="bool" label="Origin Search" default="true"/>
 		<setting id="Pandoras_Box_Search" type="bool" label="Pandoras Box Search" default="true"/>
-		<setting id="Pyramid_Search" type="bool" label="Pyramid Search" default="true"/>
+		<setting id="Pyramid_Search" type="bool" label="Pyramid Search" default="false"/>
 		<setting id="Maverick_Search" type="bool" label="Maverick Search" default="true"/>
 		<setting id="Freeview_Search" type="bool" label="Freeview Search" default="true"/>
 		<setting id="Brettus_Anime_Search" type="bool" label="Brettus Anime Search" default="true"/>
