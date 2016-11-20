@@ -107,18 +107,7 @@ def Recent_Movies():
     process.Menu('Pyramid Recent Movies','http://tombraiderbuilds.co.uk/addon/New%20Releaes/newreleases.txt',1101,ICON,FANART,'','')
     process.Menu('Maverick Recent Movies','http://164.132.106.213/data/movies/2016.xml',1101,ICON,FANART,'','')
     process.Menu('Supremacy Recent Movies','https://simplekore.com/wp-content/uploads/file-manager/steboy11/New%20Releases/New%20Releases.txt',1101,ICON,FANART,'','')
-
-def Recent():
-    process.Menu('Recent Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Recent TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
-
-def multiv_Main_Menu():
-    process.Menu('Tv Schedule','',301,ICON,FANART,'','')    
-    process.Menu('Latest Episodes','http://www.watchseriesgo.to/latest',301,ICON,FANART,'','')
-    process.Menu('Popular Episodes','http://www.watchseriesgo.to/new',302,ICON,FANART,'','')
-    process.Menu('Genres','',303,ICON,FANART,'','')
-    process.Menu('Search','',309,ICON,FANART,'','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))		
+	
 	
 def TV_Calender_Day(url):
 	process.Menu('[COLORred]Shows will typically appear in addons a day after aired on tv, some sooner[/COLOR]','',6,'','','','')
@@ -152,6 +141,10 @@ def send_to_search(name,extra):
 
 def send_to_movie_search(name,extra):
 	from lib import Scrape_Nan
+	if '(' in name:
+		name_minus_year = re.compile('(.+?) \(').findall(str(name))
+		for item in name:
+			name = item
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
 	year = extra.replace('/)','').replace('/(','')
@@ -268,7 +261,7 @@ elif mode == 5 : Recent_Movies()
 elif mode == 6 : TV_Calender_Day(url)
 elif mode == 7 : TV_Calender_Prog(extra)
 elif mode == 8 : send_to_search(name,extra)
-elif mode == 9 : send_to_movie_search(name,extra)
+elif mode == 9 : from lib import Scrape_Nan;Scrape_Nan.scrape_movie(name,extra)
 elif mode == 10: from lib import process;process.getFavourites()
 elif mode==11:
     try:
@@ -290,8 +283,8 @@ elif mode==12:
     except:
         pass
     process.rmFavorite(name)
-elif mode == 15: TEST()
-elif mode == 20: Recent()
+elif mode == 15: from lib import Scrape_Nan;Scrape_Nan.scrape_episode(extra)
+elif mode == 20: pass
 elif mode == 100: from lib import comedy;comedy.Comedy_Main()
 elif mode == 101: from lib import comedy;comedy.Stand_up()
 elif mode == 102: from lib import comedy;comedy.Search()
@@ -314,18 +307,17 @@ elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
 elif mode == 203 : from lib import Movies;Movies.IMDB_Grab(url)
 elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
 elif mode == 205 : from lib import Movies;Movies.Get_playlink(url)
-elif mode == 300: multiv_Main_Menu()
-elif mode == 301 : from lib import multitv;multitv.Latest_Eps(url)
+elif mode == 206 : from lib import Movies;Movies.IMDB_Top250(url)
+elif mode == 207 : from lib import Movies;Movies.search_movies()
+elif mode == 300 : from lib import multitv;multitv.multiv_Main_Menu()
+elif mode == 301 : from lib import multitv;multitv.IMDB_TOP_100_EPS(url)
 elif mode == 302 : from lib import multitv;multitv.Popular(url)
 elif mode == 303 : from lib import multitv;multitv.Genres()
 elif mode == 304 : from lib import multitv;multitv.Genres_Page(url)
-elif mode == 305 : from lib import multitv;multitv.Grab_Season(url,extra)
-elif mode == 306 : from lib import multitv;multitv.Grab_Episode(url,name,fanart,extra,iconimage)
-elif mode == 307 : from lib import multitv;multitv.Tv_Schedule(url)
-elif mode == 308 : from lib import multitv;multitv.Schedule_Grab(url)
-elif mode == 309 : from lib import multitv;multitv.Search()
-elif mode == 310: from lib import multitv;multitv.Get_Sources(name,url,iconimage,fanart)
-elif mode == 313: from lib import multitv;multitv.Get_site_link(url)
+elif mode == 305 : from lib import multitv;multitv.IMDB_Get_Season_info(url,iconimage,extra)
+elif mode == 306 : from lib import multitv;multitv.IMDB_Get_Episode_info(url,extra)
+elif mode == 307 : from lib import multitv;multitv.SPLIT(extra)
+elif mode == 308 : from lib import multitv;multitv.Search_TV()
 elif mode == 400: from lib import Football_Repeat;Football_Repeat.footy_Main_Menu()
 elif mode == 401: from lib import Football_Repeat;Football_Repeat.get_All_Rows(url,iconimage)
 elif mode == 402: from lib import Football_Repeat;Football_Repeat.get_PLAYlink(url)
@@ -787,7 +779,8 @@ elif mode == 2202 : from lib import tv_guide;tv_guide.whatson(url)
 elif mode == 2203 : from lib import tv_guide;tv_guide.search_split(extra)
 elif mode == 2204 : from lib import tv_guide;tv_guide.TV_GUIDE_CO_UK_CATS()
 elif mode == 2205 : from lib import tv_guide;tv_guide.tvguide_co_uk(url)
-elif mode == 2206 : from lib import tv_guide;tv_guide.WhatsOnCOUK(url)
+elif mode == 2206 : from lib import tv_guide;tv_guide.WhatsOnCOUK(url,extra)
+elif mode == 2207 : from lib import tv_guide;tv_guide.Select_Type()
 elif mode == 2250 : from lib import raysravers;raysravers.LISTS(url)
 elif mode == 2251 : from lib import raysravers;raysravers.LISTS2(url)
 elif mode == 2252 : from lib import raysravers;raysravers.SEARCHLISTS()
