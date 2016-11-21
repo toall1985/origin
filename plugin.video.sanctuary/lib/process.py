@@ -63,6 +63,8 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
         PLAY(name,url,mode,iconimage,fanart,description,extra)
     elif 'm3u' in url:
         PLAY(name,url,mode,iconimage,fanart,description,extra)
+    elif 'stagevu' in url:
+        PLAY(name,url,mode,iconimage,fanart,description,extra)
     else:
         from pyramid import pyramid
         pyramid.addLink(url,name,iconimage,fanart,description,'','',True,'','',1,'')

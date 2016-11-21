@@ -28,7 +28,6 @@ def IMDB_TOP_100_EPS(url):
 		try:
 			url = 'http://www.imdb.com'+url
 			img = img.replace('45,67','174,256').replace('UY67','UY256').replace('UX45','UX175')
-			xbmc.log(title)
 			process.Menu(title+' '+year,url,305,img,'','',title)
 		except:
 			pass
@@ -39,24 +38,39 @@ def IMDB_Get_Season_info(url,image,title):
 	for rest,name in match:
 		if 'season' in rest:
 			url = 'http://www.imdb.com/title/'+str(rest).encode('utf-8')
-			xbmc.log(title)
 			process.Menu('Season '+name,url,306,image,'','',title)
 			xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE)
 
 def IMDB_Get_Episode_info(url,title):
 	html = requests.get(url).text
-	match = re.compile('<div class="list_item.+?title="(.+?)".+?src="(.+?)".+?<div>(.+?)</div>.+?<div class="item_description" itemprop="description">(.+?)</div>',re.DOTALL).findall(html)
-	for name,image,ep_no,desc in match:
+	block = re.compile('<div class="list_item(.+?)itemprop="description">(.+?)</div>',re.DOTALL).findall(html)
+	for block_,desc in block:
+		name = re.compile('title="(.+?)"').findall(str(block_))
+		for item in name:
+			name = item
+		image = re.compile('src="(.+?)"').findall(str(block_))
+		for item in image:
+			image = item
+		else:
+			image = ''
+		ep_no = re.compile('<div>S(.+?)</div>').findall(str(block_))
+		for item in ep_no:
+			ep_no = item
 		ep_split = ep_no+'<'
 		Split = re.compile('(.+?),(.+?)<').findall(str(ep_split))
 		for one,two in Split:
+			xbmc.log('split')
 			season = one.replace('S','Season ')
+			xbmc.log('season')
 			episode = two.replace('Ep','Episode ')
 		search_split = 'SPLITTER>'+title+'>'+season.replace('Season ','')+'>'+episode.replace(' Episode ','')+'>'
-		xbmc.log(search_split)
+		xbmc.log('search split')
 		final_name = episode+' - '+name
+		xbmc.log('final name')
 		process.Menu(final_name.encode('utf-8'),'',307,image,'',desc.encode('utf-8'),search_split)
+		xbmc.log('displaying')
 		process.setView('movies', 'I')
+		xbmc.log('view set')
 		
 def SPLIT(extra):
 	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)').findall(str(extra))
@@ -98,7 +112,6 @@ def Popular(url):
         split = re.compile('Season (.+?), Episode (.+?) -').findall(str(Season))
         for season, episode in split:
             search_split = 'SPLITTER>'+title+'>'+season+'>'+episode+'>'
-            xbmc.log(search_split)
             process.Menu(title+' - '+Season,url,307,img,FANART,desc,search_split)		
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 

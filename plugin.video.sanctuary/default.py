@@ -110,15 +110,28 @@ def Recent_Movies():
 	
 	
 def TV_Calender_Day(url):
-	process.Menu('[COLORred]Shows will typically appear in addons a day after aired on tv, some sooner[/COLOR]','',6,'','','','')
-	process.Menu('[COLORred]If you press on a show it will search addons in sanctuary for the show name, you will then need to select episode[/COLOR]','',6,'','','','')
+	from datetime import datetime
+	today = datetime.now().strftime("%d")
+	this_month = datetime.now().strftime("%m")
+	this_year = datetime.now().strftime("%y")
+	todays_number = (int(this_year)*100)+(int(this_month)*31)+(int(today))
 	HTML = process.OPEN_URL(url)
 	match = re.compile('<span class="dayofmonth">.+?<span class=".+?">(.+?)</span>(.+?)</span>(.+?)</div>',re.DOTALL).findall(HTML)
 	for Day_Month,Date,Block in match:
 		Date = Date.replace('\n','').replace('  ','').replace('	','')
 		Day_Month = Day_Month.replace('\n','').replace('  ','').replace('	','')
 		Final_Name = Day_Month.replace(',',' '+Date+' ')
-		process.Menu(Final_Name,'',7,'','','',Block)
+		split_month = Day_Month+'>'
+		Month_split = re.compile(', (.+?)>').findall(str(split_month))
+		for item in Month_split:
+			month_one = item.replace('January','1').replace('February','2').replace('March','3').replace('April','4').replace('May','5').replace('June','6')
+			month = month_one.replace('July','7').replace('August','8').replace('September','9').replace('October','10').replace('November','11').replace('December','12')
+		show_day = Date.replace('st','').replace('th','').replace('nd','').replace('rd','')
+		shows_number = (int(this_year)*100)+(int(month)*31)+(int(show_day))
+		if shows_number>= todays_number:
+			process.Menu('[COLORred]*'+'[COLORwhite]'+Final_Name+'[/COLOR]','',7,'','','',Block)
+		else:
+			process.Menu('[COLORgreen]*'+'[COLORwhite]'+Final_Name+'[/COLOR]','',7,'','','',Block)
 
 def TV_Calender_Prog(extra):
 	match = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(extra))
@@ -309,6 +322,8 @@ elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
 elif mode == 205 : from lib import Movies;Movies.Get_playlink(url)
 elif mode == 206 : from lib import Movies;Movies.IMDB_Top250(url)
 elif mode == 207 : from lib import Movies;Movies.search_movies()
+elif mode == 208 : from lib import Movies;Movies.movie_channels()
+elif mode == 209 : from lib import Movies;Movies.split_for_search(extra)
 elif mode == 300 : from lib import multitv;multitv.multiv_Main_Menu()
 elif mode == 301 : from lib import multitv;multitv.IMDB_TOP_100_EPS(url)
 elif mode == 302 : from lib import multitv;multitv.Popular(url)
@@ -376,6 +391,7 @@ elif mode == 903: from lib import Pandora;Pandora.Search_Menu()
 elif mode == 904: from lib import Pandora;Pandora.Search_Pandoras_Films()
 elif mode == 905: from lib import Pandora;Pandora.Search_Pandoras_TV()
 elif mode == 906: process.Big_Resolve(url)
+elif mode == 907: from lib import Pandora;Pandora.Pans_Resolve(name,url)
 elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex()
 elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
 elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
@@ -773,7 +789,7 @@ elif mode == 2107 : from lib import Sports_Replays;Sports_Replays.F1_items(url,i
 elif mode == 2108 : from lib import Sports_Replays;Sports_Replays.F1_Playlink(url)
 elif mode == 2150 : from lib import renegades;renegades.run()
 elif mode == 2151 : import plugintools;plugintools.add_item(mode,name,url,iconimage,fanart)
-elif mode == 2200 : from lib import tv_guide;tv_guide.TV_GUIDE_MENU()
+elif mode == 2200 : from lib import tv_guide;tv_guide.TV_GUIDE_CO_UK_CATS()#TV_GUIDE_MENU()
 elif mode == 2201 : from lib import tv_guide;tv_guide.whatsoncat()
 elif mode == 2202 : from lib import tv_guide;tv_guide.whatson(url)
 elif mode == 2203 : from lib import tv_guide;tv_guide.search_split(extra)

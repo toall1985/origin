@@ -1,5 +1,5 @@
 def scrape_episode(name,season,episode):
-	import process, xbmcgui
+	import process, xbmcgui, sys, xbmcplugin
 	from nanscrapers import scrape_episode
 	progress = []
 	item = []
@@ -20,10 +20,19 @@ def scrape_episode(name,season,episode):
 				dp.update(int(dp_add),'Checking sources',"Checking Nan Scrapers",'Please Wait')				
 				scraped_links.extend(scraper_links)
 		for link in scraped_links:
-			process.Play(link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")",link["url"],906,'','','','')
+			if link["quality"]=='SD': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='CAM': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='360': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='480': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='560': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='720': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			process.Play(name,link["url"],906,'','','','')
+			xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 
 def scrape_movie(name,year):
-	import process, xbmcgui,re
+	import process, xbmcgui,re, xbmcplugin, sys
 	from nanscrapers import scrape_movie
 	if '(' in name:
 		year_remover = re.compile('\((.+?)\)').findall(str(name))
@@ -51,5 +60,14 @@ def scrape_movie(name,year):
 					dp.update(int(dp_add),'Checking sources',"Checking Nan Scrapers",'Please Wait')				
 					scraped_links.extend(scraper_links)
 			for link in scraped_links:
-				process.Play(link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")",link["url"],906,'','','','')
+				if link["quality"]=='SD': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='CAM': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='360': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='480': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='560': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='720': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				process.Play(name,link["url"],906,'','','','')
+				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 

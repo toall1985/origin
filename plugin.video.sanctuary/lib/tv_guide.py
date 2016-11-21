@@ -8,8 +8,8 @@ Minute = datetime.now().strftime('%M')
 time_now_number = str((int(Hour)*60)+int(Minute))
 
 def TV_GUIDE_MENU():
-    process.Menu('Telegraph TV Guide','',2201,'','','','')
-    process.Menu('TVGuide.co.uk','',2204,'','','','')
+#    process.Menu('Telegraph TV Guide','',2201,'','','','')
+#    process.Menu('TVGuide.co.uk','',2204,'','','','')
 	
 def TV_GUIDE_CO_UK_CATS():
     process.Menu('Search by channel number','',2207,'','','','')
