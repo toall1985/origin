@@ -28,7 +28,7 @@ def IMDB_TOP_100_EPS(url):
 		try:
 			url = 'http://www.imdb.com'+url
 			img = img.replace('45,67','174,256').replace('UY67','UY256').replace('UX45','UX175')
-			process.Menu(title+' '+year,url,305,img,'','',title)
+			process.Menu(title+' '+year,url,305,img,'','',title+year)
 		except:
 			pass
 		
@@ -42,6 +42,7 @@ def IMDB_Get_Season_info(url,image,title):
 			xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE)
 
 def IMDB_Get_Episode_info(url,title):
+	ep_year = ''
 	html = requests.get(url).text
 	block = re.compile('<div class="list_item(.+?)itemprop="description">(.+?)</div>',re.DOTALL).findall(html)
 	for block_,desc in block:
@@ -53,30 +54,33 @@ def IMDB_Get_Episode_info(url,title):
 			image = item
 		else:
 			image = ''
+		year = re.compile('<div class="airdate">(.+?)</div>',re.DOTALL).findall(str(block_))
+		for item in year:
+			splitone = item.replace('\n','').replace('  ','').replace('	','') +'>'
+			xbmc.log(splitone)
+			show_year_split = re.compile(' .+?\. (.+?)>').findall(str(splitone))
+			for item in show_year_split:
+				ep_year = item
 		ep_no = re.compile('<div>S(.+?)</div>').findall(str(block_))
 		for item in ep_no:
 			ep_no = item
 		ep_split = ep_no+'<'
 		Split = re.compile('(.+?),(.+?)<').findall(str(ep_split))
 		for one,two in Split:
-			xbmc.log('split')
 			season = one.replace('S','Season ')
-			xbmc.log('season')
 			episode = two.replace('Ep','Episode ')
-		search_split = 'SPLITTER>'+title+'>'+season.replace('Season ','')+'>'+episode.replace(' Episode ','')+'>'
-		xbmc.log('search split')
+		title_split = re.compile('(.+?)\((.+?)\)').findall(str(title))
+		for title,show_year in title_split:
+			search_split = 'SPLITTER>'+title+'>'+show_year+'>'+ep_year+'>'+season.replace('Season ','')+'>'+episode.replace(' Episode ','')+'>'
 		final_name = episode+' - '+name
-		xbmc.log('final name')
 		process.Menu(final_name.encode('utf-8'),'',307,image,'',desc.encode('utf-8'),search_split)
-		xbmc.log('displaying')
 		process.setView('movies', 'I')
-		xbmc.log('view set')
 		
 def SPLIT(extra):
-	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)').findall(str(extra))
-	for name,season,episode in finish:
+	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)>(.+?)>(.+?)>').findall(str(extra))
+	for title,show_year,ep_year,season,episode in finish:
 		from Scrape_Nan import scrape_episode
-		scrape_episode(name,season,episode)
+		scrape_episode(title,show_year,ep_year,season,episode)
 
 def Search_TV():
 	Search_title = xbmcgui.Dialog().input('Search', type=xbmcgui.INPUT_ALPHANUM)
@@ -91,7 +95,7 @@ def Search_TV():
 				url = 'http://imdb.com'+url
 				year = year.replace('(TV Series)','')
 				image = image.replace('32,44','174,256').replace('UY67','UY256').replace('UX32','UX175').replace('UY44','UY256')
-				process.Menu(title+' '+year,url,305,image,'','',title)
+				process.Menu(title+' '+year,url,305,image,'','',title+year)
 					
 def Genres():
 	html = requests.get('http://www.imdb.com/genre/').text

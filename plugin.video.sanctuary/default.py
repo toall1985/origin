@@ -95,8 +95,8 @@ def Main_Menu():
     if ADDON.getSetting('Search')=='true':
         process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
     process.setView('movies', 'MAIN')
-	
-	
+
+
 def Latest_Episodes():
     process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
     process.Menu('Origin Latest Episodes','http://www.watchseriesgo.to/latest',301,ICON,FANART,'','')
@@ -107,8 +107,8 @@ def Recent_Movies():
     process.Menu('Pyramid Recent Movies','http://tombraiderbuilds.co.uk/addon/New%20Releaes/newreleases.txt',1101,ICON,FANART,'','')
     process.Menu('Maverick Recent Movies','http://164.132.106.213/data/movies/2016.xml',1101,ICON,FANART,'','')
     process.Menu('Supremacy Recent Movies','https://simplekore.com/wp-content/uploads/file-manager/steboy11/New%20Releases/New%20Releases.txt',1101,ICON,FANART,'','')
-	
-	
+
+
 def TV_Calender_Day(url):
 	from datetime import datetime
 	today = datetime.now().strftime("%d")
@@ -137,19 +137,20 @@ def TV_Calender_Prog(extra):
 	match = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(extra))
 	for prog, ep in match:
 		process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
-		
+
 def send_to_search(name,extra):
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
 	from lib import search, Scrape_Nan
 	Search_name = extra.lower().replace(' ','')
 	name_splitter = name + '<>'
-	name_split = re.compile('(.+?) - (.+?) E(.+?)<>').findall(str(name_splitter))
+	name_split = re.compile('(.+?) - Season(.+?) Episode(.+?)<>').findall(str(name_splitter))
 	for name,season,episode in name_split:
-		name = name
+		title = name
 		season = season
 		episode = episode
-	Scrape_Nan.scrape_episode(name,season,episode)
+	year = ''
+	Scrape_Nan.scrape_episode(title,year,'',season,episode)
 	search.TV(Search_name)
 
 def send_to_movie_search(name,extra):
@@ -163,9 +164,9 @@ def send_to_movie_search(name,extra):
 	year = extra.replace('/)','').replace('/(','')
 	Scrape_Nan.scrape_movie(name,year)
 
-	
-	
-	
+
+
+
 def Origin_Main():
     process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -175,33 +176,33 @@ def Origin_Main():
     process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
-		
+
 def Music():
     process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music Search','',1503,'','','','')
-		
+
 
 def get_params():
         param=[]
         paramstring=sys.argv[2]
-        if len(paramstring)>=2: 
-                params=sys.argv[2] 
+        if len(paramstring)>=2:
+                params=sys.argv[2]
                 cleanedparams=params.replace('?','')
                 if (params[len(params)-1]=='/'):
                         params=params[0:len(params)-2]
                 pairsofparams=cleanedparams.split('&')
-                param={}    
+                param={}
                 for i in range(len(pairsofparams)):
                         splitparams={}
                         splitparams=pairsofparams[i].split('=')
                         if (len(splitparams))==2:
                                 param[splitparams[0]]=splitparams[1]
-                                
+
         return param
-        
+
 params=get_params()
 url=None
 name=None
@@ -239,15 +240,15 @@ try:
         iconimage=urllib.unquote_plus(params["iconimage"])
 except:
         pass
-try:        
+try:
         mode=int(params["mode"])
 except:
         pass
-try:        
+try:
         fanart=urllib.unquote_plus(params["fanart"])
 except:
         pass
-try:        
+try:
         description=urllib.unquote_plus(params["description"])
 except:
         pass
@@ -264,7 +265,7 @@ try:
 except:
     pass
 
-	
+
 if mode == None: Main_Menu()
 elif mode == 1 : process.queueItem()
 elif mode == 2 : Music()
@@ -390,11 +391,11 @@ elif mode == 426: from lib import Pandora;Pandora.Pandora_Menu(url)
 elif mode == 903: from lib import Pandora;Pandora.Search_Menu()
 elif mode == 904: from lib import Pandora;Pandora.Search_Pandoras_Films()
 elif mode == 905: from lib import Pandora;Pandora.Search_Pandoras_TV()
-elif mode == 906: process.Big_Resolve(url)
+elif mode == 906: process.Big_Resolve(name,url)
 elif mode == 907: from lib import Pandora;Pandora.Pans_Resolve(name,url)
 elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex()
 elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker()
-elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()	
+elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()
 elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy()
 elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF()
 elif mode == 1133: from lib.pyramid import pyramid;pyramid.SKindex_Quicksilver()
@@ -428,18 +429,22 @@ elif mode==1109:from lib.pyramid import pyramid;pyramid.download_file(name, url)
 elif mode==1110:from lib.pyramid import pyramid;pyramid.getCommunitySources()
 elif mode==1111:from lib.pyramid import pyramid;pyramid.addSource(url)
 elif mode==1112:
-    from lib.pyramid import pyramid
-    if 'google' in url:
-        import urlresolver
-        resolved = urlresolver.resolve(url)
-        item = xbmcgui.ListItem(path=resolved)
-        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
-    elif not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
-        item = xbmcgui.ListItem(path=url)
-        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
-    else:
-        print 'Not setting setResolvedUrl'
-        xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		try:
+			xbmc.Player().play(url, xbmcgui.ListItem(name))
+		except:
+			xbmcgui.Dialog().notification("Sanctuary", "unplayable stream")
+			sys.exit()
+#    if not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
+ #       item = xbmcgui.ListItem(path=url)
+  #      xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+   # else:
+    #    print 'Not setting setResolvedUrl'
+     #   xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
 elif mode==1113:from lib.pyramid import pyramid;pyramid.play_playlist(name, playlist)
 elif mode==1114:from lib.pyramid import pyramid;pyramid.get_xml_database(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1115:from lib.pyramid import pyramid;pyramid.get_xml_database(url, True);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -457,9 +462,9 @@ elif mode==1118:
         xbmc.executebuiltin("XBMC.Notification(ThePyramid,Please [COLOR yellow]install the Youtube Addon[/COLOR] module ,10000,"")")
     stream_url=youtubedl.single_YD(url)
     from lib.pyramid import pyramid;pyramid.playsetresolved(stream_url,name,iconimage)
-elif mode==1119:from lib.pyramid import pyramid;pyramid.playsetresolved (pyramid.urlsolver(url),name,iconimage,True)	
+elif mode==1119:from lib.pyramid import pyramid;pyramid.playsetresolved (pyramid.urlsolver(url),name,iconimage,True)
 elif mode==1121:from lib.pyramid import pyramid;pyramid.ytdl_download('',name,'video')
-elif mode==1123:from lib.pyramid import pyramid;pyramid.ytdl_download(url,name,'video') 
+elif mode==1123:from lib.pyramid import pyramid;pyramid.ytdl_download(url,name,'video')
 elif mode==1124:from lib.pyramid import pyramid;pyramid.ytdl_download(url,name,'audio')
 elif mode==1125:from lib.pyramid import pyramid;pyramid.search(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1126:
@@ -468,8 +473,8 @@ elif mode==1126:
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1127:
     from lib.pyramid import pyramid;pyramid.pulsarIMDB=search(url)
-    xbmc.Player().play(pulsarIMDB) 
-elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)	
+    xbmc.Player().play(pulsarIMDB)
+elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)
 elif mode == 1140:from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1141: from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
@@ -579,7 +584,7 @@ elif mode==1912:
         item = xbmcgui.ListItem(path=url)
         if not setres:
             xbmc.Player().play(url)
-        else: 
+        else:
             xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
     else:
         xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
@@ -607,7 +612,7 @@ playitem=''
 if not playitem =='':
     s=getSoup('',data=playitem)
     name,url,regexs=getItems(s,None,dontLink=True)
-    mode=1990 
+    mode=1990
 
 elif mode==1917 or mode==1990:
     from lib.freedom import freedom
@@ -633,37 +638,37 @@ elif mode==1917 or mode==1990:
                         for the_keyO, the_valueO in newcopy.iteritems():
                             if the_valueO is not None:
                                 for the_key, the_value in the_valueO.iteritems():
-                                    if the_value is not None:                                
+                                    if the_value is not None:
                                         if type(the_value) is dict:
                                             for the_keyl, the_valuel in the_value.iteritems():
                                                 if the_valuel is not None:
                                                     val=None
-                                                    if isinstance(obj,tuple):                                                    
+                                                    if isinstance(obj,tuple):
                                                         try:
-                                                           val= obj[i].decode('utf-8') 
-                                                        except: 
+                                                           val= obj[i].decode('utf-8')
+                                                        except:
                                                             val= obj[i]
                                                     else:
                                                         try:
-                                                            val= obj.decode('utf-8') 
+                                                            val= obj.decode('utf-8')
                                                         except:
                                                             val= obj
-                                                    
+
                                                     if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_valuel:
                                                         the_valuel=the_valuel.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
                                                     the_value[the_keyl]=the_valuel.replace('[' + regexname+'.param'+str(i+1) + ']', val)
                                                     #print 'first sec',the_value[the_keyl]
-                                                    
+
                                         else:
                                             val=None
                                             if isinstance(obj,tuple):
                                                 try:
-                                                     val=obj[i].decode('utf-8') 
+                                                     val=obj[i].decode('utf-8')
                                                 except:
-                                                    val=obj[i] 
+                                                    val=obj[i]
                                             else:
                                                 try:
-                                                    val= obj.decode('utf-8') 
+                                                    val= obj.decode('utf-8')
                                                 except:
                                                     val= obj
                                             if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_value:
@@ -682,18 +687,18 @@ elif mode==1917 or mode==1990:
                     else:
                         try:
                             val=obj.decode('utf-8')
-                        except: 
+                        except:
                             val=obj
                     if '[' + regexname+'.param'+str(i+1) + '][DE]' in listrepeatT:
                         listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(i+1) + '][DE]',val)
                     listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(i+1) + ']',escape(val))
-                listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(0) + ']',str(rnumber)) 
-                
+                listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(0) + ']',str(rnumber))
+
                 regex_xml=''
                 if len(newcopy)>0:
                     regex_xml=d2x(newcopy,'lsproroot')
                     regex_xml=regex_xml.split('<lsproroot>')[1].split('</lsproroot')[0]
-              
+
                 try:
                     ln+='\n<item>%s\n%s</item>'%(listrepeatT,regex_xml)
                 except: ln+='\n<item>%s\n%s</item>'%(listrepeatT.encode("utf-8"),regex_xml)
@@ -789,7 +794,7 @@ elif mode == 2107 : from lib import Sports_Replays;Sports_Replays.F1_items(url,i
 elif mode == 2108 : from lib import Sports_Replays;Sports_Replays.F1_Playlink(url)
 elif mode == 2150 : from lib import renegades;renegades.run()
 elif mode == 2151 : import plugintools;plugintools.add_item(mode,name,url,iconimage,fanart)
-elif mode == 2200 : from lib import tv_guide;tv_guide.TV_GUIDE_CO_UK_CATS()#TV_GUIDE_MENU()
+elif mode == 2200 : from lib import tv_guide;tv_guide.TV_GUIDE_MENU()
 elif mode == 2201 : from lib import tv_guide;tv_guide.whatsoncat()
 elif mode == 2202 : from lib import tv_guide;tv_guide.whatson(url)
 elif mode == 2203 : from lib import tv_guide;tv_guide.search_split(extra)
