@@ -68,16 +68,22 @@ def IMDB_Get_Episode_info(url,title):
 		Split = re.compile('(.+?),(.+?)<').findall(str(ep_split))
 		for one,two in Split:
 			season = one.replace('S','Season ')
-			episode = two.replace('Ep','Episode ')
+			episode = two.replace('Ep','Episode ').replace(' Episode ','')
 		title_split = re.compile('(.+?)\((.+?)\)').findall(str(title))
 		for title,show_year in title_split:
-			search_split = 'SPLITTER>'+title+'>'+show_year+'>'+ep_year+'>'+season.replace('Season ','')+'>'+episode.replace(' Episode ','')+'>'
-		final_name = episode+' - '+name
+			title = title
+			show_year = show_year
+		search_split = 'SPLITTER>'+title+'>'+show_year+'>'+ep_year+'>'+season+'>'+episode+'>'
+		search_split = search_split.replace(' >','>')
+		xbmc.log('SPLIT===='+search_split)
+		xbmc.log('EPISODE='+episode)
+		final_name = 'Episode '+episode+' - '+name
 		process.Menu(final_name.encode('utf-8'),'',307,image,'',desc.encode('utf-8'),search_split)
 		process.setView('movies', 'I')
 		
 def SPLIT(extra):
 	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)>(.+?)>(.+?)>').findall(str(extra))
+	xbmc.log(extra)
 	for title,show_year,ep_year,season,episode in finish:
 		from Scrape_Nan import scrape_episode
 		scrape_episode(title,show_year,ep_year,season,episode)

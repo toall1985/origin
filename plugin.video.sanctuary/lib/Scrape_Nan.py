@@ -34,16 +34,8 @@ def scrape_episode(title,show_year,year,season,episode):
 			elif link["quality"]=='1080': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			elif link["quality"]=='HD': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-			if 'vidzi' in name: name = ' ' +name
-			elif 'vidbull' in name: name = ' ' +name
-			elif 'vidto' in name: name = ' ' +name
-			if 'openload.co' in name:
-				pass
-			elif 'thevideo.me' in name:
-				pass
-			else:
-				process.PLAY(name,link["url"],906,'','','','')
-				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
+			process.PLAY(name,link["url"],906,'','','','')
+			xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 
 def scrape_movie(name,year):
 	import process, xbmcgui,re, xbmcplugin, sys

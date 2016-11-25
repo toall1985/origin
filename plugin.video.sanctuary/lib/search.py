@@ -117,14 +117,17 @@ def Movies(Search_name):
 def TV(Search_name):
     dp.create('Checking for streams')
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
-        dp.update(25,'',"Checking Pandoras Box",'Please Wait')
+        dp.update(20,'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_TV(Search_name))
     if ADDON.getSetting('Origin_Search')=='true':
-        dp.update(50,'',"Checking Origin",'Please Wait')
+        dp.update(40,'',"Checking Origin",'Please Wait')
         Thread(target=Search_WatchSeries(Search_name))
     if ADDON.getSetting('Cold_As_Ice_Search')=='true':
-        dp.update(75,'',"Checking Cold As Ice",'Please Wait')
+        dp.update(60,'',"Checking Cold As Ice",'Please Wait')
         Thread(target=Cold_AS_Ice(Search_name))
+    if ADDON.getSetting("Tigen's_World_Search")=='true':
+        dp.update(80,'',"Checking Tigen's World",'Please Wait')
+        Thread(target=Raider_Loop(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	

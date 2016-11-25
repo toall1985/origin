@@ -43,7 +43,7 @@ def LISTS(url):
         process.Menu(name,url,804,IMAGE,FANART,'','')
     match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
     for url in match3:
-	    process.Menu('NEXT PAGE',url,804,IMAGE,FANART,'','')
+	    process.Menu('NEXT PAGE',url,803,IMAGE,FANART,'','')
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
