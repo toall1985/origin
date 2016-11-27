@@ -75,16 +75,6 @@ def scrape_movie(name,year):
 				elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				import urlresolver
-				try:
-					xbmc.log("resolving " + url)
-					resolved_url = urlresolver.resolve(url)
-					xbmc.log("resolved")
-				except:
-					url = link["url"]
-					sys.exit()
-				if resolved_url:
-					url = resolved_url
-				process.PLAY(name,url,906,'','','','')
+				process.Play(name,link["url"],906,'','','','')
 				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 

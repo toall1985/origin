@@ -39,11 +39,11 @@ def F1_items(url,iconimage):
 				pass
 			elif 'nosvideo' in url:
 				if url not in url_List:
-					process.Play('[COLORred]nosvideo[/COLOR] - '+name,url,1112,iconimage,'','','')
+					process.Play('[COLORred]nosvideo[/COLOR] - '+name,url,906,iconimage,'','','')
 					url_List.append(url)
 			elif 'drive' in url:
 				if url not in url_List:
-					process.Play('[COLORred]gdrive[/COLOR] - '+name,url,1112,iconimage,'','','')
+					process.Play('[COLORred]gdrive[/COLOR] - '+name,url,906,iconimage,'','','')
 					url_List.append(url)
 			else:
 				pass

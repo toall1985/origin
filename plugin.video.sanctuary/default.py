@@ -48,6 +48,9 @@ FREEDOM_ICON = base_icons + 'freedom.png'
 RENEGADES_ICON = base_icons + 'renegades.png'
 QUICK_ICON = base_icons + 'quick.png'
 RAY_ICON = base_icons + 'raysraver.png'
+SILENT_ICON = base_icons + 'silent.png'
+REAPER_ICON = base_icons + 'reaper.png'
+DOJO_ICON = base_icons + 'dojo.png'
 
 def Main_Menu():
     if ADDON.getSetting('Origin')=='true':
@@ -82,6 +85,10 @@ def Main_Menu():
         process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
     if ADDON.getSetting('Rays_Ravers')=='true':
         process.Menu('Rays Ravers','',2250,RAY_ICON,'','','')
+    if ADDON.getSetting('Silent_Hunter')=='true':
+        process.Menu('Silent Hunter','',1134,SILENT_ICON,'','','')
+    if ADDON.getSetting('Dojo')=='true':
+        process.Menu('Dojo Streams','',2300,DOJO_ICON,'','','')
     if ADDON.getSetting('TV_Guide')=='true':
         process.Menu('TV Guide','',2200,ICON,FANART,'','')
     if ADDON.getSetting("Today's_Football")=='true':
@@ -95,6 +102,29 @@ def Main_Menu():
     if ADDON.getSetting('Search')=='true':
         process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
     process.setView('movies', 'MAIN')
+	
+def DOJO_MAIN():
+    OPEN = process.OPEN_URL('http://herovision.x10host.com/dojo/main.php')
+    Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
+    for url,icon,desc,fanart,name in Regex:
+        if 'php' in url:
+            process.Menu(name,url,2301,icon,fanart,desc,'')
+        else:
+            process.Play(name,url,906,icon,fanart,desc,'')
+#    else:
+#        Menu('[COLORred]Dojo Search[/COLOR]',url,3,icon,fanart,desc,'')
+
+    process.setView('tvshows', 'Media Info 3')			
+	
+def DOJO_LOOP(url):
+    OPEN = process.OPEN_URL(url)
+    Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
+    for url,icon,desc,fanart,name in Regex:
+        if 'php' in url:
+            process.Menu(name,url,2301,icon,fanart,desc,'')
+        else:
+            process.Play(name,url,906,icon,fanart,desc,'')
+    process.setView('tvshows', 'Media Info 3')
 
 
 def Latest_Episodes():
@@ -351,7 +381,7 @@ elif mode == 413: from lib import Football_Repeat;Football_Repeat.footytube(url)
 elif mode == 414: from lib import Football_Repeat;Football_Repeat.footytube_leagues(name)
 elif mode == 415: from lib import Football_Repeat;Football_Repeat.footytube_teams(url)
 elif mode == 416: from lib import Football_Repeat;Football_Repeat.footytube_videos(url)
-elif mode == 417: from lib import Football_Repeat;Football_Repeat.footytube_frame(url)
+elif mode == 417: from lib import Football_Repeat;Football_Repeat.footytube_frame(name,url)
 elif mode == 418: from lib import Football_Repeat;Football_Repeat.get_origin_playlink(url,iconimage,FANART)
 elif mode == 419: from lib import Football_Repeat;Football_Repeat.Resolve(url)
 elif mode == 420: from lib import Football_Repeat;Football_Repeat.FootballFixturesSingle(description);Football_Repeat.window.doModal();del Football_Repeat.window
@@ -399,6 +429,7 @@ elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion()
 elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy()
 elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF()
 elif mode == 1133: from lib.pyramid import pyramid;pyramid.SKindex_Quicksilver()
+elif mode == 1134: from lib.pyramid import pyramid;pyramid.SKindex_Silent()
 elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -805,6 +836,8 @@ elif mode == 2207 : from lib import tv_guide;tv_guide.Select_Type()
 elif mode == 2250 : from lib import raysravers;raysravers.LISTS(url)
 elif mode == 2251 : from lib import raysravers;raysravers.LISTS2(url)
 elif mode == 2252 : from lib import raysravers;raysravers.SEARCHLISTS()
+elif mode == 2300 : DOJO_MAIN()
+elif mode == 2301 : DOJO_LOOP(url)
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)

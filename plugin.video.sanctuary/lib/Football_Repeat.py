@@ -39,6 +39,7 @@ addon_button = 'http://herovision.x10host.com/fb_replays/addon_button.png'
 addon_button_focus = 'http://herovision.x10host.com/fb_replays/addon_button_focus.png'
 metalliq_button = 'http://herovision.x10host.com/fb_replays/metalliq.jpg'
 metalliq_button_focus = 'http://herovision.x10host.com/fb_replays/metalliq_focus.jpg'
+addon_handle = int(sys.argv[1])
 
 window  = pyxbmct.AddonDialogWindow('')
 window.setGeometry(1250, 650, 100, 50)
@@ -1549,29 +1550,33 @@ def footytube_videos(url):
         addDir(name + ' - ' + age, footy+url,417,img,FANART,'')
 
 		
-def footytube_frame(url):
-    HTML = OPEN_URL(url)
-    match = re.compile('<iframe src="(.+?)" width=').findall(HTML)
-    for url in match:
-        url = footy + url
-        get_footytube_PLAYlink(url)	
-    match_youtube = re.compile('<iframe id="ft_player" width="100%" height="100%" src="http://www.youtube.com/embed/(.+?)?rel=0&autoplay=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>').findall(HTML)
-    for url in match_youtube:
-        yt.PlayVideo(url)
+def footytube_frame(name,url):
+	HTML = OPEN_URL(url)
+	match = re.compile('<iframe src="(.+?)" width=').findall(HTML)
+	for url in match:
+		url = footy + url
+		get_footytube_PLAYlink(url)	
+	match_youtube = re.compile('<iframe id="ft_player" width="100%" height="100%" src="http://www.youtube.com/embed/(.+?)?rel=0&autoplay=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>').findall(HTML)
+	for url in match_youtube:
+		import process
+		url = 'plugin://plugin.video.youtube/play/?video_id='+url
+		process.Big_Resolve(name,url)
 
 		
 def get_footytube_PLAYlink(url):
-    HTML = OPEN_URL(url)
-    match_youtube = re.compile('<iframe width="560" height="315" src="https://www.youtube.com/embed/(.+?)" frameborder="0" allowfullscreen>').findall(HTML)
-    for url in match_youtube:
-        yt.PlayVideo(url)
-    match = re.compile('<script data-config="(.+?)" data-css=".+?" data-height="100%" data-width="100%" src=".+?" type="text/javascript"></script>').findall(HTML)
-    for playlink in match:
-        if 'div' in playlink:
-            pass
-        else:
-            Playlink = (playlink).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
-            Resolve('http:'+Playlink)
+	HTML = OPEN_URL(url)
+	match_youtube = re.compile('<iframe width="560" height="315" src="https://www.youtube.com/embed/(.+?)" frameborder="0" allowfullscreen>').findall(HTML)
+	for url in match_youtube:
+		import process
+		url = 'plugin://plugin.video.youtube/play/?video_id='+url
+		process.Big_Resolve(name,url)    
+	match = re.compile('<script data-config="(.+?)" data-css=".+?" data-height="100%" data-width="100%" src=".+?" type="text/javascript"></script>').findall(HTML)
+	for playlink in match:
+		if 'div' in playlink:
+			pass
+		else:
+			Playlink = (playlink).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+			Resolve('http:'+Playlink)
 		
 		
 def Get_the_rows(url,iconimage):

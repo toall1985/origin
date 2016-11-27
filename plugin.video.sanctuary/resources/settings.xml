@@ -20,6 +20,8 @@
 		<setting id="BAMF" type="bool" label="BAMF" default="true"/>
 		<setting id="Quicksilver" type="bool" label="Quicksilver" default="true"/>
 		<setting id="Rays_Ravers" type="bool" label="Rays Ravers" default="true"/>
+		<setting id="Silent_Hunter" type="bool" label="Silent Hunter" default="true"/>
+		<setting id="Dojo" type="bool" label="Dojo Streams" default="true"/>
 		<setting id="TV_Guide" type="bool" label="TV Guide" default="true"/>
 		<setting id="Today's_Football" type="bool" label="Today's Football" default="true"/>
 		<setting id="Latest_Episodes" type="bool" label="Latest Episodes" default="true"/>
