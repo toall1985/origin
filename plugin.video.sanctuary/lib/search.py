@@ -99,35 +99,74 @@ def Music_Song(Search_name):
 		
 def Movies(Search_name):
     dp.create('Checking for streams')
+    Silent_urls = ['http://silenthunter.srve.io/jdh/E-H.txt','http://silenthunter.srve.io/jdh/I-L.txt','http://silenthunter.srve.io/jdh/M-P.txt','http://silenthunter.srve.io/jdh/Q-T.txt','http://silenthunter.srve.io/jdh/U-Z.txt']
+    Raider_urls = ['http://tombraiderbuilds.co.uk/addon/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/I-L/I-L.txt',
+	'http://tombraiderbuilds.co.uk/addon/M-P/M-P.txt','http://tombraiderbuilds.co.uk/addon/Q-T/Q-T.txt','http://tombraiderbuilds.co.uk/addon/U-Z/U-Z.txt','http://tombraiderbuilds.co.uk/addon/0-1000000/0-1000000.txt']
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
-        dp.update(20,'',"Checking Pandoras Box",'Please Wait')
+        dp.update(100/8,'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_Movies(Search_name))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update(40,'',"Checking Tigen\'s World",'Please Wait')
+        dp.update((100/8)*2,'',"Checking Tigen\'s World",'Please Wait')
         Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
     if ADDON.getSetting('Pyramid_Search')=='true':
-        dp.update(60,'',"Checking Pyramid",'Please Wait')
-        Thread(target=Raider_Loop(Search_name,'http://tombraiderbuilds.co.uk/addon/mainmovies/mainmovies.txt'))
+        for item in Raider_urls:
+            dp.update((100/8)*3,'',"Checking Pyramid",'Please Wait')
+            Thread(target=Raider_Loop(Search_name,item))
     if ADDON.getSetting('Maverick_Search')=='true':
-        dp.update(80,'',"Checking Maverick",'Please Wait')
+        dp.update((100/8)*4,'',"Checking Maverick",'Please Wait')
         Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
-    dp.update(100,'',"Finished checking",'Please Wait')
+    if ADDON.getSetting('Silent_Hunter_Search')=='true':
+        for item in Silent_urls:
+            dp.update((100/8)*5,'',"Checking Silent Hunter",'Please Wait')
+            Thread(target=Raider_Loop(Search_name,item))
+    if ADDON.getSetting('Dojo_Search')=='true':
+        dp.update((100/8)*6,'',"Checking Dojo",'Please Wait')
+        Thread(target=Dojo(Search_name,'http://herovision.x10host.com/dojo/dojo.php'))
+    if ADDON.getSetting('Reaper_Search')=='true':
+        dp.update((100/8)*7,'',"Checking Reaper",'Please Wait')
+        Thread(target=Reaper(Search_name,'https://leto.feralhosting.com/grimw01f/tr/mov/atoz.php'))
+    dp.update(100,'',"Finished checking",'Enjoy')
     dp.close()
+	
+def Reaper(Search_name,url):
+    OPEN = process.OPEN_URL(url)
+    Regex = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(OPEN)
+    for name,url,icon,fanart,desc in Regex:
+        if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+            if 'php' in url:
+                process.Menu('[COLORlightslategray]Reaper[/COLOR] '+name,url,2301,icon,fanart,desc,'')
+            else:
+                process.Play('[COLORlightslategray]Reaper[/COLOR] '+name,url,906,icon,fanart,desc,'')
+			
+def Dojo(Search_name,url):
+    OPEN = process.OPEN_URL(url)
+    Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
+    for url,icon,desc,fanart,name in Regex:
+        if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+            if 'php' in url:
+                process.Menu('[COLORred]Dojo Streams[/COLOR] '+name,url,2300,icon,fanart,desc,'')
+            else:
+                process.Play('[COLORred]Dojo Streams[/COLOR] '+name,url,906,icon,fanart,desc,'')
+
+
 	
 def TV(Search_name):
     dp.create('Checking for streams')
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
-        dp.update(20,'',"Checking Pandoras Box",'Please Wait')
+        dp.update((100/6),'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_TV(Search_name))
-    if ADDON.getSetting('Origin_Search')=='true':
-        dp.update(40,'',"Checking Origin",'Please Wait')
-        Thread(target=Search_WatchSeries(Search_name))
     if ADDON.getSetting('Cold_As_Ice_Search')=='true':
-        dp.update(60,'',"Checking Cold As Ice",'Please Wait')
+        dp.update((100/6)*2,'',"Checking Cold As Ice",'Please Wait')
         Thread(target=Cold_AS_Ice(Search_name))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update(80,'',"Checking Tigen's World",'Please Wait')
-        Thread(target=Raider_Loop(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
+        dp.update((100/6)*3,'',"Checking Tigen's World",'Please Wait')
+        Thread(target=Tigen_tv(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
+    if ADDON.getSetting('Dojo_Search')=='true':
+        dp.update((100/6)*4,'',"Checking Dojo",'Please Wait')
+        Thread(target=Dojo(Search_name,'http://herovision.x10host.com/dojo/dojo.php'))
+    if ADDON.getSetting('Reaper_Search')=='true':
+        dp.update((100/6)*5,'',"Checking Reaper",'Please Wait')
+        Thread(target=Reaper(Search_name,'https://leto.feralhosting.com/grimw01f/tr/tv/a-z.php'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -294,11 +333,19 @@ def Live_TV(Search_name):
         Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
     if ADDON.getSetting('BAMF_Search')=='true':
         dp.update(85,'',"Checking BAMF",'Please Wait')
-        Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/iq4nogib32nnchd/BAMF%20IPTV.txt?dl=1'))	
+        Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/trn3seigs0ptgkc/BAMF.xml?dl=1'))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
-
+def Tigen_tv(Search_name,url):
+    HTML = process.OPEN_URL(url)
+    match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+    for name,image,url,fanart in match:
+        if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
+            from pyramid.pyramid import addDir
+            addDir('[COLORpink]Tigen\'s World[/COLOR] '+name,url,1101,image,fanart,'','','','')
+	
+	
 def Raider_Live_Loop(Search_name,url):
     if '164.132' in url:
         ADD_NAME = '[COLORgreen]Maverick[/COLOR]'
@@ -312,6 +359,8 @@ def Raider_Live_Loop(Search_name,url):
         ADD_NAME = '[COLORpurple]Lily Sport\'s[/COLOR]'
     elif 'dropbox' in url:
         ADD_NAME = '[COLORwhite]BAMF[/COLOR]'
+    elif 'ilent' in url:
+        ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
     HTML = process.OPEN_URL(url)
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
     for name,link,image,fanart in match2:
@@ -352,6 +401,8 @@ def Raider_Loop(Search_name,url):
         ADD_NAME = '[COLORblue]Pyramid[/COLOR] '
     elif 'kodeeresurrection' in url:	
         ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR] '
+    elif 'ilent' in url:
+        ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
     else:
         ADD_NAME = ''
     if 'MULTILINK' in url:

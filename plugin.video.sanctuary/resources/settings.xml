@@ -22,6 +22,7 @@
 		<setting id="Rays_Ravers" type="bool" label="Rays Ravers" default="true"/>
 		<setting id="Silent_Hunter" type="bool" label="Silent Hunter" default="true"/>
 		<setting id="Dojo" type="bool" label="Dojo Streams" default="true"/>
+		<setting id="Reaper" type="bool" label="Reaper" default="true"/>
 		<setting id="TV_Guide" type="bool" label="TV Guide" default="true"/>
 		<setting id="Today's_Football" type="bool" label="Today's Football" default="true"/>
 		<setting id="Latest_Episodes" type="bool" label="Latest Episodes" default="true"/>
@@ -32,7 +33,7 @@
     <category label="Select Search Sources">
 		<setting id="Origin_Search" type="bool" label="Origin Search" default="true"/>
 		<setting id="Pandoras_Box_Search" type="bool" label="Pandoras Box Search" default="true"/>
-		<setting id="Pyramid_Search" type="bool" label="Pyramid Search" default="false"/>
+		<setting id="Pyramid_Search" type="bool" label="Pyramid Search" default="true"/>
 		<setting id="Maverick_Search" type="bool" label="Maverick Search" default="true"/>
 		<setting id="Freeview_Search" type="bool" label="Freeview Search" default="true"/>
 		<setting id="Brettus_Anime_Search" type="bool" label="Brettus Anime Search" default="true"/>
@@ -42,6 +43,9 @@
 		<setting id="Supremacy_Search" type="bool" label="Supremacy Search" default="true"/>
 		<setting id="BAMF_Search" type="bool" label="BAMF Search" default="true"/>
 		<setting id="Quicksilver_Search" type="bool" label="Quicksilver Search" default="true"/>
+		<setting id="Silent_Hunter_Search" type="bool" label="Silent Hunter" default="true"/>
+		<setting id="Dojo_Search" type="bool" label="Dojo Streams" default="true"/>
+		<setting id="Reaper_Search" type="bool" label="Reaper" default="true"/>
     </category>	
 	<category label="Freeview General">
 		<setting id="list_all" type="bool" label="List All Possible Sources" default="true"/>
