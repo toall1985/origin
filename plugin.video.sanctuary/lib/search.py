@@ -293,7 +293,7 @@ def Music(Search_name):
 				
 def Live_TV(Search_name):
     dp.create('Checking for streams - ' + Search_name)
-    Oblivion_list = ['FreeSports.m3u','FreeTesting.m3u','Server1.m3u','Server2.m3u','Kid.xml']
+    Oblivion_list = ['FreeSports.xml','FreeTesting.xml','Server1.m3u','Server2.m3u','Kid.xml']
     Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',
 	'http://164.132.106.213/data/livetv/iptv.xml']
     Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',
@@ -302,6 +302,12 @@ def Live_TV(Search_name):
     'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt',
     'http://tombraiderbuilds.co.uk/addon/newschannels/newschannels.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
+    BAMF_List = ['https://www.dropbox.com/s/5yiq50yscyz3jsj/bamf%20iptv.m3u?dl=1','https://www.dropbox.com/s/bmx5kohali7k5e1/Server2.m3u?dl=1',
+    'https://www.dropbox.com/s/xs9b2iktu0wx3ve/BAMFSport.m3u?dl=1','https://www.dropbox.com/s/wrcwpdf1v22u38l/BAMFDemand.m3u?dl=1']
+    Supremecy_List = ['https://simplekore.com/wp-content/uploads/file-manager/steboy11/LiveTV/live.txt',
+    'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Kids%20Tv/Kids%20Tv.txt',
+    'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sky%20Movies/Sky%20Movies.txt',
+    'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
@@ -329,11 +335,13 @@ def Live_TV(Search_name):
         for item in Lily_List:
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('Supremacy_Search')=='true':
-        dp.update(75,'',"Checking Supremacy",'Please Wait')
-        Thread(target=Raider_Live_Loop(Search_name,'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt'))
+        for item in Supremecy_List:
+            dp.update(75,'',"Checking Supremacy",'Please Wait')
+            Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('BAMF_Search')=='true':
-        dp.update(85,'',"Checking BAMF",'Please Wait')
-        Thread(target=Raider_Live_Loop(Search_name,'https://www.dropbox.com/s/trn3seigs0ptgkc/BAMF.xml?dl=1'))	
+        for item in BAMF_List:
+            dp.update(85,'',"Checking BAMF",'Please Wait')
+            Thread(target=Raider_Live_Loop(Search_name,item))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 
@@ -366,14 +374,17 @@ def Raider_Live_Loop(Search_name,url):
     for name,link,image,fanart in match2:
     	if (Search_name).lower().replace('sports','sport').replace('sport','sports').replace(' ','') in (name).lower().replace(' ','').replace('sports','sport').replace('sport','sports'):
             if 'sublink' in link:
-                from pyramid.pyramid import addDir
-                addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
+                if 'http' in link:			 
+                    from pyramid.pyramid import addDir
+                    addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
             else:
-                from pyramid.pyramid import addLink
-                addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)
+                if 'http' in link:			 
+                    from pyramid.pyramid import addLink
+                    addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)
     loop = re.compile('<name>.+?</name>.+?<thumbnail>.+?</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>.+?</fanart>',re.DOTALL).findall(HTML)
     for url in loop:
-        Raider_Live_Loop(Search_name,url)
+        if 'http' in url:			 
+            Raider_Live_Loop(Search_name,url)
     match = re.compile('<title>(.+?)</title>.+?<sportsdevil>(.+?)</sportsdevil>.+?<thumbnail>(.+?)</thumbnail>',re.DOTALL).findall(HTML)
     for name,url,img in match: 
     	if (Search_name).replace(' ','') in (name).replace(' ','').lower():

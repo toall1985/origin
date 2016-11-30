@@ -165,4 +165,4 @@ def whatson(url):
 
 def search_split(extra):
     import search
-    search.Live_TV(extra.lower().replace('hd', '').replace(' ', ''))
+    search.Live_TV(extra.lower().replace('hd', '').replace(' ', '').replace('christmasgold','gold'))

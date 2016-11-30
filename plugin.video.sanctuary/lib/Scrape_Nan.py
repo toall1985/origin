@@ -5,11 +5,6 @@ def scrape_episode(title,show_year,year,season,episode):
 	item = []
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Initiating Scrapers')
-	xbmc.log('Title:'+title)
-	xbmc.log('Show Year:'+show_year)
-	xbmc.log('Episode Year:'+year)
-	xbmc.log('Season:'+season)
-	xbmc.log('Episode:'+episode)
 	links_scraper = scrape_episode(title, show_year, year, season, episode, '', None)
 	if links_scraper is False:
 		pass
@@ -77,4 +72,3 @@ def scrape_movie(name,year):
 				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				process.Play(name,link["url"],906,'','','','')
 				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
-
