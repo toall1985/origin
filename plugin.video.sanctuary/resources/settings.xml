@@ -23,6 +23,7 @@
 		<setting id="Silent_Hunter" type="bool" label="Silent Hunter" default="true"/>
 		<setting id="Dojo" type="bool" label="Dojo Streams" default="true"/>
 		<setting id="Reaper" type="bool" label="Reaper" default="true"/>
+		<setting id="Ultra" type="bool" label="Ultra" default="true"/>
 		<setting id="TV_Guide" type="bool" label="TV Guide" default="true"/>
 		<setting id="Today's_Football" type="bool" label="Today's Football" default="true"/>
 		<setting id="Latest_Episodes" type="bool" label="Latest Episodes" default="true"/>
@@ -46,6 +47,7 @@
 		<setting id="Silent_Hunter_Search" type="bool" label="Silent Hunter" default="true"/>
 		<setting id="Dojo_Search" type="bool" label="Dojo Streams" default="true"/>
 		<setting id="Reaper_Search" type="bool" label="Reaper" default="true"/>
+		<setting id="Ultra_Search" type="bool" label="Ultra" default="true"/>
     </category>	
 	<category label="Freeview General">
 		<setting id="list_all" type="bool" label="List All Possible Sources" default="true"/>

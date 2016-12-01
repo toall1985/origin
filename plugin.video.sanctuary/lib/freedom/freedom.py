@@ -68,7 +68,7 @@ if os.path.exists(favorites)==True:
     FAV = open(favorites).read()
 else: FAV = []
 
-SOURCES = [{"title": "FREEDOM IPTV", "url": "http://freedomiptv.tk/freedomenter.xml", "fanart": "http://freedomiptv.tk/fanart.jpg", "GENERO": "IPTV ", "date": "09/12/2016", "credits": "MADDOG", "thumbnail": "http://freedomiptv.tk/icon.png"}]
+SOURCES = [{"title": "FREEDOM IPTV", "url": "http://freedomiptv.tk/NEWFREEDOM%20MENU.xml", "fanart": "http://freedomiptv.tk/fanart.jpg", "GENERO": "IPTV ", "date": "09/12/2016", "credits": "MADDOG", "thumbnail": "http://freedomiptv.tk/icon.png"}]
 
 
 

@@ -51,6 +51,7 @@ RAY_ICON = base_icons + 'raysraver.png'
 SILENT_ICON = base_icons + 'silent.png'
 REAPER_ICON = base_icons + 'reaper.png'
 DOJO_ICON = base_icons + 'dojo.png'
+ULTRA_ICON = base_icons + 'Ultra.png'
 
 def Main_Menu():
     if ADDON.getSetting('Origin')=='true':
@@ -91,6 +92,8 @@ def Main_Menu():
         process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
     if ADDON.getSetting('Reaper')=='true':
         process.Menu('Reaper','https://leto.feralhosting.com/grimw01f/tr/mainmenu.php',2301,REAPER_ICON,'','','')
+    if ADDON.getSetting('Ultra')=='true':
+        process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
     if ADDON.getSetting('TV_Guide')=='true':
         process.Menu('TV Guide','',2200,ICON,FANART,'','')
     if ADDON.getSetting("Today's_Football")=='true':
@@ -514,6 +517,7 @@ elif mode == 1141: from lib.pyramid import pyramid;pyramid.Search_input(url);xbm
 elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
 elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld()
 elif mode == 1144: from lib.pyramid import pyramid;pyramid.queueItem()
+elif mode == 1145: from lib.pyramid import pyramid;pyramid.SKindex_Ultra()
 elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
