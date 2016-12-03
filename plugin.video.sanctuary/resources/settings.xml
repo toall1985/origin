@@ -2,6 +2,7 @@
 <settings>
     <category label="Main Settings">
 		<setting id="Adult" type="text" label="Adult Password:" default="" visible="true"/>
+		<setting id="Intro_Vid" type="bool" label="Intro Video after update" default="true"/>
     </category>
     <category label="Personalise Main Menu">
 		<setting id="Origin" type="bool" label="Origin" default="true"/>

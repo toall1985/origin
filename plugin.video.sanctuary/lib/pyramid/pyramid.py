@@ -1009,7 +1009,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
         liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
         liz.setInfo(type="Video", infoLabels={ "Title": name, "Plot": description, "Genre": genre, "dateadded": date })
         liz.setProperty("Fanart_Image", fanart)
-        liz.setProperty('IsPlayable', 'true')
+#        liz.setProperty('IsPlayable', 'true')
         if showcontext:
             contextMenu = []
             if showcontext == 'fav':

@@ -22,7 +22,7 @@
     If i have used code that you wrote i can only apologise for not thanking you personally and ensure you no offence was meant.
     Just sometimes i find it best not to rewrite what works well, mostly to a higher standard that my current understanding
 '''
-import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback, requests, re
+import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback, requests, re, os
 from lib import process
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
@@ -52,8 +52,17 @@ SILENT_ICON = base_icons + 'silent.png'
 REAPER_ICON = base_icons + 'reaper.png'
 DOJO_ICON = base_icons + 'dojo.png'
 ULTRA_ICON = base_icons + 'Ultra.png'
+INTRO_VID = base_icons + 'Intro.mp4'
+INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
 
 def Main_Menu():
+    import time
+    if not os.path.exists(INTRO_VID_TEMP):
+        if ADDON.getSetting('Intro_Vid')=='true':
+            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
+            import time
+            time.sleep(20)
+            os.makedirs(INTRO_VID_TEMP)
     if ADDON.getSetting('Origin')=='true':
         process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     if ADDON.getSetting('Pandoras_Box')=='true':
