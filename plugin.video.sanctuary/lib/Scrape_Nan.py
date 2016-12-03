@@ -28,6 +28,7 @@ def scrape_episode(title,show_year,year,season,episode):
 			elif link["quality"]=='720': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			elif link["quality"]=='1080': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			elif link["quality"]=='HD': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+			elif 'vidzi' in link["source"]: name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 			process.PLAY(name,link["url"],906,'','','','')
 			xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
@@ -45,7 +46,7 @@ def scrape_movie(name,year):
 		item = []
 		dp =  xbmcgui.DialogProgress()
 		dp.create('Initiating Scrapers')
-		links_scraper = scrape_movie(name, year, '', timeout=600)
+		links_scraper = scrape_movie(name, year, '', timeout=60)
 		if links_scraper is False:
 			pass
 		else:
@@ -69,6 +70,7 @@ def scrape_movie(name,year):
 				elif link["quality"]=='720': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
+				elif 'vidzi' in link["source"]: name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
 				process.Play(name,link["url"],906,'','','','')
 				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);

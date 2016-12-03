@@ -17,7 +17,7 @@ def multiv_Main_Menu():
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
     process.Menu('IMDB Top 100 Programs','http://www.imdb.com/chart/tvmeter?ref_=m_nv_ch_tvm',301,ICON,FANART,'','')
     process.Menu('Popular Episodes','http://www.watchseriesgo.to/new',302,ICON,FANART,'','')
-#    process.Menu('Genres','',303,ICON,FANART,'','')
+    process.Menu('Genres','',303,ICON,FANART,'','')
     process.Menu('Search','',308,ICON,FANART,'','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
@@ -86,6 +86,7 @@ def SPLIT(extra):
 	xbmc.log(extra)
 	for title,show_year,ep_year,season,episode in finish:
 		from Scrape_Nan import scrape_episode
+#		process.Menu(title+'>'+show_year+'>'+ep_year+'>'+season+'>'+episode,'','','','','','')
 		scrape_episode(title,show_year,ep_year,season,episode)
 
 def Search_TV():
@@ -105,13 +106,24 @@ def Search_TV():
 					
 def Genres():
 	html = requests.get('http://www.imdb.com/genre/').text
-	match = re.compile('<h3><a href="(.+?)">(.+?)<span class="normal">').findall(html)
-	for url, name in match:
-		process.Menu(name,url,304,'','','','')
+	block = re.compile('<h2>Television and Mini-Series</h2>(.+?)<hr>',re.DOTALL).findall(html)
+	for item in block:
+		match = re.compile('<a href="(.+?)">(.+?)</a>').findall(str(item))
+		for url, name in match:
+			process.Menu(name,url,304,'','','','')
 
 def Genres_Page(url):
-	pass
-
+	html = requests.get(url).text
+	match = re.compile('<div class="lister-item-image float-left">.+?<a href="(.+?)".+?<img alt="(.+?)".+?loadlate="(.+?)".+?<span class="lister-item-year text-muted unbold">(.+?)</span>',re.DOTALL).findall(html)
+	for url, name, image, year in match:
+		url = 'http://imdb.com'+url
+		year = re.sub("\D","",year)
+		year = '('+year[0:4]+')'
+		try:
+			image = image.replace('67,98','256,385').replace('UX67','UX256').replace('UY98','UY385')
+			process.Menu(name+' '+year,url,305,image,'','',name.encode('utf-8')+year.encode('utf-8'))
+		except:
+			process.Menu(name+' '+year,url,305,'','','',name.encode('utf-8')+year.encode('utf-8'))
 		
 def Popular(url):
     OPEN = process.OPEN_URL(url)

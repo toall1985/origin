@@ -75,8 +75,6 @@ def Play(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
         PLAY(name, url, mode, iconimage, fanart, description, extra)
     elif 'm3u' in url:
         PLAY(name, url, mode, iconimage, fanart, description, extra)
-    elif 'stagevu' in url:
-        PLAY(name, url, mode, iconimage, fanart, description, extra)
     else:
         from pyramid import pyramid
         pyramid.addLink(url, name, iconimage, fanart, description, '', '', True, '', '', 1, '')
@@ -194,74 +192,8 @@ def rmFavorite(name):
 
 ############################## FAVOURITES END ###############################
 
-def get_params():
-    param = []
-    paramstring = sys.argv[2]
-    if len(paramstring) >= 2:
-        params = sys.argv[2]
-        cleanedparams = params.replace('?', '')
-        if (params[len(params) - 1] == '/'):
-            params = params[0:len(params) - 2]
-        pairsofparams = cleanedparams.split('&')
-        param = {}
-        for i in range(len(pairsofparams)):
-            splitparams = {}
-            splitparams = pairsofparams[i].split('=')
-            if (len(splitparams)) == 2:
-                param[splitparams[0]] = splitparams[1]
-
-    return param
-
-
-params = get_params()
-url = None
-name = None
-iconimage = None
-mode = None
-description = None
-extra = None
-fav_mode = None
-
-try:
-    fav_mode = int(params["fav_mode"])
-except:
-    pass
-try:
-    extra = urllib.unquote_plus(params["extra"])
-except:
-    pass
-try:
-    url = urllib.unquote_plus(params["url"])
-except:
-    pass
-try:
-    name = urllib.unquote_plus(params["name"])
-except:
-    pass
-try:
-    iconimage = urllib.unquote_plus(params["iconimage"])
-except:
-    pass
-try:
-    mode = int(params["mode"])
-except:
-    pass
-try:
-    fanart = urllib.unquote_plus(params["fanart"])
-except:
-    pass
-try:
-    description = urllib.unquote_plus(params["description"])
-except:
-    pass
-
-
 def Resolve(url):
-    play = xbmc.Player()
-    try:
-        play.play(url)
-    except:
-        pass
+    Big_Resolve('',url)
 
 
 def OPEN_URL(url):
@@ -291,13 +223,7 @@ def setView(content, viewType):
 
 
 def resolve_playercore(url):
-    play = xbmc.Player(GetPlayerCore())
-    try:
-        play.play(url)
-    except:
-        pass
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
+	Big_Resolve('',url)
 
 def Big_Resolve(name,url):
 	import urlresolver
@@ -305,53 +231,7 @@ def Big_Resolve(name,url):
 		resolved_url = urlresolver.resolve(url)
 		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
 	except:
-		try:
-			xbmc.Player().play(url, xbmcgui.ListItem(name))
-		except:
-			xbmcgui.Dialog().notification("Sanctuary", "unplayable stream")
-			sys.exit()
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
-def GetPlayerCore():
-    try:
-        PlayerMethod = getSet("core-player")
-        if (PlayerMethod == 'DVDPLAYER'):
-            PlayerMeth = xbmc.PLAYER_CORE_DVDPLAYER
-        elif (PlayerMethod == 'MPLAYER'):
-            PlayerMeth = xbmc.PLAYER_CORE_MPLAYER
-        elif (PlayerMethod == 'PAPLAYER'):
-            PlayerMeth = xbmc.PLAYER_CORE_PAPLAYER
-        else:
-            PlayerMeth = xbmc.PLAYER_CORE_AUTO
-    except:
-        PlayerMeth = xbmc.PLAYER_CORE_AUTO
-    return PlayerMeth
-    return True
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-
-if mode == 10:
-    addon_log("getFavorites")
-    getFavourites()
-elif mode == 11:
-    addon_log("addFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    addFavorite(name, url, iconimage, fanart, fav_mode)
-elif mode == 12:
-    addon_log("rmFavorite")
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    rmFavorite(name)

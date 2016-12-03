@@ -302,8 +302,8 @@ def Live_TV(Search_name):
     'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt',
     'http://tombraiderbuilds.co.uk/addon/newschannels/newschannels.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
-    BAMF_List = ['https://www.dropbox.com/s/5yiq50yscyz3jsj/bamf%20iptv.m3u?dl=1','https://www.dropbox.com/s/bmx5kohali7k5e1/Server2.m3u?dl=1',
-    'https://www.dropbox.com/s/xs9b2iktu0wx3ve/BAMFSport.m3u?dl=1','https://www.dropbox.com/s/wrcwpdf1v22u38l/BAMFDemand.m3u?dl=1']
+    BAMF_List = ['http://genietvcunts.co.uk/bamffff/bamf.iptv.m3u','http://genietvcunts.co.uk/bamffff/Server2.m3u',
+    'http://genietvcunts.co.uk/bamffff/BAMF.Sport.m3u','http://genietvcunts.co.uk/bamffff/BAMFSKYMOVIES.m3u']
     Supremecy_List = ['https://simplekore.com/wp-content/uploads/file-manager/steboy11/LiveTV/live.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Kids%20Tv/Kids%20Tv.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sky%20Movies/Sky%20Movies.txt',
@@ -365,7 +365,7 @@ def Raider_Live_Loop(Search_name,url):
         ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
     elif 'kodeeresurrection' in url:
         ADD_NAME = '[COLORpurple]Lily Sport\'s[/COLOR]'
-    elif 'dropbox' in url:
+    elif 'cunts' in url:
         ADD_NAME = '[COLORwhite]BAMF[/COLOR]'
     elif 'ilent' in url:
         ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
