@@ -246,6 +246,14 @@ def getSources():
                     else:
                         getData(sources[0]['url'], sources[0]['fanart'])
 
+def re_me(data, re_patten):
+    match = ''
+    m = re.search(re_patten, data)
+    if m != None:
+        match = m.group(1)
+    else:
+        match = ''
+    return match
 
 def addSource(url=None):
         if url is None:
