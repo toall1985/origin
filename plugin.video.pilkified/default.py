@@ -46,15 +46,13 @@ def Main_Menu():
     Menu('The Ricky Gervais Show','https://www.youtube.com/watch?v=vH2-sXTmzWI&list=PLj-sGZK2R0VkUZo6KdX761v1OLqE2_qRx',10,'http://i3.ytimg.com/vi/pe0g7lIRikw/mqdefault.jpg','https://i.ytimg.com/vi/Cbx4BjNbjGU/maxresdefault.jpg','')
     Menu('An Idiot Abroad','',2,ICON,FANART,'')
     Menu('Moaning of Life','',3,ICON,FANART,'')
-    Menu('Derek','',4,ICON,FANART,'')
-    Menu('[COLORred]For any missing check out Multi Tv or Youtube addons[/COLOR]','',4,ICON,FANART,'')
 
 def XFM():
-    Menu('Series 1','https://www.youtube.com/watch?v=W35J565_F-A&list=PLMtVekbZxaUdCmwIAso_acdu2TK0wk9kk',10,'https://i.ytimg.com/vi/i5LhurDx4vA/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=gRB3UoiHW9hnepc91VM4nccrrfk',FANART,'')
-    Menu('Series 2','https://www.youtube.com/watch?v=3Mn_NUhm_0Y&list=PLsloMxqwTl71ORbE9wRPeO8l-qi_wsSUB',10,'https://i.ytimg.com/vi/3Mn_NUhm_0Y/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=b03kMkmsctq-ov16Bp8HrgFuSqc',FANART,'')
-    Menu('Series 3','https://www.youtube.com/watch?v=WHGbOkjfSPI&list=PLsloMxqwTl721XHA6i6iAdQ6MO_h8Gmhm',10,'https://i.ytimg.com/vi/WHGbOkjfSPI/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=sV4QQGZ2Xpv9e_L700pQ7pV4EAw',FANART,'')
-    Menu('Series 4','https://www.youtube.com/watch?v=2av9oRIy5XY&list=PLMtVekbZxaUdOEqH2oJpCnL-Kb8iJLkoS',10,'https://i.ytimg.com/vi/2av9oRIy5XY/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=9KmtwAJTDdbLOpt4QETGSQKy8gQ',FANART,'')
-    Menu('Rarities, Specials and Compilations','https://www.youtube.com/watch?v=aV2xtE-CSUE&list=PLyXWmr6hs7HD6KcRbcMfvMJayHKPwhEy2',10,'https://i.ytimg.com/vi/aV2xtE-CSUE/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=PyOqq1Gnypgw-7aKJjl1r4qHSFI',FANART,'')
+    Menu('Series 1','https://www.youtube.com/watch?v=INfVabuCCSY&list=PLyXWmr6hs7HBvJO63tHC8Lyt1KOp2pm8b',10,'https://i.ytimg.com/vi/i5LhurDx4vA/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=gRB3UoiHW9hnepc91VM4nccrrfk',FANART,'')
+    Menu('Series 2','https://www.youtube.com/watch?v=kmoMyEYU4zc&list=PLyXWmr6hs7HA-ZREpeUTSxcm76_XVrfiH',10,'https://i.ytimg.com/vi/3Mn_NUhm_0Y/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=b03kMkmsctq-ov16Bp8HrgFuSqc',FANART,'')
+    Menu('Series 3','https://www.youtube.com/watch?v=eXgGZ4MzTkU&list=PLyXWmr6hs7HB4o17q-6Tbo-eJvlkRek_S',10,'https://i.ytimg.com/vi/WHGbOkjfSPI/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=sV4QQGZ2Xpv9e_L700pQ7pV4EAw',FANART,'')
+    Menu('Series 4','https://www.youtube.com/watch?v=1s_efTYLGp4&list=PLyXWmr6hs7HC_-CluC_IB17TyWR21Xfk3',10,'https://i.ytimg.com/vi/2av9oRIy5XY/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=9KmtwAJTDdbLOpt4QETGSQKy8gQ',FANART,'')
+    Menu('Rarities, Specials and Compilations','https://www.youtube.com/watch?v=4g-Ydn9PoUU&list=PLyXWmr6hs7HD6KcRbcMfvMJayHKPwhEy2',10,'https://i.ytimg.com/vi/aV2xtE-CSUE/hqdefault.jpg?custom=true&w=120&h=90&jpg444=true&jpgq=90&sp=68&sigh=PyOqq1Gnypgw-7aKJjl1r4qHSFI',FANART,'')
 
 def Idiot_Abroad():
     Menu('Series 1','',7,ICON,'https://s-media-cache-ak0.pinimg.com/736x/0a/87/ae/0a87ae843cd573f998a17f49ab747895.jpg','')	
@@ -62,80 +60,67 @@ def Idiot_Abroad():
     Menu('Series 3','',9,ICON,'https://i.ytimg.com/vi/WasM71_mYb8/maxresdefault.jpg','')
 
 def Idiot_1(fanart):
-    Play('Episode 1 - China','7BDPp3ac4Vs',21,ICON,fanart,'')
-    Play('Episode 2 - Trans Siberian Express','2M2Q_mD-MIA',21,ICON,fanart,'')
-    Play('Episode 3 - Jordan','tq4luhR69GY',21,ICON,fanart,'')
-    Play('Episode 4 - Mexico','zB_TGCjTReg',21,ICON,fanart,'')
-    Play('Episode 5 - Egypt','LrXk7uKQpQk',21,ICON,fanart,'')
-    Play('Episode 6 - Brazil','KZV5szppnzo',21,ICON,fanart,'')
-    Play('Episode 7 - Peru','gx9y18g7kHc',21,ICON,fanart,'')
-    Play('Episode 8 - Karl Comes Home','KfRI5H-I1f4',21,ICON,fanart,'')
+    Play('Episode 1 - China','http://daclips.in/q0zu6vps78jp',20,ICON,fanart,'')
+    Play('Episode 2 - Trans Siberian Express','http://vidzi.tv/h9pdkak07j8b.html',20,ICON,fanart,'')
+    Play('Episode 3 - Jordan','http://vidzi.tv/rul398iz65j3.html',20,ICON,fanart,'')
+    Play('Episode 4 - Mexico','http://vidzi.tv/1sk2yk7inzbs.html',20,ICON,fanart,'')
+    Play('Episode 5 - Egypt','http://vidzi.tv/e1rfx0voy8i3.html',20,ICON,fanart,'')
+    Play('Episode 6 - Brazil','http://vidzi.tv/9ibj61s4plf0.html',20,ICON,fanart,'')
+    Play('Episode 7 - Peru','http://vidzi.tv/3o3g6bsaltoe.html',20,ICON,fanart,'')
+    Play('Episode 8 - Karl Comes Home','http://vidzi.tv/cwwog3r3hg7d.html',20,ICON,fanart,'')
 
 def Idiot_2(fanart):
-    Play('Episode 1 - Desert Island','vheVf8uSBx8',21,ICON,fanart,'')
-    Play('Episode 2 - Trans Siberian Railway','Uiyr5hD6RrI',21,ICON,fanart,'')
-    Play('Episode 3 - Dolphin Swim','SfL7HiLdxrg',21,ICON,fanart,'')
-    Play('Episode 4 - Whale Watching','1V4WQBstADc',21,ICON,fanart,'')
-    Play('Episode 5 - Meet a Gorilla','SafYGSdOWw4',21,ICON,fanart,'')
-    Play('Episode 6 - Route 66','L-LM_z7a_yg',21,ICON,fanart,'')
-    Play('Episode 7 - Climb Mount Fuji','mo3KGcJpIY8',21,ICON,fanart,'')
-    Play('Episode 8 - Karl Comes Home','O6TFza5Oq9s',21,ICON,fanart,'')
+    Play('Episode 1 - Desert Island','http://vidzi.tv/qprbodke58wo.html',20,ICON,fanart,'')
+    Play('Episode 2 - Trans Siberian Railway','http://vidzi.tv/s9ukc1b9d0pr.html',20,ICON,fanart,'')
+    Play('Episode 3 - Dolphin Swim','http://vidzi.tv/1uo9linmn8rs.html',20,ICON,fanart,'')
+    Play('Episode 4 - Whale Watching','http://vidzi.tv/t9zsgbv1pbeu.html',20,ICON,fanart,'')
+    Play('Episode 5 - Meet a Gorilla','http://vidzi.tv/q93qeclvdm5e.html',20,ICON,fanart,'')
+    Play('Episode 6 - Route 66','http://vidzi.tv/177g7qkzca2y.html',20,ICON,fanart,'')
+    Play('Episode 7 - Climb Mount Fuji','http://vidzi.tv/nzyqie977tn1.html',20,ICON,fanart,'')
+    Play('Episode 8 - Karl Comes Home','http://vidzi.tv/ypi00ep9jkct.html',20,ICON,fanart,'')
 
 def Idiot_3(fanart):
-    Play('Episode 1 - Venice & Macedonia','J3gmQglwcog',21,ICON,fanart,'')
-    Play('Episode 2 - India','TGoyBsb8QLk',21,ICON,fanart,'')
-    Play('Episode 3 - China','XlU9mpHsXk8',21,ICON,fanart,'')
+    Play('Episode 1 - Venice & Macedonia','https://www.youtube.com/watch?v=KwW5xIn0X50',20,ICON,fanart,'')
+    Play('Episode 2 - India','https://www.youtube.com/watch?v=xRglMfnG4_g',20,ICON,fanart,'')
+    Play('Episode 3 - China','https://www.youtube.com/watch?v=MB4-kZneZhQ',20,ICON,fanart,'')
 
 	
 def Moaning():
-    Menu('Series 1','https://www.youtube.com/watch?v=nrDtEJc8JnU&list=PLfRZV8vTKBCZfm4hD83C7RvWQw9dJ9nAH',11,ICON,'https://i.ytimg.com/vi/m76xkW1rQQQ/maxresdefault.jpg','')	
-    Menu('Series 2','https://www.youtube.com/watch?v=k0JSMAh75eA&list=PLoCm2w312egNE_ANZca_YI785XnMrjIHI',12,ICON,'https://i.ytimg.com/vi/l-0PHVtrm1w/maxresdefault.jpg','')	
+    Menu('Series 1','',11,ICON,'https://i.ytimg.com/vi/m76xkW1rQQQ/maxresdefault.jpg','')	
+    Menu('Series 2','',12,ICON,'https://i.ytimg.com/vi/l-0PHVtrm1w/maxresdefault.jpg','')	
 
 def Moaning_1(fanart):
-    Menu('[COLORred]Check Multi Tv addon for these[/COLOR]','','',ICON,fanart,'')
+    Play('Episode 1 - Marraige','http://vidzi.tv/cix7u0ojy48h.html',20,ICON,fanart,'')
+    Play('Episode 2 - Happiness','http://vidzi.tv/r64okh84zldm.html',20,ICON,fanart,'')
+    Play('Episode 3 - Children','http://vidzi.tv/l5qsqrzkbybb.html',20,ICON,fanart,'')
+    Play('Episode 4 - Jobs','http://vidzi.tv/tlv81s7bq50e.html',20,ICON,fanart,'')
+    Play('Episode 5 - Death','http://vidzi.tv/tuzon6qwf87p.html',20,ICON,fanart,'')
 
 def Moaning_2(fanart):
-    Play('Episode 1','http://31.14.252.94:8777/zwcepyl3ok4pcnokakashmg347ugipgt3tvnppwwscwlmmwyhykcgx7qu4/v.mp4',21,ICON,fanart,'')
-    Play('Episode 2 - Identity','G72MTe0obvQ',21,ICON,fanart,'')
-    Play('Episode 3 - How to live your life','4KzTUGR4sbs',21,ICON,fanart,'')
-    Play('Episode 4 - The Body','86ZsozlcyM0',21,ICON,fanart,'')
-    Play('Episode 5','nrDtEJc8JnU',21,ICON,fanart,'')
-    Play('Episode 6 - Time','k0JSMAh75eA',20,ICON,fanart,'')
-
-
-	
-def Derek():
-    Menu('Series 1','',5,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')	
-    Menu('Series 2','',6,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-
-def Derek_1():
-    Play('Episode 1','dEcqklfwSkU',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 2','sv9_GA1tDLE',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 3','tAF199cG-uA',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 4','8KNmZT53rWw',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 5','V5sVwkicDhE',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 6','5VFdsZGPpLc',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-	
-def Derek_2():
-    Play('Episode 1','SQj-pLEaU1k',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 2','Lz9Fol3GA9w',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 3','BLiloh-nNsM',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 4','9n_9JoRCx9s',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 5','dEcqklfwSkU',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
-    Play('Episode 6','dEcqklfwSkU',21,ICON,'http://p3.no/filmpolitiet/wp-content/thumbs/?src=http://p3.no/filmpolitiet/wp-content/uploads/2013/09/Derek-bilde-2.jpg&w=1150','')
+    Play('Episode 1 - Art','http://vidzi.tv/nkjojrorunkr.html',20,ICON,fanart,'')
+    Play('Episode 2 - Identity','http://vidzi.tv/53cl2rdvn2n5.html',20,ICON,fanart,'')
+    Play('Episode 3 - How to live your life','http://vidzi.tv/53cl2rdvn2n5.html',20,ICON,fanart,'')
+    Play('Episode 4 - The Body','http://vidzi.tv/hg5so6wwu34t.html',20,ICON,fanart,'')
+    Play('Episode 5 - Waste','http://vidzi.tv/47hlxpgxzgu1.html',20,ICON,fanart,'')
+    Play('Episode 6 - Time','http://daclips.in/h9iksp7sjkti',20,ICON,fanart,'')
 	
 def Youtube_Playlist_Scrape(url,iconimage,fanart):
     HTML = Open_Url(url)
     first = re.compile('<title>(.+?)</title>.+?href="https://www.youtube.com/watch?v=(.+?)&amp;').findall(HTML)
     for name,url in first:
+        url = 'https://www.youtube.com/watch?v='+url
         name = (name).replace(' - YouTube','')
-        Play(name,url,21,iconimage,fanart,'')
+        Play(name,url,20,iconimage,fanart,'')
     match = re.compile('data-video-id="(.+?)" data.+?data-video-title="(.+?)"',re.DOTALL).findall(HTML)
     for url,name in match:
+        url = 'https://www.youtube.com/watch?v='+url
+        name = name.replace('&#39;','\'')
         if 'rivate' in name:
             pass
+        elif 'eleted' in name:
+            pass
         else:
-			Play(name,url,21,iconimage,fanart,'')
+			Play(name,url,20,iconimage,fanart,'')
 
 
 ####################################################################PROCESSES###################################################
@@ -195,28 +180,16 @@ def Play(name,url,mode,iconimage,fanart,description,showcontext=True,allinfo={})
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
-        
-		
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True 
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 		
 
-def resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-	
+def resolve(name,url):
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def get_params():
         param=[]
@@ -300,15 +273,11 @@ if mode == None: Main_Menu()
 elif mode == 1 : XFM()
 elif mode == 2 : Idiot_Abroad()
 elif mode == 3 : Moaning()
-elif mode == 4 : Derek()
-elif mode == 5 : Derek_1()
-elif mode == 6 : Derek_2()
 elif mode == 7 : Idiot_1(fanart)
 elif mode == 8 : Idiot_2(fanart)
 elif mode == 9 : Idiot_3(fanart)
 elif mode == 10: Youtube_Playlist_Scrape(url,iconimage,fanart)
 elif mode == 11: Moaning_1(fanart)
 elif mode == 12: Moaning_2(fanart)
-elif mode == 20: resolve(url)
-elif mode == 21: yt.PlayVideo(url)
+elif mode == 20: resolve(name,url)
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
