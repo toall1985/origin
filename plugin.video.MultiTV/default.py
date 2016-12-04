@@ -19,7 +19,7 @@
 '''
 import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, time
 from threading import Thread
-Main = 'http://www.watchseries.ac'
+Main = 'http://www.watchseriesgo.to'
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.MultiTV/')
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
@@ -48,30 +48,7 @@ watched_list = []
 temp_file = ADDON_PATH + 'Temp.txt'
 IMDB = 'http://www.imdb.com'
 genre_list = ['Drama','Horror','Adventure','Fantasy','Sci-Fi','Thriller','Comedy','Romance','Mystery','Action','Family','Music','Crime','Animation']
-Sources = ['daclips','filehoot','allmyvideos','vidspot','vodlocker']		
-
-def TextBoxes(heading,announce):
-  class TextBox():
-    WINDOW=10147
-    CONTROL_LABEL=1
-    CONTROL_TEXTBOX=5
-    def __init__(self,*args,**kwargs):
-      xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, )) # activate the text viewer window
-      self.win=xbmcgui.Window(self.WINDOW) # get window
-      xbmc.sleep(500) # give window time to initialize
-      self.setControls()
-    def setControls(self):
-      self.win.getControl(self.CONTROL_LABEL).setLabel(heading) # set heading
-      try: f=open(announce); text=f.read()
-      except: text=announce
-      self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
-      return
-  TextBox()
-  TextBox()
-  
-if not os.path.exists(temp_file):
-        TextBoxes('Update 15/07/16 - 0.0.5', 'Made it all pretty now, if you search or go in through tv schedule it will now grab images etc. Am working on getting description for each episode but that will keep for now. Loading time will be a little longer but make sure you add to favourites and shouldnt be too bad')
-        open(temp_file,'w+')
+Sources = ['filehoot','allmyvideos','vidspot','vodlocker','vidzi','videoweed','vidup','vshare','vidbull']		
 
 
 def Main_Menu():
@@ -84,10 +61,6 @@ def Main_Menu():
 
 
 def Search():
-    Menu('Father Ted','http://www.watchseries.ac/serie/father_ted',5,'https://pbs.twimg.com/profile_images/670345562097627137/OgizKymo.jpg','https://images.metadata.sky.com/pd-image/b93f0c08-e986-43a6-9ee2-ce453f1fef29/16-9','','Father Ted')
-
-'''
-    IMDB_PAGE_URL = ''
     image = ICON
     description = ''
     fanart = FANART
@@ -103,8 +76,8 @@ def Search():
             url = Main + url
             image = Main + img
             description = (desc).replace('<b>','').replace('</b>','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('Description: ','').replace('  ','')
-            Menu(url,url,5,image,fanart,description,name)		
-            setView('Movies', 'INFO')'''
+            Menu(name,url,5,image,fanart,description,name)		
+            setView('Movies', 'INFO')
 	
 def Tv_Schedule(url):
     OPEN = Open_Url(url)
@@ -270,12 +243,19 @@ def Remove_Favorite(name):
 
 def Get_Sources(name,URL,iconimage,fanart):
     HTML = Open_Url(URL)
-    match = re.compile('<td>.+?<a href="/link/(.+?)".+?height="16px">(.+?)\n',re.DOTALL).findall(HTML)
+    match = re.compile('<tr class="download_link.+?<a href="/link/(.+?)".+?title="(.+?)"',re.DOTALL).findall(HTML)
     for url,name in match:
         for item in Sources:
             if item in url:
+                if 'vidzi' in name:
+                    name = ' '+name
+                elif 'filehoot' in name:
+                    name = ' '+name
                 URL = 'http://www.watchseries.ac/link/' + url
                 Play(name,URL,13,ICON,FANART,'','')
+                xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+            else:
+                pass
     if len(match)<=0:
         Menu('[COLORred]NO STREAMS AVAILABLE[/COLOR]','','','','','','')
 		
@@ -294,16 +274,35 @@ def Get_site_link(url,name):
         main(url,season_name)
 
 def main(url,season_name):
-    if 'daclips.in' in url:
-        daclips(url,season_name)
-    elif 'filehoot.com' in url:
+    if 'daclips' in url:
+        if 'http:/' in url:
+            resolve(url)
+    elif 'filehoot' in url:
         filehoot(url,season_name)
-    elif 'allmyvideos.net' in url:
+    elif 'allmyvideos' in url:
         allmyvid(url,season_name)
-    elif 'vidspot.net' in url:
+    elif 'vidspot' in url:
         vidspot(url,season_name)
     elif 'vodlocker' in url:
         vodlocker(url,season_name)	
+    elif 'vidto' in url:
+        self.vidto(url)
+    elif 'vidzi' in url:
+        if 'http:/' in url:
+            resolve(url)
+    elif 'videoweed' in url:
+        if 'http:/' in url:
+            resolve(url)
+    elif 'vidbull' in url:
+        if 'http:/' in url:
+            resolve(url)
+    elif 'vidup' in url:
+        if 'http:/' in url:
+            resolve(url)
+    elif 'vshare' in url:
+        if 'http:/' in url:
+            resolve(url)
+	
 
 
 												
@@ -408,28 +407,16 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
-        
-		
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True 
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 		
 
 def resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-	
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 	
 def get_params():
         param=[]
