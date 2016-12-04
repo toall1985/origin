@@ -45,21 +45,81 @@ IMAGES 		= ART + 'icon.png'
 BASE 		= Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=')
 
 def Home_Menu():
-
-    addDirFolder('Classics','',6,IMAGES,FANART,'')	
     addDirFolder('Cartoons','',1,IMAGES,FANART,'')
+    addDirFolder('Cartoons and Movies','',6,IMAGES,FANART,'')
     addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')
+    addDirFolder('Search Movies','',11,IMAGES,FANART,'')
+
+def watch_cartoon_menu():
+    addDirFolder('Cartoons','https://www.watchcartoononline.io/cartoon-list',7,IMAGES,FANART,'')
+    addDirFolder('Movies','https://www.watchcartoononline.io/movie-list',9,IMAGES,FANART,'')
+
+def watch_cartoon_grab_episode(url):
+	html = OPEN_URL(url)
+	match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(html)
+	for url, name in match:
+		name = name.replace('&#8217;','\'').replace('&#8216;','\'').replace('&#038;','&').replace('&#8211;','-')
+		if '<' in name:
+			pass
+		else:
+			addDirFolder(name,url,10,IMAGES,FANART,'')
+			
+def watch_cartoon_grab_episode_second(url):
+	html = OPEN_URL(url)
+	match = re.compile('<li><a href="(.+?)" rel="bookmark" title=".+?" class="sonra">(.+?)</a>').findall(html)
+	for url, name in match:
+		name = name.replace('&#8217;','\'').replace('&#8216;','\'').replace('&#038;','&').replace('&#8211;','-')
+		if '<' in name:
+			pass
+		else:
+			addDir(name,url,8,IMAGES,FANART,'')
+			
+def watch_cartoon_grab_movies(url):
+	html = OPEN_URL(url)
+	match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(html)
+	for url, name in match:
+		name = name.replace('&#8217;','\'').replace('&#8216;','\'').replace('&#038;','&').replace('&#8211;','-')
+		if '<' in name:
+			pass
+		else:
+			addDir(name,url,8,IMAGES,FANART,'')
+			
+def watch_cartoon_final(url):
+	url = url.replace('www','m')
+	html = OPEN_URL(url)
+	playlink = re.compile('<source src="(.+?)"').findall(html)
+	for play in playlink:
+		Resolve(play)
+
 	
-def Search():
+def Search_cartoons():
     Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_Title = Search_Name.lower()
     HTML = OPEN_URL(BASE)
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(HTML)
     for url,name in match:
-        if Search_Name in name.lower():
-            addDirFolder(name,url,3,IMAGES,FANART,'')
+        if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
+            addDirFolder('Source 1 - '+name,url,3,IMAGES,FANART,'')
+    HTML2 = OPEN_URL('https://www.watchcartoononline.io/cartoon-list')
+    match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(HTML2)
+    for url, name in match:
+        if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
+            addDirFolder(name,url,10,IMAGES,FANART,'')
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
+def Search_movies():
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    HTML = OPEN_URL('https://www.watchcartoononline.io/movie-list')
+    match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(HTML)
+    for url, name in match:
+        name = name.replace('&#8217;','\'').replace('&#8216;','\'').replace('&#038;','&').replace('&#8211;','-')
+        if '<' in name:
+            pass
+        else:
+            if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
+                addDir(name,url,8,IMAGES,FANART,'')
+	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+	
+	
 def TESTCATS():
     html=OPEN_URL(BASE)
     match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
@@ -72,25 +132,48 @@ def LISTS(url):
     match2 = re.compile('<img src="(.+?)" id="series_image" width="250" height="370" alt=".+?" />').findall(html)
     for img in match2:
         IMAGE = img
-    match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
-    for url in match3:
-	    addDirFolder('NEXT PAGE',url,4,IMAGE,FANART,'')
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
     for url,name in match:
-        addDir(name,url,4,IMAGE,FANART,'')
+        addDirFolder(name,url,4,IMAGE,FANART,'')
+    match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
+    for url in match3:
+	    addDirFolder('NEXT PAGE',url,3,IMAGE,FANART,'')
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 	
 
     xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
 
 def LISTS2(url,IMAGE):
+    sources = []
     html=OPEN_URL(url)
     match = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html)
-    for name,url in match:
-        print name + '     ' + url
-        if 'easy' in url:
-            LISTS3(url)
-#second available playlink include 'panda'        
-
+    for name,url2 in match:
+        if 'panda' in url2:
+            HTML = OPEN_URL(url2)
+            match2 = re.compile("url: '(.+?)'").findall(HTML)
+            for url3 in match2:
+                if 'http' in url3:
+					sources.append({'source': 'playpanda', 'quality': 'SD', 'url': url3})
+        elif 'easy' in url2:
+            HTML2 = OPEN_URL(url2)
+            match3 = re.compile("url: '(.+?)'").findall(HTML2)
+            for url3 in match3:
+                if 'http' in url3:
+					sources.append({'source': 'easyvideo', 'quality': 'SD', 'url': url3})
+        elif 'zoo' in url2:
+            HTML3 = OPEN_URL(url2)
+            match4 = re.compile("url: '(.+?)'").findall(HTML3)
+            for url3 in match4:
+                if 'http' in url3:
+					sources.append({'source': 'videozoo', 'quality': 'SD', 'url': url3})
+    if len(sources)>=3:
+    	choice = Dialog.select('Select Playlink',
+	                                [link["source"] + " - " + " (" + link["quality"] + ")"
+	                                for link in sources])
+        if choice != -1:
+            url = sources[choice]['url']
+            isFolder=False
+            xbmc.Player().play(url)
 	xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);			
 
 def LISTS3(url):
@@ -98,37 +181,6 @@ def LISTS3(url):
     match = re.compile("url: '(.+?)',").findall(html)
     for url in match:
         Resolve(url)
-
-def Classics1():
-    html=OPEN_URL(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8='))
-    match = re.compile('<a href="(.+?)" style="font-size:.8em;">(.+?)</a>').findall(html)
-    for url,name in match:
-			    addDirFolder(name,Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
-
-def Classics2(url):
-    html=OPEN_URL(url)
-    match = re.compile('<a href="(.+?)"><img src="(.+?)"').findall(html)
-    match2 = re.compile('<a href="(.+?)">.+?</a></td></tr></table>').findall(html)
-    for url,img in match:
-        if 'ol.gif' in img:
-            pass
-        elif 'link_block_' in img:
-            pass
-        elif '.png' in img:
-            pass
-        elif 'images/Dinky' in img:
-            pass
-        else:
-			    addDir((img).replace(Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS9pbWFnZXMvaWNvbnMv'),'').replace('images/icons/','').replace('.jpg','').replace('_icon','').replace('_',' '),Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,8,img,FANART,'')
-    for url in match2:
-        addDirFolder('NEXT PAGE',Decode('aHR0cDovL3d3dy50b29uamV0LmNvbS8=')+url,7,IMAGES,FANART,'')
-
-def Classics3(url):
-    html=OPEN_URL(url)
-    match = re.compile('<iframe width="640" height="480" src="(.+?)" frameborder="0" allowfullscreen></iframe>').findall(html)
-    for url in match:
-        url2 = (url).replace('http://www.youtube.com/embed/','').replace('?autoplay=0','')
-        yt.PlayVideo(url2)
 	
 
 def addDir(name,url,mode,iconimage,fanart,description):
@@ -151,18 +203,6 @@ def addDirFolder(name,url,mode,iconimage,fanart,description):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True 
-
-		
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -222,10 +262,13 @@ print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
 def Resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def OPEN_URL(url):
         req = urllib2.Request(url)
@@ -246,12 +289,14 @@ def setView(content, viewType):
 
 if mode == None     : Home_Menu()
 elif mode == 1 		: TESTCATS()
-elif mode == 2    	: Search()
+elif mode == 2    	: Search_cartoons()
 elif mode == 3    	: LISTS(url)
 elif mode == 4    	: LISTS2(url,iconimage)
 elif mode == 5    	: Resolve(url)
-elif mode == 6 		: Classics1()
-elif mode == 7 		: Classics2(url)
-elif mode == 8 		: Classics3(url)
-
+elif mode == 6 		: watch_cartoon_menu()
+elif mode == 7 		: watch_cartoon_grab_episode(url)
+elif mode == 8 		: watch_cartoon_final(url)
+elif mode == 9 		: watch_cartoon_grab_movies(url)
+elif mode == 10 	: watch_cartoon_grab_episode_second(url)
+elif mode == 11 	: Search_movies()
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
