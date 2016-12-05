@@ -95,8 +95,8 @@ def Main_Menu():
         process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
     if ADDON.getSetting('Rays_Ravers')=='true':
         process.Menu('Rays Ravers','',2250,RAY_ICON,'','','')
-    if ADDON.getSetting('Silent_Hunter')=='true':
-        process.Menu('Silent Hunter','',1134,SILENT_ICON,'','','')
+#    if ADDON.getSetting('Silent_Hunter')=='true':
+ #       process.Menu('Silent Hunter','',1134,SILENT_ICON,'','','')
     if ADDON.getSetting('Dojo')=='true':
         process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
     if ADDON.getSetting('Reaper')=='true':
