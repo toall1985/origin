@@ -52,17 +52,16 @@ SILENT_ICON = base_icons + 'silent.png'
 REAPER_ICON = base_icons + 'reaper.png'
 DOJO_ICON = base_icons + 'dojo.png'
 ULTRA_ICON = base_icons + 'Ultra.png'
+FIDO_ICON = base_icons + 'fido.png'
 INTRO_VID = base_icons + 'Intro.mp4'
 INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
 
 def Main_Menu():
-    import time
     if not os.path.exists(INTRO_VID_TEMP):
         if ADDON.getSetting('Intro_Vid')=='true':
             xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
-            import time
-            time.sleep(20)
             os.makedirs(INTRO_VID_TEMP)
+    process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
     if ADDON.getSetting('Origin')=='true':
         process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     if ADDON.getSetting('Pandoras_Box')=='true':
@@ -99,10 +98,15 @@ def Main_Menu():
         process.Menu('Silent Hunter','',1134,SILENT_ICON,'','','')
     if ADDON.getSetting('Dojo')=='true':
         process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
-    if ADDON.getSetting('Reaper')=='true':
-        process.Menu('Reaper','https://leto.feralhosting.com/grimw01f/tr/mainmenu.php',2301,REAPER_ICON,'','','')
+    if ADDON.getSetting('Cerberus')=='true':
+        process.Menu('Cerberus','https://leto.feralhosting.com/grimw01f/tr/mainmenu.php',2301,REAPER_ICON,'','','')
     if ADDON.getSetting('Ultra')=='true':
         process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
+    if ADDON.getSetting('Fido')=='true':
+        process.Menu('Fido','',1146,FIDO_ICON,'','','')
+    process.setView('movies', 'MAIN')
+
+def bagotricks():
     if ADDON.getSetting('TV_Guide')=='true':
         process.Menu('TV Guide','',2200,ICON,FANART,'','')
     if ADDON.getSetting("Today's_Football")=='true':
@@ -115,7 +119,6 @@ def Main_Menu():
         process.Menu('Favourites','',10,base_icons + 'favs.png',FANART,'','')
     if ADDON.getSetting('Search')=='true':
         process.Menu('Search','',1500,base_icons + 'search.png',FANART,'','')
-    process.setView('movies', 'MAIN')
 	
 def DOJO_MAIN(url):
     OPEN = process.OPEN_URL(url)
@@ -342,6 +345,7 @@ elif mode==12:
     except:
         pass
     process.rmFavorite(name)
+elif mode == 13: bagotricks()
 elif mode == 15: from lib import Scrape_Nan;Scrape_Nan.scrape_episode(extra)
 elif mode == 20: pass
 elif mode == 100: from lib import comedy;comedy.Comedy_Main()
@@ -527,6 +531,7 @@ elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
 elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld()
 elif mode == 1144: from lib.pyramid import pyramid;pyramid.queueItem()
 elif mode == 1145: from lib.pyramid import pyramid;pyramid.SKindex_Ultra()
+elif mode == 1146: from lib.pyramid import pyramid;pyramid.SKindex_Fido()
 elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)

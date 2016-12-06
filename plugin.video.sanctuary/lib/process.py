@@ -155,14 +155,9 @@ def getFavourites():
             url = i[1]
             iconimage = i[2]
             try:
-                fanArt = i[3]
-                if fanArt == None:
-                    raise
+                fanart = i[3]
             except:
-                if ADDON.getSetting('use_thumb') == "true":
-                    fanArt = iconimage
-                else:
-                    fanArt = fanart
+                fanart = ''
             try:
                 playlist = i[5]
             except:

@@ -23,8 +23,9 @@
 		<setting id="Rays_Ravers" type="bool" label="Rays Ravers" default="true"/>
 		<setting id="Silent_Hunter" type="bool" label="Silent Hunter" default="true"/>
 		<setting id="Dojo" type="bool" label="Dojo Streams" default="true"/>
-		<setting id="Reaper" type="bool" label="Reaper" default="true"/>
+		<setting id="Cerberus" type="bool" label="Cerberus" default="true"/>
 		<setting id="Ultra" type="bool" label="Ultra" default="true"/>
+		<setting id="Fido" type="bool" label="Fido" default="true"/>
 		<setting id="TV_Guide" type="bool" label="TV Guide" default="true"/>
 		<setting id="Today's_Football" type="bool" label="Today's Football" default="true"/>
 		<setting id="Latest_Episodes" type="bool" label="Latest Episodes" default="true"/>
