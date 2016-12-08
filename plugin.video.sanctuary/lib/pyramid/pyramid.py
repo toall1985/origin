@@ -679,7 +679,6 @@ def GetSublinks(name,url,iconimage,fanart):
         except:
             pass
     else:
-         isFolder=False
          dialog=xbmcgui.Dialog()
          rNo=dialog.select('Select A Source', List)
          if rNo>=0:
@@ -687,9 +686,9 @@ def GetSublinks(name,url,iconimage,fanart):
              rURL=str(ListU[rNo])
              #print 'Sublinks   Name:' + name + '   url:' + rURL
              try:
-                 xbmc.Player().play(rURL, xbmcgui.ListItem(rName))
+                 xbmc.Player().play(urlsolver(rURL), xbmcgui.ListItem(rName))
              except:
-                 pass
+                 xbmc.Player().play(rURL, xbmcgui.ListItem(rName))
 	
 def Search_m3u(data,Searchkey):
     content = data.rstrip()
