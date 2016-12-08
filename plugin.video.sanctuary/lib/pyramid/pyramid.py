@@ -661,10 +661,14 @@ def GetSublinks(name,url,iconimage,fanart):
     List=[]; ListU=[]; c=0
     all_videos = regex_get_all(url, 'sublink:', '#')
     for a in all_videos:
-        vurl = a.replace('sublink:','').replace('#','')
-        #print vurl, name,iconimage,
+        if 'LISTSOURCE:' in a:
+            vurl = regex_from_to(a, 'LISTSOURCE:', '::')
+            linename = regex_from_to(a, 'LISTNAME:', '::')
+        else:
+            vurl = a.replace('sublink:','').replace('#','')
+            linename = name
         if len(vurl) > 10:
-           c=c+1; List.append(name+ ' Source ['+str(c)+']'); ListU.append(vurl)
+            c=c+1; List.append(linename); ListU.append(vurl)
  
     if c==1:
         try:
@@ -675,16 +679,15 @@ def GetSublinks(name,url,iconimage,fanart):
         except:
             pass
     else:
+         isFolder=False
          dialog=xbmcgui.Dialog()
-         rNo=dialog.select('ThePyramid Select A Source', List)
+         rNo=dialog.select('Select A Source', List)
          if rNo>=0:
              rName=name
              rURL=str(ListU[rNo])
              #print 'Sublinks   Name:' + name + '   url:' + rURL
              try:
-                 liz=xbmcgui.ListItem(name, iconImage=iconimage,thumbnailImage=iconimage); liz.setInfo( type="Video", infoLabels={ "Title": name } )
-                 ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=rURL,listitem=liz)
-                 xbmc.Player().play(urlsolver(rURL), liz)
+                 xbmc.Player().play(rURL, xbmcgui.ListItem(rName))
              except:
                  pass
 	
@@ -995,6 +998,64 @@ def addDir(name,url,mode,iconimage,fanart,description,genre,date,credits,showcon
 
         return ok
 
+def pluginquerybyJSON(url):
+    json_query = uni('{"jsonrpc":"2.0","method":"Files.GetDirectory","params":{"directory":"%s","media":"video","properties":["thumbnail","title","year","dateadded","fanart","rating","season","episode","studio"]},"id":1}') %url
+
+    json_folder_detail = json.loads(sendJSON(json_query))
+    for i in json_folder_detail['result']['files'] :
+        url = i['file']
+        name = removeNonAscii(i['label'])
+        thumbnail = removeNonAscii(i['thumbnail'])
+        try:
+            fanart = removeNonAscii(i['fanart'])
+        except Exception:
+            fanart = ''
+        try:
+            date = i['year']
+        except Exception:
+            date = ''
+        try:
+            episode = i['episode']
+            season = i['season']
+            if episode == -1 or season == -1:
+                description = ''
+            else:
+                description = '[COLOR yellow] S' + str(season)+'[/COLOR][COLOR hotpink] E' + str(episode) +'[/COLOR]'
+        except Exception:
+            description = ''
+        try:
+            studio = i['studio']
+            if studio:
+                description += '\n Studio:[COLOR steelblue] ' + studio[0] + '[/COLOR]'
+        except Exception:
+            studio = ''
+
+        if i['filetype'] == 'file':
+            addLink(url,name,thumbnail,fanart,description,'',date,'',None,'',total=len(json_folder_detail['result']['files']))
+            #xbmc.executebuiltin("Container.SetViewMode(500)")
+
+        else:
+            addDir(name,url,1153,thumbnail,fanart,description,'',date,'')
+            #xbmc.executebuiltin("Container.SetViewMode(500)")
+
+def uni(string, encoding = 'utf-8'):
+    if isinstance(string, basestring):
+        if not isinstance(string, unicode):
+            string = unicode(string, encoding, 'ignore')
+    return string
+
+def sendJSON( command):
+    data = ''
+    try:
+        data = xbmc.executeJSONRPC(uni(command))
+    except UnicodeEncodeError:
+        data = xbmc.executeJSONRPC(ascii(command))
+
+    return uni(data)
+
+def removeNonAscii(s): return "".join(filter(lambda x: ord(x)<128, s))
+	
+		
 def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlist,regexs,total,setCookie=""):
         #print 'url,name',url,name
         contextMenu =[]
