@@ -63,6 +63,10 @@ functions_dir = profile
 communityfiles = os.path.join(profile, 'LivewebTV')
 downloader = downloader.SimpleDownloader()
 debug = addon.getSetting('debug')
+addon_id = 'plugin.video.sanctuary'
+ADDON = xbmcaddon.Addon(id=addon_id)
+Adult_Pass = ADDON.getSetting('Adult')
+
 
 if os.path.exists(favorites)==True:
     FAV = open(favorites).read()
@@ -766,7 +770,17 @@ def getItems(items,fanart,dontLink=False):
                                 addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1901,thumbnail,fanart,desc,genre,date,None,'!!update',regexs,url[0].encode('utf-8'))
                                 #addLink(url[0],name.encode('utf-8', 'ignore')+  '[COLOR yellow]build XML[/COLOR]',thumbnail,fanArt,desc,genre,date,True,None,regexs,total)
                             else:
-                                addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1901,thumbnail,fanart,desc,genre,date,None,'source',None,None)
+                                if Adult_Pass == 'forefingeroffury':
+                                    addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1901,thumbnail,fanart,desc,genre,date,None,'source',None,None)
+                                else:
+                                    if 'xxx' in name.lower():
+                                        pass
+                                    elif 'adult' in name.lower():
+                                        pass
+                                    elif 'porn' in name.lower():
+                                        pass
+                                    else:
+                                        addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1901,thumbnail,fanart,desc,genre,date,None,'source',None,None)
                                 #addDir(name.encode('utf-8'),url[0].encode('utf-8'),1,thumbnail,fanart,desc,genre,date,None,'source')
                     elif isJsonrpc:
                         addDir(name.encode('utf-8'),ext_url[0],1953,thumbnail,fanart,desc,genre,date,None,'source')

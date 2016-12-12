@@ -26,8 +26,11 @@ except:
 import SimpleDownloader as downloader
 import time
 import requests
+addon_id = 'plugin.video.sanctuary'
+ADDON = xbmcaddon.Addon(id=addon_id)
+Adult_Pass = ADDON.getSetting('Adult')
 
-resolve_url=['180upload.com', 'allmyvideos.net','gorillavid.in/', 'bestreams.net', 'clicknupload.com', 'cloudzilla.to', 'movshare.net', 'novamov.com', 'nowvideo.sx', 'videoweed.es', 'daclips.in', 'datemule.com', 'fastvideo.in', 'faststream.in', 'filehoot.com', 'filenuke.com', 'sharesix.com', 'docs.google.com', 'plus.google.com', 'picasaweb.google.com', 'gorillavid.com', 'gorillavid.in', 'grifthost.com', 'hugefiles.net', 'ipithos.to', 'ishared.eu', 'kingfiles.net', 'mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'mightyupload.com', 'mooshare.biz', 'movdivx.com', 'movpod.net', 'movpod.in', 'movreel.com', 'mrfile.me', 'uptostream.com', 'nosvideo.com', 'openload.co', 'played.to', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'primeshare.tv', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'sharerepo.com', 'stagevu.com', 'streamcloud.eu', 'streamin.to', 'thefile.me', 'thevideo.me', 'tusfiles.net', 'uploadc.com', 'zalaa.com', 'uploadrocket.net', 'uptobox.com', 'v-vids.com', 'veehd.com', 'vidbull.com', 'videomega.tv', 'vidplay.net', 'vidspot.net', 'vidto.me', 'vidzi.tv', 'vimeo.com', 'vk.com', 'vodlocker.com', 'xfileload.com', 'xvidstage.com', 'zettahost.tv']
+resolve_url=['180upload.com', 'allmyvideos.net','gorillavid.in', 'bestreams.net', 'clicknupload.com', 'cloudzilla.to', 'movshare.net', 'novamov.com', 'nowvideo.sx', 'videoweed.es', 'daclips.in', 'datemule.com', 'fastvideo.in', 'faststream.in', 'filehoot.com', 'filenuke.com', 'sharesix.com', 'docs.google.com', 'plus.google.com', 'picasaweb.google.com', 'gorillavid.com', 'gorillavid.in', 'grifthost.com', 'hugefiles.net', 'ipithos.to', 'ishared.eu', 'kingfiles.net', 'mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'mightyupload.com', 'mooshare.biz', 'movdivx.com', 'movpod.net', 'movpod.in', 'movreel.com', 'mrfile.me', 'uptostream.com', 'nosvideo.com', 'openload.co', 'played.to', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'primeshare.tv', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'uploaded.net', 'sharerepo.com', 'stagevu.com', 'streamcloud.eu', 'streamin.to', 'thefile.me', 'thevideo.me', 'tusfiles.net', 'uploadc.com', 'zalaa.com', 'uploadrocket.net', 'uptobox.com', 'v-vids.com', 'veehd.com', 'vidbull.com', 'videomega.tv', 'vidplay.net', 'vidspot.net', 'vidto.me', 'vidzi.tv', 'vimeo.com', 'vk.com', 'vodlocker.com', 'xfileload.com', 'xvidstage.com', 'zettahost.tv']
 g_ignoreSetResolved=['plugin.video.dramasonline','plugin.video.f4mTester','plugin.video.shahidmbcnet','plugin.video.SportsDevil','plugin.stream.vaughnlive.tv','plugin.video.ZemTV-shani']
 
 class NoRedirection(urllib2.HTTPErrorProcessor):
@@ -492,14 +495,30 @@ def getData(url,fanart):
                     credits = ''
 
                 try:
-                    if name == '[B][COLORgold]YOU ARE IN THE MOVIE ZONE[/B][/COLOR]':
-                        addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
-                        addDir('[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]','[B][COLOR gold]THE PYRAMID SEARCH[/B][/COLOR]',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
-                    elif linkedUrl=='':
-                        addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
+                    if linkedUrl=='':
+                        if Adult_Pass == 'forefingeroffury':
+                            addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
+                        else:
+                            if 'xxx' in name.lower():
+                                pass
+                            elif 'adult' in name.lower():
+                                pass
+                            elif 'porn' in name.lower():
+                                pass
+                            else:
+                                addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                     else:
-                        #print linkedUrl
-                        addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')
+                        if Adult_Pass == 'forefingeroffury':
+                            addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')
+                        else:
+                            if 'xxx' in name.lower():
+                                pass
+                            elif 'adult' in name.lower():
+                                pass
+                            elif 'porn' in name.lower():
+                                pass
+                            else:
+                                addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')
                 except:
                     addon_log('There was a problem adding directory from getData(): '+name.encode('utf-8', 'ignore'))
         else:
@@ -644,7 +663,17 @@ def getChannelItems(name,url,fanart):
                 credits = ''
 
             try:
-                addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1103,thumbnail,fanArt,desc,genre,credits,date)
+				if Adult_Pass == 'forefingeroffury':
+					addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1103,thumbnail,fanArt,desc,genre,credits,date)
+				else:
+					if 'xxx' in name.lower():
+					    pass
+					elif 'adult' in name.lower():
+					    pass
+					elif 'porn' in name.lower():
+					    pass
+					else:
+					    addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1103,thumbnail,fanArt,desc,genre,credits,date)
             except:
                 addon_log('There was a problem adding directory - '+name.encode('utf-8', 'ignore'))
         getItems(items,fanArt)
@@ -939,11 +968,41 @@ def getItems(items,fanart):
                         addLink('', name.encode('utf-8', 'ignore'),thumbnail,fanArt,desc,genre,date,True,playlist,regexs,total)
                 else:
                     if isXMLSource:
-                    	addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
+                        if Adult_Pass == 'forefingeroffury':
+                            addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
+                        else:
+                            if 'xxx' in name.lower():
+                                pass
+                            elif 'adult' in name.lower():
+                                pass
+                            elif 'porn' in name.lower():
+                                pass
+                            else:
+                                addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
                     elif isJsonrpc:
-                        addDir(name.encode('utf-8'),ext_url[0],1153,thumbnail,fanart,desc,genre,date,None,'source')
+                        if Adult_Pass == 'forefingeroffury':
+                            addDir(name.encode('utf-8'),ext_url[0],1153,thumbnail,fanart,desc,genre,date,None,'source')
+                        else:
+                            if 'xxx' in name.lower():
+                                pass
+                            elif 'adult' in name.lower():
+                                pass
+                            elif 'porn' in name.lower():
+                                pass
+                            else:
+                                addDir(name.encode('utf-8'),ext_url[0],1153,thumbnail,fanart,desc,genre,date,None,'source')
                     elif url[0].find('sublink') > 0:
-                        addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,'','','','')
+                        if Adult_Pass == 'forefingeroffury':
+                            addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,'','','','')
+                        else:
+                            if 'xxx' in name.lower():
+                                pass
+                            elif 'adult' in name.lower():
+                                pass
+                            elif 'porn' in name.lower():
+                                pass
+                            else:
+                                addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,'','','','')
                         #addDir(name.encode('utf-8'),url[0],1130,thumbnail,fanart,desc,genre,date,'sublink')
                     else: 
                         if not total:
@@ -1072,7 +1131,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
         liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
         liz.setInfo(type="Video", infoLabels={ "Title": name, "Plot": description, "Genre": genre, "dateadded": date })
         liz.setProperty("Fanart_Image", fanart)
-#        liz.setProperty('IsPlayable', 'true')
+        liz.setProperty('IsPlayable', 'true')
         if showcontext:
             contextMenu = []
             if showcontext == 'fav':
@@ -1088,6 +1147,6 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                 contextMenu.append(('Add to Sanctuary Favourites','XBMC.RunPlugin(%s)' %fav_params))
             contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
             liz.addContextMenuItems(contextMenu)
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,totalItems=total)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,totalItems=total,isFolder=False)
         return ok
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
