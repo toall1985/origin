@@ -479,22 +479,18 @@ elif mode==1109:from lib.pyramid import pyramid;pyramid.download_file(name, url)
 elif mode==1110:from lib.pyramid import pyramid;pyramid.getCommunitySources()
 elif mode==1111:from lib.pyramid import pyramid;pyramid.addSource(url)
 elif mode==1112:
-	import urlresolver
-	try:
-		resolved_url = urlresolver.resolve(url)
-		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
-	except:
-		try:
-			xbmc.Player().play(url, xbmcgui.ListItem(name))
-		except:
-			xbmcgui.Dialog().notification("Sanctuary", "unplayable stream")
-			sys.exit()
-#    if not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
- #       item = xbmcgui.ListItem(path=url)
-  #      xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
-   # else:
-    #    print 'Not setting setResolvedUrl'
-     #   xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
+    from lib.pyramid import pyramid
+    if 'google' in url:
+        import urlresolver
+        resolved = urlresolver.resolve(url)
+        item = xbmcgui.ListItem(path=resolved)
+        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+    elif not url.startswith("plugin://plugin") or not any(x in url for x in pyramid.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
+        item = xbmcgui.ListItem(path=url)
+        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
+    else:
+        print 'Not setting setResolvedUrl'
+        xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
 elif mode==1113:from lib.pyramid import pyramid;pyramid.play_playlist(name, playlist)
 elif mode==1114:from lib.pyramid import pyramid;pyramid.get_xml_database(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1115:from lib.pyramid import pyramid;pyramid.get_xml_database(url, True);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -857,6 +853,7 @@ elif mode == 2207 : from lib import tv_guide;tv_guide.Select_Type()
 elif mode == 2250 : from lib import raysravers;raysravers.LISTS(url)
 elif mode == 2251 : from lib import raysravers;raysravers.LISTS2(url)
 elif mode == 2252 : from lib import raysravers;raysravers.SEARCHLISTS()
+elif mode == 2253 : from lib import raysravers;raysravers.RESOLVER(url)
 elif mode == 2300 : DOJO_MAIN(url)
 elif mode == 2301 : Reaper_Loop(url)
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
