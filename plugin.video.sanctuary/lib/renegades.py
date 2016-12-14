@@ -62,13 +62,7 @@ def run():
     
     # Get params
     params = plugintools.get_params()
-    
-    if params.get("action") is None:
-        main_list(params)
-    else:
-        action = params.get("action")
-        exec action+"(params)"
-    
+    main_list(params)    
     plugintools.close_item_list()
 
 # Main menu

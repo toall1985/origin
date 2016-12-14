@@ -308,6 +308,8 @@ def Live_TV(Search_name):
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Kids%20Tv/Kids%20Tv.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sky%20Movies/Sky%20Movies.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sport/sport.txt']
+    Ultra_List = ['http://ultratv.net16.net/iptvserver/ukiptv1.xml','http://ultratv.net16.net/iptvserver/usaiptv1.xml',
+    'http://ultratv.net16.net/iptvserver/canadaiptv1.xml','http://ultratv.net16.net/iptvserver/indiaiptv1.xml']
     HTML = open(freeview_py).read()
     block = re.compile('def CATEGORIES(.+?)#4Music',re.DOTALL).findall(HTML)
     match = re.compile("addLink\('(.+?)','(.+?)',(.+?),(.+?)\)").findall(str(block))
@@ -320,7 +322,8 @@ def Live_TV(Search_name):
     if ADDON.getSetting('Oblivion_Search')=='true':
         dp.update(15,'',"Checking Oblivion",'Please Wait')
         for item in Oblivion_list:
-            from pyramid._EditOblivion import MainBase as OblivionMain
+            import base64
+            OblivionMain = base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9GcmVlLnhtbA==')
             Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
     if ADDON.getSetting('Maverick_Search')=='true':
         dp.update(30,'',"Checking Maverick",'Please Wait')
@@ -336,11 +339,15 @@ def Live_TV(Search_name):
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('Supremacy_Search')=='true':
         for item in Supremecy_List:
-            dp.update(75,'',"Checking Supremacy",'Please Wait')
+            dp.update(70,'',"Checking Supremacy",'Please Wait')
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('BAMF_Search')=='true':
         for item in BAMF_List:
-            dp.update(85,'',"Checking BAMF",'Please Wait')
+            dp.update(80,'',"Checking BAMF",'Please Wait')
+            Thread(target=Raider_Live_Loop(Search_name,item))	
+    if ADDON.getSetting('Ultra_Search')=='true':
+        for item in Ultra_List:
+            dp.update(90,'',"Checking Ultra",'Please Wait')
             Thread(target=Raider_Live_Loop(Search_name,item))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
@@ -369,6 +376,8 @@ def Raider_Live_Loop(Search_name,url):
         ADD_NAME = '[COLORwhite]BAMF[/COLOR]'
     elif 'ilent' in url:
         ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
+    else:
+        ADD_NAME = '[COLORwhite]Ultra[/COLOR]'
     HTML = process.OPEN_URL(url)
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
     for name,link,image,fanart in match2:
