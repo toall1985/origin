@@ -26,232 +26,143 @@ else: FAV = []
 
 def CATEGORIES():
 	if selfAddon.getSetting('list_all') == 'true':  
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('4Music | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel6/hls/4/playlist.m3u8',1201,logos_tvp+'128.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('4Music | TVPlayer','128',1202,logos_tvp+'128.png')
+		addLink('4Music | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel6/hls/4/playlist.m3u8',1201,logos_tvp+'128.png')
+		addLink('4Music | TVPlayer','128',1202,logos_tvp+'128.png')
 		addLink('5* | FilmOn','https://www.filmon.com/tv/5-star',1201,logos+'5star.png')
 		addLink('5USA | FilmOn','https://www.filmon.com/tv/5usa',1201,logos+'5usa.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Al Jazeera | TVPlayer','146',1202,logos_tvp+'146.png')
+		addLink('Al Jazeera | TVPlayer','146',1202,logos_tvp+'146.png')
 		addLink('Al Jazeera | FilmOn','https://www.filmon.com/tv/al-jazeera',1201,logos_tvp+'146.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Alba | TVPlayer','236',1202,logos_tvp+'236.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Alba | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_alba/bbc_alba.isml/bbc_alba-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'236.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Four HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_33/live/bbc_four_hd/bbc_four_hd.isml/bbc_four_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'110.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Four | TVPlayer','110',1202,logos_tvp+'110.png')
+		addLink('BBC Alba | TVPlayer','236',1202,logos_tvp+'236.png')
+		addLink('BBC Alba | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_alba/bbc_alba.isml/bbc_alba-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'236.png')
+		addLink('BBC Four HD | BBC iPlayer','http://vs-hls-uk-live.akamaized.net/pool_33/live/bbc_four_hd/bbc_four_hd.isml/bbc_four_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'110.png')
+		addLink('BBC Four | TVPlayer','110',1202,logos_tvp+'110.png')
 		addLink('BBC Four | FilmOn','https://www.filmon.com/tv/cbeebiesbbc-four',1201,logos_tvp+'110.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC News HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_34/live/bbc_news_channel_hd/bbc_news_channel_hd.isml/bbc_news_channel_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'111.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC News | TVPlayer','111',1202,logos_tvp+'111.png')
+		addLink('BBC News HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_34/live/bbc_news_channel_hd/bbc_news_channel_hd.isml/bbc_news_channel_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'111.png')
+		addLink('BBC News | TVPlayer','111',1202,logos_tvp+'111.png')
 		addLink('BBC News | FilmOn','https://www.filmon.com/tv/bbc-news',1201,logos_tvp+'111.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC One HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_30/live/bbc_one_hd/bbc_one_hd.isml/bbc_one_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC One | TVPlayer','89',1202,logos_tvp+'89.png')
+		addLink('BBC One HD | BBC iPlayer','http://vs-hls-uk-live.akamaized.net/pool_30/live/bbc_one_hd/bbc_one_hd.isml/bbc_one_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
+		addLink('BBC One | TVPlayer','89',1202,logos_tvp+'89.png')
 		addLink('BBC One | FilmOn','https://www.filmon.com/tv/bbc-one',1201,logos_tvp+'89.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC One Northern Ireland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_4/live/bbc_one_northern_ireland_hd/bbc_one_northern_ireland_hd.isml/bbc_one_northern_ireland_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		addLink('BBC One Northern Ireland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_4/live/bbc_one_northern_ireland_hd/bbc_one_northern_ireland_hd.isml/bbc_one_northern_ireland_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		addLink('BBC One Northern Ireland | FilmOn','https://www.filmon.com/tv/bbc-1-north-ireland',1201,logos_tvp+'89.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC One Scotland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_one_scotland_hd/bbc_one_scotland_hd.isml/bbc_one_scotland_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		addLink('BBC One Scotland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_one_scotland_hd/bbc_one_scotland_hd.isml/bbc_one_scotland_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		addLink('BBC One Scotland | FilmOn','https://www.filmon.com/tv/bbc-1-scotland',1201,logos_tvp+'89.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC One Wales | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_3/live/bbc_one_wales_hd/bbc_one_wales_hd.isml/bbc_one_wales_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		addLink('BBC One Wales | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_3/live/bbc_one_wales_hd/bbc_one_wales_hd.isml/bbc_one_wales_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		addLink('BBC One Wales | FilmOn','https://www.filmon.com/tv/bbc-1-wales',1201,logos_tvp+'89.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Two Northern Ireland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_northern_ireland_digital/bbc_two_northern_ireland_digital.isml/bbc_two_northern_ireland_digital-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Two Scotland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_scotland/bbc_two_scotland.isml/bbc_two_scotland-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Two Wales | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_wales_digital/bbc_two_wales_digital.isml/bbc_two_wales_digital-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Parliament | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_parliament/bbc_parliament.isml/bbc_parliament-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'345.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Parliament | TVPlayer','345',1202,logos_tvp+'345.png')
+		addLink('BBC Two Northern Ireland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_northern_ireland_digital/bbc_two_northern_ireland_digital.isml/bbc_two_northern_ireland_digital-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
+		addLink('BBC Two Scotland | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_scotland/bbc_two_scotland.isml/bbc_two_scotland-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
+		addLink('BBC Two Wales | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_wales_digital/bbc_two_wales_digital.isml/bbc_two_wales_digital-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
+		addLink('BBC Parliament | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_parliament/bbc_parliament.isml/bbc_parliament-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'345.png')
+		addLink('BBC Parliament | TVPlayer','345',1202,logos_tvp+'345.png')
 		addLink('BBC Parliament | FilmOn','https://www.filmon.com/tv/bbc-parliament',1201,logos_tvp+'345.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Two HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_31/live/bbc_two_hd/bbc_two_hd.isml/bbc_two_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'90.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('BBC Two | TVPlayer','90',1202,logos_tvp+'90.png')
+		addLink('BBC Two HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_31/live/bbc_two_hd/bbc_two_hd.isml/bbc_two_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'90.png')
+		addLink('BBC Two | TVPlayer','90',1202,logos_tvp+'90.png')
 		addLink('BBC Two | FilmOn','https://www.filmon.com/tv/bbc-two',1201,logos_tvp+'90.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Bloomberg | TVPlayer','514',1202,logos_tvp+'514.png')
+		addLink('Bloomberg | TVPlayer','514',1202,logos_tvp+'514.png')
 		addLink('Bloomberg | FilmOn','https://www.filmon.com/tv/bloomberg',1201,logos_tvp+'514.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('The Box | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel12/hls/4/playlist.m3u8',1201,logos_tvp+'129.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('The Box | TVPlayer','129',1202,logos_tvp+'129.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Box Hits | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'158.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Box Hits | TVPlayer','130',1202,logos_tvp+'130.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Box Upfront | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel8/hls/4/playlist.m3u8',1201,logos_tvp+'158.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Box Upfront | TVPlayer','158',1202,logos_tvp+'158.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Capital TV | Direct','http://ooyalahd2-f.akamaihd.net/i/globalradio01_delivery@156521/index_656_av-p.m3u8?sd=10&rebase=on',1201,logos_tvp+'157.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Capital TV | TVPlayer','157',1202,logos_tvp+'157.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CBBC HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/cbbc_hd/cbbc_hd.isml/cbbc_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'113.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CBBC | TVPlayer','113',1202,logos_tvp+'113.png')
+		addLink('The Box | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel12/hls/4/playlist.m3u8',1201,logos_tvp+'129.png')
+		addLink('The Box | TVPlayer','129',1202,logos_tvp+'129.png')
+		addLink('Box Hits | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'158.png')
+		addLink('Box Hits | TVPlayer','130',1202,logos_tvp+'130.png')
+		addLink('Box Upfront | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel8/hls/4/playlist.m3u8',1201,logos_tvp+'158.png')
+		addLink('Box Upfront | TVPlayer','158',1202,logos_tvp+'158.png')
+		addLink('Capital TV | Direct','http://ooyalahd2-f.akamaihd.net/i/globalradio01_delivery@156521/index_656_av-p.m3u8?sd=10&rebase=on',1201,logos_tvp+'157.png')
+		addLink('Capital TV | TVPlayer','157',1202,logos_tvp+'157.png')
+		addLink('CBBC HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_1/live/cbbc_hd/cbbc_hd.isml/cbbc_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'113.png')
+		addLink('CBBC | TVPlayer','113',1202,logos_tvp+'113.png')
 		addLink('CBBC | FilmOn','https://www.filmon.com/tv/cbbc',1201,logos_tvp+'113.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CBeebies HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_2/live/cbeebies_hd/cbeebies_hd.isml/cbeebies_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'114.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CBeebies | TVPlayer','114',1202,logos_tvp+'114.png')
+		addLink('CBeebies HD | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_2/live/cbeebies_hd/cbeebies_hd.isml/cbeebies_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'114.png')
+		addLink('CBeebies | TVPlayer','114',1202,logos_tvp+'114.png')
 		addLink('CBeebies | FilmOn','https://www.filmon.com/tv/cbeebies',1201,logos_tvp+'114.png')
 		addLink('CBS Action | FilmOn','https://www.filmon.com/tv/cbs-action',1201,logos+'cbsaction.png')
 		addLink('CBS Drama | FilmOn','https://www.filmon.com/tv/cbs-drama',1201,logos+'cbsdrama.png')
 		addLink('CBS Reality | FilmOn','https://www.filmon.com/tv/cbs-reality',1201,logos+'cbsreality.png')
 		addLink('CBS Reality+1 | FilmOn','https://www.filmon.com/tv/cbs-reality1',1201,logos+'cbsreality.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Channel 4 | TVPlayer','92',1202,logos_tvp+'92.png')
+		addLink('Channel 4 | TVPlayer','92',1202,logos_tvp+'92.png')
 		addLink('Channel 4 | FilmOn','https://www.filmon.com/tv/channel-4',1201,logos_tvp+'92.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Channel 5 | TVPlayer','93',1202,logos_tvp+'93.png')
+		addLink('Channel 5 | TVPlayer','93',1202,logos_tvp+'93.png')
 		addLink('Channel 5 | FilmOn','https://www.filmon.com/tv/channel-5',1201,logos_tvp+'93.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Channel AKA | Direct','http://rrr.sz.xlcdn.com/?account=AATW&file=akanew&type=live&service=wowza&protocol=http&output=playlist.m3u8',1201,logos_tvp+'227.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Channel AKA | TVPlayer','227',1202,logos_tvp+'227.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Chilled | TVPlayer','226',1202,logos_tvp+'226.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CITV | ITV Hub','http://citvliveios-i.akamaihd.net/hls/live/207267/itvlive/CITVMN/master_Main1800.m3u8',1201,logos+'citv.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Clubbing TV | FilmOn','https://www.filmon.com/tv/clubbing-tv',1201,logos+'clubbingtv.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Clubland | TVPlayer','225',1202,logos_tvp+'225.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('CNN International | TVPlayer','286',1202,logos_tvp+'286.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Community Channel | TVPlayer','259',1202,logos_tvp+'259.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('The Craft Channel | TVPlayer','554',1202,logos_tvp+'554.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Dave | TVPlayer','300',1202,logos_tvp+'300.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Dave ja vu | TVPlayer','317',1202,logos_tvp+'317.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Drama | TVPlayer','346',1202,logos_tvp+'346.png')
+		addLink('Channel AKA | Direct','http://rrr.sz.xlcdn.com/?account=AATW&file=akanew&type=live&service=wowza&protocol=http&output=playlist.m3u8',1201,logos_tvp+'227.png')
+		addLink('Channel AKA | TVPlayer','227',1202,logos_tvp+'227.png')
+		addLink('Chilled | TVPlayer','226',1202,logos_tvp+'226.png')
+		addLink('CITV | ITV Hub','http://citvliveios-i.akamaihd.net/hls/live/207267/itvlive/CITVMN/master_Main1800.m3u8',1201,logos+'citv.png')
+		addLink('Clubbing TV | FilmOn','https://www.filmon.com/tv/clubbing-tv',1201,logos+'clubbingtv.png')
+		addLink('Clubland | TVPlayer','225',1202,logos_tvp+'225.png')
+		addLink('CNN International | TVPlayer','286',1202,logos_tvp+'286.png')
+		addLink('Community Channel | TVPlayer','259',1202,logos_tvp+'259.png')
+		addLink('The Craft Channel | TVPlayer','554',1202,logos_tvp+'554.png')
+		addLink('Dave | TVPlayer','300',1202,logos_tvp+'300.png')
+		addLink('Dave ja vu | TVPlayer','317',1202,logos_tvp+'317.png')
+		addLink('Drama | TVPlayer','346',1202,logos_tvp+'346.png')
 		addLink('E4 | FilmOn','https://www.filmon.com/tv/e4',1201,logos+'e4.png')
 		addLink('Film4 | FilmOn','https://www.filmon.com/tv/film-4',1201,logos+'film4.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Food Network | TVPlayer','125',1202,logos_tvp+'125.png')
+		addLink('Food Network | TVPlayer','125',1202,logos_tvp+'125.png')
 		addLink('Food Network | FilmOn','http://www.filmon.com/tv/food-network',1201,logos_tvp+'125.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Food Network+1 | TVPlayer','254',1202,logos_tvp+'254.png')
+		addLink('Food Network+1 | TVPlayer','254',1202,logos_tvp+'254.png')
 		addLink('Food Network+1 | FilmOn','http://www.filmon.com/tv/food-network-plus-1',1201,logos_tvp+'254.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Forces TV | TVPlayer','555',1202,logos_tvp+'555.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Heart TV | Direct','http://ooyalahd2-f.akamaihd.net/i/globalradio02_delivery@156522/master.m3u8',1201,logos_tvp+'153.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Heart TV | TVPlayer','153',1202,logos_tvp+'153.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Home | TVPlayer','512',1202,logos_tvp+'512.png')
+		addLink('Forces TV | TVPlayer','555',1202,logos_tvp+'555.png')
+		addLink('Heart TV | Direct','http://ooyalahd2-f.akamaihd.net/i/globalradio02_delivery@156522/master.m3u8',1201,logos_tvp+'153.png')
+		addLink('Heart TV | TVPlayer','153',1202,logos_tvp+'153.png')
+		addLink('Home | TVPlayer','512',1202,logos_tvp+'512.png')
 		addLink('Horror Channel | FilmOn','https://www.filmon.com/tv/horror-channel',1201,logos+'horrorchannel.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITV1 | ITV Hub','http://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master_Main1800.m3u8',1201,logos_tvp+'204.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITV1 | TVPlayer','204',1202,logos_tvp+'204.png')
+		addLink('ITV1 | ITV Hub','http://itv1liveios-i.akamaihd.net/hls/live/203437/itvlive/ITV1MN/master_Main1800.m3u8',1201,logos_tvp+'204.png')
+		addLink('ITV1 | TVPlayer','204',1202,logos_tvp+'204.png')
 		addLink('ITV1 | FilmOn','http://www.filmon.com/tv/itv1',1201,logos_tvp+'204.png')
 		addLink('ITV1+1 | FilmOn','https://www.filmon.com/tv/itv-plus-1',1201,logos_tvp+'204.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITV2 | ITV Hub','http://itv2liveios-i.akamaihd.net/hls/live/203495/itvlive/ITV2MN/master_Main1800.m3u8',1201,logos+'itv2.png')
+		addLink('ITV2 | ITV Hub','http://itv2liveios-i.akamaihd.net/hls/live/203495/itvlive/ITV2MN/master_Main1800.m3u8',1201,logos+'itv2.png')
 		addLink('ITV2 | FilmOn','http://www.filmon.com/tv/itv2',1201,logos+'itv2.png')
 		addLink('ITV2+1 | FilmOn','https://www.filmon.com/tv/itv2-plus-1',1201,logos+'itv2.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITV3 | ITV Hub','http://itv3liveios-i.akamaihd.net/hls/live/207262/itvlive/ITV3MN/master_Main1800.m3u8',1201,logos+'itv3.png')
+		addLink('ITV3 | ITV Hub','http://itv3liveios-i.akamaihd.net/hls/live/207262/itvlive/ITV3MN/master_Main1800.m3u8',1201,logos+'itv3.png')
 		addLink('ITV3 | FilmOn','http://www.filmon.com/tv/itv3',1201,logos+'itv3.png')
 		addLink('ITV3+1 | FilmOn','https://www.filmon.com/tv/itv3-plus-1',1201,logos+'itv3.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITV4 | ITV Hub','http://itv4liveios-i.akamaihd.net/hls/live/207266/itvlive/ITV4MN/master_Main1800.m3u8',1201,logos+'itv4.png')
+		addLink('ITV4 | ITV Hub','http://itv4liveios-i.akamaihd.net/hls/live/207266/itvlive/ITV4MN/master_Main1800.m3u8',1201,logos+'itv4.png')
 		addLink('ITV4 | FilmOn','http://www.filmon.com/tv/itv4',1201,logos+'itv4.png')
 		addLink('ITV4+1 | FilmOn','https://www.filmon.com/tv/itv4-plus-1',1201,logos+'itv4.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('ITVBe | ITV Hub','http://itvbeliveios-i.akamaihd.net/hls/live/219078/itvlive/ITVBE/master_Main1800.m3u8',1201,logos+'itvbe.png')
+		addLink('ITVBe | ITV Hub','http://itvbeliveios-i.akamaihd.net/hls/live/219078/itvlive/ITVBE/master_Main1800.m3u8',1201,logos+'itvbe.png')
 		addLink('ITVBe | FilmOn','http://www.filmon.com/tv/itvbe',1201,logos+'itvbe.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('The Jewellery Channel | Direct','https://d2hee8qk5g0egz.cloudfront.net/live/tjc_sdi1/bitrate1.isml/bitrate1-audio_track=64000-video=1800000.m3u8',1201,logos_tvp+'545.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('The Jewellery Channel | TVPlayer','545',1202,logos_tvp+'545.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Keep It Country | TVPlayer','569',1202,logos_tvp+'569.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Kerrang! | Direct','http://llnw.live.btv.simplestream.com/coder11/coder.channels.channel4/hls/4/playlist.m3u8',1201,logos_tvp+'133.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Kerrang! | TVPlayer','133',1202,logos_tvp+'133.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Kiss | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel14/hls/4/playlist.m3u8',1201,logos_tvp+'131.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Kiss | TVPlayer','131',1202,logos_tvp+'131.png')
+		addLink('The Jewellery Channel | Direct','https://d2hee8qk5g0egz.cloudfront.net/live/tjc_sdi1/bitrate1.isml/bitrate1-audio_track=64000-video=1800000.m3u8',1201,logos_tvp+'545.png')
+		addLink('The Jewellery Channel | TVPlayer','545',1202,logos_tvp+'545.png')
+		addLink('Keep It Country | TVPlayer','569',1202,logos_tvp+'569.png')
+		addLink('Kerrang! | Direct','http://llnw.live.btv.simplestream.com/coder11/coder.channels.channel4/hls/4/playlist.m3u8',1201,logos_tvp+'133.png')
+		addLink('Kerrang! | TVPlayer','133',1202,logos_tvp+'133.png')
+		addLink('Kiss | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel14/hls/4/playlist.m3u8',1201,logos_tvp+'131.png')
+		addLink('Kiss | TVPlayer','131',1202,logos_tvp+'131.png')
 		addLink('Kix! | FilmOn','https://www.filmon.com/tv/kix',1201,logos+'kix.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('London Live | Direct','http://bcoveliveios-i.akamaihd.net/hls/live/217434/3083279840001/master_900.m3u8',1201,logos+'londonlive.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Magic | Direct','http://llnw.live.btv.simplestream.com/coder11/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'132.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Magic | TVPlayer','132',1202,logos_tvp+'132.png')
+		addLink('London Live | Direct','http://bcoveliveios-i.akamaihd.net/hls/live/217434/3083279840001/master_900.m3u8',1201,logos+'londonlive.png')
+		addLink('Magic | Direct','http://llnw.live.btv.simplestream.com/coder11/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'132.png')
+		addLink('Magic | TVPlayer','132',1202,logos_tvp+'132.png')
 		addLink('More4 | FilmOn','https://www.filmon.com/tv/more4',1201,logos+'more4.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('NOW Music | Direct','http://rrr.sz.xlcdn.com/?account=AATW&file=nowmusic&type=live&service=wowza&protocol=http&output=playlist.m3u8',1201,logos_tvp+'228.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('NOW Music | TVPlayer','228',1202,logos_tvp+'228.png')
+		addLink('NOW Music | Direct','http://rrr.sz.xlcdn.com/?account=AATW&file=nowmusic&type=live&service=wowza&protocol=http&output=playlist.m3u8',1201,logos_tvp+'228.png')
+		addLink('NOW Music | TVPlayer','228',1202,logos_tvp+'228.png')
 		addLink('POP | FilmOn','https://www.filmon.com/tv/pop',1201,logos+'pop.png')
 		addLink('Pick | FilmOn','https://www.filmon.com/tv/pick-tv',1201,logos+'pick.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QUEST | TVPlayer','327',1202,logos_tvp+'327.png')
+		addLink('QUEST | TVPlayer','327',1202,logos_tvp+'327.png')
 		addLink('QUEST | FilmOn','http://www.filmon.tv/tv/quest',1201,logos_tvp+'327.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QUEST+1 | TVPlayer','336',1202,logos_tvp+'336.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QVC Beauty | TVPlayer','250',1202,logos_tvp+'250.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QVC Extra | TVPlayer','248',1202,logos_tvp+'248.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QVC Plus | TVPlayer','344',1202,logos_tvp+'344.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QVC Style | TVPlayer','249',1202,logos_tvp+'249.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('QVC | TVPlayer','247',1202,logos_tvp+'247.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Really | TVPlayer','306',1202,logos_tvp+'306.png')
+		addLink('QUEST+1 | TVPlayer','336',1202,logos_tvp+'336.png')
+		addLink('QVC Beauty | TVPlayer','250',1202,logos_tvp+'250.png')
+		addLink('QVC Extra | TVPlayer','248',1202,logos_tvp+'248.png')
+		addLink('QVC Plus | TVPlayer','344',1202,logos_tvp+'344.png')
+		addLink('QVC Style | TVPlayer','249',1202,logos_tvp+'249.png')
+		addLink('QVC | TVPlayer','247',1202,logos_tvp+'247.png')
+		addLink('Really | TVPlayer','306',1202,logos_tvp+'306.png')
 		addLink('Really | FilmOn','http://www.filmon.tv/tv/really',1201,logos_tvp+'306.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('S4C | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_9/live/s4cpbs/s4cpbs.isml/s4cpbs-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'251.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('S4C | TVPlayer','251',1202,logos_tvp+'251.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Sky News | YouTube','https://www.youtube.com/watch?v=y60wDzZt8yg',1201,logos+'skynews.png')
+		addLink('S4C | BBC iPlayer','http://vs-hls-uk-live.edgesuite.net/pool_9/live/s4cpbs/s4cpbs.isml/s4cpbs-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'251.png')
+		addLink('S4C | TVPlayer','251',1202,logos_tvp+'251.png')
+		addLink('Sky News | YouTube','https://www.youtube.com/watch?v=y60wDzZt8yg',1201,logos+'skynews.png')
 		addLink('Tiny Pop | FilmOn','https://www.filmon.com/tv/tiny-pop',1201,logos+'tinypop.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Travel Channel | TVPlayer','126',1202,logos_tvp+'126.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Travel Channel+1 | TVPlayer','255',1202,logos_tvp+'255.png')
+		addLink('Travel Channel | TVPlayer','126',1202,logos_tvp+'126.png')
+		addLink('Travel Channel+1 | TVPlayer','255',1202,logos_tvp+'255.png')
 		addLink('Travel Channel+1 | FilmOn','http://www.filmon.tv/tv/travel-channel1',1201,logos_tvp+'255.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Yesterday | TVPlayer','308',1202,logos_tvp+'308.png')
+		addLink('Yesterday | TVPlayer','308',1202,logos_tvp+'308.png')
 		addLink('Yesterday | FilmOn','http://www.filmon.tv/tv/yesterday',1201,logos_tvp+'308.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Yesterday+1 | TVPlayer','318',1202,logos_tvp+'318.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('truTV | Direct','http://llnw.live.btv.simplestream.com/coder5/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'295.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('truTV | TVPlayer','295',1202,logos_tvp+'295.png')
+		addLink('Yesterday+1 | TVPlayer','318',1202,logos_tvp+'318.png')
+		addLink('truTV | Direct','http://llnw.live.btv.simplestream.com/coder5/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'295.png')
+		addLink('truTV | TVPlayer','295',1202,logos_tvp+'295.png')
 		addLink('truTV | FilmOn','http://www.filmon.tv/tv/tru-tv',1201,logos_tvp+'295.png')
-		if selfAddon.getSetting('Only_Film') == 'false':
-			addLink('Blaze | Direct','http://live.blaze.simplestreamcdn.com/live/blaze/bitrate1.isml/bitrate1-audio_track=64000-video=3500000.m3u8',1201,logos+'blaze.png')
+		addLink('Blaze | Direct','http://live.blaze.simplestreamcdn.com/live/blaze/bitrate1.isml/bitrate1-audio_track=64000-video=3500000.m3u8',1201,logos+'blaze.png')
 		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL)
 		xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 	else:
 		#4Music
 		if selfAddon.getSetting('four_music') == 'Direct': addLink('4Music','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel6/hls/4/playlist.m3u8',1201,logos_tvp+'128.png')
@@ -269,56 +180,56 @@ def CATEGORIES():
 		
 		#BBC ALBA
 		if selfAddon.getSetting('bbc_alba') == 'TVPlayer': addLink('BBC Alba','236',1202,logos_tvp+'236.png')
-		if selfAddon.getSetting('bbc_alba') == 'BBC iPlayer': addLink('BBC Alba','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_alba/bbc_alba.isml/bbc_alba-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'236.png')
+		if selfAddon.getSetting('bbc_alba') == 'BBC iPlayer': addLink('BBC Alba','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_alba/bbc_alba.isml/bbc_alba-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'236.png')
 		
 		#BBC Four
-		if selfAddon.getSetting('bbc_four') == 'BBC iPlayer': addLink('BBC Four HD','http://vs-hls-uk-live.edgesuite.net/pool_33/live/bbc_four_hd/bbc_four_hd.isml/bbc_four_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'110.png')
+		if selfAddon.getSetting('bbc_four') == 'BBC iPlayer': addLink('BBC Four HD','http://vs-hls-uk-live.akamaized.net/pool_33/live/bbc_four_hd/bbc_four_hd.isml/bbc_four_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'110.png')
 		if selfAddon.getSetting('bbc_four') == 'TVPlayer': addLink('BBC Four','110',1202,logos_tvp+'110.png')
 		if selfAddon.getSetting('bbc_four') == 'FilmOn': addLink('BBC Four','https://www.filmon.com/tv/cbeebiesbbc-four',1201,logos_tvp+'110.png')
 		
 		#BBC News
-		if selfAddon.getSetting('bbc_news') == 'BBC iPlayer': addLink('BBC News HD','http://vs-hls-uk-live.edgesuite.net/pool_34/live/bbc_news_channel_hd/bbc_news_channel_hd.isml/bbc_news_channel_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'111.png')
+		if selfAddon.getSetting('bbc_news') == 'BBC iPlayer': addLink('BBC News HD','http://vs-hls-uk-live.edgesuite.net/pool_34/live/bbc_news_channel_hd/bbc_news_channel_hd.isml/bbc_news_channel_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'111.png')
 		if selfAddon.getSetting('bbc_news') == 'TVPlayer': addLink('BBC News','111',1202,logos_tvp+'111.png')
 		if selfAddon.getSetting('bbc_news') == 'FilmOn': addLink('BBC News','https://www.filmon.com/tv/bbc-news',1201,logos_tvp+'111.png')
 		
 		#BBC One
-		if selfAddon.getSetting('bbc_one') == 'BBC iPlayer': addLink('BBC One HD','http://vs-hls-uk-live.edgesuite.net/pool_30/live/bbc_one_hd/bbc_one_hd.isml/bbc_one_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		if selfAddon.getSetting('bbc_one') == 'BBC iPlayer': addLink('BBC One HD','http://vs-hls-uk-live.akamaized.net/pool_30/live/bbc_one_hd/bbc_one_hd.isml/bbc_one_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		if selfAddon.getSetting('bbc_one') == 'TVPlayer': addLink('BBC One','89',1202,logos_tvp+'89.png')
 		if selfAddon.getSetting('bbc_one') == 'FilmOn': addLink('BBC One','https://www.filmon.com/tv/bbc-one',1201,logos_tvp+'89.png')
 		
 		#BBC One Northern Ireland
-		if selfAddon.getSetting('bbc_one_ni') == 'BBC iPlayer': addLink('BBC One Northern Ireland','http://vs-hls-uk-live.edgesuite.net/pool_4/live/bbc_one_northern_ireland_hd/bbc_one_northern_ireland_hd.isml/bbc_one_northern_ireland_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		if selfAddon.getSetting('bbc_one_ni') == 'BBC iPlayer': addLink('BBC One Northern Ireland','http://vs-hls-uk-live.edgesuite.net/pool_4/live/bbc_one_northern_ireland_hd/bbc_one_northern_ireland_hd.isml/bbc_one_northern_ireland_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		if selfAddon.getSetting('bbc_one_ni') == 'FilmOn': addLink('BBC One Northern Ireland','https://www.filmon.com/tv/bbc-1-north-ireland',1201,logos_tvp+'89.png')
 		
 		#BBC Scotland
-		if selfAddon.getSetting('bbc_one_scotland') == 'BBC iPlayer': addLink('BBC One Scotland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_one_scotland_hd/bbc_one_scotland_hd.isml/bbc_one_scotland_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		if selfAddon.getSetting('bbc_one_scotland') == 'BBC iPlayer': addLink('BBC One Scotland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_one_scotland_hd/bbc_one_scotland_hd.isml/bbc_one_scotland_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		if selfAddon.getSetting('bbc_one_scotland') == 'FilmOn': addLink('BBC Scotland','https://www.filmon.com/tv/bbc-1-scotland',1201,logos_tvp+'89.png')
 		
 		#BBC One Wales
-		if selfAddon.getSetting('bbc_one_wales') == 'BBC iPlayer': addLink('BBC One Wales','http://vs-hls-uk-live.edgesuite.net/pool_3/live/bbc_one_wales_hd/bbc_one_wales_hd.isml/bbc_one_wales_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'89.png')
+		if selfAddon.getSetting('bbc_one_wales') == 'BBC iPlayer': addLink('BBC One Wales','http://vs-hls-uk-live.edgesuite.net/pool_3/live/bbc_one_wales_hd/bbc_one_wales_hd.isml/bbc_one_wales_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'89.png')
 		if selfAddon.getSetting('bbc_one_wales') == 'FilmOn': addLink('BBC One Wales','https://www.filmon.com/tv/bbc-1-wales',1201,logos_tvp+'89.png')
 		
 		#BBC Two Northern Ireland
-		if selfAddon.getSetting('bbc_two_ni') == 'BBC iPlayer': addLink('BBC Two Northern Ireland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_northern_ireland_digital/bbc_two_northern_ireland_digital.isml/bbc_two_northern_ireland_digital-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
+		if selfAddon.getSetting('bbc_two_ni') == 'BBC iPlayer': addLink('BBC Two Northern Ireland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_northern_ireland_digital/bbc_two_northern_ireland_digital.isml/bbc_two_northern_ireland_digital-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
 		
 		#BBC Two Scotland
-		if selfAddon.getSetting('bbc_two_scotland') == 'BBC iPlayer': addLink('BBC Two Scotland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_scotland/bbc_two_scotland.isml/bbc_two_scotland-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
+		if selfAddon.getSetting('bbc_two_scotland') == 'BBC iPlayer': addLink('BBC Two Scotland','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_scotland/bbc_two_scotland.isml/bbc_two_scotland-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
 		
 		#BBC Two Wales
-		if selfAddon.getSetting('bbc_two_wales') == 'BBC iPlayer': addLink('BBC Two Wales','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_wales_digital/bbc_two_wales_digital.isml/bbc_two_wales_digital-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'90.png')
+		if selfAddon.getSetting('bbc_two_wales') == 'BBC iPlayer': addLink('BBC Two Wales','http://vs-hls-uk-live.edgesuite.net/pool_5/live/bbc_two_wales_digital/bbc_two_wales_digital.isml/bbc_two_wales_digital-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'90.png')
 		
 		#BBC Parliament
-		if selfAddon.getSetting('bbc_par') == 'BBC iPlayer': addLink('BBC Parliament','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_parliament/bbc_parliament.isml/bbc_parliament-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'345.png')
+		if selfAddon.getSetting('bbc_par') == 'BBC iPlayer': addLink('BBC Parliament','http://vs-hls-uk-live.edgesuite.net/pool_1/live/bbc_parliament/bbc_parliament.isml/bbc_parliament-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'345.png')
 		if selfAddon.getSetting('bbc_par') == 'TVPlayer': addLink('BBC Parliament','345',1202,logos_tvp+'345.png')
 		if selfAddon.getSetting('bbc_par') == 'FilmOn': addLink('BBC Parliament','https://www.filmon.com/tv/bbc-parliament',1201,logos_tvp+'345.png')
 		
 		#BBC Two
-		if selfAddon.getSetting('bbc_two') == 'BBC iPlayer': addLink('BBC Two HD','http://vs-hls-uk-live.edgesuite.net/pool_31/live/bbc_two_hd/bbc_two_hd.isml/bbc_two_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'90.png')
+		if selfAddon.getSetting('bbc_two') == 'BBC iPlayer': addLink('BBC Two HD','http://vs-hls-uk-live.edgesuite.net/pool_31/live/bbc_two_hd/bbc_two_hd.isml/bbc_two_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'90.png')
 		if selfAddon.getSetting('bbc_two') == 'TVPlayer': addLink('BBC Two','90',1202,logos_tvp+'90.png')
 		if selfAddon.getSetting('bbc_two') == 'FilmOn': addLink('BBC Two','https://www.filmon.com/tv/bbc-two',1201,logos_tvp+'90.png')
 		
 		#Blaze
-		if selfAddon.getSetting('blaze') == 'Direct': addLink('Blaze | Direct','http://live.blaze.simplestreamcdn.com/live/blaze/bitrate1.isml/bitrate1-audio_track=64000-video=3500000.m3u8',1201,logos+'blaze.png')
+		if selfAddon.getSetting('blaze') == 'Direct': addLink('Blaze','http://live.blaze.simplestreamcdn.com/live/blaze/bitrate1.isml/bitrate1-audio_track=64000-video=3500000.m3u8',1201,logos+'blaze.png')
 
 		#Bloomberg
 		if selfAddon.getSetting('bloomberg') == 'TVPlayer': addLink('Bloomberg','514',1202,logos_tvp+'514.png')
@@ -329,7 +240,7 @@ def CATEGORIES():
 		if selfAddon.getSetting('the_box') == 'TVPlayer': addLink('The Box','129',1202,logos_tvp+'129.png')
 		
 		#Box Hits
-		if selfAddon.getSetting('box_hits') == 'Direct': addLink('Box Hits','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'158.png')
+		if selfAddon.getSetting('box_hits') == 'Direct': addLink('Box Hits','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel2/hls/4/playlist.m3u8',1201,logos_tvp+'130.png')
 		if selfAddon.getSetting('box_hits') == 'TVPlayer': addLink('Box Hits','130',1202,logos_tvp+'130.png')
 		
 		#Box Upfront
@@ -341,12 +252,12 @@ def CATEGORIES():
 		if selfAddon.getSetting('capital') == 'TVPlayer': addLink('Capital TV','157',1202,logos_tvp+'157.png')
 		
 		#CBBC
-		if selfAddon.getSetting('cbbc') == 'BBC iPlayer': addLink('CBBC HD','http://vs-hls-uk-live.edgesuite.net/pool_1/live/cbbc_hd/cbbc_hd.isml/cbbc_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'113.png')
+		if selfAddon.getSetting('cbbc') == 'BBC iPlayer': addLink('CBBC HD','http://vs-hls-uk-live.edgesuite.net/pool_1/live/cbbc_hd/cbbc_hd.isml/cbbc_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'113.png')
 		if selfAddon.getSetting('cbbc') == 'TVPlayer': addLink('CBBC','113',1202,logos_tvp+'113.png')
 		if selfAddon.getSetting('cbbc') == 'FilmOn': addLink('CBBC','https://www.filmon.com/tv/cbbc',1201,logos_tvp+'113.png')
 		
 		#CBeebies
-		if selfAddon.getSetting('cbeebies') == 'BBC iPlayer': addLink('CBeebies HD','http://vs-hls-uk-live.edgesuite.net/pool_2/live/cbeebies_hd/cbeebies_hd.isml/cbeebies_hd-pa4%3d128000-video%3d5070000.m3u8',1201,logos_tvp+'114.png')
+		if selfAddon.getSetting('cbeebies') == 'BBC iPlayer': addLink('CBeebies HD','http://vs-hls-uk-live.edgesuite.net/pool_2/live/cbeebies_hd/cbeebies_hd.isml/cbeebies_hd-pa4%3d128000-video%3d5070016.m3u8',1201,logos_tvp+'114.png')
 		if selfAddon.getSetting('cbeebies') == 'TVPlayer': addLink('CBeebies','114',1202,logos_tvp+'114.png')
 		if selfAddon.getSetting('cbeebies') == 'FilmOn': addLink('CBeebies','https://www.filmon.com/tv/cbeebies',1201,logos_tvp+'114.png')
 		
@@ -529,7 +440,7 @@ def CATEGORIES():
 		if selfAddon.getSetting('really') == 'FilmOn': addLink('Really','http://www.filmon.tv/tv/really',1201,logos_tvp+'306.png')
 		
 		#S4C
-		if selfAddon.getSetting('s4c') == 'BBC iPlayer': addLink('S4C','http://vs-hls-uk-live.edgesuite.net/pool_9/live/s4cpbs/s4cpbs.isml/s4cpbs-pa3%3d96000-video%3d1604000.norewind.m3u8',1201,logos_tvp+'251.png')
+		if selfAddon.getSetting('s4c') == 'BBC iPlayer': addLink('S4C','http://vs-hls-uk-live.edgesuite.net/pool_9/live/s4cpbs/s4cpbs.isml/s4cpbs-pa3%3d96000-video%3d1604032.norewind.m3u8',1201,logos_tvp+'251.png')
 		if selfAddon.getSetting('s4c') == 'TVPlayer': addLink('S4C','251',1202,logos_tvp+'251.png')
 		
 		#Sky News
@@ -557,7 +468,8 @@ def CATEGORIES():
 		if selfAddon.getSetting('trutv') == 'TVPlayer': addLink('truTV','295',1202,logos_tvp+'295.png')
 		if selfAddon.getSetting('trutv') == 'FilmOn': addLink('truTV','http://www.filmon.tv/tv/tru-tv',1201,logos_tvp+'295.png')
 		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_LABEL)
-		xbmcplugin.endOfDirectory(int(sys.argv[1]))	
+		xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 def play(url):
 	resolved = liveresolver.resolve(url)
 	item = xbmcgui.ListItem(path=resolved)

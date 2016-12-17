@@ -292,6 +292,8 @@ def Music(Search_name):
             process.Menu(name,str(url),10001,str(image),'','','')   
 				
 def Live_TV(Search_name):
+    if Search_name.lower() == 'w':
+        Search_name = 'Watch'
     dp.create('Checking for streams - ' + Search_name)
     Oblivion_list = ['FreeSports.xml','FreeTesting.xml','Server1.m3u','Server2.m3u','Kid.xml']
     Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',

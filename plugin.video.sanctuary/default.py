@@ -55,12 +55,38 @@ ULTRA_ICON = base_icons + 'Ultra.png'
 FIDO_ICON = base_icons + 'fido.png'
 INTRO_VID = base_icons + 'Intro.mp4'
 INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
+XMAS_SONG = base_icons + 'xmas_intro.mp3'
+XMAS_PIC = base_icons + 'xmas_image.jpg'
+
+def xmas_stuff():
+	power = 'http://herovision.x10host.com/fb_replays/power.png'
+	power_focus = 'http://herovision.x10host.com/fb_replays/power_focus.png'
+	import pyxbmct
+	xbmc.Player().play(XMAS_SONG, xbmcgui.ListItem('MERRY CHRISTMAS - You have been updated'))
+	window  = pyxbmct.AddonDialogWindow('')
+	button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
+	label = pyxbmct.Label('[B][COLORsteelblue]Press enter to open Sanctuary if back doesn\'t work --->[/COLOR][/B]', alignment=pyxbmct.ALIGN_LEFT) 
+	window.setGeometry(1250, 650, 100, 50)
+	Background=pyxbmct.Image(XMAS_PIC)
+	window.placeControl(Background, -5, 0, 110, 51)
+	window.placeControl(button, 110,48,10,3)
+	window.placeControl(label, 111, 22, columnspan=25)
+	window.connect(pyxbmct.ACTION_NAV_BACK, window.close)
+	window.connect(button, window.close)
+	window.setFocus(button)
+	window.doModal()
+	window.close
+	del window	
+
+	
 
 def Main_Menu():
     if not os.path.exists(INTRO_VID_TEMP):
         if ADDON.getSetting('Intro_Vid')=='true':
-            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
+            xmas_stuff()
             os.makedirs(INTRO_VID_TEMP)
+#            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
+ #           os.makedirs(INTRO_VID_TEMP)
     process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
     if ADDON.getSetting('Origin')=='true':
         process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
@@ -81,7 +107,7 @@ def Main_Menu():
     if ADDON.getSetting('Cold_As_Ice')=='true':
         process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     if ADDON.getSetting('Supremacy')=='true':
-        process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/fanart.jpg',FANART,'','')
+        process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/icon.png',FANART,'','')
     if ADDON.getSetting('Freedom')=='true':
         process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
     if ADDON.getSetting('Renegades')=='true':
@@ -218,6 +244,7 @@ def send_to_movie_search(name,extra):
 def Origin_Main():
     process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Live TV','',19,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -347,7 +374,13 @@ elif mode==12:
     process.rmFavorite(name)
 elif mode == 13: bagotricks()
 elif mode == 15: from lib import Scrape_Nan;Scrape_Nan.scrape_episode(extra)
-elif mode == 20: pass
+elif mode == 19: from lib import Live;Live.Live_Menu()
+elif mode == 20: from lib import Live;Live.Live_Main()
+elif mode == 21: from lib import Live;Live.Get_Channel(url)
+elif mode == 22: from lib import Live;Live.Get_Playlink(name,url)
+elif mode == 23: from lib import Live;Live.Ultra()
+elif mode == 24: from lib import Live;Live.Get_Ultra_Channel(url)
+elif mode == 25: from lib import Live;Live.Search_Ultra()
 elif mode == 100: from lib import comedy;comedy.Comedy_Main()
 elif mode == 101: from lib import comedy;comedy.Stand_up()
 elif mode == 102: from lib import comedy;comedy.Search()
