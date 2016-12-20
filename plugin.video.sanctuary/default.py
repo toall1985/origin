@@ -57,6 +57,7 @@ INTRO_VID = base_icons + 'Intro.mp4'
 INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
 XMAS_SONG = base_icons + 'xmas_intro.mp3'
 XMAS_PIC = base_icons + 'xmas_image.jpg'
+XMAS_IMAGE = 'http://iconshow.me/media/images/xmas/christmas-icon7/9/glass-ball-256.png'
 
 def xmas_stuff():
 	power = 'http://herovision.x10host.com/fb_replays/power.png'
@@ -76,9 +77,39 @@ def xmas_stuff():
 	window.setFocus(button)
 	window.doModal()
 	window.close
-	del window	
+	del window
+
+def TEST_MENU():
+	process.Menu('Now thats what i call Christmas','https://www.youtube.com/playlist?list=PL_34_m4eTlaNf6TSaM9IfLd13R1lKaoYd',10002,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('Ray\'s Christmas','http://raiztv.co.uk/RaysRavers/list/xmas.php',2251,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('A Pyramid Christmas','http://tombraiderbuilds.co.uk/addon/christmas/xmasmain.txt',1101,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('Tigens Christmas Stocking','http://kodeeresurrection.com/TigensWorldtxt/Music/Xmas/txt/XmasSub.txt',1101,'http://kodeeresurrection.com/TigensWorldtxt/TigensStocking.png',XMAS_PIC,'','')
+	process.Menu('Supremacy Christmas','https://goo.gl/vEn3qv',1101,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('Silent Night','http://silenthunter.srve.io/jdh/XMAS.txt',1101,'http://iconshow.me/media/images/xmas/christmas-icon21/11/merry-christmas-wreath-256.png',XMAS_PIC,'','')
+	process.Menu('Dojo Christmas','http://herovision.x10host.com/dojo/christmas/christmas.php',2300,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('Fido Christmas Movies','https://goo.gl/ug6fSd',1101,XMAS_IMAGE,XMAS_PIC,'','')
+	process.Menu('Fido Christmas Concerts','https://goo.gl/gtJ2US',1101,XMAS_IMAGE,XMAS_PIC,'','')
+	
+	
+	
+def TEST_TWO(url,name):
+	anything = requests.get(url).text
+	match = re.compile('<li><a href="(.+?)" title="(.+?)".+?</li>').findall(anything)
+	for url,name2 in match:
+		if name2[0] == name:
+			process.PLAY(name2,url,100002,'',FANART,'','')
+			
+def TEST_PLAY(url):
+	url = url.replace('www','m')
+	anything = requests.get(url,verify=False).text
+	match = re.compile('<source src="(.+?)"').findall(anything)
+	for link in match:
+		xbmc.Player().play(link)
+		
+	
 
 	
+
 
 def Main_Menu():
     if not os.path.exists(INTRO_VID_TEMP):
@@ -88,6 +119,7 @@ def Main_Menu():
 #            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
  #           os.makedirs(INTRO_VID_TEMP)
     process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
+    process.Menu('Christmas Time','',100000,XMAS_IMAGE,FANART,'','')
     if ADDON.getSetting('Origin')=='true':
         process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     if ADDON.getSetting('Pandoras_Box')=='true':
@@ -893,6 +925,9 @@ elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Pla
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
 elif mode == 10003: from lib import yt;yt.PlayVideo(url)
+elif mode == 100000: TEST_MENU()
+elif mode == 100001: Youtube_Playlist_Grab_Duration(url)
+elif mode == 100002: TEST_PLAY(url)
 
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

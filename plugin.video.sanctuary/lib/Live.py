@@ -38,9 +38,11 @@ def Get_Playlink(name,url):
 	process.Big_Resolve(name,playlink)
 	
 def Ultra():
-	process.Menu('[COLORblue]Search - slow and steady wins the race[/COLOR]','',25,'','','','')
+	process.Menu('[COLORwhite]Search[/COLOR]','',25,'','','','')
+	process.Menu('________________________________________________________','',25,'','','','')
 	process.Menu('[COLORred]Streams are unchecked so may be hit or miss!!!![/COLOR]','',23,'','','','')
 	process.Menu('[COLORred]But enjoy what does work, don\'t enjoy what doesn\'t ;-)[/COLOR]','',23,'','','','')
+	process.Menu('________________________________________________________','',25,'','','','')
 	HTML = requests.get('http://www.iptvultra.com/').text
 	match = re.compile('<span class="link"><a href="(.+?)">(.+?)</a>').findall(HTML)
 	for url, name in match:
