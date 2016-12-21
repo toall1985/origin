@@ -157,7 +157,7 @@ def Main_Menu():
     if ADDON.getSetting('Dojo')=='true':
         process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
     if ADDON.getSetting('Cerberus')=='true':
-        process.Menu('Cerberus','https://leto.feralhosting.com/grimw01f/tr/mainmenu.php',2301,REAPER_ICON,'','','')
+        process.Menu('Cerberus','http://roguemedia.x10.mx/reaper/mainmenu.php',2301,REAPER_ICON,'','','')
     if ADDON.getSetting('Ultra')=='true':
         process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
     if ADDON.getSetting('Fido')=='true':
