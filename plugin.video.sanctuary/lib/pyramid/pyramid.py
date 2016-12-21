@@ -121,7 +121,7 @@ def SKindex_Quicksilver():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Silent():
-    getData(base64.decodestring('http://silenthunter.srve.io/jdh/home.txt'),'')
+    getData(base64.decodestring('aHR0cDovL3NpbGVudGh1bnRlci5zcnZlLmlvL2pkaC9ob21lLnR4dA=='),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Ultra():
@@ -129,7 +129,7 @@ def SKindex_Ultra():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Fido():
-    getData(base64.decodestring('https://goo.gl/8KQId8'),'')
+    getData(base64.decodestring('aHR0cHM6Ly9nb28uZ2wvOEtRSWQ4'),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 	

@@ -167,8 +167,8 @@ def getFavourites():
             except:
                 regexs = None
 
-            if i[4] == 0:
-                Menu(name, url, '', iconimage, fanart, '', '', 'fav')
+            if i[4] == 906:
+                Play(name, url, '', iconimage, fanart, '', '', 'fav')
             else:
                 Menu(name, url, i[4], iconimage, fanart, '', '', 'fav')
 
