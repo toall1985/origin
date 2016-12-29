@@ -59,67 +59,12 @@ XMAS_SONG = base_icons + 'xmas_intro.mp3'
 XMAS_PIC = base_icons + 'xmas_image.jpg'
 XMAS_IMAGE = 'http://iconshow.me/media/images/xmas/christmas-icon7/9/glass-ball-256.png'
 
-def xmas_stuff():
-	power = 'http://herovision.x10host.com/fb_replays/power.png'
-	power_focus = 'http://herovision.x10host.com/fb_replays/power_focus.png'
-	import pyxbmct
-	xbmc.Player().play(XMAS_SONG, xbmcgui.ListItem('MERRY CHRISTMAS - You have been updated'))
-	window  = pyxbmct.AddonDialogWindow('')
-	button = pyxbmct.Button('', noFocusTexture=power,focusTexture=power_focus)
-	label = pyxbmct.Label('[B][COLORsteelblue]Press enter to open Sanctuary if back doesn\'t work --->[/COLOR][/B]', alignment=pyxbmct.ALIGN_LEFT) 
-	window.setGeometry(1250, 650, 100, 50)
-	Background=pyxbmct.Image(XMAS_PIC)
-	window.placeControl(Background, -5, 0, 110, 51)
-	window.placeControl(button, 110,48,10,3)
-	window.placeControl(label, 111, 22, columnspan=25)
-	window.connect(pyxbmct.ACTION_NAV_BACK, window.close)
-	window.connect(button, window.close)
-	window.setFocus(button)
-	window.doModal()
-	window.close
-	del window
-
-def TEST_MENU():
-	process.Menu('Now thats what i call Christmas','https://www.youtube.com/playlist?list=PL_34_m4eTlaNf6TSaM9IfLd13R1lKaoYd',10002,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('Ray\'s Christmas','http://raiztv.co.uk/RaysRavers/list/xmas.php',2251,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('A Pyramid Christmas','http://tombraiderbuilds.co.uk/addon/christmas/xmasmain.txt',1101,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('Tigens Christmas Stocking','http://kodeeresurrection.com/TigensWorldtxt/Music/Xmas/txt/XmasSub.txt',1101,'http://kodeeresurrection.com/TigensWorldtxt/TigensStocking.png',XMAS_PIC,'','')
-	process.Menu('Supremacy Christmas','https://goo.gl/vEn3qv',1101,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('Silent Night','http://silenthunter.srve.io/jdh/XMAS.txt',1101,'http://iconshow.me/media/images/xmas/christmas-icon21/11/merry-christmas-wreath-256.png',XMAS_PIC,'','')
-	process.Menu('Dojo Christmas','http://herovision.x10host.com/dojo/christmas/christmas.php',2300,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('Fido Christmas Movies','https://goo.gl/ug6fSd',1101,XMAS_IMAGE,XMAS_PIC,'','')
-	process.Menu('Fido Christmas Concerts','https://goo.gl/gtJ2US',1101,XMAS_IMAGE,XMAS_PIC,'','')
-	
-	
-	
-def TEST_TWO(url,name):
-	anything = requests.get(url).text
-	match = re.compile('<li><a href="(.+?)" title="(.+?)".+?</li>').findall(anything)
-	for url,name2 in match:
-		if name2[0] == name:
-			process.PLAY(name2,url,100002,'',FANART,'','')
-			
-def TEST_PLAY(url):
-	url = url.replace('www','m')
-	anything = requests.get(url,verify=False).text
-	match = re.compile('<source src="(.+?)"').findall(anything)
-	for link in match:
-		xbmc.Player().play(link)
-		
-	
-
-	
-
-
 def Main_Menu():
     if not os.path.exists(INTRO_VID_TEMP):
         if ADDON.getSetting('Intro_Vid')=='true':
-            xmas_stuff()
+            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
             os.makedirs(INTRO_VID_TEMP)
-#            xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
- #           os.makedirs(INTRO_VID_TEMP)
     process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
-    process.Menu('Christmas Time','',100000,XMAS_IMAGE,FANART,'','')
     if ADDON.getSetting('Origin')=='true':
         process.Menu('Origin','',4,ORIGIN_ICON,FANART,'','')
     if ADDON.getSetting('Pandoras_Box')=='true':
@@ -205,7 +150,6 @@ def Reaper_Loop(url):
 
 def Latest_Episodes():
     process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
-    process.Menu('Origin Latest Episodes','http://www.watchseriesgo.to/latest',301,ICON,FANART,'','')
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
 
 def Recent_Movies():
@@ -247,7 +191,7 @@ def TV_Calender_Prog(extra):
 def send_to_search(name,extra):
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
-	from lib import search, Scrape_Nan
+	from lib import search
 	Search_name = extra.lower().replace(' ','')
 	name_splitter = name + '<>'
 	name_split = re.compile('(.+?) - Season(.+?) Episode(.+?)<>').findall(str(name_splitter))
@@ -256,28 +200,17 @@ def send_to_search(name,extra):
 		season = season
 		episode = episode
 	year = ''
-	Scrape_Nan.scrape_episode(title,year,'',season,episode)
 	search.TV(Search_name)
 
-def send_to_movie_search(name,extra):
-	from lib import Scrape_Nan
-	if '(' in name:
-		name_minus_year = re.compile('(.+?) \(').findall(str(name))
-		for item in name:
-			name = item
-	dp =  xbmcgui.DialogProgress()
-	dp.create('Checking for stream')
-	year = extra.replace('/)','').replace('/(','')
-	Scrape_Nan.scrape_movie(name,year)
 
 
 
 
 def Origin_Main():
-    process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
+#    process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
+ #   process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Live TV','',19,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
+#    process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -285,8 +218,8 @@ def Origin_Main():
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
 
 def Music():
-    process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
+#    process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
+ #   process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music Search','',1503,'','','','')
@@ -382,7 +315,6 @@ elif mode == 5 : Recent_Movies()
 elif mode == 6 : TV_Calender_Day(url)
 elif mode == 7 : TV_Calender_Prog(extra)
 elif mode == 8 : send_to_search(name,extra)
-elif mode == 9 : from lib import Scrape_Nan;Scrape_Nan.scrape_movie(name,extra)
 elif mode == 10: from lib import process;process.getFavourites()
 elif mode==11:
     try:
@@ -405,7 +337,6 @@ elif mode==12:
         pass
     process.rmFavorite(name)
 elif mode == 13: bagotricks()
-elif mode == 15: from lib import Scrape_Nan;Scrape_Nan.scrape_episode(extra)
 elif mode == 19: from lib import Live;Live.Live_Menu()
 elif mode == 20: from lib import Live;Live.Live_Main()
 elif mode == 21: from lib import Live;Live.Get_Channel(url)
@@ -927,9 +858,6 @@ elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Pla
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)
 elif mode == 10003: from lib import yt;yt.PlayVideo(url)
-elif mode == 100000: TEST_MENU()
-elif mode == 100001: Youtube_Playlist_Grab_Duration(url)
-elif mode == 100002: TEST_PLAY(url)
 
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
