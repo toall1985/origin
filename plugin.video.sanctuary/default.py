@@ -833,7 +833,7 @@ elif mode == 2100 : from lib import Sports_Replays;Sports_Replays.Sports_Repeats
 elif mode == 2101 : from lib import Sports_Replays;Sports_Replays.Motor_Replays(url)
 elif mode == 2102 : from lib import Sports_Replays;Sports_Replays.motor_name(url)
 elif mode == 2103 : from lib import Sports_Replays;Sports_Replays.motor_race(extra)
-elif mode == 2104 : from lib import Sports_Replays;Sports_Replays.motor_single(extra)
+elif mode == 2104 : from lib import Sports_Replays;Sports_Replays.motor_single(name,extra)
 elif mode == 2105 : from lib import Sports_Replays;Sports_Replays.F1_Replays(url)
 elif mode == 2106 : from lib import Sports_Replays;Sports_Replays.F1_page(url)
 elif mode == 2107 : from lib import Sports_Replays;Sports_Replays.F1_items(url,iconimage)
