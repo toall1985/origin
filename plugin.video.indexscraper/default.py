@@ -144,6 +144,14 @@ def Main_Loop(url):
             pass
         elif 'srt' in url3:
             pass
+        elif 'jpg' in url3:
+            pass
+        elif 'metathumb' in url3:
+            pass
+        elif 'xml' in url3:
+            pass
+        elif 'nfo' in url3:
+            pass
         elif 'C=' in url2:
             pass
         elif '/' in url2:
