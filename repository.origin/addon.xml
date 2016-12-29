@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.origin" name="Origin Repo" version="1.0.2" provider-name="Origin">
-    <extension point="xbmc.addon.repository" name="Origin Repo">
-        <dir>
-		    <info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
-	        <checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>
-    		<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/</datadir>
-		</dir>
-		<info compressed="false">https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/toall1985/origin/master/_repo/</datadir>
-    </extension>
-	<extension point="xbmc.addon.metadata">
-        <summary>A short summary of this addon</summary>
-        <description>Origin Builds Repo</description>
-        <platform>all</platform>
+<?xml version="1.0" encoding="UTF-8"?>
+    <addon id="repository.origin" name="Origin Repo" version="1.0.3" provider-name="Origin">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Origin Repo">
+            <info compressed="false">https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/toall1985/origin/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>A short summary of this addon</summary>
+            <description>Origin Builds Repo</description>
+            <platform>all</platform>
     </extension>
 </addon>
