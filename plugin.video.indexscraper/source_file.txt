@@ -1,0 +1,20 @@
+url="http://dl.tehmovies.org/94/series/">name="Tehmovies TV"
+
+url="http://sv1.bia2dl.xyz/Series/">name="Bia TV Shows"
+url="http://dl2.my98music.com/Data/Serial/">name="My98music"
+url="http://cdn.serieswatch.tv/2/">name="CDN TV"
+url="http://www.dl2.upfilmvip.in/TV-Series/">name="UpFilm 1"
+url="http://www.dl.upfilmvip.in/TV-Series/">name="UpFilm 2"
+url="http://www.dl3.upfilmvip.in/En-Series/">name="UpFilm 3"
+url="http://onad.ventures/files/tv/">name="Onad"
+
+url="">name=""
+
+
+
+
+
+
+
+
+url="http://dl2.heydl.com/film/2016-11/">name="hey"
