@@ -42,7 +42,7 @@ def Youtube_Playlist_Grab(url):
 def Youtube_Playlist_Grab_Duration(url):
    
     #Need to view the playlist to use this one (as a list on page) max 100 vids
-    HTML = process.OPEN_URL(url)
+    HTML = OPEN_URL(url)
     block_set = re.compile('<tr class="pl-video yt-uix-tile(.+?)</tr>',re.DOTALL).findall(HTML)
     for block in block_set:
         image = re.compile('data-thumb="(.+?)"').findall(str(block))
@@ -50,17 +50,16 @@ def Youtube_Playlist_Grab_Duration(url):
             image = image
         name = re.compile('data-title="(.+?)"').findall(str(block))
         for name in name:
-            if 'elete' in name:
-                pass
-            elif 'rivate Vid' in name:
-                pass
-            else:
-    			name = (name).replace('&quot;','').replace('&#39;','\'').replace('&amp;','&')
+            name = (name).replace('&quot;','').replace('&#39;','\'').replace('&amp;','&')
         duration = re.compile('<div class="timestamp"><span aria-label=".+?">(.+?)</span>').findall(str(block))
         for duration in duration:
             duration = duration
         url = re.compile('data-video-ids="(.+?)"').findall(str(block))
         for url in url:
             url = url
-        process.PLAY('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),'plugin://plugin.video.youtube/play/?video_id='+str(url),906,str(image),'','','' )
-	
+        if 'elete' in name:
+            pass
+        elif 'rivate Vid' in name:
+            pass
+        else:
+    	    process.PLAY('[COLORred]'+str(duration)+'[/COLOR] : '+str(name),'plugin://plugin.video.youtube/play/?video_id='+str(url),906,str(image),'','','' )	

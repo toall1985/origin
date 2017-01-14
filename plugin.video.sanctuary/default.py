@@ -210,12 +210,34 @@ def Origin_Main():
 #    process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
  #   process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Live TV','',19,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Index Google Search','',2350,ORIGIN_ICON,ORIGIN_FANART,'','')
 #    process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
     if Adult_Pass == 'forefingeroffury':
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
+		
+def google_index_search():
+    Dialog = xbmcgui.Dialog()
+    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    Search_name = Search_title.lower()
+    if Search_name == '':
+        pass
+    else:
+		html = requests.get('https://www.google.co.uk/search?q=%2B(.mkv%7C.mp4%7C.avi%7C.mov%7C.mpg%7C.wmv%7C.flv)%20+'+Search_name.replace(' ','+')+'++intitle:%22index+of%22+-inurl:(jsp%7Cpl%7Cphp%7Chtml%7Caspx%7Chtm%7Ccf%7Cshtml)+-inurl:(listen77%7Cmp3raid%7Cmp3toss%7Cmp3drug%7Cindex_of%7Cwallywashis)&gws_rd=cr&ei=DCR6WOPpDYvPgAa6kp24Dg').text
+		match = re.compile('<a href="(.+?)"').findall(html)
+		for url in match:
+			if 'google' in url:
+				pass
+			elif not 'http' in url:
+				pass
+			else:
+				url_start = url.replace('/url?q=','').replace('%2520','%20')
+				url_end = re.compile('(.+?)&amp;').findall(str(url_start))
+				for fin_url in url_end:
+					if 'http' in fin_url:
+						process.Menu(fin_url,fin_url,2000,'','','','')
 
 def Music():
 #    process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -854,6 +876,7 @@ elif mode == 2252 : from lib import raysravers;raysravers.SEARCHLISTS()
 elif mode == 2253 : from lib import raysravers;raysravers.RESOLVER(url)
 elif mode == 2300 : DOJO_MAIN(url)
 elif mode == 2301 : Reaper_Loop(url)
+elif mode == 2350 : google_index_search()
 elif mode == 10000: from lib import youtube_regex;youtube_regex.Youtube_Grab_Playlist_Page(url)
 elif mode == 10001: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab(url)
 elif mode == 10002: from lib import youtube_regex;youtube_regex.Youtube_Playlist_Grab_Duration(url)

@@ -13,6 +13,8 @@ USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
 ADDON_DATA = USERDATA_PATH + '/plugin.video.sanctuary/'
 if not os.path.exists(ADDON_DATA):
     os.makedirs(ADDON_DATA)
+    file_fav = ADDON_DATA + 'favourites'
+    file_open = open(file_fav,'w+')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 Dialog = xbmcgui.Dialog()
@@ -186,6 +188,9 @@ def rmFavorite(name):
 
 
 ############################## FAVOURITES END ###############################
+
+def Straight_Resolve(name,url):
+	xbmc.Player().play(url, xbmcgui.ListItem(name))
 
 def Resolve(url):
     Big_Resolve('',url)

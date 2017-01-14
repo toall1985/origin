@@ -100,8 +100,8 @@ def Music_Song(Search_name):
 def Movies(Search_name):
     dp.create('Checking for streams')
     Silent_urls = ['http://silenthunter.srve.io/jdh/E-H.txt','http://silenthunter.srve.io/jdh/I-L.txt','http://silenthunter.srve.io/jdh/M-P.txt','http://silenthunter.srve.io/jdh/Q-T.txt','http://silenthunter.srve.io/jdh/U-Z.txt']
-    Raider_urls = ['http://tombraiderbuilds.co.uk/addon/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/I-L/I-L.txt',
-	'http://tombraiderbuilds.co.uk/addon/M-P/M-P.txt','http://tombraiderbuilds.co.uk/addon/Q-T/Q-T.txt','http://tombraiderbuilds.co.uk/addon/U-Z/U-Z.txt','http://tombraiderbuilds.co.uk/addon/0-1000000/0-1000000.txt']
+    Raider_urls = ['http://tombraiderbuilds.co.uk/addon/movies/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/movies/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/movies/I-L/I-L.txt','http://tombraiderbuilds.co.uk/addon/movies/0-1000000/0-1000000.txt',
+	'http://tombraiderbuilds.co.uk/addon/movies/M-P/M-P.txt','http://tombraiderbuilds.co.uk/addon/movies/Q-S/Q-S.txt','http://tombraiderbuilds.co.uk/addon/movies/T/T.txt','http://tombraiderbuilds.co.uk/addon/movies/U-Z/U-Z.txt']
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
         dp.update(100/8,'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_Movies(Search_name))

@@ -9,26 +9,24 @@ def Main_Loop(url):
             pass
         elif 'rar' in url3:
             pass
-        elif 'Parent' in name:
-            pass
-        elif '(' in name:
-            pass
         elif 'srt' in url3:
+            pass
+        elif 'jpg' in url3:
+            pass
+        elif 'metathumb' in url3:
+            pass
+        elif 'xml' in url3:
+            pass
+        elif 'nfo' in url3:
             pass
         elif 'C=' in url2:
             pass
+        elif 'Parent' in name:
+            pass
         elif '/' in url2:
-            process.Menu((name).replace('/','').replace('amp;','').replace('&quot;','"').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('_',' '),url3,2000,'','','','','')
+            process.Menu((name).replace('/',''),url3,2000,'','','','','')
         else:
-            HTML = process.OPEN_URL(url3)
-            if 'herovision' in url3:
-                match = re.compile('<NAME="(.+?)"<URL="(.+?)"<MODE="(.+?)"<IMAGE="(.+?)"<FANART="(.+?)"<DESC="(.+?)"').findall(HTML)
-                for name,url4,mode,image,fanart,desc in match:
-                    Clean_name(name,url4)
-            else:
-                match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-                for url2,name in match:
-                    Clean_name(name,url2)
+            Clean_name(name,url3)
 ################################### TIDY UP NAME #############################
 
 def Clean_name(name,url):
