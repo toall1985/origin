@@ -75,14 +75,18 @@ def Get_Ultra_Channel(url):
 
 		
 def Search_Ultra():
+	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+	Search_name = Search_title.lower()
+	search_next(Search_name)
+	
+def search_next(name):
+	Search_name = name
 	headers = {"User-Agent": "Mozilla/5.0"}
 	progress = []
 	item = []
 	result = []
 	dp =  xbmcgui.DialogProgress()
 	Dialog = xbmcgui.Dialog()
-	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-	Search_name = Search_title.lower()
 	HTML = requests.get('http://www.iptvultra.com/',headers=headers).text
 	match = re.compile('<span class="link"><a href="(.+?)">(.+?)</a>').findall(HTML)
 	for url, name in match:

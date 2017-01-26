@@ -8,6 +8,8 @@
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
+	
+    Just don't be a nob about it....
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,18 +35,15 @@ Adult_Pass = ADDON.getSetting('Adult')
 base_icons = 'http://herovision.x10host.com/freeview/'
 ORIGIN_ICON = base_icons + 'origin.png'
 ORIGIN_FANART = base_icons + 'origin.jpg'
-APPRENTICE_ICON = base_icons + 'apprentice.png'
 PANDORA_ICON = 'https://s32.postimg.org/ov9s6ipf9/icon.png'
 RAIDER_ICON = base_icons + 'pyramid.png'
 FREEVIEW_ICON = base_icons + 'freeview.png'
 NINJA_ICON = base_icons + 'ninja2.png'
-MAVERICK_ICON = base_icons + 'maverick.png'
 BRETTUS_ICON = base_icons + 'brettus_anime.png'
 OBLIVION_ICON = base_icons + 'oblivion.png'
 TIGEN_ICON = base_icons + 'Tigen.png'
 COLD_ICON = base_icons + 'Cold.png'
 BAMF_ICON = base_icons + 'BAMF.png'
-FREEDOM_ICON = base_icons + 'freedom.png'
 RENEGADES_ICON = base_icons + 'renegades.png'
 QUICK_ICON = base_icons + 'quick.png'
 RAY_ICON = base_icons + 'raysraver.png'
@@ -71,8 +70,6 @@ def Main_Menu():
         process.Menu('Pandora\'s Box','',900,PANDORA_ICON,FANART,'','')
     if ADDON.getSetting('Pyramid')=='true':
         process.Menu('Pyramid','',1100,RAIDER_ICON,FANART,'','')
-    if ADDON.getSetting('Maverick')=='true':
-        process.Menu('Maverick TV','',1128,MAVERICK_ICON,FANART,'','')
     if ADDON.getSetting('Freeview')=='true':
         process.Menu('FreeView - [COLORred]VPN required if you are outside UK[/COLOR]','',1200,FREEVIEW_ICON,FANART,'','')
     if ADDON.getSetting('Brettus_Anime')=='true':
@@ -85,8 +82,6 @@ def Main_Menu():
         process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
     if ADDON.getSetting('Supremacy')=='true':
         process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/icon.png',FANART,'','')
-    if ADDON.getSetting('Freedom')=='true':
-        process.Menu('Freedom IPTV','',1900,FREEDOM_ICON,FANART,'','')
     if ADDON.getSetting('Renegades')=='true':
         process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
     if ADDON.getSetting('Just_For_Him')=='true':
@@ -155,7 +150,6 @@ def Latest_Episodes():
 def Recent_Movies():
     process.Menu('Pandora Recent Movies','http://genietvcunts.co.uk/PansBox/ORIGINS/recentmovies.php',426,ICON,FANART,'','')
     process.Menu('Pyramid Recent Movies','http://tombraiderbuilds.co.uk/addon/New%20Releaes/newreleases.txt',1101,ICON,FANART,'','')
-    process.Menu('Maverick Recent Movies','http://164.132.106.213/data/movies/2016.xml',1101,ICON,FANART,'','')
     process.Menu('Supremacy Recent Movies','https://simplekore.com/wp-content/uploads/file-manager/steboy11/New%20Releases/New%20Releases.txt',1101,ICON,FANART,'','')
 
 
@@ -359,6 +353,11 @@ elif mode==12:
         pass
     process.rmFavorite(name)
 elif mode == 13: bagotricks()
+elif mode == 14: from lib.pyramid import pyramid;pyramid.SKindex_Testone()
+elif mode == 15: from lib.pyramid import pyramid;pyramid.SKindex_Testtwo()
+elif mode == 16: from lib.pyramid import pyramid;pyramid.SKindex_Testthree()
+elif mode == 17: from lib.pyramid import pyramid;pyramid.SKindex_Testfour()
+elif mode == 18: from lib.pyramid import pyramid;pyramid.SKindex_Testfive()
 elif mode == 19: from lib import Live;Live.Live_Menu()
 elif mode == 20: from lib import Live;Live.Live_Main()
 elif mode == 21: from lib import Live;Live.Get_Channel(url)

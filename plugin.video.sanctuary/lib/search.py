@@ -103,27 +103,24 @@ def Movies(Search_name):
     Raider_urls = ['http://tombraiderbuilds.co.uk/addon/movies/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/movies/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/movies/I-L/I-L.txt','http://tombraiderbuilds.co.uk/addon/movies/0-1000000/0-1000000.txt',
 	'http://tombraiderbuilds.co.uk/addon/movies/M-P/M-P.txt','http://tombraiderbuilds.co.uk/addon/movies/Q-S/Q-S.txt','http://tombraiderbuilds.co.uk/addon/movies/T/T.txt','http://tombraiderbuilds.co.uk/addon/movies/U-Z/U-Z.txt']
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
-        dp.update(100/8,'',"Checking Pandoras Box",'Please Wait')
+        dp.update(100/7,'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_Movies(Search_name))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update((100/8)*2,'',"Checking Tigen\'s World",'Please Wait')
+        dp.update((100/7)*2,'',"Checking Tigen\'s World",'Please Wait')
         Thread(target=Raider_Loop(Search_name,'MULTILINK-TIGEN'))
     if ADDON.getSetting('Pyramid_Search')=='true':
         for item in Raider_urls:
-            dp.update((100/8)*3,'',"Checking Pyramid",'Please Wait')
+            dp.update((100/7)*3,'',"Checking Pyramid",'Please Wait')
             Thread(target=Raider_Loop(Search_name,item))
-    if ADDON.getSetting('Maverick_Search')=='true':
-        dp.update((100/8)*4,'',"Checking Maverick",'Please Wait')
-        Thread(target=Raider_Loop(Search_name,'http://164.132.106.213/data/quality/quality.txt'))
     if ADDON.getSetting('Silent_Hunter_Search')=='true':
         for item in Silent_urls:
-            dp.update((100/8)*5,'',"Checking Silent Hunter",'Please Wait')
+            dp.update((100/7)*5,'',"Checking Silent Hunter",'Please Wait')
             Thread(target=Raider_Loop(Search_name,item))
     if ADDON.getSetting('Dojo_Search')=='true':
-        dp.update((100/8)*6,'',"Checking Dojo",'Please Wait')
+        dp.update((100/7)*6,'',"Checking Dojo",'Please Wait')
         Thread(target=Dojo(Search_name,'http://herovision.x10host.com/dojo/dojo.php'))
     if ADDON.getSetting('Reaper_Search')=='true':
-        dp.update((100/8)*7,'',"Checking Reaper",'Please Wait')
+        dp.update((100/7)*7,'',"Checking Reaper",'Please Wait')
         Thread(target=Reaper(Search_name,'https://leto.feralhosting.com/grimw01f/tr/mov/atoz.php'))
     dp.update(100,'',"Finished checking",'Enjoy')
     dp.close()
@@ -327,10 +324,6 @@ def Live_TV(Search_name):
             import base64
             OblivionMain = base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9GcmVlLnhtbA==')
             Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
-    if ADDON.getSetting('Maverick_Search')=='true':
-        dp.update(30,'',"Checking Maverick",'Please Wait')
-        for item in Joker_live_list:
-            Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('Pyramid_Search')=='true':
         dp.update(45,'',"Checking Pyramid",'Please Wait')
         for item in Raider_live_list:
@@ -364,9 +357,7 @@ def Tigen_tv(Search_name,url):
 	
 	
 def Raider_Live_Loop(Search_name,url):
-    if '164.132' in url:
-        ADD_NAME = '[COLORgreen]Maverick[/COLOR]'
-    elif 'raider' in url:
+    if 'raider' in url:
         ADD_NAME = '[COLORblue]Pyramid[/COLOR]'
     elif 'simplekore' in url:
         ADD_NAME = '[COLORred]Supremacy[/COLOR]'
@@ -417,9 +408,7 @@ def Raider_Live_Loop(Search_name,url):
 
 
 def Raider_Loop(Search_name,url):
-    if '164.132' in url:
-        ADD_NAME = '[COLORgreen]Maverick [/COLOR] '
-    elif 'raider' in url:
+    if 'raider' in url:
         ADD_NAME = '[COLORblue]Pyramid[/COLOR] '
     elif 'kodeeresurrection' in url:	
         ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR] '

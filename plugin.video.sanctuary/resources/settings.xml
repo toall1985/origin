@@ -8,7 +8,6 @@
 		<setting id="Origin" type="bool" label="Origin" default="true"/>
 		<setting id="Pandoras_Box" type="bool" label="Pandoras Box" default="true"/>
 		<setting id="Pyramid" type="bool" label="Pyramid" default="true"/>
-		<setting id="Maverick" type="bool" label="Maverick" default="true"/>
 		<setting id="Freeview" type="bool" label="Freeview" default="true"/>
 		<setting id="Brettus_Anime" type="bool" label="Brettus Anime" default="true"/>
 		<setting id="Oblivion" type="bool" label="Oblivion" default="true"/>
@@ -37,7 +36,6 @@
 		<setting id="Origin_Search" type="bool" label="Origin Search" default="true"/>
 		<setting id="Pandoras_Box_Search" type="bool" label="Pandoras Box Search" default="true"/>
 		<setting id="Pyramid_Search" type="bool" label="Pyramid Search" default="true"/>
-		<setting id="Maverick_Search" type="bool" label="Maverick Search" default="true"/>
 		<setting id="Freeview_Search" type="bool" label="Freeview Search" default="true"/>
 		<setting id="Brettus_Anime_Search" type="bool" label="Brettus Anime Search" default="true"/>
 		<setting id="Oblivion_Search" type="bool" label="Oblivion Search" default="true"/>
