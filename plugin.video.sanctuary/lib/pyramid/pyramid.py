@@ -528,7 +528,6 @@ def getData(url,fanart):
                             else:
                                 addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                     else:
-                        xbmc.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'+linkedUrl)
                         if 'Have a nice day now' in linkedUrl:
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
                         elif 'Hope you enjoy the view' in linkedUrl:
@@ -929,7 +928,7 @@ def not_so_anon(name,url,thumbnail,fanArt,desc,genre,date):
   o0O = O0 . replace ( '@LE@' , 'm' ) . replace ( '@OF@' , 'n' ) . replace ( '@FS@' , 'o' ) . replace ( '@OG@' , 'p' ) . replace ( '@OF@' , 'q' ) . replace ( '@UQ@' , 'r' ) . replace ( '@KY@' , 's' ) . replace ( '@OU@' , 't' ) . replace ( '@RS@' , 'u' ) . replace ( '@EL@' , 'v' )
   iI11I1II1I1I = o0O . replace ( '@FO@' , 'w' ) . replace ( '@KM@' , 'x' ) . replace ( '@OT@' , 'y' ) . replace ( '@HE@' , 'z' ) . replace ( '@RF@' , '0' ) . replace ( '@UC@' , '1' ) . replace ( '@KE@' , '2' ) . replace ( '@RH' , '3' ) . replace ( '@AV@' , '4' ) . replace ( '@EA@' , '5' )
   oooo = iI11I1II1I1I . replace ( '@NI@' , '6' ) . replace ( '@CE@' , '7' ) . replace ( '@DA@' , '8' ) . replace ( '@YN@' , '9' ) . replace ( '@OW@' , '.' ) . replace ( '@PC@' , '/' )
- addDir ( name . encode ( 'utf-8' ) , oooo . encode ( 'utf-8' ) , 1 , thumbnail , fanArt , desc , genre , date , None , 'source' )	
+ addDir ( name . encode ( 'utf-8' ) , oooo . encode ( 'utf-8' ) , 1101 , thumbnail , fanArt , desc , genre , date , None , 'source' )	
 	
 def getItems(items,fanart):
         total = len(items)
