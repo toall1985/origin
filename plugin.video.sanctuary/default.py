@@ -26,9 +26,38 @@
 '''
 import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback, requests, re, os
 from lib import process
+import os, shutil, xbmcgui
+addon_id = 'plugin.video.sanctuary'
+Dialog = xbmcgui.Dialog()
+addons = xbmc.translatePath('special://home/addons/')
+ADDON = xbmcaddon.Addon(id=addon_id)
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel sanctuary will be removed')
+					choices = ['Remove '+dir,'Remove sanctuary','Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff('plugin.video.sanctuary')
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff('plugin.video.sanctuary')
+					else:
+						delete_stuff('plugin.video.sanctuary')
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
+
+
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
-addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 FANART = ADDON_PATH + 'fanart.jpg'
 Adult_Pass = ADDON.getSetting('Adult')
@@ -59,6 +88,7 @@ XMAS_PIC = base_icons + 'xmas_image.jpg'
 XMAS_IMAGE = 'http://iconshow.me/media/images/xmas/christmas-icon7/9/glass-ball-256.png'
 
 def Main_Menu():
+    check_for_nobs()
     if not os.path.exists(INTRO_VID_TEMP):
         if ADDON.getSetting('Intro_Vid')=='true':
             xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
@@ -213,7 +243,6 @@ def Origin_Main():
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
 		
 def google_index_search():
-    Dialog = xbmcgui.Dialog()
     Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
     Search_name = Search_title.lower()
     if Search_name == '':

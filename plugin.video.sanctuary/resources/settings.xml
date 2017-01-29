@@ -3,6 +3,7 @@
     <category label="Main Settings">
 		<setting id="Adult" type="text" label="Adult Password:" default="" visible="true"/>
 		<setting id="Intro_Vid" type="bool" label="Intro Video after update" default="true"/>
+		<setting id="Delete" type="bool" label="Delete addon by rip off merchants?" default="false"/>
     </category>
     <category label="Personalise Main Menu">
 		<setting id="Origin" type="bool" label="Origin" default="true"/>

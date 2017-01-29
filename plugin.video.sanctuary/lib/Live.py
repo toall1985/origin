@@ -75,6 +75,7 @@ def Get_Ultra_Channel(url):
 
 		
 def Search_Ultra():
+	Dialog = xbmcgui.Dialog()
 	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
 	Search_name = Search_title.lower()
 	search_next(Search_name)
@@ -110,7 +111,10 @@ def search_next(name):
 			playlink = 'plugin://plugin.video.f4mTester/?streamtype=TSDOWNLOADER&amp;url='+url2.replace('[','').replace(']','')+';name=Sanctuary'
 			if (Search_name).replace(' ','') in (name).replace(' ','').lower():
 				result.append(url[0])
-				process.Play(name,playlink,906,'','','','')
+				try:
+					process.Play(name,playlink,906,'','','','')
+				except:
+					pass
 				
 def Check_For_200_Response():
 	headers = {"User-Agent": "Mozilla/5.0"}
