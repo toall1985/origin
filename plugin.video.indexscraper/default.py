@@ -39,9 +39,37 @@ music_favourites_read = open(music_favourites).read()
 tv_favourites_read = open(tv_favourites).read()
 imdb = 'http://www.imdb.com'
 List = []
+import os, shutil, xbmcgui
+Dialog = xbmcgui.Dialog()
+addons = xbmc.translatePath('special://home/addons/')
+ADDON = xbmcaddon.Addon(id=addon_id)
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel sanctuary will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
 
 
 def Main_Menu():
+    check_for_nobs()
     Menu('Favourites','',5,ICON,FANART,'','','')
     Menu('List of Index\'s','',7,ICON,FANART,'','','')
 #    Menu('Search','',6,ICON,FANART,'','','')

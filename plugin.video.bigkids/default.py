@@ -44,7 +44,36 @@ FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 IMAGES 		= ART + 'icon.png'
 BASE 		= Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=')
 
+import os, shutil, xbmcgui
+Dialog = xbmcgui.Dialog()
+addons = xbmc.translatePath('special://home/addons/')
+ADDON = xbmcaddon.Addon(id=addon_id)
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path)
+
 def Home_Menu():
+    check_for_nobs()
     addDirFolder('Cartoons','',1,IMAGES,FANART,'')
     addDirFolder('Cartoons and Movies','',6,IMAGES,FANART,'')
     addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')

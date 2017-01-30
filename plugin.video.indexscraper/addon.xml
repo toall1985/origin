@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.indexscraper" name="Index Scraper" version="0.0.1" provider-name="Demo">
+<addon id="plugin.video.indexscraper" name="Index Scraper" version="0.0.2" provider-name="Demo">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.urlresolver"  version="3.0.0"/>

@@ -22,6 +22,34 @@ import urlresolver
 import yt
 import pyxbmct
 from threading import Thread
+import os, shutil, xbmcgui
+addon_id = 'plugin.video.sanctuary'
+Dialog = xbmcgui.Dialog()
+addons = xbmc.translatePath('special://home/addons/')
+ADDON = xbmcaddon.Addon(id=addon_id)
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
 
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
@@ -291,7 +319,7 @@ window.connect(metalliq,METALLIQ_SEARCH)
 
 
 def Home_Menu():
-    Change_Log()
+    check_for_nobs()
     addDirFolder('Highlights','',3,ICON,FANART,'')
     addDirFolder('Fixtures','',4,ICON,FANART,'')
     addDirFolder('League Tables',League_Table_Url+'/football/tables',9,ICON,FANART,'')

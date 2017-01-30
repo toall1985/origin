@@ -55,10 +55,39 @@ ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
 FANART      =  xbmc.translatePath(os.path.join(ADDONS,addon_id,'fanart.jpg'))
 IMAGES 		=  ART + 'icon.png'
 Main 		= 'http://www.watchseries.ac'
+import os, shutil, xbmcgui
+addon_id = 'plugin.video.sanctuary'
+Dialog = xbmcgui.Dialog()
+addons = xbmc.translatePath('special://home/addons/')
+ADDON = xbmcaddon.Addon(id=addon_id)
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
 
 
 def Main_Menu():
 
+    check_for_nobs()
     Menu('Stand Up','',6,IMAGES,FANART,'','')
     Menu('Tv Shows','http://herovision.x10host.com/GetUpStandUp/TV_Shows.php',4,IMAGES,FANART,'','')
     Menu('Movies','',10,IMAGES,FANART,'','')

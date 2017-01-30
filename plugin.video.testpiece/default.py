@@ -52,8 +52,36 @@ if os.path.exists(favorites)==True:
     FAV = open(favorites).read()
 else: FAV = []
 watched_read = open(watched).read()
+import os, shutil, xbmcgui
+addons = xbmc.translatePath('special://home/addons/')
+
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
+
 
 def Main_Menu():
+    check_for_nobs()
     OPEN = Open_Url(Base_Url+Main_Menu_File_Name)
     Regex = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(OPEN)
     for name,url,icon,fanart,desc in Regex:

@@ -39,9 +39,37 @@ favourites_read = open(favourites).read()
 dp = xbmcgui.DialogProgress()
 addon_handle = int(sys.argv[1])
 List = []
+addons = xbmc.translatePath('special://home/addons/')
+
+import os, shutil, xbmcgui
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path) 
+
 
 
 def Main_Menu():
+    check_for_nobs()
     Menu('XFM','',1,ICON,FANART,'')
     Menu('The Ricky Gervais Show','https://www.youtube.com/watch?v=vH2-sXTmzWI&list=PLj-sGZK2R0VkUZo6KdX761v1OLqE2_qRx',10,'http://i3.ytimg.com/vi/pe0g7lIRikw/mqdefault.jpg','https://i.ytimg.com/vi/Cbx4BjNbjGU/maxresdefault.jpg','')
     Menu('An Idiot Abroad','',2,ICON,FANART,'')

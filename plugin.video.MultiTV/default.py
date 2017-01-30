@@ -19,6 +19,7 @@
 '''
 import urllib2, urllib, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, time
 from threading import Thread
+import os, shutil, xbmcgui
 Main = 'http://www.watchseriesgo.to'
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.MultiTV/')
@@ -48,10 +49,35 @@ watched_list = []
 temp_file = ADDON_PATH + 'Temp.txt'
 IMDB = 'http://www.imdb.com'
 genre_list = ['Drama','Horror','Adventure','Fantasy','Sci-Fi','Thriller','Comedy','Romance','Mystery','Action','Family','Music','Crime','Animation']
-Sources = ['filehoot','allmyvideos','vidspot','vodlocker','vidzi','videoweed','vidup','vshare','vidbull']		
-
+Sources = ['filehoot','allmyvideos','vidspot','vodlocker','vidzi','videoweed','vidup','vshare','vidbull']
+addons = xbmc.translatePath('special://home/addons/')
+	
+def check_for_nobs():
+	for root, dirs, file in os.walk(addons):
+		for dir in dirs:
+			if 'anonymous' in dir.lower():
+				if ADDON.getSetting('Delete')=='true':
+					delete_stuff(dir)
+				else:
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
+					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+					if choice==0:
+						delete_stuff(dir)
+					elif choice==1:
+						delete_stuff(addon_id)
+					elif choice==2:
+						delete_stuff(dir)
+						delete_stuff(addon_id)
+					else:
+						delete_stuff(addon_id)
+						
+def delete_stuff(dir):
+	path = addons + dir
+	shutil.rmtree(path)
 
 def Main_Menu():
+    check_for_nobs()
     Menu('Latest Episodes','http://www.watchseries.ac/latest',1,ICON,FANART,'','')
     Menu('Popular Episodes','http://www.watchseries.ac/new',2,ICON,FANART,'','')
     Menu('Genres','http://www.watchseries.ac/',3,ICON,FANART,'','')
