@@ -31,6 +31,7 @@ addon_id = 'plugin.video.sanctuary'
 Dialog = xbmcgui.Dialog()
 addons = xbmc.translatePath('special://home/addons/')
 ADDON = xbmcaddon.Addon(id=addon_id)
+import os, shutil, xbmcgui
 def check_for_nobs():
 	for root, dirs, file in os.walk(addons):
 		for dir in dirs:
@@ -38,18 +39,18 @@ def check_for_nobs():
 				if ADDON.getSetting('Delete')=='true':
 					delete_stuff(dir)
 				else:
-					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel sanctuary will be removed')
-					choices = ['Remove '+dir,'Remove sanctuary','Remove both']
+					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
+					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
 					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
 					if choice==0:
 						delete_stuff(dir)
 					elif choice==1:
-						delete_stuff('plugin.video.sanctuary')
+						delete_stuff(addon_id)
 					elif choice==2:
 						delete_stuff(dir)
-						delete_stuff('plugin.video.sanctuary')
+						delete_stuff(addon_id)
 					else:
-						delete_stuff('plugin.video.sanctuary')
+						delete_stuff(addon_id)
 						
 def delete_stuff(dir):
 	path = addons + dir

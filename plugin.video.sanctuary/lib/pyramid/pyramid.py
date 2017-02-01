@@ -86,28 +86,6 @@ def makeRequest(url, headers=None):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
                 xbmc.executebuiltin("XBMC.Notification(Sanctuary ,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
-
-testing_url = 'http://herovision.x10host.com/freeview/'
-				
-def SKindex_Testone():
-    getData(testing_url+'1.xml','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-				
-def SKindex_Testtwo():
-    getData(testing_url+'2.xml','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-				
-def SKindex_Testthree():
-    getData(testing_url+'3.xml','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-				
-def SKindex_Testfour():
-    getData(testing_url+'4.xml','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-				
-def SKindex_Testfive():
-    getData(testing_url+'5.xml','')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 				
 				
 def SKindex():
@@ -122,7 +100,7 @@ def SKindex_Joker():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Oblivion():
-    getData(base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9GcmVlLnhtbA=='),'')
+    getData(base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9vYmxpdmhvbWUueG1s'),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_TigensWorld():

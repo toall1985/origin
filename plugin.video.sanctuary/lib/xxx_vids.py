@@ -43,13 +43,13 @@ def XPornstars(url):
 	  
 def XNew_Videos(url):
     HTML = process.OPEN_URL(url)
-    match = re.compile('<div class="thumb-inside">.+?<img src="(.+?)" id=".+?<p><a href="(.+?)" title="(.+?)">.+?<span class="bg"><strong>(.+?)</strong> - (.+?) %',re.DOTALL).findall(HTML)
+    match = re.compile('<div class="thumb-inside">.+?<img src="(.+?)".+?<a href="(.+?)" title="(.+?)">.+?<strong>(.+?)</strong> - (.+?)%').findall(HTML)
     for img,url,name,length,rating in match:
-        process.Play((name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','') + ' - Porn Quality : ' + rating + '% - ' + length,'http://www.xvideos.com'+url,706,img,FANART,rating + '% - ' + length,'')	
+        process.PLAY((name).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"').replace('  ','') + ' - Porn Quality : ' + rating + '% - ' + length,'http://www.xvideos.com'+url,706,img,FANART,rating + '% - ' + length,'')	
     next_button2 = re.compile('<li><a href="([^"]*)" class="no-page">Next</a></li></ul></div>').findall(HTML)
     for url in next_button2:
         if 'Next' not in List:
-            process.Menu('[COLORred]NEXT[/COLOR]','http://www.xvideos.com'+url,705,ICON,FANART,'','')
+            process.Menu('[COLORred]NEXT[/COLOR]','http://www.xvideos.com'+url,701,ICON,FANART,'','')
             List.append('Next')
     
 def XGenres(url):
@@ -76,8 +76,26 @@ def XSearch_X():
     XNew_Videos(Search_URL)
 
 def XPlayLink(url):
+    import xbmc
+    xbmc.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@HI@@@@@@@@@@@@@@@@@@@@@')
     HTML = process.OPEN_URL(url)
-    match = re.compile("setVideoHLS.+?'(.+?)'").findall(HTML)
-    for url in match:
-        process.Resolve(url)
-			
+    low = re.compile("html5player.setVideoUrlLow\('(.+?)'\);").findall(HTML)
+    for item in low:
+        xbmc.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'+item+'@@@@@@@@@@@@@@@@@@@@@')
+        low = item
+    medium = re.compile("html5player.setVideoUrlHigh\('(.+?)'\);").findall(HTML)
+    for item in medium:
+        xbmc.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'+item+'@@@@@@@@@@@@@@@@@@@@@')
+        medium = item
+    high = re.compile("html5player.setVideoHLS\('(.+?)'\);").findall(HTML)
+    for item in high:
+        xbmc.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'+item+'@@@@@@@@@@@@@@@@@@@@@')
+        high = item
+    choices = ['Low Quality','Medium Quality','High Quality']
+    choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
+    if choice==0:
+        process.Resolve(low)
+    elif choice==1:
+        process.Resolve(medium)
+    elif choice==2:
+        process.Resolve(high)
