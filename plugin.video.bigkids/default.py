@@ -14,17 +14,14 @@
 
 '''
 
-import sys
-import urlparse
-import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
+import sys,os
+import urllib,urllib2,re,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,urlparse
 import urlresolver
-import time
-from datetime import datetime
+import random
+
 
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
-CAT=Decode('LnBocA==')
-Base_Pand = (Decode('aHR0cDovL3NlZWR1cmdyZWVkLngxMGhvc3QuY29tL29yaWdpbi8='))
 addon_id='plugin.video.bigkids'
 base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
@@ -36,7 +33,6 @@ FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36
 IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
 ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
 parental = 'true'
-adult_Carttons = ['americandad!','familyguy']
 
 ADDONS      =  xbmc.translatePath(os.path.join('special://home','addons',''))
 ART         =  os.path.join(ADDONS,addon_id,'resources','art')+os.sep
@@ -48,37 +44,139 @@ import os, shutil, xbmcgui
 Dialog = xbmcgui.Dialog()
 addons = xbmc.translatePath('special://home/addons/')
 ADDON = xbmcaddon.Addon(id=addon_id)
-def check_for_nobs():
-	for root, dirs, file in os.walk(addons):
-		for dir in dirs:
-			if 'anonymous' in dir.lower():
-				if ADDON.getSetting('Delete')=='true':
-					delete_stuff(dir)
-				else:
-					Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
-					choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
-					choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
-					if choice==0:
-						delete_stuff(dir)
-					elif choice==1:
-						delete_stuff(addon_id)
-					elif choice==2:
-						delete_stuff(dir)
-						delete_stuff(addon_id)
-					else:
-						delete_stuff(addon_id)
-						
-def delete_stuff(dir):
-	path = addons + dir
-	shutil.rmtree(path)
 
 def Home_Menu():
-    check_for_nobs()
     addDirFolder('Cartoons','',1,IMAGES,FANART,'')
     addDirFolder('Cartoons and Movies','',6,IMAGES,FANART,'')
     addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')
     addDirFolder('Search Movies','',11,IMAGES,FANART,'')
+    addDirFolder('24/7','',12,IMAGES,FANART,'')
 
+def Random_Lists():
+    Random_play('24/7 Random Cartoon',13,url=BASE,image=IMAGES,isFolder=False)
+    addDirFolder('24/7 Select Cartoon','',17,IMAGES,FANART,'')
+    Random_play('20 Random Movies',14,url='http://www.animetoon.org/movies',image=IMAGES,isFolder=False)
+
+def Random_Cartoon(url):
+    Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+    Playlist.clear()
+    Counter = []
+    full_count = []
+    Prog_Name = [] 
+    html=OPEN_URL(url) 
+    match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(html) 
+    for url,name in match: 
+        full_count.append([url,name]) 
+        if len(full_count) == len(match): 
+            for item in full_count: 
+                get_random=random.randint(1,len(full_count)) 
+                try: 
+                    url_to_add = full_count[int(get_random)] 
+                except: 
+                    pass 
+                if url_to_add[1] not in Prog_Name:
+                    Prog_Name.append(url_to_add[1]) 
+                    if int(len(Counter)) < 1:
+                        Counter.append(url_to_add[1][0])
+                        Random_Play_Cartoon(url_to_add[0],url_to_add[1])
+                    else:
+                        pass
+                else:
+                    pass
+        else:
+            pass
+			
+def twenty47_select():
+    html=OPEN_URL(BASE)
+    match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(html)
+    for url,name in match:
+        Random_play(name,16,url=url,image=IMAGES,isFolder=False)
+        xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
+		
+def Random_Movie(url):
+	Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+	Playlist.clear()
+	Full_List = []
+	Count = []
+	Name = []
+	HTML = OPEN_URL(url)
+	match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
+	for url2,name in match:
+		Full_List.append([url2,name])
+		if len(Full_List)==len(match):
+			for item in Full_List:
+				random_movie=random.randint(1,len(Full_List))
+				try:
+					next_url = Full_List[int(random_movie)]
+				except:
+					pass
+				if len(Count)<=20:
+					if next_url[1] not in Name:
+						HTML2 = OPEN_URL(next_url[0])
+						match3 = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(HTML2) 
+						for Playlink_url,Ep_name in match3: 
+							HTML4 = OPEN_URL(Playlink_url)
+							match4 = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(HTML4)
+							for ignore,link in match4:
+								if 'panda' in link:
+									HTML5 = OPEN_URL(link)
+									match5 = re.compile("url: '(.+?)'").findall(HTML5)
+									for finally_got_there_phew in match5:
+										if 'http' in finally_got_there_phew:
+											liz = xbmcgui.ListItem(next_url[1], iconImage=IMAGES, thumbnailImage=IMAGES)
+											liz.setInfo( type="Video", infoLabels={"Title": next_url[1]})
+											liz.setProperty("IsPlayable","true")
+											Playlist.add(finally_got_there_phew, liz)
+											xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+									
+			
+		
+	
+def Random_Play_Cartoon(url,name):
+    url = url;name = name
+    Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+    Playlist.clear()
+    episode_full_count = []
+    Ep_Name_List = []
+    html2 = OPEN_URL(url) 
+    match2 = re.compile('<img src="(.+?)" id="series_image" width="250" height="370" alt=".+?" />').findall(html2) 
+    for img in match2: 
+        IMAGE = img 
+    match3 = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html2) 
+    for Playlink_url,Ep_name in match3: 
+        episode_full_count.append([Playlink_url,Ep_name]) 
+        if len(episode_full_count)==len(match3):
+            for item in episode_full_count:
+                get_random_ep=random.randint(1,len(episode_full_count))
+                try:									
+                    next_url_to_use=episode_full_count[int(get_random_ep)]
+                    if next_url_to_use[1] not in Ep_Name_List:
+                        Ep_Name_List.append(next_url_to_use[1])
+                        html3 = OPEN_URL(next_url_to_use[0])
+                        match4 = re.compile('"playlist">(.+?)</span></div><div><iframe src="(.+?)"').findall(html3)
+                        for ignore,final_playlink_get in match4:
+                            if 'panda' in final_playlink_get:
+                                html4 = OPEN_URL(final_playlink_get)
+                                match5 = re.compile("url: '(.+?)'").findall(html4)
+                                for finally_got_there_phew in match5:
+                                    if 'http' in finally_got_there_phew:
+                                        liz = xbmcgui.ListItem(next_url_to_use[1], iconImage=IMAGE, thumbnailImage=IMAGE)
+                                        liz.setInfo( type="Video", infoLabels={"Title": next_url_to_use[1]})
+                                        liz.setProperty("IsPlayable","true")
+                                        Playlist.add(finally_got_there_phew, liz)
+                                        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+                                    else:
+                                        pass
+                            else:
+                                pass
+                    else:
+                        pass
+                except:
+                    pass
+        else:
+            pass
+                    
+	
 def watch_cartoon_menu():
     addDirFolder('Cartoons','https://www.watchcartoononline.io/cartoon-list',7,IMAGES,FANART,'')
     addDirFolder('Movies','https://www.watchcartoononline.io/movie-list',9,IMAGES,FANART,'')
@@ -151,7 +249,7 @@ def Search_movies():
 	
 def TESTCATS():
     html=OPEN_URL(BASE)
-    match = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(html)
+    match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(html)
     for url,name in match:
         addDirFolder(name,url,3,IMAGES,FANART,'')
         xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE);	
@@ -210,7 +308,29 @@ def LISTS3(url):
     match = re.compile("url: '(.+?)',").findall(html)
     for url in match:
         Resolve(url)
-	
+
+def Random_play(name, mode, url='', image=None, isFolder=True, page=1, keyword=None, infoLabels=None, contextMenu=None):
+    if not image:
+        image = ICON
+    u  = sys.argv[0] 
+    u += '?mode='  + str(mode)
+    u += '&title=' + urllib.quote_plus(name)
+    u += '&image=' + urllib.quote_plus(image)
+    u += '&page='  + str(page)
+    if url != '':     
+        u += '&url='   + urllib.quote_plus(url) 
+    if keyword:
+        u += '&keyword=' + urllib.quote_plus(keyword) 
+    liz = xbmcgui.ListItem(name, iconImage=image, thumbnailImage=image)
+    if contextMenu:
+        liz.addContextMenuItems(contextMenu)
+    if infoLabels:
+        liz.setInfo(type="Video", infoLabels=infoLabels)
+    if not isFolder:
+        liz.setProperty("IsPlayable","true")
+    liz.setProperty('Fanart_Image', FANART)     
+    xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=isFolder)
+		
 
 def addDir(name,url,mode,iconimage,fanart,description):
 
@@ -328,4 +448,10 @@ elif mode == 8 		: watch_cartoon_final(url)
 elif mode == 9 		: watch_cartoon_grab_movies(url)
 elif mode == 10 	: watch_cartoon_grab_episode_second(url)
 elif mode == 11 	: Search_movies()
+elif mode == 12 	: Random_Lists()
+elif mode == 13 	: Random_Cartoon(url)
+elif mode == 14 	: Random_Movie(url)
+elif mode == 16 	: Random_Play_Cartoon(url,name)
+elif mode == 17 	: twenty47_select()
+
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
