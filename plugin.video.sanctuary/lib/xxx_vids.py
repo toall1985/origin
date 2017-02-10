@@ -42,6 +42,7 @@ def XPornstars(url):
 		
 	  
 def XNew_Videos(url):
+    import xbmc;xbmc.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'+url)
     HTML = process.OPEN_URL(url)
     match = re.compile('<div class="thumb-inside">.+?<img src="(.+?)".+?<a href="(.+?)" title="(.+?)">.+?<strong>(.+?)</strong> - (.+?)%').findall(HTML)
     for img,url,name,length,rating in match:
@@ -49,7 +50,7 @@ def XNew_Videos(url):
     next_button2 = re.compile('<li><a href="([^"]*)" class="no-page">Next</a></li></ul></div>').findall(HTML)
     for url in next_button2:
         if 'Next' not in List:
-            process.Menu('[COLORred]NEXT[/COLOR]','http://www.xvideos.com'+url,701,ICON,FANART,'','')
+            process.Menu('http://www.xvideos.com'+url,'http://www.xvideos.com'+url,701,ICON,FANART,'','')
             List.append('Next')
     
 def XGenres(url):

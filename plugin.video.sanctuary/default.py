@@ -31,46 +31,6 @@ addon_id = 'plugin.video.sanctuary'
 Dialog = xbmcgui.Dialog()
 addons = xbmc.translatePath('special://home/addons/')
 ADDON = xbmcaddon.Addon(id=addon_id)
-import os, shutil, xbmcgui
-def check_for_nobs():
-	for root, dirs, file in os.walk(addons):
-		for dir in dirs:
-			if 'plugin.program.anonymouswizard' in dir.lower():
-				checker(dir)
-			elif 'plugin.video.anonymous' in dir.lower():
-				checker(dir)
-			elif 'plugin.video.wargames' in dir.lower():
-				checker(dir)
-			elif 'script.module.wargames' in dir.lower():
-				checker(dir)
-			elif 'script.wargames.artwork' in dir.lower():
-				checker(dir)
-			elif 'script.wargames.metadata' in dir.lower():
-				checker(dir)
-			
-			
-def checker(dir):
-	if ADDON.getSetting('Delete')=='true':
-		delete_stuff(dir)
-	else:
-		Dialog.ok('Something has to go','A addon has been found that is leeching content','your next choice is up to you','if you cancel '+addon_id+' will be removed')
-		choices = ['Remove '+dir,'Remove '+addon_id,'Remove both']
-		choice = xbmcgui.Dialog().select('What is going to be removed?', choices)
-		if choice==0:
-			delete_stuff(dir)
-		elif choice==1:
-			delete_stuff(addon_id)
-		elif choice==2:
-			delete_stuff(dir)
-			delete_stuff(addon_id)
-		else:
-			delete_stuff(addon_id)
-						
-def delete_stuff(dir):
-	path = addons + dir
-	shutil.rmtree(path) 
-
-
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
 ADDON = xbmcaddon.Addon(id=addon_id)
@@ -103,7 +63,6 @@ XMAS_PIC = base_icons + 'xmas_image.jpg'
 XMAS_IMAGE = 'http://iconshow.me/media/images/xmas/christmas-icon7/9/glass-ball-256.png'
 
 def Main_Menu():
-    check_for_nobs()
     if not os.path.exists(INTRO_VID_TEMP):
         if ADDON.getSetting('Intro_Vid')=='true':
             xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
@@ -136,13 +95,13 @@ def Main_Menu():
     if ADDON.getSetting('Quicksilver')=='true':
         process.Menu('Quicksilver Music','',1133,QUICK_ICON,'','','')
     if ADDON.getSetting('Rays_Ravers')=='true':
-        process.Menu('Rays Ravers','',2250,RAY_ICON,'','','')
+        process.Menu('Rays Ravers','',1147,RAY_ICON,'','','')
     if ADDON.getSetting('Silent_Hunter')=='true':
         process.Menu('Silent Hunter','',1134,SILENT_ICON,'','','')
     if ADDON.getSetting('Dojo')=='true':
         process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
     if ADDON.getSetting('Cerberus')=='true':
-        process.Menu('Cerberus','http://roguemedia.x10.mx/reaper/mainmenu.php',2301,REAPER_ICON,'','','')
+        process.Menu('Cerberus','http://hellhound.info/cerberus/mainmenu.php',2301,REAPER_ICON,'','','')
     if ADDON.getSetting('Ultra')=='true':
         process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
     if ADDON.getSetting('Fido')=='true':
@@ -591,7 +550,9 @@ elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld()
 elif mode == 1144: from lib.pyramid import pyramid;pyramid.queueItem()
 elif mode == 1145: from lib.pyramid import pyramid;pyramid.SKindex_Ultra()
 elif mode == 1146: from lib.pyramid import pyramid;pyramid.SKindex_Fido()
+elif mode == 1147: from lib.pyramid import pyramid;pyramid.SKindex_Rays()
 elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1154: from lib.pyramid import pyramid;pyramid.get_random(url)
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
 elif mode == 1202: from lib.freeview import freeview;freeview.tvplayer(url)
@@ -615,284 +576,6 @@ elif mode == 1753 : from lib import todays_football;todays_football.Live_On_Sat(
 elif mode == 1800 : from lib import cold_as_ice;cold_as_ice.Cold_Menu()
 elif mode == 1801 : from lib import cold_as_ice;cold_as_ice.GetContent(url,iconimage)
 elif mode == 1802 : from lib import cold_as_ice;cold_as_ice.PLAYLINK(name,url,iconimage)
-elif mode == 1900 : from lib.freedom import freedom;freedom.getSources();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode==1901:
-    from lib.freedom import freedom
-    data=None
-    if regexs:
-        data=freedom.getRegexParsed(regexs, url)
-        url=''
-    freedom.getData(url,fanart,data)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1902:
-    from lib.freedom import freedom
-    freedom.getChannelItems(name,url,fanart)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1903:
-    from lib.freedom import freedom
-    freedom.getSubChannelItems(name,url,fanart)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1904:
-    from lib.freedom import freedom
-    freedom.getFavorites()
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1905:
-    from lib.freedom import freedom
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    freedom.addFavorite(name,url,iconimage,fanart,fav_mode)
-
-elif mode==1906:
-    from lib.freedom import freedom
-    try:
-        name = name.split('\\ ')[1]
-    except:
-        pass
-    try:
-        name = name.split('  - ')[0]
-    except:
-        pass
-    freedom.rmFavorite(name)
-
-elif mode==1907:
-    from lib.freedom import freedom
-    freedom.SportsDevil()
-    freedom.Dutch()
-
-elif mode==1908:
-    from lib.freedom import freedom
-    freedom.rmSource(name)
-
-elif mode==1909:
-    from lib.freedom import freedom
-    freedom.download_file(name, url)
-
-elif mode==1910:
-    from lib.freedom import freedom
-    freedom.getCommunitySources()
-
-elif mode==1911:
-    from lib.freedom import freedom
-    freedom.addSource(url)
-
-elif mode==1912:
-    from lib.freedom import freedom
-    if not url.startswith("plugin://plugin") or not any(x in url for x in freedom.g_ignoreSetResolved):#not url.startswith("plugin://plugin.video.f4mTester") :
-        setres=True
-        if '$$LSDirect$$' in url:
-            url=url.replace('$$LSDirect$$','')
-            setres=False
-        item = xbmcgui.ListItem(path=url)
-        if not setres:
-            xbmc.Player().play(url)
-        else:
-            xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
-    else:
-        xbmc.executebuiltin('XBMC.RunPlugin('+url+')')
-
-elif mode==1913:
-    from lib.freedom import freedom
-    freedom.play_playlist(name, playlist)
-
-elif mode==1914:
-    from lib.freedom import freedom
-    freedom.get_xml_database(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1915:
-    from lib.freedom import freedom
-    freedom.get_xml_database(url, True)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1916:
-    from lib.freedom import freedom
-    freedom.getCommunitySources(url,browse=True)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-playitem=''
-if not playitem =='':
-    s=getSoup('',data=playitem)
-    name,url,regexs=getItems(s,None,dontLink=True)
-    mode=1990
-
-elif mode==1917 or mode==1990:
-    from lib.freedom import freedom
-
-    data=None
-    if regexs and 'listrepeat' in urllib.unquote_plus(regexs):
-        listrepeat,ret,m,regexs =freedom.getRegexParsed(regexs, url)
-        d=''
-        regexname=m['name']
-        existing_list=regexs.pop(regexname)
-        url=''
-        import copy
-        ln=''
-        rnumber=0
-        for obj in ret:
-            try:
-                rnumber+=1
-                newcopy=copy.deepcopy(regexs)
-                listrepeatT=listrepeat
-                i=0
-                for i in range(len(obj)):
-                    if len(newcopy)>0:
-                        for the_keyO, the_valueO in newcopy.iteritems():
-                            if the_valueO is not None:
-                                for the_key, the_value in the_valueO.iteritems():
-                                    if the_value is not None:
-                                        if type(the_value) is dict:
-                                            for the_keyl, the_valuel in the_value.iteritems():
-                                                if the_valuel is not None:
-                                                    val=None
-                                                    if isinstance(obj,tuple):
-                                                        try:
-                                                           val= obj[i].decode('utf-8')
-                                                        except:
-                                                            val= obj[i]
-                                                    else:
-                                                        try:
-                                                            val= obj.decode('utf-8')
-                                                        except:
-                                                            val= obj
-
-                                                    if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_valuel:
-                                                        the_valuel=the_valuel.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
-                                                    the_value[the_keyl]=the_valuel.replace('[' + regexname+'.param'+str(i+1) + ']', val)
-                                                    #print 'first sec',the_value[the_keyl]
-
-                                        else:
-                                            val=None
-                                            if isinstance(obj,tuple):
-                                                try:
-                                                     val=obj[i].decode('utf-8')
-                                                except:
-                                                    val=obj[i]
-                                            else:
-                                                try:
-                                                    val= obj.decode('utf-8')
-                                                except:
-                                                    val= obj
-                                            if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_value:
-                                                #print 'found DE',the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
-                                                the_value=the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
-
-                                            the_valueO[the_key]=the_value.replace('[' + regexname+'.param'+str(i+1) + ']', val)
-                                            #print 'second sec val',the_valueO[the_key]
-
-                    val=None
-                    if isinstance(obj,tuple):
-                        try:
-                            val=obj[i].decode('utf-8')
-                        except:
-                            val=obj[i]
-                    else:
-                        try:
-                            val=obj.decode('utf-8')
-                        except:
-                            val=obj
-                    if '[' + regexname+'.param'+str(i+1) + '][DE]' in listrepeatT:
-                        listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(i+1) + '][DE]',val)
-                    listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(i+1) + ']',escape(val))
-                listrepeatT=listrepeatT.replace('[' + regexname+'.param'+str(0) + ']',str(rnumber))
-
-                regex_xml=''
-                if len(newcopy)>0:
-                    regex_xml=d2x(newcopy,'lsproroot')
-                    regex_xml=regex_xml.split('<lsproroot>')[1].split('</lsproroot')[0]
-
-                try:
-                    ln+='\n<item>%s\n%s</item>'%(listrepeatT,regex_xml)
-                except: ln+='\n<item>%s\n%s</item>'%(listrepeatT.encode("utf-8"),regex_xml)
-            except: traceback.print_exc(file=sys.stdout)
-        freedom.getData('','',ln)
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
-    else:
-        url,setresolved = freedom.getRegexParsed(regexs, url)
-        if url:
-            if '$PLAYERPROXY$=' in url:
-                url,proxy=url.split('$PLAYERPROXY$=')
-                print 'proxy',proxy
-                proxyuser = None
-                proxypass = None
-                if len(proxy) > 0 and '@' in proxy:
-                    proxy = proxy.split(':')
-                    proxyuser = proxy[0]
-                    proxypass = proxy[1].split('@')[0]
-                    proxyip = proxy[1].split('@')[1]
-                    port = proxy[2]
-                else:
-                    proxyip,port=proxy.split(':')
-
-                freedom.playmediawithproxy(url,name,iconimage,proxyip,port, proxyuser,proxypass) #jairox
-            else:
-                freedom.playsetresolved(url,name,iconimage,setresolved)
-        else:
-            xbmc.executebuiltin("XBMC.Notification(FREEDOM IPTV,Failed to extract regex. - "+"this"+",4000,"+icon+")")
-
-elif mode==1918:
-    from lib.freedom import freedom
-    try:
-        import youtubedl
-    except Exception:
-        xbmc.executebuiltin("XBMC.Notification(FREEDOM IPTV,Please [COLOR yellow]install Youtube-dl[/COLOR] module ,10000,"")")
-    stream_url=youtubedl.single_YD(url)
-    freedom.playsetresolved(stream_url,name,iconimage)
-
-elif mode==1919:
-    from lib.freedom import freedom
-    freedom.playsetresolved (urlsolver(url),name,iconimage,True)
-
-elif mode==1921:
-    from lib.freedom import freedom
-    freedom.ytdl_download('',name,'video')
-
-elif mode==1923:
-    from lib.freedom import freedom
-    freedom.ytdl_download(url,name,'video')
-
-elif mode==1924:
-    from lib.freedom import freedom
-    freedom.ytdl_download(url,name,'audio')
-
-elif mode==1925:
-    from lib.freedom import freedom
-    freedom._search(url,name)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1955:
-    from lib.freedom import freedom
-    parentalblockedpin =addon.getSetting('parentalblockedpin')
-    keyboard = xbmc.Keyboard('','Enter Pin')
-    keyboard.doModal()
-    if not (keyboard.isConfirmed() == False):
-        newStr = keyboard.getText()
-        if newStr==parentalblockedpin:
-            addon.setSetting('parentalblocked', "false")
-            xbmc.executebuiltin("XBMC.Notification(FREEDOM IPTV,Parental Block Disabled,5000,"+icon+")")
-        else:
-            xbmc.executebuiltin("XBMC.Notification(FREEDOM IPTV,Wrong Pin??,5000,"+icon+")")
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1956:
-    from lib.freedom import freedom
-    addon.setSetting('parentalblocked', "true")
-    xbmc.executebuiltin("XBMC.Notification(FREEDOM IPTV,Parental block enabled,5000,"+icon+")")
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
-elif mode==1953:
-    from lib.freedom import freedom
-    freedompluginquerybyJSON(url)
-    #xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 2000 : from lib import index_regex;index_regex.Main_Loop(url)
 elif mode == 2100 : from lib import Sports_Replays;Sports_Replays.Sports_Repeats()
 elif mode == 2101 : from lib import Sports_Replays;Sports_Replays.Motor_Replays(url)
@@ -913,10 +596,6 @@ elif mode == 2204 : from lib import tv_guide;tv_guide.TV_GUIDE_CO_UK_CATS()
 elif mode == 2205 : from lib import tv_guide;tv_guide.tvguide_co_uk(url)
 elif mode == 2206 : from lib import tv_guide;tv_guide.WhatsOnCOUK(url,extra)
 elif mode == 2207 : from lib import tv_guide;tv_guide.Select_Type()
-elif mode == 2250 : from lib import raysravers;raysravers.LISTS(url)
-elif mode == 2251 : from lib import raysravers;raysravers.LISTS2(url)
-elif mode == 2252 : from lib import raysravers;raysravers.SEARCHLISTS()
-elif mode == 2253 : from lib import raysravers;raysravers.RESOLVER(url)
 elif mode == 2300 : DOJO_MAIN(url)
 elif mode == 2301 : Reaper_Loop(url)
 elif mode == 2350 : google_index_search()

@@ -100,7 +100,7 @@ def SKindex_Joker():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_Oblivion():
-    getData(base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9vYmxpdmhvbWUueG1s'),'')
+    getData(base64.decodestring('aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcvZWQ5Wld5V0s='),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_TigensWorld():
@@ -110,7 +110,7 @@ def SKindex_TigensWorld():
 
 	
 def SKindex_Supremacy():
-    getData('https://simplekore.com/wp-content/uploads/file-manager/steboy11/home.txt','')
+    getData('http://stephen-builds.uk/supremacy/home.txt','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def SKindex_BAMF():
@@ -133,6 +133,67 @@ def SKindex_Fido():
     getData(base64.decodestring('aHR0cHM6Ly9nb28uZ2wvOEtRSWQ4'),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
+def SKindex_Rays():
+    getData('http://raiztv.co.uk/RaysRavers/list2/dir.txt','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	
+	
+#Credit to Spoyser and Funnier Moments addon for 'Random_Play' def, used this plus a adaption of your random 10 cartoons for get_random by Origin
+
+def Random_play(name, mode, url='', image=None, isFolder=True, page=1, keyword=None, infoLabels=None, contextMenu=None):
+    if not image:
+        image = ICON
+    u  = sys.argv[0] 
+    u += '?mode='  + str(mode)
+    u += '&title=' + urllib.quote_plus(name)
+    u += '&image=' + urllib.quote_plus(image)
+    u += '&page='  + str(page)
+    if url != '':     
+        u += '&url='   + urllib.quote_plus(url) 
+    if keyword:
+        u += '&keyword=' + urllib.quote_plus(keyword) 
+    liz = xbmcgui.ListItem(name, iconImage=image, thumbnailImage=image)
+    if contextMenu:
+        liz.addContextMenuItems(contextMenu)
+    if infoLabels:
+        liz.setInfo(type="Video", infoLabels=infoLabels)
+    if not isFolder:
+        liz.setProperty("IsPlayable","true")
+    liz.setProperty('Fanart_Image', FANART)     
+    xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=isFolder)
+	
+	
+def get_random(url):
+    import random
+    Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+    Playlist.clear() 
+    Counter = []
+    full_count = []
+    finished_list = []
+    Name = []
+    HTML = Open_Url(url)
+    match = re.compile('<title>(.+?)<title>.+?<Link>(.+?)<link>.+?<thumbnail>(.+?)<thumbnail>.+?<fanart>(.+?)<fanart>.+?<info>(.+?)</info>',re.DOTALL).findall(HTML)
+    for name,url,image,fanart,desc in match:
+        full_count.append([name,url,image,fanart,desc])
+        if len(match) == len(full_count):
+            for item in full_count:
+                get_random=random.randint(0,len(full_count))
+                try:
+                    url_to_add = full_count[int(get_random)]
+                except:
+                    pass
+                if url_to_add[0] not in Name:
+                    Name.append(url_to_add[0])
+                    if int(len(Counter)) <= 9:
+                        liz = xbmcgui.ListItem(url_to_add[0], iconImage=url_to_add[2], thumbnailImage=url_to_add[2])
+                        liz.setInfo( type="Video", infoLabels={"Title": url_to_add[0]})
+                        liz.setProperty("IsPlayable","true")
+                        Playlist.add(url_to_add[1], liz)
+                        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+                        Counter.append(url[0])
+                    else:
+                        pass
+	
 	
 def Search_input(url):
     Dialog = xbmcgui.Dialog()
@@ -512,6 +573,8 @@ def getData(url,fanart):
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
                         elif 'Nothing to see here' in linkedUrl:
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
+                        if 'Pic N Mix' in name:
+                            Random_play('Play 10 Random Movies',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
                         else:						
                             if Adult_Pass == 'forefingeroffury':
                                 addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')
