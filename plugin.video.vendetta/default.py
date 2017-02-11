@@ -915,21 +915,19 @@ def search_next(name):
 		dp.create('Checking for stream - '+Search_name)
 		dp.update(int(dp_add),'You can always cancel if you\'re happy with results',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 		if ADDON.getSetting('Live_Online')=='true':
+			dp.update(int(dp_add),'Checking Live Online',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
 				for thing in liveonline:
 					name = thing[0]
 					url = sports+thing[1]
 					if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
 						if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
-							try:
-								dp.update(int(dp_add),'Checking Live Online',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
-							except:
-								pass
 							result.append(url[0])
 							Play('LiveOnline | '+name,url,10,'','','','')
 			else:
 				pass
 		if ADDON.getSetting('Shadow')=='true':
+			dp.update(int(dp_add),'Checking Shadow',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):
 				for item in shadow:
 					name = item[0]
@@ -938,11 +936,11 @@ def search_next(name):
 					if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
 						if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
 							result.append(url[0])
-							dp.update(int(dp_add),'Checking Shadow',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 							Play('Shadow | '+name,url,9,image,'','','')
 			else:
 				pass
 		if ADDON.getSetting('Freeview')=='true':
+			dp.update(int(dp_add),'Checking Freeview',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):
 				for object in freeview:
 					playlink = object[1]
@@ -952,7 +950,6 @@ def search_next(name):
 					if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
 						if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
 							result.append(playlink[0])
-							dp.update(int(dp_add),'Checking Freeview',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 							try:
 								addLink('Freeview | '+name,playlink,mode,'')
 							except:
@@ -960,13 +957,13 @@ def search_next(name):
 			else:
 				pass
 		if ADDON.getSetting('Mama_HD')=='true':
+			dp.update(int(dp_add),'Checking Mama HD',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):
 				for list_item in mamahd:
 					link = list_item[0]
 					name = list_item[1]
 					if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
 						if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
-							dp.update(int(dp_add),'Checking Mama HD',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 							result.append(url[0])
 							Play('Mama Hd | '+name,sports+link,10,'','','','')
 			else:
@@ -976,19 +973,20 @@ def search_next(name):
 				HTML6 = OPEN_URL('http://freeworldwideiptv.com/')
 				match6 = re.compile('<h2 class="title">.+?<a href="(.+?)"',re.DOTALL).findall(HTML6)
 				for URL in match6:
+					dp.update(int(dp_add),'Checking Freeworld '+str(len(Freeworld_count))+'/'+str(len(match6)),str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 					Freeworld_count.append(URL[0])
 					HTML7 = OPEN_URL(URL)
 					match7 = re.compile('EXTINF:.+?,(.+?)\n(.+?)\n#').findall(HTML7)
 					for final_name,fin_url in match7:
 						if (Search_name).replace(' ','').replace('sports','sport') in (final_name).lower().replace(' ','').replace('sports','sport'):
 							if int(len(result)-1)<= int(ADDON.getSetting('Results')):		
-								dp.update(int(dp_add),'Checking Freeworld '+str(len(Freeworld_count))+'/'+str(len(match6)),str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 								result.append(fin_url[0])
 								fin_url = f4murl+fin_url
 								Play('Freeworld | '+final_name,fin_url,10,'','','','')
 			else:
 				pass
 		if ADDON.getSetting('IPTVsat')=='true':
+			dp.update(int(dp_add),'Checking IPTVsat',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):
 				HTML2 = OPEN_URL('http://www.iptvsat.com/')
 				match2 = re.compile("<h2 class='post-title entry-title.+?<a href='(.+?)'>(.+?)</a>",re.DOTALL).findall(HTML2)
@@ -997,12 +995,12 @@ def search_next(name):
 					match3 = re.compile('#EXTINF:-1,(.+?)</h4>\n<h4 style="clear: both; text-align: center;">\n(.+?)</h4>').findall(HTML3)
 					for name2,url2 in match3:
 						if (Search_name).replace(' ','').replace('sports','sport') in (name2).lower().replace(' ','').replace('sports','sport'):
-							dp.update(int(dp_add),'Checking IPTVsat',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 							result.append(url[0])
 							Play('IPTVSat | '+name2,f4murl+link,10,'','','','')
 			else:
 				pass
 		if ADDON.getSetting('IPTVUrl')=='true':
+			dp.update(int(dp_add),'Checking IPTVUrl',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 			if int(len(result)-1)<= int(ADDON.getSetting('Results')):
 				HTML4 = OPEN_URL('http://www.iptvurllist.com/')
 				match4 = re.compile('<h1><a href="(.+?)">').findall(HTML4)
@@ -1012,7 +1010,6 @@ def search_next(name):
 					match5 = re.compile('EXTINF:.+?,(.+?)\n(.+?)\n').findall(HTML5)
 					for name,url5 in match5:
 						if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
-							dp.update(int(dp_add),'Checking IPTVUrl',str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 							result.append(url[0])
 							Play('IPTVUrl | '+name,f4murl+url5,10,'','','','')
 			else:
