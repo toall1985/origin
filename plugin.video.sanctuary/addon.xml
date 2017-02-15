@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.5.5" provider-name="Communal">
+<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.5.6" provider-name="Communal">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4" />
@@ -23,7 +23,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
 	<summary lang="en">Sanctuary</summary>
-	<description lang="en">An addon by the people for the people, credit to relevant sections are due to the developers/playlisters of the appropriate addons, permission has been given and any others that wish or would allow a section feel free to get in touch</description>
+	<description lang="en">An addon by the people for the people, credit to relevant sections are due to the developers/playlisters of the appropriate addons, permission has been given and any others that wish or would allow a section feel free to get in touch. Check kodification.co.uk for info or kodisanctuary.co.uk for reporting any issues to the forum</description>
 	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
 	<platform>all</platform>
   </extension>

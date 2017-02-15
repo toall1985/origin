@@ -292,9 +292,7 @@ def Live_TV(Search_name):
     if Search_name.lower() == 'w':
         Search_name = 'Watch'
     dp.create('Checking for streams - ' + Search_name)
-    Oblivion_list = ['FreeSports.xml','FreeTesting.xml','Server1.m3u','Server2.m3u','Kid.xml']
-    Joker_live_list = ['http://164.132.106.213/data/sports/sports.txt','http://164.132.106.213/data/livetv/worldtv.xml','http://164.132.106.213/data/livetv/news.xml',
-	'http://164.132.106.213/data/livetv/iptv.xml']
+    Oblivion_list = ['9SPSsLS2','fdpfhagD','jt4xbSEN','vmxWvdb9','7fFXG8hf']
     Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',
     'http://tombraiderbuilds.co.uk/addon/sportschannels/','http://tombraiderbuilds.co.uk/addon/ukentertainment/filmon.txt',
     'http://tombraiderbuilds.co.uk/addon/ukentertainment/filmonmovies.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt',
@@ -322,28 +320,32 @@ def Live_TV(Search_name):
         dp.update(15,'',"Checking Oblivion",'Please Wait')
         for item in Oblivion_list:
             import base64
-            OblivionMain = base64.decodestring('aHR0cDovL29ibGl2aW9uYnVpbGRzLmNvbS9GcmVlLnhtbA==')
+            OblivionMain = base64.decodestring('aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcv')
             Thread(target=Raider_Live_Loop(Search_name,OblivionMain.replace('Free.xml',item)))
     if ADDON.getSetting('Pyramid_Search')=='true':
-        dp.update(45,'',"Checking Pyramid",'Please Wait')
+        dp.update(30,'',"Checking Pyramid",'Please Wait')
         for item in Raider_live_list:
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update(60,'',"Checking Lily Sports",'Please Wait')
+        dp.update(50,'',"Checking Lily Sports",'Please Wait')
         for item in Lily_List:
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('Supremacy_Search')=='true':
         for item in Supremecy_List:
-            dp.update(70,'',"Checking Supremacy",'Please Wait')
+            dp.update(60,'',"Checking Supremacy",'Please Wait')
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('BAMF_Search')=='true':
         for item in BAMF_List:
-            dp.update(80,'',"Checking BAMF",'Please Wait')
+            dp.update(70,'',"Checking BAMF",'Please Wait')
             Thread(target=Raider_Live_Loop(Search_name,item))	
     if ADDON.getSetting('Ultra_Search')=='true':
         for item in Ultra_List:
-            dp.update(90,'',"Checking Ultra",'Please Wait')
+            dp.update(80,'',"Checking Ultra",'Please Wait')
             Thread(target=Raider_Live_Loop(Search_name,item))	
+    if ADDON.getSetting('Vendetta_Search')=='true':
+            dp.update(90,'',"Checking Ultra",'Please Wait')
+            import Live
+            Thread(target=Live.search_next(Search_name))	
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 

@@ -35,6 +35,7 @@ Dialog = xbmcgui.Dialog()
 addons = xbmc.translatePath('special://home/addons/')
 footy = 'http://footytube.com'
 addon_handle = int(sys.argv[1])
+search_option = ADDON_DATA+'Search.txt'
 
 Year = datetime.now().strftime('%Y')
 Month = datetime.now().strftime('%m')
@@ -53,7 +54,9 @@ def Main_Menu():
 	Menu('By Country','',4,'','','','')
 	Menu('Todays Sports','',13,'','','','')
 	Menu('Football Replays','',14,'','','','')
-
+	if ADDON.getSetting('Search_List')=='true':
+		Menu('List of search options for favourites','',32,'','','','')
+	
 def Search():
 	choices = ['Search for channel','Search for live program - [COLORred]UK ONLY[/COLOR]']
 	choice = xbmcgui.Dialog().select('Search', choices)
@@ -67,6 +70,26 @@ def Search_Programme():
 	Search_name = Search_title.lower()
 	url = 'http://www.tvguide.co.uk/?catcolor=&systemid=25&thistime=' + Hour + '&thisDay=' + Month + '/' + Day + '/' + Year + '&gridspan=03:00&view=0&gw=1323'
 	WhatsOnCOUK(Search_name,url,'SEARCH_SPLIT')
+	
+def Search_options():
+	Menu('Add a search name - then reload this menu','',33,'','','','')
+	if os.path.exists(search_option):
+		Open = open(search_option).read()
+		match = re.compile('<NAME=>(.+?)</NAME>').findall(Open)
+		for name in match:
+			Menu(name,'',34,'','','','')
+			
+def Search_Create():
+	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+	Search_name = Search_title.lower()
+	if not os.path.exists(search_option):
+		print_text_file_create = open(search_option,"w")
+		print_text_file_create.write('<NAME=>'+Search_name+'</NAME>\n')
+		print_text_file_create.close()        
+	else:
+		print_text_file_create = open(search_option,"a")
+		print_text_file_create.write('<NAME=>'+Search_name+'</NAME>\n')
+		print_text_file_create.close()        
 	
 def tv_guide():
     Menu('Search by channel number', '', 5, '', '', '', '')
@@ -1430,6 +1453,9 @@ elif mode == 28: Search()
 elif mode == 29: Live_on_Sat()
 elif mode == 30: Wheres_The_Match()
 elif mode == 31: Wheres_The_Channel(url)
+elif mode == 32: Search_options()
+elif mode == 33: Search_Create()
+elif mode == 34: search_next(name)
 elif mode == 1201: freeview_play(url)
 elif mode == 1202: tvplayer(name,url)
 

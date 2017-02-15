@@ -49,6 +49,19 @@
 		<setting id="Dojo_Search" type="bool" label="Dojo Streams" default="true"/>
 		<setting id="Reaper_Search" type="bool" label="Reaper" default="true"/>
 		<setting id="Ultra_Search" type="bool" label="Ultra" default="true"/>
+		<setting id="Vendetta_Search" type="bool" label="Vendetta" default="true"/>
+    </category>	
+	<category label="Vendetta Sources">
+        <setting label="Max stream results timeout" type="slider" id="Results" subsetting="true" default="50" range="5,5,2000" option="int" />
+        <setting label="Max Ingenious lists checked" type="slider" id="Sources" subsetting="true" default="30" range="5,5,150" option="int" />
+		<setting id="Freeview" type="bool" label="Freeview" default="true"/>
+		<setting id="Ingenious" type="bool" label="Ingenious" default="true"/>
+		<setting id="Mama_HD" type="bool" label="Mama HD" default="true"/>
+		<setting id="Live_Online" type="bool" label="Live Online" default="true"/>
+		<setting id="Shadow" type="bool" label="Shadow" default="true"/>
+		<setting id="IPTVsat" type="bool" label="IPTVsat" default="true"/>
+		<setting id="IPTVUrl" type="bool" label="IPTVUrl" default="true"/>
+		<setting id="Freeworld" type="bool" label="Freeworld" default="true"/>
     </category>	
 	<category label="Freeview General">
 		<setting id="list_all" type="bool" label="List All Possible Sources" default="true"/>
