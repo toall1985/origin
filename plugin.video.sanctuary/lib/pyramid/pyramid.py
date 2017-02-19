@@ -574,7 +574,7 @@ def getData(url,fanart):
                         elif 'Nothing to see here' in linkedUrl:
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
                         elif 'Pic N Mix' in name:
-                            Random_play('Play 10 Random Movies',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
+                            Random_play('Play 10 Random Cartoons',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
                         else:						
                             if Adult_Pass == 'forefingeroffury':
                                 addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')

@@ -110,6 +110,30 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
 def queueItem():
     return xbmc.executebuiltin('Action(Queue)')
 
+# =======================================Credit to Spoyser for this, was in funnier moments and using to implement playlists, will rewrite when i better understand it ======
+
+def Random_play(name, mode, url='', image=None, isFolder=True, page=1, keyword=None, infoLabels=None, contextMenu=None):
+    if not image:
+        image = ICON
+    u  = sys.argv[0] 
+    u += '?mode='  + str(mode)
+    u += '&title=' + urllib.quote_plus(name)
+    u += '&image=' + urllib.quote_plus(image)
+    u += '&page='  + str(page)
+    if url != '':     
+        u += '&url='   + urllib.quote_plus(url) 
+    if keyword:
+        u += '&keyword=' + urllib.quote_plus(keyword) 
+    liz = xbmcgui.ListItem(name, iconImage=image, thumbnailImage=image)
+    if contextMenu:
+        liz.addContextMenuItems(contextMenu)
+    if infoLabels:
+        liz.setInfo(type="Video", infoLabels=infoLabels)
+    if not isFolder:
+        liz.setProperty("IsPlayable","true")
+    liz.setProperty('Fanart_Image', FANART)     
+    xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=isFolder)
+
 
 # ===============================Favourites-----------Not sure whos code this is but credit due to them-------------------------------
 
