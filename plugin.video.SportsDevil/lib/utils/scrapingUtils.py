@@ -32,6 +32,11 @@ def findPHP(data, streamId):
     if html:
         return re.sub(r"\'\+\s*(?:f*id|ch)\s*\+\'", "%s" % streamId,html[0])
     
+    regex = "document.write\('.*?src=\"(.*?(?:f*id|ch)[^\"]+)\".*?['\" ]*.*?\)"
+    html = regexUtils.findall(data, regex)
+    if html:
+        return re.sub(r"\'\+\s*(?:f*id|ch)\s*\+\'", "%s" % streamId,html[0])
+    
     return None
 
 def findRTMP(url, data):
@@ -153,7 +158,7 @@ def findContentRefreshLink(page, data):
         return links[0]
     
     #hd**ee.fv/cr**hd.fv/sp**ts4u.tv
-    regex = '<a\s*href="([^"]+)"\s*target="_blank"><img\s*(?:src="[^"]+"\s*height="\d+"\s*width="\d+"\s*longdesc="[^"]+"|class="alignnone"\s*src="[^"]*"\s*alt="[^"]*"\s*width="\d\d\d"\s*height="\d\d\d")'
+    regex = '<a\s*href="((?![^"]+HDlivestream)[^"]+)"\s*target="_blank"><img\s*(?:src="[^"]+"\s*height="\d+"\s*width="\d+"\s*longdesc="[^"]+"|class="alignnone"\s*src="[^"]*"\s*alt="[^"]*"\s*width="\d\d\d"\s*height="\d\d\d")'
     links = regexUtils.findall(data, regex)
     if links:
         return urlparse.urljoin(urllib.unquote(page), links[0]).strip()

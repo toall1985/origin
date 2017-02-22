@@ -200,57 +200,69 @@ def decodeRawUnicode(src):
     except:
         return src
     
+def simpleToken(url):
+    import requests,zlib
+    time = common.getSetting(url+'_time')
+    s = requests.Session()
+    if time:
+        s.headers.update({'If-Modified-Since' : time})
+    s.headers.update({'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'})
+    s.headers.update({'Referer' : url})
+    r = s.get(url)
+    if r.status_code == 304:
+        return common.getSetting(url+'_token')
+    elif r.status_code == 200:
+        content = zlib.decompress(r.content[8:])
+        if 'tv-msn' in url:
+            token = re.findall(r"lengths.param1.(\w+)", content)[0][:16]
+        else:
+            token = re.findall("TokenResponse (\w+)", content)[0][:16]
+        common.setSetting(url+'_token',token)
+        common.setSetting(url+'_time',r.headers['Last-Modified'])
+        return token
+    
 def resolve(src):
     try:
         parsed_link = urlparse.urlsplit(src)
         tmp_host = parsed_link.netloc.split(':')
         if 'streamlive.to' in tmp_host[0]:
-            servers = ['80.82.78.4',
-                       '93.174.93.230',
-                       #'212.117.188.22',
-                       #'95.211.210.69',
-                       #'95.211.196.5',
-                       #'184.173.85.91',
-                       #'85.17.31.102',
-                       #'169.54.85.69',
-                       '62.210.139.136'
-                       ]
+            servers = ['62.210.139.136','184.173.85.91']
+                       #'80.82.78.4'
+                       #'89.248.168.57'
+                       #'93.174.93.230'
+                       #'89.248.169.55'
+
+                       #'184.173.85.91'
+                       #'62.210.139.136'
             import random
-            tmp_host[0] = random.choice(servers)
+            tmp_host[0] = '184.173.85.91' # random.choice(servers)
         elif tmp_host[0] == 'xlive.sportstream365.com':
-            servers = [ '93.189.57.254',
-                        '93.189.62.10',
-                        '185.49.70.58',
-                        '46.28.205.96',
-                        '178.17.168.90',
-                        '185.28.190.69',
-                        '85.114.135.215',
-                        '94.242.254.211']
+            servers = ["91.192.80.210","93.189.57.254","93.189.62.10"]
             import random
             tmp_host[0] = random.choice(servers)
         elif tmp_host[0] == 'live.pub.stream':
-            servers = [ "195.154.169.244",
-                        "195.154.185.109",
-                        "195.154.179.159",
-                        "195.154.167.95",
-                        "62.210.203.163",
-                        "195.154.168.230",
-                        "62.210.203.170",
-                        "62.210.203.167",
-                        "195.154.173.124",
-                        "195.154.172.90",
-                        "195.154.179.167",
-                        "195.154.177.110",
-                        "195.154.179.174",
-                        "195.154.168.218",
-                        "195.154.185.113",
-                        "195.154.187.46",
-                        "195.154.168.233",
-                        "195.154.187.23",
-                        "195.154.168.222",
-                        "195.154.169.233",
-                        "195.154.169.234",
-                        "195.154.182.101"]
+            servers =  ['195.154.167.95',
+                        '195.154.168.218',
+                        '195.154.168.222',
+                        '195.154.168.230',
+                        '195.154.168.233',
+                        '195.154.169.233',
+                        '195.154.169.234',
+                        '195.154.169.244',
+                        '195.154.172.90',
+                        '195.154.173.124',
+                        '195.154.177.110',
+                        '195.154.179.159',
+                        '195.154.179.167',
+                        '195.154.179.174',
+                        '195.154.182.101',
+                        '195.154.185.109',
+                        '195.154.185.113',
+                        '195.154.187.23',
+                        '195.154.187.46',
+                        '62.210.203.163',
+                        '62.210.203.167',
+                        '62.210.203.170']
             import random
             tmp_host[0] = random.choice(servers)
         else:
