@@ -191,7 +191,7 @@ def Search_cartoons():
     match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
     for url,name in match:
         if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
-            process.Menu('Source 1 - '+name,url,3,ICON,FANART,'')
+            process.Menu('Source 1 - '+name,url,3,ICON,FANART,'','')
     HTML2 = process.OPEN_URL('https://www.watchcartoononline.io/cartoon-list')
     match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(HTML2)
     for url, name in match:
@@ -224,7 +224,7 @@ def LISTS(url):
         IMAGE = img
     match = re.compile('&nbsp;<a href="(.+?)">(.+?)</a>').findall(html)
     for url,name in match:
-		process.Menu(name,url,804,IMAGE,FANART,'')
+		process.Menu(name,url,804,IMAGE,FANART,'','')
     match3 = re.compile('<li><a href="(.+?)">Next</a></li>').findall(html)
     for url in match3:
 		process.Menu('NEXT PAGE',url,803,IMAGE,FANART,'','')

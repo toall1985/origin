@@ -3,6 +3,7 @@ import process, re, urlresolver, xbmcgui, xbmcplugin, sys, xbmcaddon
 addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 Adult_Pass = ADDON.getSetting('Adult')
+Adult_Default = ADDON.getSetting('Porn_Pass')
 
 def Cold_Menu():
 	link=process.OPEN_URL('http://g10.x10host.com/coldasice/Index.txt')
@@ -11,7 +12,7 @@ def Cold_Menu():
 		if 'Movie' in name:
 			pass
 		elif 'N A K E D' in name:
-			if Adult_Pass == 'forefingeroffury':
+			if Adult_Pass == Adult_Default:
 				process.Menu(name,url,1801,iconimage,'','','')
 		elif not 'http' in iconimage:
 			iconimage=''

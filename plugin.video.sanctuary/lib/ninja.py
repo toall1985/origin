@@ -20,10 +20,11 @@ opener = urllib2.build_opener(cookie_handler)
 addon_id = 'plugin.video.sanctuary'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 Adult_Pass = selfAddon.getSetting('Adult')
+Adult_Default = selfAddon.getSetting('Porn_Pass')
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
 
 def CATEGORIES():
-	if Adult_Pass == 'forefingeroffury':
+	if Adult_Pass == Adult_Default:
 		link = openURL('http://www.perfectgirls.net/')
 		match = re.compile('<a href="/category/([0-9][0-9])/(.*)">(.*)</a>').findall(link)
 		addDir('[COLOR red]Latest[/COLOR]', 'http://www.perfectgirls.net/', 1401, icon, 1)
@@ -34,6 +35,7 @@ def CATEGORIES():
 				1401, icon, 1)
 		xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	else:
+		addDir('[COLORred][B]Password will now be changed monthly to keep it fresh !!![/B][/COLOR]','','','','')
 		addDir('[COLORred]Unfortunately you need to enter a password for this section,[/COLOR]','','','','')
 		addDir('[COLORwhite]as it contains adult content. You can obtain this[/COLOR]','','','','')
 		addDir('[COLORblue]from kodification.co.uk and searching for sanctuary[/COLOR]','','','','')

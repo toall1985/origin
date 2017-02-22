@@ -32,6 +32,7 @@ g_ignoreSetResolved=['plugin.video.dramasonline','plugin.video.f4mTester','plugi
 addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 Adult_Pass = ADDON.getSetting('Adult')
+Adult_Default = ADDON.getSetting('Porn_Pass')
 
 
 class NoRedirection(urllib2.HTTPErrorProcessor):
@@ -555,7 +556,7 @@ def getData(url,fanart):
 
                 try:
                     if linkedUrl=='':
-                        if Adult_Pass == 'forefingeroffury':
+                        if Adult_Pass == Adult_Default:
                             addDir(url,url.encode('utf-8'),1102,thumbnail,fanArt,desc,genre,date,credits,True)
                         else:
                             if 'xxx' in name.lower():
@@ -576,7 +577,7 @@ def getData(url,fanart):
                         elif 'Pic N Mix' in name:
                             Random_play('Play 10 Random Cartoons',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
                         else:						
-                            if Adult_Pass == 'forefingeroffury':
+                            if Adult_Pass == Adult_Default:
                                 addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')
                             else:
                                 if 'xxx' in name.lower():
@@ -732,7 +733,7 @@ def getChannelItems(name,url,fanart):
                 credits = ''
 
             try:
-				if Adult_Pass == 'forefingeroffury':
+				if Adult_Pass == Adult_Default:
 					addDir(name.encode('utf-8', 'ignore'),url.encode('utf-8'),1103,thumbnail,fanArt,desc,genre,credits,date)
 				else:
 					if 'xxx' in name.lower():
@@ -1173,7 +1174,7 @@ def getItems(items,fanart):
                         addLink('', name.encode('utf-8', 'ignore'),thumbnail,fanArt,desc,genre,date,True,playlist,regexs,total)
                 else:
                     if isXMLSource:
-                        if Adult_Pass == 'forefingeroffury':
+                        if Adult_Pass == Adult_Default:
                             addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
                         else:
                             if 'xxx' in name.lower():
@@ -1185,7 +1186,7 @@ def getItems(items,fanart):
                             else:
                                 addDir(name.encode('utf-8'),ext_url[0].encode('utf-8'),1101,thumbnail,FANART,desc,genre,date,None,'source')
                     elif isJsonrpc:
-                        if Adult_Pass == 'forefingeroffury':
+                        if Adult_Pass == Adult_Default:
                             addDir(name.encode('utf-8'),ext_url[0],1153,thumbnail,fanart,desc,genre,date,None,'source')
                         else:
                             if 'xxx' in name.lower():
@@ -2485,7 +2486,7 @@ def SetViewThumbnail():
         xbmc.executebuiltin('Container.SetViewMode(500)')
 	
 	
-def pluginquerybyJSON(url):
+def pluginquerybyJSON(url,title = None, addon = None):
     json_query = uni('{"jsonrpc":"2.0","method":"Files.GetDirectory","params":{"directory":"%s","media":"video","properties":["thumbnail","title","year","dateadded","fanart","rating","season","episode","studio"]},"id":1}') %url
 
     json_folder_detail = json.loads(sendJSON(json_query))
@@ -2522,7 +2523,15 @@ def pluginquerybyJSON(url):
             #xbmc.executebuiltin("Container.SetViewMode(500)")
 
         else:
-            addDir(name,url,1153,thumbnail,fanart,description,'',date,'')
+            if title:
+                if addon:
+                    final_name = addon + ' | ' + name
+                else:
+                    final_name = name
+                if name.lower().replace(' ','') in title.lower().replace(' ',''):
+                    addDir('Search '+final_name,url,1153,thumbnail,fanart,description,'',date,'')
+            else:
+                addDir(name,url,1153,thumbnail,fanart,description,'',date,'')
             #xbmc.executebuiltin("Container.SetViewMode(500)")
 
 def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlist,regexs,total,setCookie=""):

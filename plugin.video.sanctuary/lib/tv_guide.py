@@ -3,6 +3,8 @@ import re
 import requests
 import xbmcgui
 from datetime import datetime
+import xbmcaddon
+import xbmc
 
 Year = datetime.now().strftime('%Y')
 Month = datetime.now().strftime('%m')
@@ -10,23 +12,37 @@ Day = datetime.now().strftime('%d')
 Hour = datetime.now().strftime('%H')
 Minute = datetime.now().strftime('%M')
 time_now_number = str((int(Hour) * 60) + int(Minute))
+addon_id = 'plugin.video.sanctuary'
+ADDON = xbmcaddon.Addon(id=addon_id)
+
 
 
 def TV_GUIDE_MENU():
-    process.Menu('Telegraph TV Guide - [COLORred]UK Only[/COLOR]', '', 2201, '', '', '', '')
-    process.Menu('TVGuide.co.uk - [COLORred]UK Only[/COLOR]', '', 2204, '', '', '', '')
+    TV_GUIDE_CO_UK_CATS()
 
 
 
 def TV_GUIDE_CO_UK_CATS():
-    process.Menu('Search by channel number', '', 2207, '', '', '', '')
-    process.Menu('Popular', '7', 2205, '', '', '', '')
-    process.Menu('Freeview', '3', 2205, '', '', '', '')
-    process.Menu('Sky', '5', 2205, '', '', '', '')
-    process.Menu('Virgin XL', '25', 2205, '', '', '', '')
-    process.Menu('Freesat', '19', 2205, '', '', '', '')
-    process.Menu('BT', '22', 2205, '', '', '', '')
-
+	if ADDON.getSetting('type_select')=='Select':
+		process.Menu('Search by channel number', '', 2207, '', '', '', '')
+		process.Menu('Popular', '7', 2205, '', '', '', '')
+		process.Menu('Freeview', '3', 2205, '', '', '', '')
+		process.Menu('Sky', '5', 2205, '', '', '', '')
+		process.Menu('Virgin XL', '25', 2205, '', '', '', '')
+		process.Menu('Freesat', '19', 2205, '', '', '', '')
+		process.Menu('BT', '22', 2205, '', '', '', '')
+	elif ADDON.getSetting('type_select')=='Popular':
+		tvguide_co_uk('7')
+	elif ADDON.getSetting('type_select')=='Freeview':
+		tvguide_co_uk('3')
+	elif ADDON.getSetting('type_select')=='Sky':
+		tvguide_co_uk('5')
+	elif ADDON.getSetting('type_select')=='Virgin XL':
+		tvguide_co_uk('25')
+	elif ADDON.getSetting('type_select')=='Freesat':
+		tvguide_co_uk('19')
+	elif ADDON.getSetting('type_select')=='BT':
+		tvguide_co_uk('22')
 
 def Select_Type():
     choices = ['Select by Virgin No.', 'Select by Sky No.', 'Select by Freeview No.']
@@ -70,7 +86,6 @@ def find_channel(url, name):
                         WhatsOnCOUK(url, str(channel_name))
 
 
-# process.Menu(name + '-' + number,'','','','','','')
 
 def tvguide_co_uk(url):
     List = [['All','http://www.tvguide.co.uk/?catcolor=&systemid=' + url + '&thistime=' + Hour + '&thisDay=' + Month + '/' + Day + '/' + Year + '&gridspan=03:00&view=0&gw=1323'],
@@ -90,16 +105,26 @@ def tvguide_co_uk(url):
     for item in List:
         name = item[0]
         list_url = item[1]
-        process.Menu(name, list_url, 2206, '', '', '', '')
-
-
-def WhatsOnCOUK(url, extra):
+        if ADDON.getSetting('cat_select')=='Show Menu':
+            process.Menu(name, list_url, 2206, '', '', '', '')
+        else:
+            check_name = ADDON.getSetting('cat_select')
+            if check_name == name:
+                WhatsOnCOUK(list_url,'')
+			
+def WhatsOnCOUK(url,extra):
     try:
         html = requests.get(url).text
         channel_block = re.compile('<div class="div-epg-channel-progs">.+?<div class="div-epg-channel-name">(.+?)</div>(.+?)</div></div></div>',re.DOTALL).findall(html)
         for channel, block in channel_block:
-            prog = re.compile('<a qt-title="(.+?)"(.+?)onmouse', re.DOTALL).findall(str(block.encode('utf-8')))
-            for show_info, info in prog:
+            prog = re.compile('<a qt-title="(.+?)".+?<br>(.+?)<br>.+?</div>(.+?)<br>', re.DOTALL).findall(str(block.encode('utf-8')))
+            for show_info, show_no, info in prog:
+                show_no = show_no.replace('</div>','')
+                info = info.replace('</div>','').replace('</a>','')
+                if 'href' in info:
+                    change = re.compile('(.+?)href').findall(str(info))
+                    for thing in change:
+                        info = thing					
                 time_finder = re.compile('(.+?)-(.+?) ').findall(str(show_info))
                 for start, finish in time_finder:
                     if 'am' in start:
@@ -127,12 +152,14 @@ def WhatsOnCOUK(url, extra):
                     if int(start_number) < int(time_now_number) < int(finish_number):
                         if not extra or extra == '':
                             clean_channel = channel.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London', 'ITV1')
-                            process.Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 2203,'', '', '', clean_channel.replace('HD',''))
+                            process.Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 2203,'', '',show_no+'\n'+info, clean_channel.replace('HD',''))
+                            process.setView('movies', 'INFO2')
                         else:
                             clean_channel = channel.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London', 'ITV1')
                             clean_extra = extra.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London','ITV1')
                             if clean_extra == clean_channel:
-                                process.Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '',2203, '', '', '', clean_channel.replace('HD',''))
+                                process.Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 2203,'', '',show_no+'\n'+info, clean_channel.replace('HD',''))
+                                process.setView('movies', 'INFO2')
                             else:
                                 pass
     except:

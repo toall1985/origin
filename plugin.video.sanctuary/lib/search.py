@@ -1,7 +1,8 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon, os
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
+specto = xbmc.translatePath('special://home/addons/plugin.video.specto')
 addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 Dialog = xbmcgui.Dialog()
@@ -13,6 +14,7 @@ Pans_files_Movies = ['hey1080p','hey3D','hey','480p','720p','1080p','mova', 'mov
 Pans_files_TV = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 def Search_Menu():
+    process.Menu('All previous Searches','',1501,'','','','ALL')
     process.Menu('TV','TV',1501,'','','','')
     process.Menu('Movies','Movies',1501,'','','','')
     process.Menu('Live TV','Live TV',1501,'','','','')
@@ -28,31 +30,61 @@ def Music_Search():
     process.Menu('Search Song - [COLORred]Takes a while as searching all Now That\'s What I Call Music CD\'s[/COLOR]','Music_Song',1501,'','','','')
     
 
-def Search_Input(url):
-    Dialog = xbmcgui.Dialog()
-    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_name = Search_title.lower()
-    if Search_name == '':
-        pass
+def Search_Input(name,url,extra):
+    if extra == 'NEW':
+		Dialog = xbmcgui.Dialog()
+		Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+		Search_name = Search_title.lower()
+		if Search_name == '':
+			pass
+		else:
+			write_to_file(Search_name,url)
+			if url == 'TV':
+				TV(Search_name)
+			elif url == 'Movies':
+				Movies(Search_name)
+			elif url == 'Music_Artist':
+				Music_Artist(Search_name,'http://herovision.x10host.com/Music/'+str(Search_name[0].upper())+'/')
+			elif url == 'Music_Song':
+				Music_Song(Search_name)
+			elif url == 'cartoon':
+				Cartoons(Search_name)
+			elif url == 'Football':
+				Football(Search_name)
+			elif url == 'Live TV':
+				Live_TV(Search_name)
+			elif url == 'Music':
+				Music(Search_name)
+			else:
+				process.Menu('Search failed - '+url,'','','','','','')
+    elif extra == 'OLD':
+		Search_name = name
+		if Search_name == '':
+			pass
+		else:
+			if url == 'TV':
+				TV(Search_name)
+			elif url == 'Movies':
+				Movies(Search_name)
+			elif url == 'Music_Artist':
+				Music_Artist(Search_name,'http://herovision.x10host.com/Music/'+str(Search_name[0].upper())+'/')
+			elif url == 'Music_Song':
+				Music_Song(Search_name)
+			elif url == 'cartoon':
+				Cartoons(Search_name)
+			elif url == 'Football':
+				Football(Search_name)
+			elif url == 'Live TV':
+				Live_TV(Search_name)
+			elif url == 'Music':
+				Music(Search_name)
+			else:
+				process.Menu('Search failed - '+url,'','','','','','')
+    elif extra == 'ALL':
+		read_from_file('full')
     else:
-        if url == 'TV':
-            TV(Search_name)
-        elif url == 'Movies':
-            Movies(Search_name)
-        elif url == 'Music_Artist':
-            Music_Artist(Search_name,'http://herovision.x10host.com/Music/'+str(Search_name[0].upper())+'/')
-        elif url == 'Music_Song':
-            Music_Song(Search_name)
-        elif url == 'cartoon':
-            Cartoons(Search_name)
-        elif url == 'Football':
-            Football(Search_name)
-        elif url == 'Live TV':
-            Live_TV(Search_name)
-        elif url == 'Music':
-            Music(Search_name)
-        else:
-            process.Menu('Search failed - '+url,'','','','','','')
+		process.Menu('[COLOR darkgoldenrod][B]New Search[/B][/COLOR]',url,1501,'','','','NEW')
+		read_from_file(url)
 			
 class Thread(threading.Thread):
     def __init__(self, target, *args):
@@ -145,25 +177,68 @@ def Dojo(Search_name,url):
             else:
                 process.Play('[COLORred]Dojo Streams[/COLOR] '+name,url,906,icon,fanart,desc,'')
 
-
+def write_to_file(Search_name,file_name):
+	addon_data = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.sanctuary/')
+	full_file = addon_data + 'full.txt'
+	Stream_file = addon_data+file_name+'.txt'
+	if not os.path.exists(Stream_file):
+		print_text_file = open(Stream_file,"w")
+		print_text_file.write('<NAME=>'+Search_name+'</NAME><URL=>'+file_name+'</URL>\n')
+	else:
+		print_text_file = open(Stream_file,"a")
+		print_text_file.write('<NAME=>'+Search_name+'</NAME><URL=>'+file_name+'</URL>\n')
+	if not os.path.exists(full_file):
+		print_text_file = open(full_file,"w")
+		print_text_file.write('<NAME=>'+Search_name+'</NAME><URL=>'+file_name+'</URL>\n')
+	else:
+		print_text_file = open(full_file,"a")
+		print_text_file.write('<NAME=>'+Search_name+'</NAME><URL=>'+file_name+'</URL>\n')
+	
+def read_from_file(file_name):
+	addon_data = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.sanctuary/')
+	Stream_file = addon_data+file_name+'.txt'
+	if not os.path.exists(Stream_file):
+		print_text_file = open(Stream_file,"w")
+	html = open(Stream_file).read()
+	match = re.compile('<NAME=>(.+?)</NAME><URL=>(.+?)</URL>').findall(html)
+	for result,type in match:
+		process.Menu(result,type,1501,'','','','OLD')
+	process.Menu('[COLORred][B]Clear previous search\'s[/B][/COLOR]',file_name,1504,'','','','')
+	
+def Clear_Search(file_name):
+	addon_data = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.sanctuary/')
+	Stream_file = addon_data+file_name+'.txt'
+	if os.path.exists(Stream_file):
+		print_text_file = open(Stream_file,"w")
 	
 def TV(Search_name):
     dp.create('Checking for streams')
+    if 'season' in Search_name.lower():
+        Type = 'single_ep'
+        name_splitter = Search_name + '<>'
+        name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+        for name,season,episode in name_split:
+            title = name
+            season = season
+            episode = episode
+    else:
+        title = Search_name
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
         dp.update((100/6),'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_TV(Search_name))
-    if ADDON.getSetting('Cold_As_Ice_Search')=='true':
-        dp.update((100/6)*2,'',"Checking Cold As Ice",'Please Wait')
-        Thread(target=Cold_AS_Ice(Search_name))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update((100/6)*3,'',"Checking Tigen's World",'Please Wait')
-        Thread(target=Tigen_tv(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
+        dp.update((100/6)*2,'',"Checking Tigen's World",'Please Wait')
+        Thread(target=Tigen_tv(title,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
     if ADDON.getSetting('Dojo_Search')=='true':
-        dp.update((100/6)*4,'',"Checking Dojo",'Please Wait')
-        Thread(target=Dojo(Search_name,'http://herovision.x10host.com/dojo/dojo.php'))
+        dp.update((100/6)*3,'',"Checking Dojo",'Please Wait')
+        Thread(target=Dojo(title,'http://herovision.x10host.com/dojo/dojo.php'))
     if ADDON.getSetting('Reaper_Search')=='true':
-        dp.update((100/6)*5,'',"Checking Reaper",'Please Wait')
-        Thread(target=Reaper(Search_name,'https://leto.feralhosting.com/grimw01f/tr/tv/a-z.php'))
+        dp.update((100/6)*4,'',"Checking Reaper",'Please Wait')
+        Thread(target=Reaper(title,'https://leto.feralhosting.com/grimw01f/tr/tv/a-z.php'))
+    if os.path.exists(specto):
+        dp.update((100/6)*5,'',"Checking Specto",'Please Wait')
+        from pyramid import pyramid
+        pyramid.pluginquerybyJSON('plugin://plugin.video.specto/?action=tvSearch;query='+title,title,'Specto')
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -235,17 +310,61 @@ def Pans_Search_Movies(Search_name):
                     process.Play(name,url,906,iconimage,fanart,desc,'')
 
 def Pans_Search_TV (Search_name):
-    for file_Name in Pans_files_TV:
-        search_URL2 = Base_Pand + file_Name + '.php'
-        HTML = process.OPEN_URL(search_URL2)
-        if HTML != 'Opened':
-            match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML)
-            for name,desc,url,img,fanart,mode in match:
-                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-                    name = '[COLOR darkgoldenrod]Pandora [/COLOR]' + name
-                    process.Menu(name,url,mode,img,fanart,desc,'')
-					
-	
+	if 'season' in Search_name.lower():
+		Type = 'single_ep'
+		name_splitter = Search_name + '<>'
+		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		for name,season,episode in name_split:
+			title = name
+			season = season
+			episode = episode
+		year = ''
+	else:
+		Type = 'full_show'
+	if Search_name[0].lower() in Pans_files_TV:
+		url_extra = Search_name[0].lower()
+	else:
+		url_extra = 'tvnum'
+	search_URL2 = Base_Pand + url_extra + '.php'
+	HTML = process.OPEN_URL(search_URL2)
+	if HTML != 'Opened':
+		match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML)
+		for name,desc,url,img,fanart,mode in match:
+			if Type == 'full_show':
+				if (Search_name).replace(' ','') in (name).replace(' ','').lower():
+					name = '[COLOR darkgoldenrod]Pandora [/COLOR]' + name
+					process.Menu(name,url,mode,img,fanart,desc,'')
+			elif Type == 'single_ep':
+				if title.replace(' ','').lower() in name.replace(' ','').lower():
+					if season == '1':
+						HTML5 = process.OPEN_URL(url)
+						match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML5)
+						for url5,iconimage,desc5,background,name5 in match5:
+							if len(episode) == 1:
+								episode = '0'+episode
+							if 'E'+episode in name5:
+								process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name5,url5,906,iconimage,background,desc5,'')
+					else:
+						HTML2 = process.OPEN_URL(url)
+						match2 = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML2)
+						for name2,desc2,url2,img2,fanart2,mode2 in match2:
+							if 's' in name2.lower() and season in name2.lower():
+								HTML3 = process.OPEN_URL(url2)
+								match3=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML3)
+								for url3,iconimage,desc3,background,name3 in match3:
+									if len(episode) == 1:
+										episode = '0'+episode
+									if 'E'+episode in name3:
+										process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name3,url3,906,iconimage,background,desc3,'')
+	if Type == 'single_ep':
+		HTML4 = process.OPEN_URL(Base_Pand + 'recenttv.php')
+		match4=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML4)
+		for url4,iconimage,desc4,background,name4 in match4:
+			if len(episode) == 1:
+				episode = '0'+episode
+			if 'E'+episode in name4 and title.lower().replace(' ','') in name4.lower().replace(' ',''):
+				process.PLAY('[COLOR darkgoldenrod]Pandora Recent | [/COLOR]' + name4,url4,906,iconimage,background,desc4,'')
+			
 def Cartoons(Search_name):
     HTML2 = process.OPEN_URL(Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24='))
     match2 = re.compile('<td><a href="(.+?)">(.+)</a></td>').findall(HTML2)

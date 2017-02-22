@@ -36,6 +36,7 @@ ICON = ADDON_PATH + 'icon.png'
 ADDON = xbmcaddon.Addon(id=addon_id)
 FANART = ADDON_PATH + 'fanart.jpg'
 Adult_Pass = ADDON.getSetting('Adult')
+Adult_Default = ADDON.getSetting('Porn_Pass')
 base_icons = 'http://herovision.x10host.com/freeview/'
 ORIGIN_ICON = base_icons + 'origin.png'
 ORIGIN_FANART = base_icons + 'origin.jpg'
@@ -77,7 +78,7 @@ def Main_Menu():
 		process.Menu('Music','',34,'',FANART,'','')
 		process.Menu('Sports','',40,'',FANART,'','')
 		process.Menu('TV Shows','',31,'',FANART,'','')
-		if Adult_Pass == 'forefingeroffury':
+		if Adult_Pass == Adult_Default:
 			process.Menu('Adult','',37,'',FANART,'','')
 		process.Menu('Add-on\'s','',35,'',FANART,'','')
 		process.setView('movies', 'INFO')
@@ -301,15 +302,7 @@ def send_to_search(name,extra):
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
 	from lib import search
-	Search_name = extra.lower().replace(' ','')
-	name_splitter = name + '<>'
-	name_split = re.compile('(.+?) - Season(.+?) Episode(.+?)<>').findall(str(name_splitter))
-	for name,season,episode in name_split:
-		title = name
-		season = season
-		episode = episode
-	year = ''
-	search.TV(Search_name)
+	search.TV(name)
 
 
 
@@ -324,7 +317,7 @@ def Origin_Main():
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
-    if Adult_Pass == 'forefingeroffury':
+    if Adult_Pass == Adult_Default:
         process.Menu('Porn','',700,ORIGIN_ICON,ORIGIN_FANART,'','')
 		
 def google_index_search():
@@ -685,9 +678,10 @@ elif mode == 1400 : from lib import ninja;ninja.CATEGORIES()
 elif mode == 1401 : from lib import ninja;ninja.VIDEOLIST(url)
 elif mode == 1402 : from lib import ninja;ninja.PLAYVIDEO(url)
 elif mode == 1500 : from lib import search;search.Search_Menu()
-elif mode == 1501 : from lib import search;search.Search_Input(url)
+elif mode == 1501 : from lib import search;search.Search_Input(name,url,extra)
 elif mode == 1502 : from lib import search;search.MUSIC(Search_name,url)
 elif mode == 1503 : from lib import search;search.Music_Search()
+elif mode == 1504 : from lib import search;search.Clear_Search(url)
 elif mode == 1600 : from lib import brettus_anime;brettus_anime.GetList()
 elif mode == 1601 : from lib import brettus_anime;brettus_anime.GetContent(url,iconimage)
 elif mode == 1602 : from lib import brettus_anime;brettus_anime.PLAYLINK(url,iconimage)
