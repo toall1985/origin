@@ -22,6 +22,8 @@ selfAddon = xbmcaddon.Addon(id=addon_id)
 Adult_Pass = selfAddon.getSetting('Adult')
 Adult_Default = selfAddon.getSetting('Porn_Pass')
 icon = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
+Dialog = xbmcgui.Dialog()
+
 
 def CATEGORIES():
 	if Adult_Pass == Adult_Default:
@@ -42,21 +44,34 @@ def CATEGORIES():
 		xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def VIDEOLIST(url):
+    pg = 'http://www.perfectgirls.net/'
     link = openURL(url)
-    match = re.compile('-->\n<a href="/([0-9]+)/(.*)" title="(.*)">').findall(link)
-    for v_id, videourl, name, in match:
-        addLink(name,'http://www.perfectgirls.net/' + v_id + '/' + videourl,1402,icon)
+    match = re.compile('<div class="list__item_link"><a href="(.+?)".+?title="(.+?)".+?data-original="(.+?)".+?<time>(.+?)</time>',re.DOTALL).findall(link)
+    for url2,name,img,length in match:
+        import clean_name
+        name = clean_name.clean_name(name)
+        addLink('[COLORred]'+length+'[/COLOR] - '+name,pg+url2,1402,icon)
+    next = re.compile('<a class="btn_wrapper__btn" href="([^"]*)">Next</a>').findall(link)
+    for item in next:
+        if url[-1] in '0123456789':
+            url3 = url[:-1]+item
+        else:
+            url3 = url+'/'+item
+        addDir('Next Page',url3,1401,icon,'')
 
 
 def PLAYVIDEO(url):
-    link = openURL(url)
-    match = re.compile('get\("(.*)", function').findall(link)
-    for configurl in match:
-        link = openURL('http://www.perfectgirls.net/' + configurl)
-        match2 = re.compile('http://(.*)').findall(link)
-        match3 = ['http://' + str(match2[0])]
-        if match2:
-            xbmc.Player().play(match3[-1])
+	sources = []
+	link = openURL(url)
+	match = re.compile('<source src="(.+?)".+?res="(.+?)"').findall(link)
+	for playlink,quality in match:
+		sources.append({'quality': quality, 'playlink': playlink})
+		if len(sources) == len(match):
+			choice = Dialog.select('Select Playlink',[link["quality"] for link in sources])
+			if choice != -1:
+				playlink = sources[choice]['playlink']
+				isFolder=False
+				xbmc.Player().play(playlink)
 
 
 def addLink(name, url, mode, iconimage):

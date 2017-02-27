@@ -102,8 +102,21 @@ def sports():
 		
 def Adult():
 	process.Menu('Just For Him','',1400,NINJA_ICON,FANART,'','')
-	process.Menu('Origin','',707,ORIGIN_ICON,ORIGIN_FANART,'','')
 	process.Menu('Fido','http://fantazyrepo.uk/addonimages/fido.addon/Livetv/adult.xml',1101,FIDO_ICON,'','','')
+	process.Menu('X Videos','',700,'https://pbs.twimg.com/profile_images/378800000578199366/cf160c1c86c13778a834bbade0c30e38.jpeg',FANART,'','')
+	process.Menu('Porn Hub','',708,'http://cdimage.debian.org/mirror/addons.superrepo.org/v7/addons/plugin.video.pornhub/icon.png',FANART,'','')
+	process.Menu('X Hamster','',714,'http://www.logospike.com/wp-content/uploads/2016/05/Xhamster_Logo_03.png',FANART,'','')
+	process.Menu('Chaturbate','',720,'https://pbs.twimg.com/profile_images/671662441210753024/sE2tHWMB_400x400.png',FANART,'','')
+	process.Menu('You Porn','',723,'http://www.ares-portal.com/wp-content/uploads/2016/12/plugin.video_.youporngay.png',FANART,'','')
+	process.Menu('Red Tube','',730,'http://gosha-portal.pp.ua/1311/pic/redtube.png',FANART,'','')
+	process.Menu('Tube 8','',738,'https://a3-images.myspacecdn.com/images03/1/cb9e1e694ca941abaf62f0026d18049f/300x300.jpg',FANART,'','')
+	process.Menu('Thumbzilla','',745,'http://static.spark.autodesk.com/2013/02/14__13_53_32/data2cd61048-351b-4b48-bd9c-946e7e076b53Medium2.jpg',FANART,'','')
+	process.Menu('XTube','',753,'https://pbs.twimg.com/profile_images/732348322044903425/xTK0J4Cz.jpg',FANART,'','')
+	process.Menu('Eporner','',760,'http://kenny2u.org/wp-content/uploads/2016/09/icon-1.png',FANART,'','')
+	process.Menu('YouJizz','',765,'https://pbs.twimg.com/profile_images/3332003625/23c080fbec17cfb45ca3fd40ec06afe1.png',FANART,'','')
+	process.Menu('4k','',758,'https://pbs.twimg.com/profile_images/700315084980035588/fZZO6Pf-.jpg',FANART,'','')
+	process.Menu('VR','http://www.xvideos.com/?k=vr',701,'https://pbs.twimg.com/profile_images/741907565689217024/DByQczLO.jpg',FANART,'','')
+	process.Menu('Spank Wire','',771,'http://copernium.com/Copernicus/addons/plugin.video.nudeflix/resources/images/spankwire.png',FANART,'','')
 
 
 def Movie_Men():
