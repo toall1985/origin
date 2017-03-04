@@ -113,10 +113,10 @@ def Adult():
 	process.Menu('Thumbzilla','',745,'http://static.spark.autodesk.com/2013/02/14__13_53_32/data2cd61048-351b-4b48-bd9c-946e7e076b53Medium2.jpg',FANART,'','')
 	process.Menu('XTube','',753,'https://pbs.twimg.com/profile_images/732348322044903425/xTK0J4Cz.jpg',FANART,'','')
 	process.Menu('Eporner','',760,'http://kenny2u.org/wp-content/uploads/2016/09/icon-1.png',FANART,'','')
-	process.Menu('YouJizz','',765,'https://pbs.twimg.com/profile_images/3332003625/23c080fbec17cfb45ca3fd40ec06afe1.png',FANART,'','')
+	process.Menu('YouJizz','',771,'https://pbs.twimg.com/profile_images/3332003625/23c080fbec17cfb45ca3fd40ec06afe1.png',FANART,'','')
+	process.Menu('Spank Wire','',772,'http://kenny2u.org/wp-content/uploads/2016/09/icon-43.png',FANART,'','')
 	process.Menu('4k','',758,'https://pbs.twimg.com/profile_images/700315084980035588/fZZO6Pf-.jpg',FANART,'','')
 	process.Menu('VR','http://www.xvideos.com/?k=vr',701,'https://pbs.twimg.com/profile_images/741907565689217024/DByQczLO.jpg',FANART,'','')
-	process.Menu('Spank Wire','',771,'http://copernium.com/Copernicus/addons/plugin.video.nudeflix/resources/images/spankwire.png',FANART,'','')
 
 
 def Movie_Men():
@@ -147,18 +147,19 @@ def TV_Men():
 	process.Menu('Latest Episodes','',3,ICON,FANART,'','')
 	from lib.pyramid import pyramid
 	process.Menu('Pandora\'s TV','http://genietvcunts.co.uk/PansBox/ORIGINS/tvcats.php',423,PANDORA_ICON,'','','')
-	process.Menu('Cerberus TV','http://hellhound.info/cerberus/tvmenu.php',2301,REAPER_ICON,'','','')
+	process.Menu('Cerberus TV','http://cerberus.x10.bz/add-on/tvmenu.php',2301,REAPER_ICON,'','','')
 	pyramid.not_so_anon('Pyramid TV','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][WI][FA][UP][MW][SS][YO][MW][UP][YZ][WI][FA][AL][XU][QZ][MW][BU][PD][YO][QZ]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('Tigen\'s TV','http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt',1101,TIGEN_ICON,'','','')
 	process.Menu('Raiz TV','http://raiztv.co.uk/RaysRavers/list2/raiztv/tv/tv.txt',1101,RAY_ICON,'','','')
 	process.Menu('Dojo TV','http://herovision.x10host.com/dojo/tvshows/tvshows.php',2300,DOJO_ICON,'','','')
+	process.Menu('BAMF\'s Classics','http://genietvcunts.co.uk/bamffff/bamfoldtv.xml',1101,BAMF_ICON,FANART,'','')
 
 def Live_Men():
 	process.Menu('Search','Live TV',1501,'','','','')
 	process.Menu('TV Guide','',2200,ICON,FANART,'','')
 	from lib.pyramid import pyramid
 	process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
-	process.Menu('BAMF IPTV','',1132,BAMF_ICON,FANART,'','')
+	process.Menu('BAMF IPTV','http://genietvcunts.co.uk/bamffff/alllivetv.xml',1101,BAMF_ICON,FANART,'','')
 	pyramid.not_so_anon('Pyramid Live','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][UR][YY][MW][QZ][WI][MW][SS][WI][PD][YO][QZ][BU][MW][QZ][WI][YZ][UR][YY][MW][QZ][WI][MW][SS][WI][PD][YO][QZ][BU][MW][QZ][WI]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('Ultra Live',base64.decodestring('aHR0cDovL3VsdHJhdHYubmV0MTYubmV0L2lwdHZzZXJ2ZXIvcG9ydGFsLnhtbA=='),1101,ULTRA_ICON,'','','')
 	pyramid.not_so_anon('Fido Live','[QT][LW][PD][QZ][WI][PD][AL][DE][SS][MW][FU][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YO][BU][PD][OI][MW][UP][YZ][LW][YO][LS][XU][WX][PD][LS][LS][XU][QZ][YZ]L[YO][FA][MW][WI][FA][YZ][JJ][YO][FA][MW][WI][FA]Hope you enjoy the view',FIDO_ICON,FANART,'','','')
@@ -175,7 +176,7 @@ def Kids_Men():
 	pyramid.not_so_anon('Silent Hunter Kids','[QT][UP][YO][JJ][MW][QZ][WI][UP][WI][SS][MW][PD][BU][WX][UP][SS][FA][MW][WX][YO][XU][YZ][UP][YO][JJ][MW][QZ][WI][KW][UR][QZ][WI][MW][SS][YZ][BU][PD][YO][QZ][YZ][RJ][KW][YO][JJ][LS][SS][MW][QZ]Hope you enjoy the view',SILENT_ICON,FANART,'','','')
 	process.Menu('Oblivion Kids','http://pastebin.com/raw/Y8X1vCaV',1101,OBLIVION_ICON,'','','')
 	pyramid.not_so_anon('Pyramid Kids','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP]Have a nice day now',RAIDER_ICON,FANART,'','','')
-	process.Menu('BAMF Kids Live','http://genietvcunts.co.uk/bamffff/kids.m3u',1101,BAMF_ICON,'','','')
+	process.Menu('BAMF\'s Kids','http://genietvcunts.co.uk/bamffff/kidssection.xml',1101,BAMF_ICON,'','','')
 	process.Menu('Supremacy Kids Live','http://stephen-builds.uk/supremacy/Kids%20Tv/Kids%20Tv.txt',1101,'http://www.stephen-builds.co.uk/wizard/icon.png','','','')
 	process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
 
@@ -190,6 +191,7 @@ def Music_Men():
 	process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
 	pyramid.not_so_anon('Pyramid\'s Music','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][BU][UR][UP][YO][RJ][YZ][BU][UR][UP][YO][RJ]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('Pandora\'s Music','http://genietvcunts.co.uk/PansBox/ORIGINS/seasonmusic.php',423,PANDORA_ICON,'','','')
+	process.Menu('BAMF\'s Music','http://genietvcunts.co.uk/bamffff/bamfsmusic.xml',1101,BAMF_ICON,'','','')
 
 def classic_list():
 		if ADDON.getSetting('Origin')=='true':
@@ -225,7 +227,7 @@ def classic_list():
 		if ADDON.getSetting('Dojo')=='true':
 			process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
 		if ADDON.getSetting('Cerberus')=='true':
-			process.Menu('Cerberus','http://hellhound.info/cerberus/mainmenu.php',2301,REAPER_ICON,'','','')
+			process.Menu('Cerberus','http://cerberus.x10.bz/add-on/mainmenu.php',2301,REAPER_ICON,'','','')
 		if ADDON.getSetting('Ultra')=='true':
 			process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
 		if ADDON.getSetting('Fido')=='true':

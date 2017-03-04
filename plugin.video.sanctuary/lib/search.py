@@ -2,7 +2,6 @@ import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, thr
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
-specto = xbmc.translatePath('special://home/addons/plugin.video.specto')
 addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 Dialog = xbmcgui.Dialog()
@@ -226,19 +225,18 @@ def TV(Search_name):
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
         dp.update((100/6),'',"Checking Pandoras Box",'Please Wait')
         Thread(target=Pans_Search_TV(Search_name))
+    if ADDON.getSetting('Pyramid_Search')=='true':
+        dp.update((100/6)*2,'',"Checking Pyramid",'Please Wait')
+        Thread(target=Raider_TV(Search_name))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update((100/6)*2,'',"Checking Tigen's World",'Please Wait')
+        dp.update((100/6)*3,'',"Checking Tigen's World",'Please Wait')
         Thread(target=Tigen_tv(title,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
     if ADDON.getSetting('Dojo_Search')=='true':
-        dp.update((100/6)*3,'',"Checking Dojo",'Please Wait')
+        dp.update((100/6)*4,'',"Checking Dojo",'Please Wait')
         Thread(target=Dojo(title,'http://herovision.x10host.com/dojo/dojo.php'))
     if ADDON.getSetting('Reaper_Search')=='true':
-        dp.update((100/6)*4,'',"Checking Reaper",'Please Wait')
+        dp.update((100/6)*5,'',"Checking Reaper",'Please Wait')
         Thread(target=Reaper(title,'https://leto.feralhosting.com/grimw01f/tr/tv/a-z.php'))
-    if os.path.exists(specto):
-        dp.update((100/6)*5,'',"Checking Specto",'Please Wait')
-        from pyramid import pyramid
-        pyramid.pluginquerybyJSON('plugin://plugin.video.specto/?action=tvSearch;query='+title,title,'Specto')
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -526,6 +524,55 @@ def Raider_Live_Loop(Search_name,url):
                     from pyramid.pyramid import Decrypt_Link
                     Decrypt_Link(ignore,ADD_NAME+' '+name,url,total)
 
+def Raider_TV(Search_name):
+	if 'season' in Search_name.lower():
+		Type = 'single_ep'
+		name_splitter = Search_name + '<>'
+		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		for name,season,episode in name_split:
+			title = name
+			season = season
+			episode = episode
+		year = ''
+	else:
+		Type = 'full_show'
+	HTML = process.OPEN_URL('http://tombraiderbuilds.co.uk/addon/tvseries/tvzonemain.txt')
+	if HTML != 'Opened':
+		match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+		for name,image,url10,fanart in match:
+			if Type == 'full_show':
+				if title.lower().replace(' ','') in name.lower().replace(' ',''):
+					name = '[COLORblue]Pyramid[/COLOR] ' + name
+					process.Menu(name,url10,'',image,fanart,'','')
+			elif Type == 'single_ep':
+				if title.lower().replace(' ','') in name.lower().replace(' ',''):
+					html10 = process.OPEN_URL(url10)
+					seasons = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(html10)
+					for season_name,image,url11,fanart in seasons:
+						season_number = re.compile('Season (.+?)').findall(str(season_name))
+						for seas_no in season_number:
+							season_number = seas_no
+						if season == season_number:
+							html12 = process.OPEN_URL(url11)
+							episodes = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(html12)
+							for name,url,image,fanart in episodes:
+								ep_no = re.compile('S.+?E(.+?)>').findall(str(name.replace(title,'').replace('[/COLOR]','')+'>'))
+								for ep_no in ep_no:
+									ep_no = ep_no
+								if ep_no == episode:
+									xbmc.log('GOT EPISODE MATCH')
+									from pyramid.pyramid import addLink
+									addLink(url, '[COLORblue]Pyramid[/COLOR] | ' + name,image,fanart,'','','','',None,'',1)
+					episodes_single = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(html12)
+					for name,url,image,fanart in episodes_single:
+						ep_no = re.compile('S(.+?)E(.+?)>').findall(str(name.replace(title,'').replace('[/COLOR]','')+'>'))
+						for seas_no,ep_no in ep_no:
+							seas_no = seas_no
+							ep_no = ep_no
+						if ep_no == episode and seas_no == season:
+							xbmc.log('GOT EPISODE MATCH')
+							from pyramid.pyramid import addLink
+							addLink(url, '[COLORblue]Pyramid[/COLOR] | ' + name,image,fanart,'','','','',None,'',1)
 
 
 def Raider_Loop(Search_name,url):

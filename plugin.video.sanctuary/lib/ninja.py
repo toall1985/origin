@@ -29,8 +29,8 @@ def CATEGORIES():
 	if Adult_Pass == Adult_Default:
 		link = openURL('http://www.perfectgirls.net/')
 		match = re.compile('<a href="/category/([0-9][0-9])/(.*)">(.*)</a>').findall(link)
-		addDir('[COLOR red]Latest[/COLOR]', 'http://www.perfectgirls.net/', 1401, icon, 1)
-		addDir('---', '', 1401, '', 1)
+		addDir('[COLOR red]Latest[/COLOR]', 'http://www.perfectgirls.net/',1, icon, 1)
+		addDir('---', '',1, '', 1)
 		for page_id, channame, name in match:
 			addDir(name,
 				('http://www.perfectgirls.net/category/' + page_id + '/' + channame),
