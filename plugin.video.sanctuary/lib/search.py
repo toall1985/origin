@@ -130,7 +130,7 @@ def Music_Song(Search_name):
 		
 def Movies(Search_name):
     dp.create('Checking for streams')
-    Silent_urls = ['http://silenthunter.srve.io/jdh/E-H.txt','http://silenthunter.srve.io/jdh/I-L.txt','http://silenthunter.srve.io/jdh/M-P.txt','http://silenthunter.srve.io/jdh/Q-T.txt','http://silenthunter.srve.io/jdh/U-Z.txt']
+    Silent_urls = ['http://silentstream.srve.io/silenthunter/main/4k.xml','http://silentstream.srve.io/silenthunter/main/2016.xml','http://silentstream.srve.io/silenthunter/main/disney.xml','http://silentstream.srve.io/silenthunter/main/pixar.xml','http://silentstream.srve.io/silenthunter/main/dreamworks.xml','http://silentstream.srve.io/silenthunter/main/boxsets.xml','http://silentstream.srve.io/silenthunter/main/FeelGood.xml']
     Raider_urls = ['http://tombraiderbuilds.co.uk/addon/movies/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/movies/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/movies/I-L/I-L.txt','http://tombraiderbuilds.co.uk/addon/movies/0-1000000/0-1000000.txt',
 	'http://tombraiderbuilds.co.uk/addon/movies/M-P/M-P.txt','http://tombraiderbuilds.co.uk/addon/movies/Q-S/Q-S.txt','http://tombraiderbuilds.co.uk/addon/movies/T/T.txt','http://tombraiderbuilds.co.uk/addon/movies/U-Z/U-Z.txt']
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
@@ -152,7 +152,7 @@ def Movies(Search_name):
         Thread(target=Dojo(Search_name,'http://herovision.x10host.com/dojo/dojo.php'))
     if ADDON.getSetting('Reaper_Search')=='true':
         dp.update((100/7)*7,'',"Checking Reaper",'Please Wait')
-        Thread(target=Reaper(Search_name,'https://leto.feralhosting.com/grimw01f/tr/mov/atoz.php'))
+        Thread(target=Reaper(Search_name,'http://cerberus.x10.bz/add-on/mov/atoz.php'))
     dp.update(100,'',"Finished checking",'Enjoy')
     dp.close()
 	
@@ -165,7 +165,48 @@ def Reaper(Search_name,url):
                 process.Menu('[COLORlightslategray]Reaper[/COLOR] '+name,url,2301,icon,fanart,desc,'')
             else:
                 process.Play('[COLORlightslategray]Reaper[/COLOR] '+name,url,906,icon,fanart,desc,'')
-			
+
+def Reaper_TV(Search_name,url):
+	if 'season' in Search_name.lower():
+		Type = 'single_ep'
+		name_splitter = Search_name + '<>'
+		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		for name,season,episode in name_split:
+			title = name
+			season = season
+			episode = episode
+		year = ''
+	else:
+		title = Search_name
+		Type = 'full_show'
+	OPEN = process.OPEN_URL(url+title[0].upper()+'.php')
+	Regex = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(OPEN)
+	for name,url2,icon,fanart,desc in Regex:
+		if (title).replace(' ','').lower() in (name).replace(' ','').lower():
+			if Type == 'full_show':
+				if 'php' in url:
+					process.Menu('[COLORlightslategray]Reaper[/COLOR] '+name,url,2301,icon,fanart,desc,'')
+				else:
+					process.Play('[COLORlightslategray]Reaper[/COLOR] '+name,url,906,icon,fanart,desc,'')
+			elif Type == 'single_ep':
+				HTML2 = process.OPEN_URL(url2)
+				match = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(HTML2)
+				for name2,url3,icon,fanart,desc in match:
+					seas_no = re.compile('Season (.+?)\.').findall(str(name2))
+					for item in seas_no:
+						seas_no = item
+						if seas_no[0] == '0':
+							seas_no = seas_no[1]
+					if season == seas_no:
+						HTML3 = process.OPEN_URL(url3)
+						match2 = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(HTML3)
+						for name3,url4,image,pic,info in match2:
+							ep_no = re.compile('EP(.+?)\.').findall(str(name3))
+							for item in ep_no:
+								ep_no = item
+							if episode == ep_no:
+								process.Play('[COLORlightslategray]Reaper[/COLOR] | '+name3,url4,906,image,pic,info,'')
+							
 def Dojo(Search_name,url):
     OPEN = process.OPEN_URL(url)
     Regex = re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(OPEN)
@@ -236,7 +277,7 @@ def TV(Search_name):
         Thread(target=Dojo(title,'http://herovision.x10host.com/dojo/dojo.php'))
     if ADDON.getSetting('Reaper_Search')=='true':
         dp.update((100/6)*5,'',"Checking Reaper",'Please Wait')
-        Thread(target=Reaper(title,'https://leto.feralhosting.com/grimw01f/tr/tv/a-z.php'))
+        Thread(target=Reaper_TV(Search_name,'http://cerberus.x10.bz/add-on/tv/alpha/'))
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
 	
@@ -319,6 +360,7 @@ def Pans_Search_TV (Search_name):
 		year = ''
 	else:
 		Type = 'full_show'
+		title = Search_name
 	if Search_name[0].lower() in Pans_files_TV:
 		url_extra = Search_name[0].lower()
 	else:
@@ -536,6 +578,7 @@ def Raider_TV(Search_name):
 		year = ''
 	else:
 		Type = 'full_show'
+		title = Search_name
 	HTML = process.OPEN_URL('http://tombraiderbuilds.co.uk/addon/tvseries/tvzonemain.txt')
 	if HTML != 'Opened':
 		match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
@@ -560,19 +603,8 @@ def Raider_TV(Search_name):
 								for ep_no in ep_no:
 									ep_no = ep_no
 								if ep_no == episode:
-									xbmc.log('GOT EPISODE MATCH')
 									from pyramid.pyramid import addLink
 									addLink(url, '[COLORblue]Pyramid[/COLOR] | ' + name,image,fanart,'','','','',None,'',1)
-					episodes_single = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(html12)
-					for name,url,image,fanart in episodes_single:
-						ep_no = re.compile('S(.+?)E(.+?)>').findall(str(name.replace(title,'').replace('[/COLOR]','')+'>'))
-						for seas_no,ep_no in ep_no:
-							seas_no = seas_no
-							ep_no = ep_no
-						if ep_no == episode and seas_no == season:
-							xbmc.log('GOT EPISODE MATCH')
-							from pyramid.pyramid import addLink
-							addLink(url, '[COLORblue]Pyramid[/COLOR] | ' + name,image,fanart,'','','','',None,'',1)
 
 
 def Raider_Loop(Search_name,url):

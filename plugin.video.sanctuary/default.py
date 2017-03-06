@@ -97,7 +97,7 @@ def docs():
 	
 def sports():
 	process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
-	process.Menu('Origin Football Replays','',2150,ORIGIN_ICON,FANART,'','')
+	process.Menu('Origin Football Replays','',400,ORIGIN_ICON,FANART,'','')
 	process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
 		
 def Adult():
@@ -536,7 +536,7 @@ elif mode == 402: from lib import Football_Repeat;Football_Repeat.get_PLAYlink(u
 elif mode == 403: from lib import Football_Repeat;Football_Repeat.Football_Highlights()
 elif mode == 404: from lib import Football_Repeat;Football_Repeat.FootballFixturesDay()
 elif mode == 405: from lib import Football_Repeat;Football_Repeat.FootballFixturesGame(url,iconimage)
-elif mode == 406: from lib import Football_Repeat;Football_Repeat.Prem_Table(url)
+elif mode == 406: from lib import Football_Repeat;Football_Repeat.Prem_Table(url,extra)
 elif mode == 407: from lib import Football_Repeat;Football_Repeat.get_Multi_Links(url,iconimage)
 elif mode == 408: from lib import Football_Repeat;Football_Repeat.Get_the_rows(url,iconimage)
 elif mode == 409: from lib import Football_Repeat;Football_Repeat.League_Tables(url)

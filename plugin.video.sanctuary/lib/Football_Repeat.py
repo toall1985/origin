@@ -22,6 +22,7 @@ import urlresolver
 import yt
 import pyxbmct
 from threading import Thread
+import process
 
 Dialog = xbmcgui.Dialog()
 Decode = base64.decodestring
@@ -422,7 +423,7 @@ def get_origin_playlink(url,img,FANART):
  
 	
 def League_Tables(url):
-    addDirFolder('Premier League','http://www.sportinglife.com/football/premier-league/table',406,ICON,FANART,'')
+    process.Menu('Premier League','http://www.bbc.co.uk/sport/football/premier-league/table',406,ICON,FANART,'','20')
     addDirFolder('Scottish Premier','http://www.sportinglife.com/football/scottish-premier/table',406,ICON,FANART,'')
     addDirFolder('Championship','http://www.sportinglife.com/football/championship/table',406,ICON,FANART,'')
     addDirFolder('Champions League','http://www.sportinglife.com/football/champions-league/table',412,ICON,FANART,'')
@@ -440,7 +441,25 @@ def League_Tables(url):
     addDirFolder('Eredivisie','http://www.sportinglife.com/football/eredivisie/table',411,ICON,FANART,'')
     addDirFolder('Portuguese Liga','http://www.sportinglife.com/football/portuguese-liga/table',411,ICON,FANART,'')
 
-def champ_league(url):
+def Prem_Table(url,team_total):
+	results = []
+	sp1 = '                                                    '
+	sp2 = '        '
+	addDirFolder('[COLORwhite]'+sp1+'pl'+sp2+'w'+sp2+'d'+sp2+'l'+sp2+'f'+sp2+'a'+sp2+'pts[/COLOR]','','','','','')
+	html=OPEN_URL(url)
+	match = re.compile('<td class="team-name"><a href=.+?>(.+?)</a>.+?<td class="played">(.+?)</td>.+?<td class="won"><span>(.+?)</span></td>.+?<td class="drawn">(.+?)</td>.+?<td class="lost">(.+?)</td>.+?<td class="for">(.+?)</td>.+?<td class="against">(.+?)</td>.+?<td class="goal-difference">(.+?)</td>.+?<td class="points">(.+?)</td>',re.DOTALL).findall(html)
+	for team,pl,w,d,l,f,a,dif,pts in match:
+		results.append(team[0])
+		pos = len(results)
+		sp_no = int(len(sp1)-len(team))
+		sp = (sp_no - len(team)) * ' '
+		if len(results)<=int(team_total):
+			process.Menu(str(sp_no),'','','','','','')
+			process.Menu(str(pos)+' '+team+sp.strip()+pl+sp2+w+sp2+d+sp2+l+sp2+f+sp2+a+sp2+pts,'','','','','','')
+       # Cleaner(pos,team,pl,w,d,l,f,a,pts,dif)
+
+	
+def champ_league(url,team_total=None):
     HTML = OPEN_URL(url)
     block = re.compile('class="hdr t2">(.+?)<span class="aside">(.+?)<h2 ',re.DOTALL).findall(HTML)
     for league,block in block:
@@ -453,12 +472,6 @@ def champ_league(url):
         for pos,url,team,pl,w,d,l,f,a,pts,dif in match:
             Cleaner(pos,team,pl,w,d,l,f,a,pts,dif)
 
-def Prem_Table(url):	
-    addDirFolder('[COLORwhite]                                                    pl        w        d        l        f        a        pts[/COLOR]','','','','','')
-    html=OPEN_URL(url)
-    match = re.compile('<td>(.+?)</td>.+?<td class="ixt div"><strong><a href="([^"]*)">([^>]*)</a></strong></td>.+?<td class="div">([^>]*)</td>.+?<td>([^>]*)</td>.+?<td>([^>]*)</td>.+?<td>([^>]*)</td>.+?<td class="mobile-hdn">([^>]*)</td>.+?<td class="mobile-hdn">([^>]*)</td>.+?<td class="div">([^>]*)</td>.+?<td class="div">([^>]*)</td>',re.DOTALL).findall(html)
-    for pos,url,team,pl,w,d,l,f,a,pts,dif in match:
-        Cleaner(pos,team,pl,w,d,l,f,a,pts,dif)
 
 def Prem_Table2(url):	
     addDirFolder('[COLORwhite]                                                    pl        w        d        l        f        a        pts[/COLOR]','','','','','')
