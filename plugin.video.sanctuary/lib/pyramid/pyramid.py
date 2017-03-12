@@ -138,6 +138,14 @@ def SKindex_Rays():
     getData('http://raiztv.co.uk/RaysRavers/list2/dir.txt','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
+def SKindex_ProjectD():
+    getData('http://projectdaddon.com/projectd/projectd.xml','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	
+def SKindex_Midnight():
+    getData('http://pastebin.com/raw/qV9kG6Fk','')
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+	
 	
 #Credit to Spoyser and Funnier Moments addon for 'Random_Play' def, used this plus a adaption of your random 10 cartoons for get_random by Origin
 
@@ -576,6 +584,8 @@ def getData(url,fanart):
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
                         elif 'Pic N Mix' in name:
                             Random_play('Play 10 Random Cartoons',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
+                        elif 'Whatever new name is' in name:
+                            Random_play('Whatever you want it to be called',1154,url='whatever url to text file is',image=thumbnail,isFolder=False)
                         else:						
                             if Adult_Pass == Adult_Default:
                                 addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')

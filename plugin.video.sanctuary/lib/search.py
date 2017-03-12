@@ -1,4 +1,4 @@
-import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon, os
+import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon, os, clean_name
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
 now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
@@ -9,8 +9,7 @@ dp =  xbmcgui.DialogProgress()
 Decode = base64.decodestring
 addon_handle = int(sys.argv[1])
 Base_Pand = (Decode('aHR0cDovL2dlbmlldHZjdW50cy5jby51ay9QYW5zQm94L09SSUdJTlMv'))
-Pans_files_Movies = ['hey1080p','hey3D','hey','480p','720p','1080p','mova', 'movb', 'movc', 'movd', 'move', 'movf', 'movg', 'movh', 'movi', 'movj', 'movk', 'movl', 'movm', 'movn', 'movo', 'movp', 'movq', 'movr', 'movs', 'movt', 'movu', 'movv', 'movw', 'movx', 'movy', 'movz','720paction','720padventure','720panimation','720pcomedy','720pcrime','720pdocumentary','720pdrama','720pfamily','720pfantasy','720phorror','720pmystery','720promance','720psci-Fi','720psport','720pthriller','720pwestern','1080paction','1080padventure','1080panimation','1080pcomedy','1080pcrime','1080pdocumentary','1080pdrama','1080pfamily','1080pfantasy','1080phorror','1080pmystery','1080promance','1080psci-Fi','1080psport','1080pthriller','1080pwestern','top10action','top10animation','top10biography','top10comedy','top10crime','top10documentary','top10drama','top10family','top10fantasy','top10horror','top10music','top10mystery','top10romance','top10sci-fi','top10sport','top10thriller','top10western','seasonmoviecollection','4Kmovies']
-Pans_files_TV = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+watched_list = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.sanctuary/watched.txt')
 
 def Search_Menu():
     process.Menu('All previous Searches','',1501,'','','','ALL')
@@ -129,6 +128,10 @@ def Music_Song(Search_name):
                     index_regex.Clean_name(name,url6+url7)         		
 		
 def Movies(Search_name):
+    if '(' in Search_name:
+		Search_name = re.compile('(.+?)\(').findall(str(Search_name))
+		for thing in Search_name:
+			Search_name = thing
     dp.create('Checking for streams')
     Silent_urls = ['http://silentstream.srve.io/silenthunter/main/4k.xml','http://silentstream.srve.io/silenthunter/main/2016.xml','http://silentstream.srve.io/silenthunter/main/disney.xml','http://silentstream.srve.io/silenthunter/main/pixar.xml','http://silentstream.srve.io/silenthunter/main/dreamworks.xml','http://silentstream.srve.io/silenthunter/main/boxsets.xml','http://silentstream.srve.io/silenthunter/main/FeelGood.xml']
     Raider_urls = ['http://tombraiderbuilds.co.uk/addon/movies/A-D/A-D.txt','http://tombraiderbuilds.co.uk/addon/movies/E-H/E-H.txt','http://tombraiderbuilds.co.uk/addon/movies/I-L/I-L.txt','http://tombraiderbuilds.co.uk/addon/movies/0-1000000/0-1000000.txt',
@@ -170,7 +173,7 @@ def Reaper_TV(Search_name,url):
 	if 'season' in Search_name.lower():
 		Type = 'single_ep'
 		name_splitter = Search_name + '<>'
-		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		name_split = re.compile('(.+?) - season (.+?) episode (.+?)<>').findall(str(name_splitter.lower()))
 		for name,season,episode in name_split:
 			title = name
 			season = season
@@ -192,7 +195,7 @@ def Reaper_TV(Search_name,url):
 				HTML2 = process.OPEN_URL(url2)
 				match = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(HTML2)
 				for name2,url3,icon,fanart,desc in match:
-					seas_no = re.compile('Season (.+?)\.').findall(str(name2))
+					seas_no = re.compile('season (.+?)\.').findall(str(name2.lower()))
 					for item in seas_no:
 						seas_no = item
 						if seas_no[0] == '0':
@@ -256,7 +259,7 @@ def TV(Search_name):
     if 'season' in Search_name.lower():
         Type = 'single_ep'
         name_splitter = Search_name + '<>'
-        name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+        name_split = re.compile('(.+?) - season (.+?) episode (.+?)<>').findall(str(name_splitter).lower())
         for name,season,episode in name_split:
             title = name
             season = season
@@ -264,22 +267,81 @@ def TV(Search_name):
     else:
         title = Search_name
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
-        dp.update((100/6),'',"Checking Pandoras Box",'Please Wait')
-        Thread(target=Pans_Search_TV(Search_name))
+        dp.update((100/7),'',"Checking Pandoras Box",'Please Wait')
+        try:Thread(target=Pans_Search_TV(Search_name))
+        except:pass
+    xbmc.log('<<<<<<<<'+Search_name)
     if ADDON.getSetting('Pyramid_Search')=='true':
-        dp.update((100/6)*2,'',"Checking Pyramid",'Please Wait')
-        Thread(target=Raider_TV(Search_name))
+        dp.update((100/7)*2,'',"Checking Pyramid",'Please Wait')
+        try:Thread(target=Raider_TV(Search_name,'http://tombraiderbuilds.co.uk/addon/tvseries/tvzonemain.txt'))
+        except:pass
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update((100/6)*3,'',"Checking Tigen's World",'Please Wait')
-        Thread(target=Tigen_tv(title,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
+        dp.update((100/7)*3,'',"Checking Tigen's World",'Please Wait')
+        try:Thread(target=Raider_TV(Search_name,'http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt'))
+        except:pass
     if ADDON.getSetting('Dojo_Search')=='true':
-        dp.update((100/6)*4,'',"Checking Dojo",'Please Wait')
-        Thread(target=Dojo(title,'http://herovision.x10host.com/dojo/dojo.php'))
+        dp.update((100/7)*4,'',"Checking Dojo",'Please Wait')
+        try:Thread(target=Dojo(title,'http://herovision.x10host.com/dojo/dojo.php'))
+        except:pass
     if ADDON.getSetting('Reaper_Search')=='true':
-        dp.update((100/6)*5,'',"Checking Reaper",'Please Wait')
-        Thread(target=Reaper_TV(Search_name,'http://cerberus.x10.bz/add-on/tv/alpha/'))
+        dp.update((100/7)*5,'',"Checking Reaper",'Please Wait')
+        try:Thread(target=Reaper_TV(Search_name,'http://cerberus.x10.bz/add-on/tv/alpha/'))
+        except:pass
+    dp.update((100/7)*6,'',"Checking Origin",'Please Wait')
+    Thread(target=animetoon_search(Search_name))
+    process.rmWatched(title)
+    process.Addwatched(title,season,episode)
     dp.update(100,'',"Finished checking",'Please Wait')
     dp.close()
+
+def animetoon_search(Search_name):
+	List = []
+	if 'season' in Search_name.lower():
+		Type = 'single_ep'
+		name_splitter = Search_name + '<>'
+		name_split = re.compile('(.+?) - season (.+?) episode (.+?)<>').findall(str(name_splitter).lower())
+		for name,season,episode in name_split:
+			title = name
+			season = season
+			episode = episode
+		year = ''
+		if season == '1':
+			url = 'http://www.animetoon.org/' + title.replace(' ', '-').replace('!', '') + '-episode-' + episode
+		elif season == '01':
+			url = 'http://www.animetoon.org/' + title.replace(' ', '-').replace('!', '') + '-episode-' + episode
+		else:
+			url = 'http://www.animetoon.org/' + title.replace(' ','-').replace('!', '') +'-season-'+season+'-episode-'+episode
+		html=process.OPEN_URL(url)
+		match = re.compile('"playlist">.+?</span></div><div><iframe src="(.+?)"').findall(html)
+		for url2 in match:
+			if 'panda' in url2:
+				HTML = process.OPEN_URL(url2)
+				match2 = re.compile("url: '(.+?)'").findall(HTML)
+				for url3 in match2:
+					if 'http' in url3:
+						if url3 not in List:
+							process.Play('[COLORwhite]Origin[/COLOR] | Playpanda | '+title,url3,906,'','','','')
+							List.append(url3)
+			elif 'easy' in url2:
+				HTML2 = process.OPEN_URL(url2)
+				match3 = re.compile("url: '(.+?)'").findall(HTML2)
+				for url3 in match3:
+					if 'http' in url3:
+						if url3 not in List:
+							process.Play('[COLORwhite]Origin[/COLOR] | Easyvideo | '+title,url3,906,'','','','')
+							List.append(url3)
+			elif 'zoo' in url2:
+				HTML3 = process.OPEN_URL(url2)
+				match4 = re.compile("url: '(.+?)'").findall(HTML3)
+				for url3 in match4:
+					if 'http' in url3:
+						if url3 not in List:
+							process.Play('[COLORwhite]Origin[/COLOR] | Videozoo | '+title,url3,906,'','','','')
+							List.append(url3)
+
+	else:
+		pass
+
 	
 def Cold_AS_Ice(Search_name):
 	HTML = process.OPEN_URL('http://g10.x10host.com/coldasice/Boxsets/Index.txt')
@@ -338,21 +400,22 @@ def Search_WatchSeries(Search_name):
 	
 				
 def Pans_Search_Movies(Search_name):
-    for file_Name in Pans_files_Movies:
-        search_URL = Base_Pand + file_Name + '.php'
-        HTML = process.OPEN_URL(search_URL)
-        if HTML != 'Opened':
-            match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML)
-            for url,iconimage,desc,fanart,name in match:
-                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-                    name = '[COLOR darkgoldenrod]Pandora [/COLOR]' + name
-                    process.Play(name,url,906,iconimage,fanart,desc,'')
+	Pans_files_Movies = ['hey1080p','hey3D','hey','mov'+Search_name[0].lower()]
+	for file_name in Pans_files_Movies:
+		search_URL = Base_Pand + file_name + '.php'
+		HTML = process.OPEN_URL(search_URL)
+		if HTML != 'Opened':
+			match=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML)
+			for url,iconimage,desc,fanart,name in match:
+				if Search_name.lower().replace(' ','') in (name).replace(' ','').lower():
+					name = '[COLOR darkgoldenrod]Pandora [/COLOR]| ' + name
+					process.Play(name,url,906,iconimage,fanart,desc,'')
 
 def Pans_Search_TV (Search_name):
 	if 'season' in Search_name.lower():
 		Type = 'single_ep'
 		name_splitter = Search_name + '<>'
-		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		name_split = re.compile('(.+?) - season (.+?) episode (.+?)<>').findall(str(name_splitter).lower())
 		for name,season,episode in name_split:
 			title = name
 			season = season
@@ -361,7 +424,7 @@ def Pans_Search_TV (Search_name):
 	else:
 		Type = 'full_show'
 		title = Search_name
-	if Search_name[0].lower() in Pans_files_TV:
+	if Search_name[0].lower() in 'abcdefghijklmnopqrstuvwxyz':
 		url_extra = Search_name[0].lower()
 	else:
 		url_extra = 'tvnum'
@@ -376,26 +439,24 @@ def Pans_Search_TV (Search_name):
 					process.Menu(name,url,mode,img,fanart,desc,'')
 			elif Type == 'single_ep':
 				if title.replace(' ','').lower() in name.replace(' ','').lower():
-					if season == '1':
-						HTML5 = process.OPEN_URL(url)
-						match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML5)
-						for url5,iconimage,desc5,background,name5 in match5:
-							if len(episode) == 1:
-								episode = '0'+episode
-							if 'E'+episode in name5:
-								process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name5,url5,906,iconimage,background,desc5,'')
-					else:
-						HTML2 = process.OPEN_URL(url)
-						match2 = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML2)
-						for name2,desc2,url2,img2,fanart2,mode2 in match2:
-							if 's' in name2.lower() and season in name2.lower():
-								HTML3 = process.OPEN_URL(url2)
-								match3=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML3)
-								for url3,iconimage,desc3,background,name3 in match3:
-									if len(episode) == 1:
-										episode = '0'+episode
-									if 'E'+episode in name3:
-										process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name3,url3,906,iconimage,background,desc3,'')
+					HTML5 = process.OPEN_URL(url)
+					match5=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML5)
+					for url5,iconimage,desc5,background,name5 in match5:
+						if len(episode) == 1:
+							episode = '0'+episode
+						if 'E'+episode in name5:
+							process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name5,url5,906,iconimage,background,desc5,'')
+					HTML2 = process.OPEN_URL(url)
+					match2 = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(HTML2)
+					for name2,desc2,url2,img2,fanart2,mode2 in match2:
+						if 's' in name2.lower() and season in name2.lower():
+							HTML3 = process.OPEN_URL(url2)
+							match3=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML3)
+							for url3,iconimage,desc3,background,name3 in match3:
+								if len(episode) == 1:
+									episode = '0'+episode
+								if 'E'+episode in name3:
+									process.PLAY('[COLOR darkgoldenrod]Pandora | [/COLOR]' + name3,url3,906,iconimage,background,desc3,'')
 	if Type == 'single_ep':
 		HTML4 = process.OPEN_URL(Base_Pand + 'recenttv.php')
 		match4=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(HTML4)
@@ -566,11 +627,15 @@ def Raider_Live_Loop(Search_name,url):
                     from pyramid.pyramid import Decrypt_Link
                     Decrypt_Link(ignore,ADD_NAME+' '+name,url,total)
 
-def Raider_TV(Search_name):
+def Raider_TV(Search_name,start_url):
+	if 'raider' in start_url:
+		ADD_NAME = '[COLORblue]Pyramid[/COLOR]'
+	elif 'kodeeresurrection' in start_url:
+		ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR]'
 	if 'season' in Search_name.lower():
 		Type = 'single_ep'
 		name_splitter = Search_name + '<>'
-		name_split = re.compile('(.+?) - Season (.+?) Episode (.+?)<>').findall(str(name_splitter))
+		name_split = re.compile('(.+?) - season (.+?) episode (.+?)<>').findall(str(name_splitter).lower())
 		for name,season,episode in name_split:
 			title = name
 			season = season
@@ -579,93 +644,113 @@ def Raider_TV(Search_name):
 	else:
 		Type = 'full_show'
 		title = Search_name
-	HTML = process.OPEN_URL('http://tombraiderbuilds.co.uk/addon/tvseries/tvzonemain.txt')
+	HTML = process.OPEN_URL(start_url)
 	if HTML != 'Opened':
 		match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
 		for name,image,url10,fanart in match:
-			if Type == 'full_show':
-				if title.lower().replace(' ','') in name.lower().replace(' ',''):
+			if title.lower().replace(' ','') in name.lower().replace(' ',''):
+				if Type == 'full_show':
 					name = '[COLORblue]Pyramid[/COLOR] ' + name
 					process.Menu(name,url10,'',image,fanart,'','')
-			elif Type == 'single_ep':
-				if title.lower().replace(' ','') in name.lower().replace(' ',''):
+				elif Type == 'single_ep':
+					xbmc.log(url10)
 					html10 = process.OPEN_URL(url10)
 					seasons = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(html10)
 					for season_name,image,url11,fanart in seasons:
-						season_number = re.compile('Season (.+?)').findall(str(season_name))
+						xbmc.log('~~~~~~'+season_name)
+						season_number = re.compile('season (.+?)>').findall(str(season_name.replace('[/B]','').replace('[/COLOR]','').lower())+'>')
 						for seas_no in season_number:
 							season_number = seas_no
-						if season == season_number:
+							season_number = clean_name.clean_number(season_number)
+						xbmc.log('SEASON NO = '+str(season_number))
+						if season == season_number.replace(' ',''):
 							html12 = process.OPEN_URL(url11)
 							episodes = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(html12)
 							for name,url,image,fanart in episodes:
-								ep_no = re.compile('S.+?E(.+?)>').findall(str(name.replace(title,'').replace('[/COLOR]','')+'>'))
+								ep_no = re.compile('s.+?e(.+?)>').findall(str(name.replace(title,'').replace('[/COLOR]','').lower()+'>'))
 								for ep_no in ep_no:
 									ep_no = ep_no
-								if ep_no == episode:
+								if ep_no.replace(' ','').replace('480p','') == episode:
 									from pyramid.pyramid import addLink
-									addLink(url, '[COLORblue]Pyramid[/COLOR] | ' + name,image,fanart,'','','','',None,'',1)
+									addLink(url, ADD_NAME+' | ' + name,image,fanart,'','','','',None,'',1)
 
 
 def Raider_Loop(Search_name,url):
-    if 'raider' in url:
-        ADD_NAME = '[COLORblue]Pyramid[/COLOR] '
-    elif 'kodeeresurrection' in url:	
-        ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR] '
-    elif 'ilent' in url:
-        ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
-    else:
-        ADD_NAME = ''
-    if 'MULTILINK' in url:
-        if 'TIGEN' in url:
-            TigenList = ['http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/NUMBER%20TITLES.txt',
-	        'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/A-F.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/G-L.txt','http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/M-R.txt',
-	        'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/S-Z.txt','http://kodeeresurrection.com/LILYSPORTStxts/boxsetssub.txt']
-            List = TigenList
-        for item in List:
-            if 'boxset' in item:
-                HTML = process.OPEN_URL(item)
-                match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
-                for name,image,url,fanart in match:
-                    if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
-                        from pyramid.pyramid import addDir
-                        addDir('[COLORpink]Tigen\'s World[/COLOR] '+name,url,1101,image,fanart,'','','','')
-            else:
-				HTML = process.OPEN_URL(item)
-				if HTML != 'Opened':
-					match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
-					for name,image,url,fanart in match:
-						if 'http:' in url:
-							Raider_Loop(Search_name,url)
-					match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
-					for name,url,image,fanart in match2:
-						if 'http:' in url:
-							if (Search_name).replace(' ','').lower() in (name).replace(' ','').lower():
-							    from pyramid.pyramid import addLink
-							    addLink(url, '[COLORpink]Tigen\'s World[/COLOR] '+name,image,fanart,'','','','',None,'',1)
-    HTML = process.OPEN_URL(url)
-    if HTML != 'Opened':
-        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
-        for name,link,image,fanart in match2:
-            if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-                if 'sublink' in link:
-                    from pyramid.pyramid import addDir
-                    addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
-                else:
-                    from pyramid.pyramid import addLink
-                    addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)        
-        match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
-        for name,image,url,fanart in match:
-            if not 'http:' in url:
-                pass
-            else:
-                Raider_Loop(Search_name,url)
-        match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
-        for name,url,image,fanart in match2:
-            if 'http:' in url:
-                if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-                    from pyramid.pyramid import addLink
-                    addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
+	if 'raider' in url:
+		ADD_NAME = '[COLORblue]Pyramid[/COLOR] '
+	elif 'kodeeresurrection' in url:	
+		ADD_NAME = '[COLORpink]Tigen\'s World[/COLOR] '
+	elif 'ilent' in url:
+		ADD_NAME = '[COLORsteelblue]Silent Hunter[/COLOR]'
+	else:
+		ADD_NAME = ''
+	if 'MULTILINK' in url:
+		if 'TIGEN' in url:
+			if Search_name[0].lower() in 'abcdef':
+				single = 'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/A-F.txt'
+			elif Search_name[0].lower() in 'ghijkl':
+				single = 'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/G-L.txt'
+			elif Search_name[0].lower() in 'mnopqr':
+				single = 'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/M-R.txt'
+			elif Search_name[0].lower() in 'stuvwxyz':
+				single = 'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/S-Z.txt'
+			else:
+				single = 'http://kodeeresurrection.com/LILYSPORTStxts/MovieRack/txts/NUMBER%20TITLES.txt'
+			HTML = process.OPEN_URL('http://kodeeresurrection.com/LILYSPORTStxts/boxsetssub.txt')
+			match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+			for name,image,url,fanart in match:
+				if (Search_name).lower().replace(' ','').lower() in (name).replace(' ','').lower():
+					from pyramid.pyramid import addDir
+					addDir('[COLORpink]Tigen\'s World[/COLOR] '+name,url,1101,image,fanart,'','','','')
+			HTML2 = process.OPEN_URL(single)
+			if HTML2 != 'Opened':
+				match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML2)
+				for name,image,url,fanart in match:
+					if 'http:' in url:
+						Raider_Loop(Search_name,url)
+						match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+						for name,url,image,fanart in match2:
+							if 'http:' in url:
+								if (Search_name).lower().replace(' ','').lower() in (name).replace(' ','').lower():
+									from pyramid.pyramid import addLink
+									addLink(url, '[COLORpink]Tigen\'s World[/COLOR] '+name,image,fanart,'','','','',None,'',1)
+			HTML3 = process.OPEN_URL('http://kodeeresurrection.com/TigensWorldtxt/Movies/Txts/TigensMoviesSub.txt')
+			if HTML2 != 'Opened':
+				match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML2)
+				for name,image,url,fanart in match:
+					if 'http:' in url:
+						Raider_Loop(Search_name,url)
+						match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+						for name,url,image,fanart in match2:
+							if 'http:' in url:
+								if (Search_name).lower().replace(' ','').lower() in (name).replace(' ','').lower():
+									from pyramid.pyramid import addLink
+									addLink(url, '[COLORpink]Tigen\'s World[/COLOR] '+name,image,fanart,'','','','',None,'',1)
+
+	else:
+		HTML = process.OPEN_URL(url)
+		if HTML != 'Opened':
+			match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+			for name,link,image,fanart in match2:
+				if (Search_name).lower().replace(' ','') in (name).replace(' ','').lower():
+					if 'sublink' in link:
+						from pyramid.pyramid import addDir
+						addDir(ADD_NAME + ' ' +name,link,1130,image,fanart,'','','','')
+					else:
+						from pyramid.pyramid import addLink
+						addLink(link, ADD_NAME + ' ' +name,image,'','','','','',None,'',1)        
+			match = re.compile('<channel>.+?<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?</channel>',re.DOTALL).findall(HTML)
+			for name,image,url,fanart in match:
+				if not 'http:' in url:
+					pass
+				else:
+					Raider_Loop(Search_name,url)
+			match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>',re.DOTALL).findall(HTML)
+			for name,url,image,fanart in match2:
+				if 'http:' in url:
+					if (Search_name).lower().replace(' ','') in (name).replace(' ','').lower():
+						from pyramid.pyramid import addLink
+						addLink(url, ADD_NAME + ' ' +name,image,fanart,'','','','',None,'',1)
                             
 #############################Football Searches####################################
 

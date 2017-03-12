@@ -7,14 +7,13 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import xbmcplugin
+import re
 
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
 ADDON_DATA = USERDATA_PATH + '/plugin.video.sanctuary/'
 if not os.path.exists(ADDON_DATA):
     os.makedirs(ADDON_DATA)
-    file_fav = ADDON_DATA + 'favourites'
-    file_open = open(file_fav,'w+')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 Dialog = xbmcgui.Dialog()
@@ -32,6 +31,7 @@ addon_handle = int(sys.argv[1])
 List = []
 temp_file = ADDON_PATH + 'Temp.txt'
 debug = ADDON.getSetting('debug')
+watched_list = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.sanctuary/watched')
 
 
 def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=True, allinfo={}):
@@ -55,16 +55,18 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
         if showcontext == 'fav':
             contextMenu.append(('Remove from Sanctuary Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name))))
+            contextMenu.append(('Check for episode', 'XBMC.RunPlugin(%s?mode=41&name=%s)'
+                                % (sys.argv[0], urllib.quote_plus(name))))								
         if not name in FAV:
             contextMenu.append(('Add to Sanctuary Favorites',
-                                'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
+                                'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s&description=%s&extra=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
-                                   urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+                                   urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode, urllib.quote_plus(description),
+								   urllib.quote_plus(extra))))
         liz.addContextMenuItems(contextMenu)
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
     return ok
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
 
 def Play(name, url, mode, iconimage, fanart, description, extra, showcontext=True, allinfo={}):
     if iconimage == '':
@@ -142,31 +144,29 @@ def addon_log(string):
         xbmc.log("[addon.live.Sanctuary-%s]: %s" % (addon_version, string))
 
 
-def addFavorite(name, url, iconimage, fanart, mode, playlist=None, regexs=None):
+def addFavorite(name, url, mode, iconimage, fanart, description, extra):
     favList = []
+    xbmc.log(extra)
     try:
-        # seems that after
         name = name.encode('utf-8', 'ignore')
     except:
         pass
     if os.path.exists(favourites) == False:
-        addon_log('Making Favorites File')
-        favList.append((name, url, iconimage, fanart, mode, playlist, regexs))
+        favList.append((name, url, mode, iconimage, fanart, description, extra))
         a = open(favourites, "w")
         a.write(json.dumps(favList))
         a.close()
     else:
-        addon_log('Appending Favorites')
         a = open(favourites).read()
         data = json.loads(a)
-        data.append((name, url, iconimage, fanart, mode))
+        data.append((name, url, mode, iconimage, fanart, description, extra))
         b = open(favourites, "w")
         b.write(json.dumps(data))
         b.close()
 
 
 def getFavourites():
-    if os.path.exists(favourites) == False:
+    if not os.path.exists(favourites):
         favList = []
         addon_log('Making Favorites File')
         favList.append(('Sanctuary Favourites Section', '', '', '', '', '', ''))
@@ -175,28 +175,30 @@ def getFavourites():
         a.close()
     else:
         items = json.loads(open(favourites).read())
-        total = len(items)
         for i in items:
             name = i[0]
             url = i[1]
-            iconimage = i[2]
             try:
-                fanart = i[3]
+			    iconimage = i[3]
+            except:
+                iconimage = ''
+            try:
+                fanart = i[4]
             except:
                 fanart = ''
             try:
-                playlist = i[5]
+                description = i[5]
             except:
-                playlist = None
+                description = ''
             try:
-                regexs = i[6]
+                extra = i[6]
             except:
-                regexs = None
+                extra = ''
 
-            if i[4] == 906:
-                Play(name, url, '', iconimage, fanart, '', '', 'fav')
+            if i[2] == 906:
+                Play(name, url, i[2], iconimage, fanart, description, extra, 'fav')
             else:
-                Menu(name, url, i[4], iconimage, fanart, '', '', 'fav')
+                Menu(name, url, i[2], iconimage, fanart, description, extra, 'fav')
 
 
 def rmFavorite(name):
@@ -209,9 +211,136 @@ def rmFavorite(name):
             b.close()
             break
     xbmc.executebuiltin("XBMC.Container.Refresh")
+	
+def rmWatched(name):
+    try:
+        data = json.loads(open(watched_list).read())
+        for index in range(len(data)):
+            if data[index][0] == name:
+                del data[index]
+                b = open(watched_list, "w")
+                b.write(json.dumps(data))
+                b.close()
+    except:
+        pass
 
+def Addwatched(title,season,episode):
+    watchedlist = []
+    try:
+        name = name.encode('utf-8', 'ignore')
+    except:
+        pass
+    if os.path.exists(watched_list) == False:
+        watchedlist.append((title,season,episode))
+        a = open(watched_list, "w")
+        a.write(json.dumps(watchedlist))
+        a.close()
+    else:
+        a = open(watched_list).read()
+        data = json.loads(a)
+        data.append((title,season,episode))
+        b = open(watched_list, "w")
+        b.write(json.dumps(data))
+        b.close()
 
 ############################## FAVOURITES END ###############################
+##############################CHECK FOR UPCOMING EPISODES###########################
+def check_for_episode():
+	Type = ''
+	favourite_names = [];Watched_List = []
+	Choices = ['Watch now','Upcoming Episodes']
+	decide = Dialog.select('Select Choice',Choices)
+	if decide == 0:
+		Choice = 'Watch now'
+	elif decide == 1:
+		Choice = 'Upcoming'		
+	from datetime import datetime
+	today = datetime.now().strftime("%d")
+	this_month = datetime.now().strftime("%m")
+	this_year = datetime.now().strftime("%y")
+	todays_number = (int(this_year)*100)+(int(this_month)*31)+(int(today))
+	if not os.path.exists(favourites):
+		favList = []
+		addon_log('Making Favorites File')
+		favList.append(('Sanctuary Favourites Section', '', '', '', '', '', ''))
+		a = open(favourites, "w")
+		a.write(json.dumps(favList))
+		a.close()
+	else:
+		items = json.loads(open(favourites).read())
+		for i in items:
+			name = i[0]
+			if '(' in name:
+				name = re.compile('(.+?)\(').findall(str(name))
+				for name in name:
+					name = name
+			favourite_names.append(name.lower().replace(' ',''))
+	if not os.path.exists(watched_list):
+		favList = []
+		addon_log('Making Favorites File')
+		favList.append(('Sanctuary Watched Section', '', '', '', '', '', ''))
+		a = open(watched_list, "w")
+		a.write(json.dumps(favList))
+		a.close()
+	else:
+		items = json.loads(open(watched_list).read())
+		for i in items:
+			name2 = i[0]
+			watched_season = i[1]
+			watched_episode = i[2]
+			if '(' in name2:
+				name2 = re.compile('(.+?)\(').findall(str(name2))
+				for name2 in name2:
+					name2 = name2
+			Watched_List.append([name2,watched_season,watched_episode])
+	HTML = OPEN_URL('http://www.tvmaze.com/calendar')
+	match = re.compile('<span class="dayofmonth">.+?<span class=".+?">(.+?)</span>(.+?)</span>(.+?)</div>',re.DOTALL).findall(HTML)
+	for Day_Month,Date,Block in match:
+		Date = Date.replace('\n','').replace('  ','').replace('	','')
+		Day_Month = Day_Month.replace('\n','').replace('  ','').replace('	','')
+		Final_Name = Day_Month.replace(',',' '+Date+' ')
+		split_month = Day_Month+'>'
+		Month_split = re.compile(', (.+?)>').findall(str(split_month))
+		for item in Month_split:
+			month_one = item.replace('January','1').replace('February','2').replace('March','3').replace('April','4').replace('May','5').replace('June','6')
+			month = month_one.replace('July','7').replace('August','8').replace('September','9').replace('October','10').replace('November','11').replace('December','12')
+		show_day = Date.replace('st','').replace('th','').replace('nd','').replace('rd','')
+		shows_number = (int(this_year)*100)+(int(month)*31)+(int(show_day))
+		if shows_number< todays_number:
+			Aired = 'Watch now'
+		else:
+			Aired = 'Airs:'
+		prog = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(Block))
+		for prog, ep in prog:
+			prog_check = prog.lower().replace(' ','')
+			Split = 'season '+ep.replace('x',' episode ')+'>'
+			season_check = re.compile('season (.+?) episode (.+?)>').findall(str(Split))
+			for season, episode in season_check:
+				season = season
+				episode = episode
+			if prog_check in favourite_names:
+				if str(prog_check) in str(Watched_List):
+					for check_name, check_season, check_ep in Watched_List:
+						if prog_check == check_name:
+							if check_name == prog_check and int(season) <= int(check_season) and int(episode) > int(check_ep):
+								if Choice == 'Watch now':
+									if Aired == 'Watch now':
+										Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+								elif Choice == 'Upcoming':
+									if Aired == 'Airs:':
+										Menu('[COLORwhite]'+Aired+Date+' '+item+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+								else:
+									pass
+				else:
+					if Choice == 'Watch now':
+						if Aired == 'Watch now':
+							Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+					elif Choice == 'Upcoming':
+						if Aired == 'Airs:':
+							Menu('[COLORwhite]'+Aired+Date+' '+item+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+
+					
+###########################CHECK FOR UPCOMING EPISODES END#############################################
 
 def Straight_Resolve(name,url):
 	xbmc.Player().play(url, xbmcgui.ListItem(name))

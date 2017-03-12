@@ -7,17 +7,15 @@ ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 addon_handle = int(sys.argv[1])
-Main = 'http://www.watchseriesgo.to/'
 List = []
 IMDB = 'http://www.imdb.com'
-
 
 
 def multiv_Main_Menu():
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
     process.Menu('IMDB Top 100 Programs','http://www.imdb.com/chart/tvmeter?ref_=m_nv_ch_tvm',301,ICON,FANART,'','')
-    process.Menu('Popular Episodes','http://www.watchseriesgo.to/new',302,ICON,FANART,'','')
     process.Menu('Genres','',303,ICON,FANART,'','')
+    process.Menu('Check for episode','',41,ICON,FANART,'','')
     process.Menu('Search','',308,ICON,FANART,'','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
@@ -33,16 +31,22 @@ def IMDB_TOP_100_EPS(url):
 			pass
 		
 def IMDB_Get_Season_info(url,image,title):
-	html = requests.get(url).text
-	match = re.compile('<a href="/title/(.+?)".+?>(.+?)</a>',re.DOTALL).findall(html)
-	for rest,name in match:
-		if 'season' in rest:
-			url = 'http://www.imdb.com/title/'+str(rest).encode('utf-8')
-			process.Menu('Season '+name,url,306,image,'','',title)
-			xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE)
+    html = process.OPEN_URL(url)
+    highest_season = re.compile('<br class="clear" />.+?<a href="(.+?)"',re.DOTALL).findall(html)
+    for thing in highest_season:
+        if 'season' in thing:
+            fin_thing = 'http://www.imdb.com'+thing+'>'
+            number = re.compile('(.+?)season=(.+?)&(.+?)sn_(.+?)>').findall(str(fin_thing))
+            for start,seas,other,item in number:
+                number = item
+            while int(number)>=1:
+                url = str(start) + 'season='+str(number)+'&'+other+'sn_'+ str(number)
+                process.Menu('Season '+str(number),url,306,image,'','',title)
+                number = int(number) - 1
 
 def IMDB_Get_Episode_info(url,title):
 	ep_year = ''
+	image = ''
 	html = requests.get(url).text
 	block = re.compile('<div class="list_item(.+?)itemprop="description">(.+?)</div>',re.DOTALL).findall(html)
 	for block_,desc in block:
@@ -52,12 +56,10 @@ def IMDB_Get_Episode_info(url,title):
 		image = re.compile('src="(.+?)"').findall(str(block_))
 		for item in image:
 			image = item
-		else:
-			image = ''
 		year = re.compile('<div class="airdate">(.+?)</div>',re.DOTALL).findall(str(block_))
 		for item in year:
+			date = item
 			splitone = item.replace('\n','').replace('  ','').replace('	','') +'>'
-			xbmc.log(splitone)
 			show_year_split = re.compile(' .+?\. (.+?)>').findall(str(splitone))
 			for item in show_year_split:
 				ep_year = item
@@ -75,19 +77,19 @@ def IMDB_Get_Episode_info(url,title):
 			show_year = show_year
 		search_split = 'SPLITTER>'+title+'>'+show_year+'>'+ep_year+'>'+season+'>'+episode+'>'
 		search_split = search_split.replace(' >','>')
-		xbmc.log('SPLIT===='+search_split)
-		xbmc.log('EPISODE='+episode)
 		final_name = 'Episode '+episode+' - '+name
-		process.Menu(final_name.encode('utf-8'),'',307,image,'',desc.encode('utf-8'),search_split)
-		process.setView('movies', 'I')
+		try:
+			process.Menu(str(final_name),'',307,str(image),'','[COLORred]AIR DATE[/COLOR] == '+str(date).replace('  ','').replace('\n','')+'\n'+str(desc),search_split)
+			process.setView('movies', 'INFO')
+		except:
+			pass
 		
 def SPLIT(extra):
+	xbmc.log('#######'+extra)
 	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)>(.+?)>(.+?)>').findall(str(extra))
-	xbmc.log(extra)
 	for title,show_year,ep_year,season,episode in finish:
-		from Scrape_Nan import scrape_episode
-#		process.Menu(title+'>'+show_year+'>'+ep_year+'>'+season+'>'+episode,'','','','','','')
-		scrape_episode(title,show_year,ep_year,season,episode)
+		from search import TV
+		TV(title + ' - Season '+season+' Episode '+episode)
 
 def Search_TV():
 	Search_title = xbmcgui.Dialog().input('Search', type=xbmcgui.INPUT_ALPHANUM)
@@ -120,21 +122,11 @@ def Genres_Page(url):
 		year = re.sub("\D","",year)
 		year = '('+year[0:4]+')'
 		try:
-			image = image.replace('67,98','256,385').replace('UX67','UX256').replace('UY98','UY385')
-			process.Menu(name+' '+year,url,305,image,'','',name.encode('utf-8')+year.encode('utf-8'))
+			try:
+				image = image.replace('67,98','256,385').replace('UX67','UX256').replace('UY98','UY385')
+				process.Menu(name+' '+year,url,305,image,'','',name.encode('utf-8')+year.encode('utf-8'))
+			except:
+				process.Menu(name+' '+year,url,305,'','','',name.encode('utf-8')+year.encode('utf-8'))
 		except:
-			process.Menu(name+' '+year,url,305,'','','',name.encode('utf-8')+year.encode('utf-8'))
-		
-def Popular(url):
-    OPEN = process.OPEN_URL(url)
-    match = re.compile('<div class="block-left-home-inside-image">.+?<img src="(.+?)".+?<a href="(.+?)".+?<b>(.+?)</b>.+?<span class=".+?">(.+?)</span></a><br>(.+?)<br>',re.DOTALL).findall(OPEN)
-    for img,url,title,Season,desc in match:
-        url = Main + url
-        title = (title).replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'').replace('&amp;','&').replace('&quot;','"')
-        split = re.compile('Season (.+?), Episode (.+?) -').findall(str(Season))
-        for season, episode in split:
-            search_split = 'SPLITTER>'+title+'>'+season+'>'+episode+'>'
-            process.Menu(title+' - '+Season,url,307,img,FANART,desc,search_split)		
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))	
-
+			pass
 

@@ -82,7 +82,8 @@ def search_movies():
 				pass
 			else:
 				image = image.replace('32,44','174,256').replace('UY67','UY256').replace('UX32','UX175').replace('UY44','UY256')
-				process.Menu(title+' '+year,'',9,image,'','',year)
+				process.Menu(title,'Movies',1501,image,'','','OLD')
+				process.setView('movies', 'INFO')
 	
 def Movie_Genre(url):
 	html = requests.get('http://www.imdb.com/genre/').text
@@ -90,7 +91,8 @@ def Movie_Genre(url):
 	for url, name in match:
 		url = 'http://www.imdb.com/search/title?genres='+name.replace(' ','').lower()+'&title_type=feature&sort=moviemeter,asc'
 		process.Menu(name,url,203,'','','','')
-
+		process.setView('movies', 'INFO')
+		
 def IMDB_Top250(url):
 	html = requests.get(url).text
 	film = re.compile('<td class="posterColumn">.+?<img src="(.+?)".+?<td class="titleColumn">(.+?)<a.+?title=".+?" >(.+?)</a>.+?<span class="secondaryInfo">(.+?)</span>',re.DOTALL).findall(html)
@@ -98,23 +100,26 @@ def IMDB_Top250(url):
 		no = no.replace('\n','').replace('	','').replace('  ','')
 		try:
 			img = img.replace('45,67','174,256').replace('UY67','UY256').replace('UX45','UX175')
-			process.Menu(title+' '+year,'',9,img,'','',year)
+			process.Menu(title + ' ' + year,'Movies',1501,img,'','','OLD')
 		except:
 			pass
 		
 def IMDB_Grab(url):
 	try:
 		List = []
+		xbmc.log(url)
 		html = requests.get(url).text	
-		match = re.compile('<div class="lister-item-image float-left">.+?<a href="(.+?)".+?<img alt="(.+?)".+?loadlate="(.+?)".+?<span class="lister-item-year text-muted unbold">(.+?)</span>',re.DOTALL).findall(html)
-		for url,name,image,year in match:
+		match = re.compile('<div class="lister-item-image float-left">.+?<a href="(.+?)".+?<img alt="(.+?)".+?loadlate="(.+?)".+?<span class="lister-item-year text-muted unbold">(.+?)</span>.+?<p class="text-muted">\n(.+?)</p>',re.DOTALL).findall(html)
+		for url,name,image,year,desc in match:
 			image = image.replace('45,67','174,256').replace('UY67','UY256').replace('UX67','UX175').replace('UY98','UY256').replace('SX54','SX170').replace('54,74','174,256').replace('67,98','174,256')
 			try:
 				if '(2017)' in year:
 					pass
 				else:
+					xbmc.log(image)
 					year = year.replace('(I) ','').replace('II','')
-					process.Menu(name+' '+year,url,9,image,'','',year)
+					process.Menu(name + ' ' + year,'Movies',1501,image,'',desc,'OLD')
+					process.setView('movies', 'INFO')
 			except:
 				pass
 		next_page = re.compile('<a href="(.+?)"\nclass="lister-page-next next-page" ref-marker=adv_nxt>Next &#187;</a>').findall(html)
@@ -124,17 +129,3 @@ def IMDB_Grab(url):
 				List.append(item)
 	except:
 		pass
-			
-def Check_Link(name,url,image):
-    HTML = process.OPEN_URL(url)
-    match = re.compile('<iframe width="660" height="400" scrolling="no" frameborder="0" src="http://mystream.la/external/(.+?)" allowFullScreen></iframe>').findall(HTML)
-    for end in match:
-        url = 'http://mystream.la/external/'+end
-        process.Play(name,url,205,image,FANART,'','')        
-
-def Get_playlink(url):
-    HTML = process.OPEN_URL(url)
-    match = re.compile('file:"(.+?)",label:"(.+?)"}').findall(HTML)
-    for playlink,quality in match:
-        process.Resolve(playlink)
-		

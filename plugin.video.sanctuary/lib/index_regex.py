@@ -48,9 +48,8 @@ def Clean_name(name,url):
     name16=(name15).replace('  ',' ').replace('BluRay','').replace('rip','').replace('WEBDL','').replace('&nbsp;','-').replace('---',' - ').replace('&#039;','\'')
     name17=(name16).replace('amp;','').replace('&quot;','"').replace('_',' ')
     clean_name = name17
-	
-
-    process.Play(clean_name,url,105,'','','','','')
+    if not '<img' in clean_name:
+        process.Play(url,url,105,'','','','','')
 
 
 

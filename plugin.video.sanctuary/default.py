@@ -57,8 +57,12 @@ REAPER_ICON = base_icons + 'reaper.png'
 DOJO_ICON = base_icons + 'dojo.png'
 ULTRA_ICON = base_icons + 'Ultra.png'
 FIDO_ICON = base_icons + 'fido.png'
+PROJECT_D_IMAGE = base_icons + 'projectd.png'
+MIDNIGHT_IMAGE = base_icons + 'midnight2.png'
 INTRO_VID = base_icons + 'Intro.mp4'
 INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
+
+
 
 def Main_Menu():
     if not os.path.exists(INTRO_VID_TEMP):
@@ -66,10 +70,29 @@ def Main_Menu():
             xbmc.Player().play(INTRO_VID, xbmcgui.ListItem('You have been updated'))
             os.makedirs(INTRO_VID_TEMP)
     process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
-    if ADDON.getSetting('Classic_View')=='true':
-        process.Menu('Big Bag \'O\' Tricks','',13,'',FANART,'','')
+    if ADDON.getSetting('View_Type')=='Classic':
         classic_list()
-    else:
+    elif ADDON.getSetting('View_Type')=='IMDB':
+        IMDB_list()
+    elif ADDON.getSetting('View_Type')=='TV Shows':
+		TV_Men()
+    elif ADDON.getSetting('View_Type')=='Movies':
+		Movie_Men()
+    elif ADDON.getSetting('View_Type')=='Sport':
+		sports()
+    elif ADDON.getSetting('View_Type')=='Music':
+		Music_Men()
+    elif ADDON.getSetting('View_Type')=='Kids':
+		Kids_Men()
+    elif ADDON.getSetting('View_Type')=='24/7':
+		twenty47()
+    elif ADDON.getSetting('View_Type')=='Docs':
+		docs()
+    elif ADDON.getSetting('View_Type')=='Live':
+		Live_Men()
+    elif ADDON.getSetting('View_Type')=='Adult':
+		Adult()
+    elif ADDON.getSetting('View_Type')=='Menu':
 		process.Menu('24/7','',38,'',FANART,'','')
 		process.Menu('Documentaries','',39,'',FANART,'','')
 		process.Menu('Kids','',33,'',FANART,'','')
@@ -82,7 +105,13 @@ def Main_Menu():
 			process.Menu('Adult','',37,'',FANART,'','')
 		process.Menu('Add-on\'s','',35,'',FANART,'','')
 		process.setView('movies', 'INFO')
-				
+
+def IMDB_list():
+	process.Menu('TV Shows','',300,'','','','')
+	process.Menu('Movies','',200,'','','','')
+	process.Menu('Favourites','',10,'','','','')
+	process.setView('movies', 'INFO')
+		
 def twenty47():
 	from lib.pyramid import pyramid
 	process.Menu('Origin 24/7 Cartoons','',812,ORIGIN_ICON,FANART,'','')
@@ -96,6 +125,7 @@ def docs():
 	process.Menu('Pyramid Documentaries','http://tombraiderbuilds.co.uk/addon/documentaries/documentaries.txt',1101,RAY_ICON,'','','')
 	
 def sports():
+	process.Menu('Project D','',1155,PROJECT_D_IMAGE,FANART,'','')
 	process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
 	process.Menu('Origin Football Replays','',400,ORIGIN_ICON,FANART,'','')
 	process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
@@ -136,6 +166,7 @@ def Movie_Def(url):
 	elif url == '3D':
 		process.Menu('Pandora 3D','http://genietvcunts.co.uk/PansBox/ORIGINS/hey3D.php',426,PANDORA_ICON,'','','')
 		process.Menu('Pyramid 3D','http://tombraiderbuilds.co.uk/addon/movies/3d/3d.txt',1101,RAIDER_ICON,'','','')
+		process.Menu('Project 3D','http://projectdaddon.com/projectd/3dhubmovies.xml',1101,RAIDER_ICON,'','','')
 	elif url == '1080p':
 		process.Menu('Pandora 1080p','http://genietvcunts.co.uk/PansBox/ORIGINS/hey1080p.php',426,PANDORA_ICON,'','','')
 	elif url == 'Other':
@@ -232,6 +263,10 @@ def classic_list():
 			process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
 		if ADDON.getSetting('Fido')=='true':
 			process.Menu('Fido','',1146,FIDO_ICON,'','','')
+		if ADDON.getSetting('Project_D')=='true':
+			process.Menu('Project D','',1155,PROJECT_D_IMAGE,FANART,'','')
+		if ADDON.getSetting('Midnight')=='true':
+			process.Menu('Midnight Society','',1156,MIDNIGHT_IMAGE,FANART,'','')
 		process.setView('movies', 'MAIN')
 		
 
@@ -274,6 +309,7 @@ def Reaper_Loop(url):
             process.Play(name,url,906,icon,fanart,desc,'')
 
 
+
 def Latest_Episodes():
     process.Menu('Pandora Latest Episodes','http://genietvcunts.co.uk/PansBox/ORIGINS/recenttv.php',426,ICON,FANART,'','')
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
@@ -314,6 +350,10 @@ def TV_Calender_Prog(extra):
 		process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
 
 def send_to_search(name,extra):
+	if 'COLOR' in name:
+		name = re.compile('- (.+?)>').findall(str(name)+'>')
+		for name in name:
+			name = name
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
 	from lib import search
@@ -324,8 +364,8 @@ def send_to_search(name,extra):
 
 
 def Origin_Main():
-#    process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
- #   process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Live TV','',19,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Index Google Search','',2350,ORIGIN_ICON,ORIGIN_FANART,'','')
 #    process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
@@ -463,7 +503,7 @@ elif mode==11:
         name = name.split('  - ')[0]
     except:
         pass
-    process.addFavorite(name,url,iconimage,fanart,fav_mode)
+    process.addFavorite(name, url, fav_mode, iconimage, fanart, description, extra)
 elif mode==12:
     try:
         name = name.split('\\ ')[1]
@@ -495,6 +535,7 @@ elif mode == 37: Adult()
 elif mode == 38: twenty47()
 elif mode == 39: docs()
 elif mode == 40: sports()
+elif mode == 41: process.check_for_episode()
 elif mode == 100: from lib import comedy;comedy.Comedy_Main()
 elif mode == 101: from lib import comedy;comedy.Stand_up()
 elif mode == 102: from lib import comedy;comedy.Search()
@@ -532,7 +573,7 @@ elif mode == 307 : from lib import multitv;multitv.SPLIT(extra)
 elif mode == 308 : from lib import multitv;multitv.Search_TV()
 elif mode == 400: from lib import Football_Repeat;Football_Repeat.footy_Main_Menu()
 elif mode == 401: from lib import Football_Repeat;Football_Repeat.get_All_Rows(url,iconimage)
-elif mode == 402: from lib import Football_Repeat;Football_Repeat.get_PLAYlink(url)
+elif mode == 402: from lib import Football_Repeat;Football_Repeat.get_PLAYlink(name,url)
 elif mode == 403: from lib import Football_Repeat;Football_Repeat.Football_Highlights()
 elif mode == 404: from lib import Football_Repeat;Football_Repeat.FootballFixturesDay()
 elif mode == 405: from lib import Football_Repeat;Football_Repeat.FootballFixturesGame(url,iconimage)
@@ -550,7 +591,7 @@ elif mode == 416: from lib import Football_Repeat;Football_Repeat.footytube_vide
 elif mode == 417: from lib import Football_Repeat;Football_Repeat.footytube_frame(name,url)
 elif mode == 418: from lib import Football_Repeat;Football_Repeat.get_origin_playlink(url,iconimage,FANART)
 elif mode == 419: from lib import Football_Repeat;Football_Repeat.Resolve(url)
-elif mode == 420: from lib import Football_Repeat;Football_Repeat.FootballFixturesSingle(description);Football_Repeat.window.doModal();del Football_Repeat.window
+elif mode == 420: from lib import Football_Repeat;Football_Repeat.FootballFixturesSingle(description);
 elif mode == 421: from lib import Football_Repeat;Football_Repeat.METALLIQ()
 elif mode == 500: from lib import radio_gaga;radio_gaga.Radio_Country()
 elif mode == 501: from lib import radio_gaga;radio_gaga.Radio(url)
@@ -758,6 +799,8 @@ elif mode == 1146: from lib.pyramid import pyramid;pyramid.SKindex_Fido();xbmcpl
 elif mode == 1147: from lib.pyramid import pyramid;pyramid.SKindex_Rays();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1154: from lib.pyramid import pyramid;pyramid.get_random(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1155: from lib.pyramid import pyramid;pyramid.SKindex_ProjectD();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1156: from lib.pyramid import pyramid;pyramid.SKindex_Midnight();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)
 elif mode == 1202: from lib.freeview import freeview;freeview.tvplayer(url)
