@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-	<category label="Personalise">
-        <setting id="Data" type="bool" label="Grab Program information from IMDB?" default="false" visible="true"/>
-    </category>	
-
-</settings>

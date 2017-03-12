@@ -35,58 +35,6 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.getupstandup" name="Get Up - Stand Up" version="1.1.4" provider-name="Origin">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
-	<import addon="script.module.addon.common" />
-	<import addon="plugin.video.youtube" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Get up - Stand Up</summary>
-	<description lang="en">An addon by origin for stand up. You will need to remove anonymous addons for this to work, its not compatible with stupid. Visit http://kodification.co.uk to report any issues</description>
-	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
-	<platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.indexscraper" name="Index Scraper" version="0.0.2" provider-name="Demo">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
-	<import addon="script.module.addon.common" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">A plugin for scraping index sites, choice in settings to grab other info from imdb</summary>
-	<description lang="en">A plugin for playing online lists</description>
-	<disclaimer lang="en">The original author neither hosts or stores any content, the original author has no affiliation with content hosts</disclaimer>
-	<platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.MultiTV" name="MultiTV" version="0.1.5" provider-name="Origin">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
-	<import addon="script.module.addon.common" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Blank</summary>
-	<description lang="en">A plugin for playing online lists. You will need to remove anonymous for this to work, not compatible with stupid. Visit http://kodification.co.uk to report any errors</description>
-	<disclaimer lang="en">The original author neither hosts or stores any content, the original author has no affiliation with content hosts, it is the sole responsibility of the user to ensure they have permission to view any streams provided</disclaimer>
-	<platform>all</platform>
-  </extension>
-</addon>
-
 <addon id="plugin.video.pilkified" name="Pilk-ified" version="0.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -104,7 +52,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.6.2" provider-name="Communal">
+<addon id="plugin.video.sanctuary" name="Sanctuary" version="0.6.3" provider-name="Communal">
   <requires>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4" />
@@ -116,7 +64,7 @@
 	<import addon="script.module.t0mm0.common" version="2.0.0"/>
     <import addon="script.module.httplib2" />
     <import addon="script.module.youtube.dl" optional="true"/>
-    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="plugin.video.youtube" optional="true"/>
     <import addon="script.module.urlresolver" version="3.0.0"/>
     <import addon="script.module.simplejson" />
     <import addon="script.common.plugin.cache" version="2.5.2"/>
@@ -157,23 +105,6 @@
     <description>Play videos of different sports streaming sites</description>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
     <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.testpiece" name="Testing" version="0.0.2" provider-name="Demo">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
-	<import addon="script.module.addon.common" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Blank</summary>
-	<description lang="en">A plugin for playing online lists</description>
-	<disclaimer lang="en">The original author neither hosts or stores any content, the original author has no affiliation with content hosts</disclaimer>
-	<platform>all</platform>
   </extension>
 </addon>
 
