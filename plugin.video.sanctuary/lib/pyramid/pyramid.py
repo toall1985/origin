@@ -133,7 +133,7 @@ def SKindex_Ultra():
 def SKindex_Fido():
     getData(base64.decodestring('aHR0cHM6Ly9nb28uZ2wvOEtRSWQ4'),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
+	
 def SKindex_Rays():
     getData('http://raiztv.co.uk/RaysRavers/list2/dir.txt','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -176,7 +176,6 @@ def get_random(url):
     import random
     Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
     Playlist.clear() 
-    Counter = []
     full_count = []
     finished_list = []
     Name = []
@@ -193,15 +192,11 @@ def get_random(url):
                     pass
                 if url_to_add[0] not in Name:
                     Name.append(url_to_add[0])
-                    if int(len(Counter)) <= 9:
-                        liz = xbmcgui.ListItem(url_to_add[0], iconImage=url_to_add[2], thumbnailImage=url_to_add[2])
-                        liz.setInfo( type="Video", infoLabels={"Title": url_to_add[0]})
-                        liz.setProperty("IsPlayable","true")
-                        Playlist.add(url_to_add[1], liz)
-                        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
-                        Counter.append(url[0])
-                    else:
-                        pass
+                    liz = xbmcgui.ListItem(url_to_add[0], iconImage=url_to_add[2], thumbnailImage=url_to_add[2])
+                    liz.setInfo( type="Video", infoLabels={"Title": url_to_add[0]})
+                    liz.setProperty("IsPlayable","true")
+                    Playlist.add(url_to_add[1], liz)
+                    xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
 	
 	
 def Search_input(url):

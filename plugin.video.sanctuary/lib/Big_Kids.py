@@ -17,10 +17,24 @@ def Big_Kids_Main_Menu():
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 
 def Random_Lists():
+    process.Menu('24/7 Search Cartoon','',818,ICON,FANART,'','')	
     process.Random_play('24/7 Random Cartoon',813,url=BASE,image=ICON,isFolder=False)
     process.Menu('24/7 Select Cartoon','',817,ICON,FANART,'','')
     process.Random_play('20 Random Movies',814,url='http://www.animetoon.org/movies',image=ICON,isFolder=False)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
+	
+def Search_247():
+    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+    HTML = process.OPEN_URL(BASE)
+    match = re.compile('<td><a href="(.+?)">(.+?)</a></td>').findall(HTML)
+    for url2,name in match:
+        if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
+			process.Random_play(name,816,url=url2,isFolder=False)
+    HTML2 = process.OPEN_URL('https://www.watchcartoononline.io/cartoon-list')
+    match = re.compile('<li><a href="(.+?)" title=".+?">(.+?)</a>').findall(HTML2)
+    for url, name in match:
+        if Search_Name.replace(' ','').replace('\'','').replace('-','').lower() in name.replace(' ','').replace('\'','').replace('-','').lower():
+			process.Random_play(name,816,url=url,isFolder=False)
 
 def Random_Cartoon(url):
     Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)

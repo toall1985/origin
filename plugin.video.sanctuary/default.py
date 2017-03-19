@@ -127,6 +127,7 @@ def docs():
 def sports():
 	process.Menu('Project D','',1155,PROJECT_D_IMAGE,FANART,'','')
 	process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
+	process.Menu('BAMF Live Sports','http://genietvcunts.co.uk/bamffff/livesports.xml',1101,ORIGIN_ICON,FANART,'','')
 	process.Menu('Origin Football Replays','',400,ORIGIN_ICON,FANART,'','')
 	process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
 		
@@ -190,7 +191,7 @@ def Live_Men():
 	process.Menu('TV Guide','',2200,ICON,FANART,'','')
 	from lib.pyramid import pyramid
 	process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
-	process.Menu('BAMF IPTV','http://genietvcunts.co.uk/bamffff/alllivetv.xml',1101,BAMF_ICON,FANART,'','')
+	process.Menu('BAMF IPTV','http://genietvcunts.co.uk/bamffff/BAMF.xml',1101,BAMF_ICON,FANART,'','')
 	pyramid.not_so_anon('Pyramid Live','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][UR][YY][MW][QZ][WI][MW][SS][WI][PD][YO][QZ][BU][MW][QZ][WI][YZ][UR][YY][MW][QZ][WI][MW][SS][WI][PD][YO][QZ][BU][MW][QZ][WI]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('Ultra Live',base64.decodestring('aHR0cDovL3VsdHJhdHYubmV0MTYubmV0L2lwdHZzZXJ2ZXIvcG9ydGFsLnhtbA=='),1101,ULTRA_ICON,'','','')
 	pyramid.not_so_anon('Fido Live','[QT][LW][PD][QZ][WI][PD][AL][DE][SS][MW][FU][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YO][BU][PD][OI][MW][UP][YZ][LW][YO][LS][XU][WX][PD][LS][LS][XU][QZ][YZ]L[YO][FA][MW][WI][FA][YZ][JJ][YO][FA][MW][WI][FA]Hope you enjoy the view',FIDO_ICON,FANART,'','','')
@@ -207,7 +208,7 @@ def Kids_Men():
 	pyramid.not_so_anon('Silent Hunter Kids','[QT][UP][YO][JJ][MW][QZ][WI][UP][WI][SS][MW][PD][BU][WX][UP][SS][FA][MW][WX][YO][XU][YZ][UP][YO][JJ][MW][QZ][WI][KW][UR][QZ][WI][MW][SS][YZ][BU][PD][YO][QZ][YZ][RJ][KW][YO][JJ][LS][SS][MW][QZ]Hope you enjoy the view',SILENT_ICON,FANART,'','','')
 	process.Menu('Oblivion Kids','http://pastebin.com/raw/Y8X1vCaV',1101,OBLIVION_ICON,'','','')
 	pyramid.not_so_anon('Pyramid Kids','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP]Have a nice day now',RAIDER_ICON,FANART,'','','')
-	process.Menu('BAMF\'s Kids','http://genietvcunts.co.uk/bamffff/kidssection.xml',1101,BAMF_ICON,'','','')
+	process.Menu('BAMF\'s Kids','http://genietvcunts.co.uk/bamffff/lfk.xml',1101,BAMF_ICON,'','','')
 	process.Menu('Supremacy Kids Live','http://stephen-builds.uk/supremacy/Kids%20Tv/Kids%20Tv.txt',1101,'http://www.stephen-builds.co.uk/wizard/icon.png','','','')
 	process.Menu('Brettus Anime','',1600,BRETTUS_ICON,FANART,'','')
 
@@ -366,42 +367,10 @@ def send_to_search(name,extra):
 def Origin_Main():
     process.Menu('Movies','',200,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Live TV','',19,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Index Google Search','',2350,ORIGIN_ICON,ORIGIN_FANART,'','')
-#    process.Menu('Comedy','',100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Music','',2,ORIGIN_ICON,ORIGIN_FANART,'','')
     if Adult_Pass == Adult_Default:
         process.Menu('Porn','',707,ORIGIN_ICON,ORIGIN_FANART,'','')
-		
-def google_index_search():
-    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_name = Search_title.lower()
-    if Search_name == '':
-        pass
-    else:
-		html = requests.get('https://www.google.co.uk/search?q=%2B(.mkv%7C.mp4%7C.avi%7C.mov%7C.mpg%7C.wmv%7C.flv)%20+'+Search_name.replace(' ','+')+'++intitle:%22index+of%22+-inurl:(jsp%7Cpl%7Cphp%7Chtml%7Caspx%7Chtm%7Ccf%7Cshtml)+-inurl:(listen77%7Cmp3raid%7Cmp3toss%7Cmp3drug%7Cindex_of%7Cwallywashis)&gws_rd=cr&ei=DCR6WOPpDYvPgAa6kp24Dg').text
-		match = re.compile('<a href="(.+?)"').findall(html)
-		for url in match:
-			if 'google' in url:
-				pass
-			elif not 'http' in url:
-				pass
-			else:
-				url_start = url.replace('/url?q=','').replace('%2520','%20')
-				url_end = re.compile('(.+?)&amp;').findall(str(url_start))
-				for fin_url in url_end:
-					if 'http' in fin_url:
-						process.Menu(fin_url,fin_url,2000,'','','','')
-
-def Music():
-#    process.Menu('Now thats what i call music','',1700,ORIGIN_ICON,ORIGIN_FANART,'','')
- #   process.Menu('Misc A-Z','http://herovision.x10host.com/Music/',2000,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Audiobooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('World Radio','',500,ORIGIN_ICON,ORIGIN_FANART,'','')
-    process.Menu('Music Search','',1503,'','','','')
-
 
 def get_params():
         param=[]
@@ -701,6 +670,7 @@ elif mode == 813: from lib import Big_Kids;Big_Kids.Random_Cartoon(url)
 elif mode == 814: from lib import Big_Kids;Big_Kids.Random_Movie(url)
 elif mode == 816: from lib import Big_Kids;Big_Kids.Random_Play_Cartoon(url,name)
 elif mode == 817: from lib import Big_Kids;Big_Kids.twenty47_select()
+elif mode == 818: from lib import Big_Kids;Big_Kids.Search_247()
 elif mode == 900: from lib import Pandora;Pandora.Pandora_Main()
 elif mode == 901: from lib import Pandora;Pandora.Pandoras_Box()
 elif mode == 423: from lib import Pandora;Pandora.open_Menu(url)

@@ -1,7 +1,6 @@
 import re, process, urllib, urllib2, xbmc, xbmcgui, base64, sys, xbmcplugin, threading, xbmcaddon, os, clean_name
 
 freeview_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/freeview/freeview.py')
-now_music_py = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/lib/Now_thats_what_i_call_music.py')
 addon_id = 'plugin.video.sanctuary'
 ADDON = xbmcaddon.Addon(id=addon_id)
 Dialog = xbmcgui.Dialog()
@@ -16,16 +15,50 @@ def Search_Menu():
     process.Menu('TV','TV',1501,'','','','')
     process.Menu('Movies','Movies',1501,'','','','')
     process.Menu('Live TV','Live TV',1501,'','','','')
-    process.Menu('Music','',1503,'','','','')
+    process.Menu('Music','Music',1501,'','','','')
     process.Menu('Cartoons','cartoon',1501,'','','','')
     process.Menu('Football Team','Football',1501,'','','','')
-    process.Menu('Audiobooks','Music',1501,'','','','')
 
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
-def Music_Search():
-    process.Menu('Search Artist - [COLORred]Limited content unfortunately but got what i could[/COLOR]','Music_Artist',1501,'','','','')
-    process.Menu('Search Song - [COLORred]Takes a while as searching all Now That\'s What I Call Music CD\'s[/COLOR]','Music_Song',1501,'','','','')
+def Music_Search(Search_name):
+    dp.create('Checking for streams')
+    if ADDON.getSetting('Quicksilver')=='true':
+        dp.update((100/2)*2,'',"Checking Quicksilver",'Please Wait')
+        try:Thread(target=Quicksilver_search(Search_name,Search='Quick'))
+        except:pass
+    if ADDON.getSetting('Rays_Ravers')=='true':
+        dp.update((100/2)*2,'',"Checking Rays Ravers",'Please Wait')
+        try:Thread(target=Quicksilver_search(Search_name,Search='Rays'))
+        except:pass
+    dp.update(100,'',"Finished checking",'Please Wait')
+    dp.close()
+	
+def Quicksilver_search(Search_name,Search = None):
+	Quick_list = ['http://quicksilver-music.com/addoncore/Texts/Fresh.txt','http://quicksilver-music.com/addoncore/Texts/Popular.txt','http://quicksilver-music.com/addoncore/Texts/classicalbums.txt',
+	'http://quicksilver-music.com/addoncore/Texts/compilations/compilationsmain.txt','http://quicksilver-music.com/addoncore/Texts/legends.txt','http://quicksilver-music.com/addoncore/Texts/Collection.txt',
+	'http://quicksilver-music.com/addoncore/Texts/acousticmain.txt','http://quicksilver-music.com/addoncore/Texts/greatesthits.txt']
+	Ray_List = ['http://raiztv.co.uk/RaysRavers/list2/dreamscape/main.txt','http://raiztv.co.uk/RaysRavers/list2/heleterskelter/helterskeltermain.txt',
+	'http://raiztv.co.uk/RaysRavers/list2/htidnye.txt','http://raiztv.co.uk/RaysRavers/list2/bonkers.txt','http://raiztv.co.uk/RaysRavers/list2/clubland.txt',
+	'http://raiztv.co.uk/RaysRavers/list2/mos/theannual.txt','http://raiztv.co.uk/RaysRavers/list2/mos.txt','http://raiztv.co.uk/RaysRavers/list2/hardhouse.txt',
+	'http://raiztv.co.uk/RaysRavers/list2/hardcorecomp.txt','http://raiztv.co.uk/RaysRavers/list2/randomhardcoretracks.txt']
+	if Search == 'Quick':
+		for item in Quick_list:
+			HTML = process.OPEN_URL(item)
+			match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?<info>(.+?)</info>',re.DOTALL).findall(HTML)
+			for name,image,url,fanart,desc in match:
+				if (Search_name).lower().replace(' ','') in (name).replace(' ','').lower():
+					from pyramid.pyramid import addDir
+					addDir('Quicksilver | '+ name,url,1101,image,fanart,'','','','')
+	if Search == 'Rays':
+		for item in Ray_List:
+			HTML = process.OPEN_URL(item)
+			match = re.compile('<name>(.+?)</name>.+?<thumbnail>(.+?)</thumbnail>.+?<externallink>(.+?)</externallink>.+?<fanart>(.+?)</fanart>.+?<info>(.+?)</info>',re.DOTALL).findall(HTML)
+			for name,image,url,fanart,desc in match:
+				if (Search_name).lower().replace(' ','') in (name).replace(' ','').lower():
+					from pyramid.pyramid import addDir
+					addDir('Rays Ravers | '+ name,url,1101,image,fanart,'','','','')
+
     
 
 def Search_Input(name,url,extra):
@@ -36,23 +69,20 @@ def Search_Input(name,url,extra):
 		if Search_name == '':
 			pass
 		else:
+			xbmc.log('SEARCH NAME ='+Search_name+'    URL= '+url)
 			write_to_file(Search_name,url)
 			if url == 'TV':
 				TV(Search_name)
 			elif url == 'Movies':
 				Movies(Search_name)
-			elif url == 'Music_Artist':
-				Music_Artist(Search_name,'http://herovision.x10host.com/Music/'+str(Search_name[0].upper())+'/')
-			elif url == 'Music_Song':
-				Music_Song(Search_name)
+			elif url == 'Music':
+				Music_Search(Search_name)
 			elif url == 'cartoon':
 				Cartoons(Search_name)
 			elif url == 'Football':
 				Football(Search_name)
 			elif url == 'Live TV':
 				Live_TV(Search_name)
-			elif url == 'Music':
-				Music(Search_name)
 			else:
 				process.Menu('Search failed - '+url,'','','','','','')
     elif extra == 'OLD':
@@ -64,18 +94,14 @@ def Search_Input(name,url,extra):
 				TV(Search_name)
 			elif url == 'Movies':
 				Movies(Search_name)
-			elif url == 'Music_Artist':
-				Music_Artist(Search_name,'http://herovision.x10host.com/Music/'+str(Search_name[0].upper())+'/')
-			elif url == 'Music_Song':
-				Music_Song(Search_name)
+			elif url == 'Music':
+				Music_Search(Search_name)
 			elif url == 'cartoon':
 				Cartoons(Search_name)
 			elif url == 'Football':
 				Football(Search_name)
 			elif url == 'Live TV':
 				Live_TV(Search_name)
-			elif url == 'Music':
-				Music(Search_name)
 			else:
 				process.Menu('Search failed - '+url,'','','','','','')
     elif extra == 'ALL':
@@ -91,41 +117,6 @@ class Thread(threading.Thread):
         threading.Thread.__init__(self)
     def run(self):
         self._target(*self._args)
-		
-def Music_Artist(Search_name,url):
-    HTML = process.OPEN_URL(url)
-    match = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML)
-    for url2,name in match:
-        url3 = url+url2
-        if (Search_name).replace(' ','').replace('_','').replace('/','').replace('amp;','').lower() in (name).replace(' ','').replace('_','').replace('/','').replace('amp;','').lower():
-            if 'Parent' in name:
-                pass
-            else:
-                process.Menu((name).replace('_',' ').replace('/','').replace('amp;',''),url3,2000,'','','','')
-
-def Music_Song(Search_name):
-    progress = []
-    item = []
-    HTML2 = open(now_music_py).read()
-    url_find = re.compile('process.Menu\(".+?","(.+?)",').findall(HTML2)
-    for url4 in url_find:
-        item.append(url4[0])
-    items = len(item)
-    for url4 in url_find:
-        progress.append(url4[0])
-        dp_add = len(progress) / float(items) * 100
-        dp.create('Checking for tunes')
-        dp.update(int(dp_add),'',"",'Please Wait')
-        HTML3 = process.OPEN_URL(url4)
-        match2 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML3)
-        for url5, name in match2:
-            url6 = url4+url5
-            HTML4 = process.OPEN_URL(url6)
-            match3 = re.compile('<a href="(.+?)">(.+?)</a>').findall(HTML4)
-            for url7, name in match3:
-                if (Search_name).replace(' ','').replace('_','').replace('/','').replace('amp;','').lower() in (name).replace(' ','').replace('_','').replace('/','').replace('amp;','').lower():
-                    import index_regex
-                    index_regex.Clean_name(name,url6+url7)         		
 		
 def Movies(Search_name):
     if '(' in Search_name:
@@ -266,6 +257,8 @@ def TV(Search_name):
             episode = episode
     else:
         title = Search_name
+        season = ''
+        episode = ''
     if ADDON.getSetting('Pandoras_Box_Search')=='true':
         dp.update((100/7),'',"Checking Pandoras Box",'Please Wait')
         try:Thread(target=Pans_Search_TV(Search_name))
@@ -479,35 +472,7 @@ def Football(Search_name):
     origin_url = Decode('aHR0cDovL3d3dy5mb290YmFsbG9yZ2luLmNvbS8/cz0=')+(Search_name).replace(' ','+')
     Football_Repeat.Origin_Highlights(origin_url)
     Football_Repeat.Get_the_rows(url,'')
-	
-def Music(Search_name):			
-    HTML4 = process.OPEN_URL(Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay9jb21wbGV0ZV9saXN0Lmh0bQ=='))
-    match4 = re.compile('<td width=".+?">.*?<b>.+?<a href="(.*?)">(.*?)</a></b></td>',re.DOTALL).findall(HTML4)
-    for url,name in match4:
-        if (Search_name).replace(' ','') in (name).replace(' ','').lower():			
-            name = '[COLORred]Origin [/COLOR]' + (name).replace('\n',' ').replace('	','')
-            if '</a>' in name:
-                pass
-            elif '(' in name:
-                process.Menu((name).replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,605,'','','','')
-            else:
-                process.Play((name).replace('&nbsp;','').replace('  ','').replace('+','').replace('.mp3',''),Decode('aHR0cDovL3d3dy5raWRzYXVkaW9ib29rcy5jby51ay8=') + url,604,'','','','')
-    HTML5 = process.OPEN_URL('https://www.youtube.com/user/audiobooksfree/playlists')
-    block = re.compile('<ul class="yt-lockup-meta-info">(.+?)<div class="yt-lockup-meta">',re.DOTALL).findall(HTML5)
-    for item in block:
-        name = re.compile('dir="ltr" title="(.+?)"').findall(str(item))
-        for name in name:
-            name = (name).replace('	','').replace('&#39;','\'')
-        url = re.compile('<a href="(.+?)" class="yt-pl-thumb-link yt-uix-sessionlink').findall(str(item))
-        for url in url:
-            url = 'https://www.youtube.com'+url
-        image = re.compile('data-thumb="(.+?)"').findall(str(item))
-        for image in image:
-            image = image
-        if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-            name = '[COLORred]Origin [/COLOR]' + str(name)		
-            process.Menu(name,str(url),10001,str(image),'','','')   
-				
+					
 def Live_TV(Search_name):
     if Search_name.lower() == 'w':
         Search_name = 'Watch'
@@ -519,8 +484,8 @@ def Live_TV(Search_name):
     'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt',
     'http://tombraiderbuilds.co.uk/addon/newschannels/newschannels.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
-    BAMF_List = ['http://genietvcunts.co.uk/bamffff/bamf.iptv.m3u','http://genietvcunts.co.uk/bamffff/Server2.m3u',
-    'http://genietvcunts.co.uk/bamffff/BAMF.Sport.m3u','http://genietvcunts.co.uk/bamffff/BAMFSKYMOVIES.m3u']
+    BAMF_List = ['http://genietvcunts.co.uk/bamffff/bamftv.m3u','http://genietvcunts.co.uk/bamffff/bamff4m.xml',
+    'http://genietvcunts.co.uk/bamffff/testing2.xml','http://genietvcunts.co.uk/bamffff/livesports.xml']
     Supremecy_List = ['https://simplekore.com/wp-content/uploads/file-manager/steboy11/LiveTV/live.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Kids%20Tv/Kids%20Tv.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sky%20Movies/Sky%20Movies.txt',
