@@ -101,11 +101,113 @@ def tv_guide():
     Menu('BT', '22', 6, '', '', '', '')
 
 def Todays_Sports():
-	Menu('[COLORred]Long loading time, go make a brew!! it will search each list for each channel[/COLOR]','','','','','','')
-	Menu('[COLORred]Cancel at any time to move on to next channel if your happy with stream results[/COLOR]','','','','','','')
-	Menu('Mainstream Channels','',24,'','','','')
-	Menu('Live on Sat','',29,'','','','')
-	Menu('Wheres the match','',30,'','','','')
+    Menu('WizHD', '', 29, '', '', '', '')
+    Menu('MamaHD', '', 27, '', '', '', '')
+    Menu('StreamHD', '', 35, '', '', '', '')
+	
+def Streamhd():
+	html = requests.get('http://www.streamhd.eu/').content
+	match = re.compile('<span class="eventsmall">(.+?)</span>.+?<img src=.+?<img src="(.+?)".+?<span class="eventsmall">.+?a href="(.+?)">(.+?)</a>',re.DOTALL).findall(html)
+	for time,img,url,name in match:
+		url = 'http://www.streamhd.eu'+url
+		Play(time+' - '+name,url,10,img,'','','')
+				
+def WizHDMenu(url,iconimage,fanart):
+	html = requests.get('http://wizhdsports.is/').content
+	block = re.compile('<ul class="sports_menu">(.+?)</ul>',re.DOTALL).findall(html)
+	for item in block:
+		match = re.compile('<a href="(.+?)".+?src="(.+?)".+?> (.+?)</li>').findall(str(item))
+		for url2,iconimage,name in match:
+			name = name.title()
+			if name == 'Tv Shows':pass
+			elif name == 'Others':pass
+			elif name == 'P2P Online':pass
+			else:
+				Menu(name,url2,30,iconimage,'','','')
+				
+def Wiz_Get_url(url):
+	List = []
+
+	fin_date = Day+'-'+Month+'-'+Year
+	html = requests.get(url).content
+	block = re.compile('<h3>.+?: (.+?)</h3>(.+?)<li class=\'sports_red_bar\'>',re.DOTALL).findall(html)
+	for date,rest in block:
+		if date == fin_date:
+			match = re.compile('<div class=\'col-md-2\'>.+?</span>(.+?)</div>.+?<div class=\'col-md-6\'>(.+?)</div>.+?div class="card-block drop_box">(.+?)<div class="card">',re.DOTALL).findall(str(rest))
+			for time,teams,link_block in match:
+				total = len(match)
+				teams = teams.replace('  ','').replace('	','')
+				link_block = link_block.replace('  ','')
+				time_split = re.findall('(.+?):(.+?)-(.+?):(.+?)>',str(time+'>'))
+				for start_hour,start_min,fin_hour,fin_min in time_split:
+					start_no = int(start_hour)*24+int(start_min)
+					fin_no = int(fin_hour)*24+int(fin_min)
+					time_now = int(Hour)*24+int(Minute)
+					if fin_no>time_now>start_no:
+						name = '[COLORgreen]'+ teams+'[/COLOR]'
+					else:
+						name = teams
+				link_get = re.compile("<a href='(.+?)'>.+?>(.+?)</div></a>").findall(str(link_block))
+				for link,chnl in link_get:
+					link = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url='+link
+					if len(link_get)>1:
+						List.append((link,chnl))
+					else:
+						Play(time.replace(' ','')+'-'+name.encode('utf-8', 'ignore'),link,10,'','','','')
+				if len(List)>1:
+					vurl = str(List).replace('[','sublink').replace(']','#').replace('sublink(\'','sublink:').replace('plugin:','LISTSOURCE:plugin:').replace("', '",'::LISTNAME:').replace("'), ('",'::#sublink').replace("')",'').replace('sublinkLISTSOURCE','sublink:LISTSOURCE')
+					xbmc.log(vurl)
+					Play(time.replace(' ','')+'-'+name,vurl,31,'','','','')
+					del List[:]
+
+#hakamac
+def GetSublinks(name,url,iconimage,fanart):
+    xbmc.log('I GOT HERE###############')
+    List=[]; ListU=[]; c=0
+    all_videos = regex_get_all(url, 'sublink:', '#')
+    for a in all_videos:
+        if 'LISTSOURCE:' in a:
+            vurl = regex_from_to(a, 'LISTSOURCE:', '::')
+            linename = regex_from_to(a, 'LISTNAME:', '::')
+        else:
+            vurl = a.replace('sublink:','').replace('#','')
+            linename = name
+        if len(vurl) > 10:
+            c=c+1; List.append(linename); ListU.append(vurl)
+ 
+    if c==1:
+        try:
+            #print 'play 1   Name:' + name + '   url:' + ListU[0] + '     ' + str(c)
+            liz=xbmcgui.ListItem(name, iconImage=iconimage,thumbnailImage=iconimage); liz.setInfo( type="Video", infoLabels={ "Title": name } )
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=ListU[0],listitem=liz)
+            xbmc.Player().play(urlsolver(ListU[0]), liz)
+        except:
+            pass
+    else:
+         dialog=xbmcgui.Dialog()
+         rNo=dialog.select('Select A Source', List)
+         if rNo>=0:
+             rName=name
+             rURL=str(ListU[rNo])
+             #print 'Sublinks   Name:' + name + '   url:' + rURL
+             try:
+                 xbmc.Player().play(urlsolver(rURL), xbmcgui.ListItem(rName))
+             except:
+                 xbmc.Player().play(rURL, xbmcgui.ListItem(rName))
+				 
+def regex_get_all(text, start_with, end_with):
+    r = re.findall("(?i)(" + start_with + "[\S\s]+?" + end_with + ")", text)
+    return r				
+
+def regex_from_to(text, from_string, to_string, excluding=True):
+    if excluding:
+	   try: r = re.search("(?i)" + from_string + "([\S\s]+?)" + to_string, text).group(1)
+	   except: r = ''
+    else:
+       try: r = re.search("(?i)(" + from_string + "[\S\s]+?" + to_string + ")", text).group(1)
+       except: r = ''
+    return r				 
+
 	
 def Wheres_The_Match():
 	HTML = OPEN_URL('http://www.wheresthematch.com/tv/home.asp')
@@ -334,6 +436,16 @@ def by_country():
 			pass
 		else:
 			Menu(name,url,8,'','','','')
+			
+def Mama_hd():
+	html = requests.get('http://mamahd.com/').content
+	block = re.compile('<div class="schedule">(.+?)<div id="pagination">',re.DOTALL).findall(html)
+	for item in block:
+		match = re.compile('<a href="(.+?)">.+?<img src="(.+?)">.+?<div class="home cell">.+?<img src=".+?"><span>(.+?)</span>.+?<div class="away cell">.+?<span>(.+?)</span>',re.DOTALL).findall(str(item))
+		for url,img,home,away in match:
+			name = home+' vs '+away
+			url = sports+url
+			Play(name,url,10,img,'','','')
 	
 freeview = [['4Music | Direct','http://llnw.live.btv.simplestream.com/coder9/coder.channels.channel6/hls/4/playlist.m3u8',1201],
 	['4Music | TVPlayer','128',1202],
@@ -998,7 +1110,7 @@ def search_next(name):
 				for URL in match6:
 					dp.update(int(dp_add),'Checking Freeworld '+str(len(Freeworld_count))+'/'+str(len(match6)),str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 					Freeworld_count.append(URL[0])
-					HTML7 = OPEN_URL(URL)
+					HTML7 = requests.get(URL.replace('https','http')).content
 					match7 = re.compile('EXTINF:.+?,(.+?)\n(.+?)\n#').findall(HTML7)
 					for final_name,fin_url in match7:
 						if (Search_name).replace(' ','').replace('sports','sport') in (final_name).lower().replace(' ','').replace('sports','sport'):
@@ -1220,13 +1332,20 @@ def Get_Playlink(name,url):
 	Big_Resolve(name,playlink)
 
 
-def WhatsOnCOUK(name, url, extra):
+def WhatsOnCOUK(url,extra):
+    Pass_List = []
     try:
         html = requests.get(url).text
         channel_block = re.compile('<div class="div-epg-channel-progs">.+?<div class="div-epg-channel-name">(.+?)</div>(.+?)</div></div></div>',re.DOTALL).findall(html)
         for channel, block in channel_block:
-            prog = re.compile('<a qt-title="(.+?)"(.+?)onmouse', re.DOTALL).findall(str(block.encode('utf-8')))
-            for show_info, info in prog:
+            prog = re.compile('<a qt-title="(.+?)".+?<br>(.+?)<br>.+?</div>(.+?)<br>', re.DOTALL).findall(str(block.encode('utf-8')))
+            for show_info, show_no, info in prog:
+                show_no = show_no.replace('</div>','')
+                info = info.replace('</div>','').replace('</a>','')
+                if 'href' in info:
+                    change = re.compile('(.+?)href').findall(str(info))
+                    for thing in change:
+                        info = thing					
                 time_finder = re.compile('(.+?)-(.+?) ').findall(str(show_info))
                 for start, finish in time_finder:
                     if 'am' in start:
@@ -1254,16 +1373,18 @@ def WhatsOnCOUK(name, url, extra):
                     if int(start_number) < int(time_now_number) < int(finish_number):
                         if not extra or extra == '':
                             clean_channel = channel.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London', 'ITV1')
-                            Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 7,'', '', '', clean_channel.replace('HD',''))
-                        elif extra == 'SEARCH_SPLIT':
-                            clean_channel = channel.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London', 'ITV1')
-                            if name.lower().replace(' ','') in show_info.lower().replace(' ','').encode('utf-8'):
-                                Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '',7, '', '', '', clean_channel.replace('HD',''))
+                            Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 7,'', '',show_no+'\n'+info, clean_channel.replace('HD',''))
+                            if len(Pass_List)<=1:
+                                setView('movies', 'INFO2')
+                                Pass_List.append('a')
                         else:
                             clean_channel = channel.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London', 'ITV1')
                             clean_extra = extra.replace('BBC1 London', 'BBC1').replace('BBC2 London','BBC2').replace('ITV London','ITV1')
                             if clean_extra == clean_channel:
-                                Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '',7, '', '', '', clean_channel.replace('HD',''))
+                                Menu(clean_channel.encode('utf-8') + ': ' + show_info.encode('utf-8'), '', 7,'', '',show_no+'\n'+info, clean_channel.replace('HD',''))
+                                if len(Pass_List)<=1:
+                                    setView('movies', 'INFO2')
+                                    Pass_List.append('a')                            
                             else:
                                 pass
     except:
@@ -1432,7 +1553,7 @@ elif mode == 7: search_split(extra)
 elif mode == 8: Get_Channel(url)
 elif mode == 9: Get_Playlink(name,url)
 elif mode == 10: Big_Resolve(name,url)
-elif mode == 11: WhatsOnCOUK(name,url,extra)
+elif mode == 11: WhatsOnCOUK(url,extra)
 elif mode == 12: m3u8_single(url)
 elif mode == 13: Todays_Sports()
 elif mode == 14: Football_Highlights()
@@ -1450,12 +1571,14 @@ elif mode == 25: Live_On_Sat(url)
 elif mode == 26: Search_Channels_Mainstream(url)
 elif mode == 27: Mama_hd()
 elif mode == 28: Search()
-elif mode == 29: Live_on_Sat()
-elif mode == 30: Wheres_The_Match()
-elif mode == 31: Wheres_The_Channel(url)
+elif mode == 29: WizHDMenu(url,iconimage,fanart)
+elif mode == 30: Wiz_Get_url(url)
+elif mode == 31: GetSublinks(name,url,iconimage,fanart)
 elif mode == 32: Search_options()
 elif mode == 33: Search_Create()
 elif mode == 34: search_next(name)
+elif mode == 35: Streamhd()
+
 elif mode == 1201: freeview_play(url)
 elif mode == 1202: tvplayer(name,url)
 

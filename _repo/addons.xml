@@ -84,7 +84,7 @@
 
 <addon
   id="plugin.video.SportsDevil"
-  version="3"
+  version="2017.03.28"
   name="SportsDevil"
   provider-name="SportsDevil">
   <requires>
@@ -100,6 +100,7 @@
     library="default.py">
    <provides>video</provides>
   </extension>
+  <extension point="xbmc.service" library="service/proxy_service.py" start="startup" />
   <extension point="xbmc.addon.metadata">
     <summary>Play videos of different sports streaming sites</summary>
     <description>Play videos of different sports streaming sites</description>
@@ -125,7 +126,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.vendetta" name="Vendetta" version="0.0.6" provider-name="Origin">
+<addon id="plugin.video.vendetta" name="Vendetta" version="0.0.7" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" />
