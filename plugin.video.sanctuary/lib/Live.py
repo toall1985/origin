@@ -73,7 +73,7 @@ def Get_Ultra_Channel(url):
 		if name[-1] == ' ':
 			name = name[:-1]
 		url = 'plugin://plugin.video.f4mTester/?streamtype=TSDOWNLOADER&amp;url='+url.replace('[','').replace(']','')+';name=Sanctuary'
-		process.Play(name,url,906,'','','','')
+		process.PLAY(name,url,906,'','','','')
 
 
 		
@@ -745,7 +745,7 @@ def search_next(name):
 				for URL in match6:
 					dp.update(int(dp_add),'Checking Freeworld '+str(len(Freeworld_count))+'/'+str(len(match6)),str(len(result)-1)+'/'+str(int(ADDON.getSetting('Results')))+' Results')
 					Freeworld_count.append(URL[0])
-					HTML7 = process.OPEN_URL(URL)
+					HTML7 = requests.get(URL.replace('https','http')).content
 					match7 = re.compile('EXTINF:.+?,(.+?)\n(.+?)\n#').findall(HTML7)
 					for final_name,fin_url in match7:
 						if (Search_name).replace(' ','').replace('sports','sport') in (final_name).lower().replace(' ','').replace('sports','sport'):
@@ -800,7 +800,7 @@ def search_next(name):
 								name = name[1:]
 							elif name[-1] == ' ':
 								name = name[:-1]
-							playlink = 'plugin://plugin.video.f4mTester/?streamtype=TSDOWNLOADER&amp;url='+url2.replace('[','').replace(']','')+';name=sanctuary'
+							playlink = 'plugin://plugin.video.f4mTester/?streamtype=TSDOWNLOADER&amp;url='+url2.replace('[','').replace(']','')+';name=vendetta'
 							if (Search_name).replace(' ','').replace('sports','sport') in (name).lower().replace(' ','').replace('sports','sport'):
 								result.append(url[0])
 								try:
@@ -811,81 +811,5 @@ def search_next(name):
 						pass
 				except:
 					pass
-#	except:
-#		pass
 
 				
-def Check_For_200_Response():
-	headers = {"User-Agent": "Mozilla/5.0"}
-	progress = []
-	item = []
-	result = []
-	dp =  xbmcgui.DialogProgress()
-	HTML = requests.get('http://www.iptvultra.com/',headers=headers).text
-	match = re.compile('<span class="link"><a href="(.+?)">(.+?)</a>').findall(HTML)
-	for url, name in match:
-		item.append(url[0])
-		items = len(item)
-	for url, name in match:
-		progress.append(url[0])
-		dp_add = len(progress) / float(items) * 100
-		dp.create('Checking for stream')
-		dp.update(int(dp_add),'Checking list '+str(len(progress))+'/'+str(len(match)),str(len(result))+' Results')
-		if dp.iscanceled():
-			return
-		HTML2 = requests.get(url,headers=headers).text
-		match2 = re.compile('".+?[@](.+?)[@].+?[@].+?[@](.+?)"').findall(HTML2)
-		for name,url2 in match2:
-			name = name.replace('[','').replace(']','')
-			if name[0] == ' ':
-				name = name[1:]
-			if name[-1] == ' ':
-				name = name[:-1]
-			try:
-				final_url = url2.replace(']','').replace(']','')
-				try:
-					r = requests.head(final_url,timeout=0.05)
-				except:
-					pass
-				if '200' in str(r.status_code):
-					result.append(url[0])
-					playlink = 'plugin://plugin.video.f4mTester/?streamtype=TSDOWNLOADER&amp;url='+final_url+';name=Sanctuary'
-					if not os.path.exists(Addon_data):
-						os.makedirs(Addon_data)
-					if not os.path.exists(Stream_file):
-						print_text_file = open(Stream_file,"w")
-						print_text_file.write('<NAME=>'+name+'</NAME><URL=>'+playlink+'</URL>\n')
-					else:
-						print_text_file = open(Stream_file,"a")
-						print_text_file.write('<NAME=>'+name+'</NAME><URL=>'+playlink+'</URL>\n')
-			except:
-				pass
-				
-def search_checked():
-	Dialog = xbmcgui.Dialog()
-	if not os.path.exists(Addon_data):
-		os.makedirs(Addon_data)
-	if not os.path.exists(Stream_file):
-		Dialog.ok('You need to run \'Check for response off streams\' first','Please run above and then come back')
-	else:
-		progress = []
-		item = []
-		result = []
-		dp =  xbmcgui.DialogProgress()
-		Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-		Search_name = Search_title.lower()
-		HTML = open(Stream_file).read()
-		match = re.compile('<NAME=>(.+?)</NAME><URL=>(.+?)</URL>').findall(HTML)
-		for name, url in match:
-			item.append(url[0])
-			items = len(item)
-		for name, url in match:
-			progress.append(url[0])
-			dp_add = len(progress) / float(items) * 100
-			dp.create('Checking for stream')
-			dp.update(int(dp_add),'Checking list '+str(len(progress))+'/'+str(len(match)),str(len(result))+' Results')
-			if dp.iscanceled():
-				return
-			if (Search_name).replace(' ','') in (name).replace(' ','').lower():
-				result.append(url[0])
-				process.Play(name,url,906,'','','','')

@@ -2,7 +2,10 @@
 import urllib,re,xbmcgui,xbmcplugin,xbmc,sys,process,requests
 
 
-def Movie_Main():
+def Movie_Main(url):
+    if 'cunts' in url:
+        import Pandora
+        Pandora.Pandoras_Box('http://genietvcunts.co.uk/PansBox/ORIGINS/moviecat.php')
     process.Menu('Genre','',202,'','','','')
     process.Menu('IMDB top 250 Films','http://www.imdb.com/chart/top',206,'','','','')
     process.Menu('Movie Channels','',208,'','','','')

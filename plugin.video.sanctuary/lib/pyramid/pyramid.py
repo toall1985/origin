@@ -95,11 +95,12 @@ def SKindex():
     getData('http://tombraiderbuilds.co.uk/addon/home.txt','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
-def SKindex_Joker():
-    addDir('[B][COLOR lime]Maverick Movie Search[/B][/COLOR]','http://jokerswizard.esy.es/joker/data/quality/quality.txt',1141,'http://previews.123rf.com/images/markinv/markinv1212/markinv121200020/17010740-All-seeing-eye-Stock-Vector-horus-eye-egyptian.jpg' ,  FANART,'','','','')
-    getData('http://164.132.106.213/data/home/home.txt','')
+def SKindex_deliverance():
+    addon_log("SKindex")
+    addDir('Football Highlights','Football Highlights',1137,'http://goo.gl/TyDD6w' ,  FANART,'','','','')
+    getData('http://kodeeresurrection.com/DELIVERANCE%20TXT%20FILES/home.txt','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-
+	
 def SKindex_Oblivion():
     getData(base64.decodestring('aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcvZWQ5Wld5V0s='),'')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -171,7 +172,114 @@ def Random_play(name, mode, url='', image=None, isFolder=True, page=1, keyword=N
     liz.setProperty('Fanart_Image', FANART)     
     xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=isFolder)
 	
+def WizHDMenu(url,iconimage,fanart):
+	addDir('Paul\'s Picks',url,1101,'',fanart,'','','',None,'source')
+	html = requests.get('http://wizhdsports.is/').content
+	block = re.compile('<ul class="sports_menu">(.+?)</ul>',re.DOTALL).findall(html)
+	for item in block:
+		match = re.compile('<a href="(.+?)".+?src="(.+?)".+?> (.+?)</li>').findall(str(item))
+		for url2,iconimage,name in match:
+			name = name.title()
+			image = iconimage
+			addDir(name.encode('utf-8'),url2.encode('utf-8'),1136,image,fanart,'','','',None,'source')
+				
+def Wiz_Get_url(url):
+	List = []
+
+	from datetime import datetime
+	todays_day = datetime.now().strftime('%d')
+	todays_month = datetime.now().strftime('%m')
+	todays_year = datetime.now().strftime('%Y')
+	todays_hour = datetime.now().strftime('%H')
+	todays_minute = datetime.now().strftime('%M')
+	fin_date = todays_day+'-'+todays_month+'-'+todays_year
+	html = requests.get(url).content
+	block = re.compile('<h3>.+?Games On : (.+?)</h3>(.+?)<li class=\'sports_red_bar\'>',re.DOTALL).findall(html)
+	for date,rest in block:
+		if date == fin_date:
+			match = re.compile('<div class=\'col-md-2\'>.+?</span>(.+?)</div>.+?<div class=\'col-md-6\'>(.+?)</div>.+?div class="card-block drop_box">(.+?)<div class="card">',re.DOTALL).findall(str(rest))
+			for time,teams,link_block in match:
+				total = len(match)
+				teams = teams.replace('  ','').replace('	','')
+				link_block = link_block.replace('  ','')
+				time_split = re.findall('(.+?):(.+?)-(.+?):(.+?)>',str(time+'>'))
+				for start_hour,start_min,fin_hour,fin_min in time_split:
+					start_no = int(start_hour)*24+int(start_min)
+					fin_no = int(fin_hour)*24+int(fin_min)
+					time_now = int(todays_hour)*24+int(todays_minute)
+					if fin_no>time_now>start_no:
+						name = '[COLORgreen]'+ teams+'[/COLOR]'
+					else:
+						name = teams
+				link_get = re.compile("<a href='(.+?)'>.+?>(.+?)</div></a>").findall(str(link_block))
+				for link,chnl in link_get:
+					link = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url='+link
+					if len(link_get)>1:
+						List.append((link,chnl))
+					else:
+						addLink(link,time.replace(' ','')+'-'+name.encode('utf-8', 'ignore'),icon,FANART,'','','',True,None,regexs,total)						
+				if len(List)>1:
+					vurl = str(List).replace('[','sublink').replace(']','#').replace('sublink(\'','sublink:').replace('plugin:','LISTSOURCE:plugin:').replace("', '",'::LISTNAME:').replace("'), ('",'::#sublink').replace("')",'').replace('sublinkLISTSOURCE','sublink:LISTSOURCE')
+					xbmc.log(vurl)
+					addDir(time.replace(' ','')+'-'+name,vurl,1135,icon,FANART,'','','','')
+					del List[:]
+
+def OPEN_URL(url):
+    req = urllib2.Request(url)
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+    response = urllib2.urlopen(req)
+    link=response.read()
+    response.close()
+    return link					
+					
+def scrape():
+    html = OPEN_URL('http://www.goalsarena.org/en/')
+    match = re.compile('<a title="(.+?)".+?href="(.+?)">',re.DOTALL).findall(html)
+    for name,url in match:
+		PLAY(name,url,1138,'http://goo.gl/TyDD6w' ,FANART,'','')
+
+def Big_Resolve(name,url):
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))		
+
+def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=True, allinfo={}):
+    u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(
+        name) + "&iconimage=" + urllib.quote_plus(iconimage) + "&fanart=" + urllib.quote_plus(
+        fanart) + "&description=" + urllib.quote_plus(description)
+    ok = True
+    liz = xbmcgui.ListItem(name, iconImage=" ", thumbnailImage=iconimage)
+    liz.setInfo(type="Video", infoLabels={"Title": name, "Plot": description})
+    liz.setProperty("Fanart_Image", fanart)
+    if showcontext:
+        contextMenu = []
+        if showcontext == 'fav':
+            contextMenu.append(('Remove from Sanctuary Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
+                                % (sys.argv[0], urllib.quote_plus(name))))
+        if not name in FAV:
+            contextMenu.append(('Add to Sanctuary Favorites',
+                                'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
+                                % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
+                                   urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+        contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
+        liz.addContextMenuItems(contextMenu)
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=False)
+    return ok
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
 	
+def scrape_link(name,url):
+    html = OPEN_URL(url)
+    match = re.compile('<script data-config="(.+?)"').findall(html)
+    for link in match:
+        playlink = 'http:'+link.replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+        Big_Resolve(name,playlink)	
+
+					
 def get_random(url):
     import random
     Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
@@ -579,8 +687,8 @@ def getData(url,fanart):
                             not_so_anon(name.encode('utf-8'),linkedUrl.encode('utf-8'),thumbnail,fanArt,desc,genre,date)
                         elif 'Pic N Mix' in name:
                             Random_play('Play 10 Random Cartoons',1154,url='http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsrandom.txt',image=thumbnail,isFolder=False)
-                        elif 'Whatever new name is' in name:
-                            Random_play('Whatever you want it to be called',1154,url='whatever url to text file is',image=thumbnail,isFolder=False)
+                        elif name == 'Live Events':
+                            addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1135,thumbnail,fanArt,desc,genre,date,None,'source')
                         else:						
                             if Adult_Pass == Adult_Default:
                                 addDir(name.encode('utf-8'),linkedUrl.encode('utf-8'),1101,thumbnail,fanArt,desc,genre,date,None,'source')

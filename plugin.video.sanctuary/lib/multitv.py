@@ -11,7 +11,10 @@ List = []
 IMDB = 'http://www.imdb.com'
 
 
-def multiv_Main_Menu():
+def multiv_Main_Menu(url):
+    if 'cunts' in url:
+        import Pandora
+        Pandora.Pandoras_Box('http://genietvcunts.co.uk/PansBox/ORIGINS/tvcats.php')
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
     process.Menu('IMDB Top 100 Programs','http://www.imdb.com/chart/tvmeter?ref_=m_nv_ch_tvm',301,ICON,FANART,'','')
     process.Menu('Genres','',303,ICON,FANART,'','')

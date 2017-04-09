@@ -57,7 +57,6 @@ REAPER_ICON = base_icons + 'reaper.png'
 DOJO_ICON = base_icons + 'dojo.png'
 ULTRA_ICON = base_icons + 'Ultra.png'
 FIDO_ICON = base_icons + 'fido.png'
-PROJECT_D_IMAGE = base_icons + 'projectd.png'
 MIDNIGHT_IMAGE = base_icons + 'midnight2.png'
 INTRO_VID = base_icons + 'Intro.mp4'
 INTRO_VID_TEMP = xbmc.translatePath('special://home/addons/plugin.video.sanctuary/DELETE_ME')
@@ -125,8 +124,8 @@ def docs():
 	process.Menu('Pyramid Documentaries','http://tombraiderbuilds.co.uk/addon/documentaries/documentaries.txt',1101,RAY_ICON,'','','')
 	
 def sports():
-	process.Menu('Project D','',1155,PROJECT_D_IMAGE,FANART,'','')
 	process.Menu('Renegades Darts','',2150,RENEGADES_ICON,FANART,'','')
+	process.Menu('DELIVERANCE','',1139,'https://3.bp.blogspot.com/-mRS8HrApaaY/WOI17mTddmI/AAAAAAAAXBo/CaxwCX7o47QZxaV6W1Qeff39ZyQjYuI5wCLcB/s1600/Deliverance%2BKodi%2B17%2B1.png',FANART,'','')
 	process.Menu('BAMF Live Sports','http://genietvcunts.co.uk/bamffff/livesports.xml',1101,ORIGIN_ICON,FANART,'','')
 	process.Menu('Origin Football Replays','',400,ORIGIN_ICON,FANART,'','')
 	process.Menu('Today\'s Football','',1750,ICON,FANART,'','')
@@ -161,13 +160,12 @@ def Movie_Men():
 def Movie_Def(url):
 	if url == '4k':
 		from lib.pyramid import pyramid
-		pyramid.not_so_anon('Silent Hunter 4k','[QT][UP][YO][JJ][MW][QZ][WI][UP][WI][SS][MW][PD][BU][WX][UP][SS][FA][MW][WX][YO][XU][YZ][UP][YO][JJ][MW][QZ][WI][KW][UR][QZ][WI][MW][SS][YZ][BU][PD][YO][QZ][YZ][XW][YY]Hope you enjoy the view',SILENT_ICON,FANART,'','','')
+		process.Menu('Silent Hunter 4k','http://silenthunter.srve.io/main/4k.xml',1101,SILENT_ICON,FANART,'','','')
 		process.Menu('Pandora 4k','http://genietvcunts.co.uk/PansBox/ORIGINS/4Kmovies.php',426,PANDORA_ICON,'','','')
 		process.Menu('Pyramid 4k','http://tombraiderbuilds.co.uk/addon/movies/uhd/uhd.txt',1101,RAIDER_ICON,'','','')
 	elif url == '3D':
 		process.Menu('Pandora 3D','http://genietvcunts.co.uk/PansBox/ORIGINS/hey3D.php',426,PANDORA_ICON,'','','')
 		process.Menu('Pyramid 3D','http://tombraiderbuilds.co.uk/addon/movies/3d/3d.txt',1101,RAIDER_ICON,'','','')
-		process.Menu('Project 3D','http://projectdaddon.com/projectd/3dhubmovies.xml',1101,RAIDER_ICON,'','','')
 	elif url == '1080p':
 		process.Menu('Pandora 1080p','http://genietvcunts.co.uk/PansBox/ORIGINS/hey1080p.php',426,PANDORA_ICON,'','','')
 	elif url == 'Other':
@@ -179,7 +177,7 @@ def TV_Men():
 	process.Menu('Latest Episodes','',3,ICON,FANART,'','')
 	from lib.pyramid import pyramid
 	process.Menu('Pandora\'s TV','http://genietvcunts.co.uk/PansBox/ORIGINS/tvcats.php',423,PANDORA_ICON,'','','')
-	process.Menu('Cerberus TV','http://cerberus.x10.bz/add-on/tvmenu.php',2301,REAPER_ICON,'','','')
+	process.Menu('Cerberus TV','http://roguemedia.x10.mx/cerberus/add-on/tvmenu.php',2301,REAPER_ICON,'','','')
 	pyramid.not_so_anon('Pyramid TV','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][WI][FA][UP][MW][SS][YO][MW][UP][YZ][WI][FA][AL][XU][QZ][MW][BU][PD][YO][QZ]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('Tigen\'s TV','http://kodeeresurrection.com/TigensWorldtxt/TvShows/Txts/OnDemandSub.txt',1101,TIGEN_ICON,'','','')
 	process.Menu('Raiz TV','http://raiztv.co.uk/RaysRavers/list2/raiztv/tv/tv.txt',1101,RAY_ICON,'','','')
@@ -205,7 +203,6 @@ def Kids_Men():
 	process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
 	process.Menu('Raiz Kids','http://raiztv.co.uk/RaysRavers/list2/raiztv/kids/kidsmain.txt',1101,RAY_ICON,'','','')
 	process.Menu('Origin Kids','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
-	pyramid.not_so_anon('Silent Hunter Kids','[QT][UP][YO][JJ][MW][QZ][WI][UP][WI][SS][MW][PD][BU][WX][UP][SS][FA][MW][WX][YO][XU][YZ][UP][YO][JJ][MW][QZ][WI][KW][UR][QZ][WI][MW][SS][YZ][BU][PD][YO][QZ][YZ][RJ][KW][YO][JJ][LS][SS][MW][QZ]Hope you enjoy the view',SILENT_ICON,FANART,'','','')
 	process.Menu('Oblivion Kids','http://pastebin.com/raw/Y8X1vCaV',1101,OBLIVION_ICON,'','','')
 	pyramid.not_so_anon('Pyramid Kids','[QT][WI][XU][BU][ID][SS][PD][YO][LS][MW][SS][ID][UR][YO][JJ][LS][UP][WX][RJ][XU][WX][UR][YY][YZ][PD][LS][LS][XU][QZ][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP][YZ][YY][YO][LS][UP][RJ][KW][PD][QZ][QZ][MW][JJ][UP]Have a nice day now',RAIDER_ICON,FANART,'','','')
 	process.Menu('BAMF\'s Kids','http://genietvcunts.co.uk/bamffff/lfk.xml',1101,BAMF_ICON,'','','')
@@ -240,8 +237,6 @@ def classic_list():
 			process.Menu('Oblivion IPTV','',1129,OBLIVION_ICON,FANART,'','')
 		if ADDON.getSetting("Tigen's_World")=='true':
 			process.Menu('Tigen\'s World','',1143,TIGEN_ICON,FANART,'','')
-		if ADDON.getSetting('Cold_As_Ice')=='true':
-			process.Menu('Cold As Ice','',1800,COLD_ICON,FANART,'','')
 		if ADDON.getSetting('Supremacy')=='true':
 			process.Menu('Supremacy','',1131,'http://www.stephen-builds.co.uk/wizard/icon.png',FANART,'','')
 		if ADDON.getSetting('Renegades')=='true':
@@ -259,15 +254,15 @@ def classic_list():
 		if ADDON.getSetting('Dojo')=='true':
 			process.Menu('Dojo Streams','http://herovision.x10host.com/dojo/main.php',2300,DOJO_ICON,'','','')
 		if ADDON.getSetting('Cerberus')=='true':
-			process.Menu('Cerberus','http://cerberus.x10.bz/add-on/mainmenu.php',2301,REAPER_ICON,'','','')
+			process.Menu('Cerberus','http://roguemedia.x10.mx/cerberus/add-on/mainmenu.php',2301,REAPER_ICON,'','','')
 		if ADDON.getSetting('Ultra')=='true':
 			process.Menu('Ultra IPTV','',1145,ULTRA_ICON,'','','')
 		if ADDON.getSetting('Fido')=='true':
 			process.Menu('Fido','',1146,FIDO_ICON,'','','')
-		if ADDON.getSetting('Project_D')=='true':
-			process.Menu('Project D','',1155,PROJECT_D_IMAGE,FANART,'','')
 		if ADDON.getSetting('Midnight')=='true':
 			process.Menu('Midnight Society','',1156,MIDNIGHT_IMAGE,FANART,'','')
+		if ADDON.getSetting('Deliverance')=='true':
+			process.Menu('DELIVERANCE','',1139,'https://3.bp.blogspot.com/-mRS8HrApaaY/WOI17mTddmI/AAAAAAAAXBo/CaxwCX7o47QZxaV6W1Qeff39ZyQjYuI5wCLcB/s1600/Deliverance%2BKodi%2B17%2B1.png',FANART,'','')
 		process.setView('movies', 'MAIN')
 		
 
@@ -369,6 +364,7 @@ def Origin_Main():
     process.Menu('TV Shows','',300,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Sports Replays','',2100,ORIGIN_ICON,ORIGIN_FANART,'','')
     process.Menu('Cartoons','',800,ORIGIN_ICON,ORIGIN_FANART,'','')
+    process.Menu('AudioBooks','',600,ORIGIN_ICON,ORIGIN_FANART,'','')
     if Adult_Pass == Adult_Default:
         process.Menu('Porn','',707,ORIGIN_ICON,ORIGIN_FANART,'','')
 
@@ -522,7 +518,7 @@ elif mode == 113: from lib import comedy;comedy.Grab_Episode(url,name,fanart,ico
 elif mode == 114: from lib import comedy;comedy.Get_Sources(name,url,iconimage,fanart)
 elif mode == 115: from lib import comedy;comedy.Get_site_link(url,name)
 elif mode == 116: from lib import comedy;comedy.final(url)
-elif mode == 200: from lib import Movies;Movies.Movie_Main()
+elif mode == 200: from lib import Movies;Movies.Movie_Main(url)
 elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
 elif mode == 203 : from lib import Movies;Movies.IMDB_Grab(url)
 elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
@@ -531,7 +527,7 @@ elif mode == 206 : from lib import Movies;Movies.IMDB_Top250(url)
 elif mode == 207 : from lib import Movies;Movies.search_movies()
 elif mode == 208 : from lib import Movies;Movies.movie_channels()
 elif mode == 209 : from lib import Movies;Movies.split_for_search(extra)
-elif mode == 300 : from lib import multitv;multitv.multiv_Main_Menu()
+elif mode == 300 : from lib import multitv;multitv.multiv_Main_Menu(url)
 elif mode == 301 : from lib import multitv;multitv.IMDB_TOP_100_EPS(url)
 elif mode == 302 : from lib import multitv;multitv.Popular(url)
 elif mode == 303 : from lib import multitv;multitv.Genres()
@@ -672,7 +668,8 @@ elif mode == 816: from lib import Big_Kids;Big_Kids.Random_Play_Cartoon(url,name
 elif mode == 817: from lib import Big_Kids;Big_Kids.twenty47_select()
 elif mode == 818: from lib import Big_Kids;Big_Kids.Search_247()
 elif mode == 900: from lib import Pandora;Pandora.Pandora_Main()
-elif mode == 901: from lib import Pandora;Pandora.Pandoras_Box()
+elif mode == 901: from lib import Pandora;Pandora.Pandoras_Box(url)
+elif mode == 902: from lib import Pandora;Pandora.open_normal(name,url,iconimage,fanart,description)
 elif mode == 423: from lib import Pandora;Pandora.open_Menu(url)
 elif mode == 426: from lib import Pandora;Pandora.Pandora_Menu(url)
 elif mode == 903: from lib import Pandora;Pandora.Search_Menu()
@@ -681,12 +678,6 @@ elif mode == 905: from lib import Pandora;Pandora.Search_Pandoras_TV()
 elif mode == 906: process.Big_Resolve(name,url)
 elif mode == 907: from lib import Pandora;Pandora.Pans_Resolve(name,url)
 elif mode == 1100: from lib.pyramid import pyramid;pyramid.SKindex();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1133: from lib.pyramid import pyramid;pyramid.SKindex_Quicksilver();xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1134: from lib.pyramid import pyramid;pyramid.SKindex_Silent();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1101:from lib.pyramid import pyramid;pyramid.getData(url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1102:from lib.pyramid import pyramid;pyramid.getChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==1103:from lib.pyramid import pyramid;pyramid.getSubChannelItems(name,url,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -758,8 +749,19 @@ elif mode==1126:
 elif mode == 1127:
     from lib.pyramid import pyramid;pyramid.pulsarIMDB=search(url)
     xbmc.Player().play(pulsarIMDB)
-elif mode == 1130:from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)
-elif mode == 1140:from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1128: from lib.pyramid import pyramid;pyramid.SKindex_Joker();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1129: from lib.pyramid import pyramid;pyramid.SKindex_Oblivion();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1130: from lib.pyramid import pyramid;pyramid.GetSublinks(name,url,iconimage,fanart)
+elif mode == 1131: from lib.pyramid import pyramid;pyramid.SKindex_Supremacy();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1132: from lib.pyramid import pyramid;pyramid.SKindex_BAMF();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1133: from lib.pyramid import pyramid;pyramid.SKindex_Quicksilver();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1134: from lib.pyramid import pyramid;pyramid.SKindex_Silent();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1135: from lib.pyramid import pyramid;pyramid.WizHDMenu(url,iconimage,fanart);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1136: from lib.pyramid import pyramid;pyramid.Wiz_Get_url(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1137: from lib.pyramid import pyramid;pyramid.scrape();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1138: from lib.pyramid import pyramid;pyramid.scrape_link(name,url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1139: from lib.pyramid import pyramid;pyramid.SKindex_deliverance();xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 1140: from lib.pyramid import pyramid;pyramid.SearchChannels();pyramid.SetViewThumbnail();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1141: from lib.pyramid import pyramid;pyramid.Search_input(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1142: from lib.pyramid import pyramid;pyramid.RESOLVE(url)
 elif mode == 1143: from lib.pyramid import pyramid;pyramid.SKindex_TigensWorld();xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -769,7 +771,6 @@ elif mode == 1146: from lib.pyramid import pyramid;pyramid.SKindex_Fido();xbmcpl
 elif mode == 1147: from lib.pyramid import pyramid;pyramid.SKindex_Rays();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1153: from lib.pyramid import pyramid;pyramid.pluginquerybyJSON(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1154: from lib.pyramid import pyramid;pyramid.get_random(url);xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 1155: from lib.pyramid import pyramid;pyramid.SKindex_ProjectD();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1156: from lib.pyramid import pyramid;pyramid.SKindex_Midnight();xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 1200: from lib.freeview import freeview;freeview.CATEGORIES()
 elif mode == 1201: from lib.freeview import freeview;freeview.play(url)

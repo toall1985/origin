@@ -478,14 +478,11 @@ def Live_TV(Search_name):
         Search_name = 'Watch'
     dp.create('Checking for streams - ' + Search_name)
     Oblivion_list = ['9SPSsLS2','fdpfhagD','jt4xbSEN','vmxWvdb9','7fFXG8hf']
-    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/beinsportslive/beinsportslive.txt','http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt',
-    'http://tombraiderbuilds.co.uk/addon/sportschannels/','http://tombraiderbuilds.co.uk/addon/ukentertainment/filmon.txt',
-    'http://tombraiderbuilds.co.uk/addon/ukentertainment/filmonmovies.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt',
-    'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt',
-    'http://tombraiderbuilds.co.uk/addon/newschannels/newschannels.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt']
+    Raider_live_list = ['http://tombraiderbuilds.co.uk/addon/btsportslive/btsportslive.txt','http://tombraiderbuilds.co.uk/addon/skysportslive/skysportslive.txt'
+    'http://tombraiderbuilds.co.uk/addon/sportschannels/','http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt',
+    'http://tombraiderbuilds.co.uk/addon/ukentertainment/freeworldiptv.txt','http://tombraiderbuilds.co.uk/addon/ukentertainment/usfreeview.txt']
     Lily_List = ['http://kodeeresurrection.com/LILYSPORTStxts/livetv.txt','http://kodeeresurrection.com/LILYSPORTStxts/musictv.txt.txt','http://kodeeresurrection.com/LILYSPORTStxts/sport.txt']
-    BAMF_List = ['http://genietvcunts.co.uk/bamffff/bamftv.m3u','http://genietvcunts.co.uk/bamffff/bamff4m.xml',
-    'http://genietvcunts.co.uk/bamffff/testing2.xml','http://genietvcunts.co.uk/bamffff/livesports.xml']
+    BAMF_List = ['http://genietvcunts.co.uk/bamffff/bamff4m.xml','http://genietvcunts.co.uk/bamffff/livesports.xml']
     Supremecy_List = ['https://simplekore.com/wp-content/uploads/file-manager/steboy11/LiveTV/live.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Kids%20Tv/Kids%20Tv.txt',
     'https://simplekore.com/wp-content/uploads/file-manager/steboy11/Sky%20Movies/Sky%20Movies.txt',
@@ -512,7 +509,7 @@ def Live_TV(Search_name):
         for item in Raider_live_list:
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting("Tigen's_World_Search")=='true':
-        dp.update(50,'',"Checking Lily Sports",'Please Wait')
+        dp.update(50,'',"Checking Deliverance",'Please Wait')
         for item in Lily_List:
             Thread(target=Raider_Live_Loop(Search_name,item))
     if ADDON.getSetting('Supremacy_Search')=='true':
@@ -551,7 +548,7 @@ def Raider_Live_Loop(Search_name,url):
     elif 'oblivion' in url:
         ADD_NAME = '[COLORlightblue]Oblivion[/COLOR]'
     elif 'kodeeresurrection' in url:
-        ADD_NAME = '[COLORpurple]Lily Sport\'s[/COLOR]'
+        ADD_NAME = '[COLORlightblue]Deliverance[/COLOR]'
     elif 'cunts' in url:
         ADD_NAME = '[COLORwhite]BAMF[/COLOR]'
     elif 'ilent' in url:

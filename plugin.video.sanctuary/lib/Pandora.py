@@ -11,7 +11,7 @@ Base_Pand = (Decode('aHR0cDovL2dlbmlldHZjdW50cy5jby51ay9QYW5zQm94L09SSUdJTlMv'))
 
 def Pandora_Main():
     
-    process.Menu('[COLOR darkgoldenrod][I]Open Pandora\'s Box[/I][/COLOR]','',901,'https://s32.postimg.org/ov9s6ipf9/icon.png','','','')
+    process.Menu('[COLOR darkgoldenrod][I]Open Pandora\'s Box[/I][/COLOR]',Base_Pand +Decode('c3BvbmdlbWFpbi5waHA='),901,'https://s32.postimg.org/ov9s6ipf9/icon.png','','','')
     process.Menu('[COLOR darkgoldenrod][I]Search[/I][/COLOR]','',903,'http://icons.iconarchive.com/icons/icontexto/search/256/search-red-dark-icon.png','','','')
 
     xbmcplugin.setContent(addon_handle, 'movies')
@@ -24,16 +24,63 @@ def Search_Menu():
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 	
-def Pandoras_Box():
+def Pandoras_Box(url):
 
-    html=process.OPEN_URL(Base_Pand +Decode('c3BvbmdlbWFpbi5waHA='))
-    match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?<mode>(.+?)</mode>.+?</item>',re.DOTALL).findall(html)
-    for name,desc,url,img,fanart,mode in match:
-            process.Menu(name,url,mode,img,fanart,desc,'')
+    List = []
+    import xbmc;xbmc.log(url)
+    html=process.OPEN_URL(url)
+    match = re.compile('<item>.+?<title>(.+?)</title>.+?<description>(.+?)</description>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)</fanart>.+?</item>',re.DOTALL).findall(html)
+    for name,desc,url2,img,fanart in match:
+        if 'php' in url2:
+            if name == '[COLOR darkgoldenrod][I]Movies[/I][/COLOR]':
+                process.Menu(name,url2,200,img,fanart,desc,'')
+            elif name == '[COLOR darkgoldenrod][I]TV Shows[/I][/COLOR]':
+                process.Menu(name,url2,300,img,fanart,desc,'')
+            elif name == '[COLOR darkgoldenrod][I]Recently Added TV[/I][/COLOR]':
+                process.Menu(name,url2,902,img,fanart,desc,'')
+            elif name == '[COLOR darkgoldenrod][I]Recently Added Movies[/I][/COLOR]':
+                process.Menu(name,url2,902,img,fanart,desc,'')
+            else:
+                process.Menu(name,url2,901,img,fanart,desc,'')
+    match2=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(html)
+    for url3,iconimage,desc,fanart,name in match2:
+        if 'php' in url:
+            process.Menu(name,url3.replace(' ','%20'),901,iconimage,fanart,desc,'')
+        elif not 'http' in url3:
+            if len(url) == 11:
+                url = 'plugin://plugin.video.youtube/play/?video_id='+ url
+                process.PLAY(name,url3,906,iconimage,fanart,desc,'')			
+        elif 'utube' in url and 'playlist' in url:
+            process.Menu(name,url3,10002,iconimage,fanart,desc,'')	
+        elif 'sportsdevil:' in url3:
+            url = 'plugin://plugin.video.SportsDevil/?mode=1&amp;item=catcher%3dstreams%26url='+url.replace('sportsdevil:','')
+            process.PLAY(name,url3,906,iconimage,fanart,desc,'')			
+        elif 'f4mtester:' in url3:
+            if '.f4m' in i.string:
+                url3 = 'plugin://plugin.video.f4mTester/?url='+url3
+            elif '.m3u8' in i.string:
+                url3 = 'plugin://plugin.video.f4mTester/?url='+url3+'&amp;streamtype=HLS'
+            else:
+                url3 = 'plugin://plugin.video.f4mTester/?url='+url3+'&amp;streamtype=SIMPLE'
+            process.PLAY(name,url3,906,iconimage,fanart,desc,'')
+        elif 'sublink:' in url3:
+            process.PLAY(name,url3,1130,iconimage,fanart,desc,'')
+        elif name == '[COLOR darkgoldenrod][I]Recently Added TV[/I][/COLOR]':
+			process.PLAY(name,url3.replace(' ','%20'),906,iconimage,fanart,desc,'')
+        elif name == '[COLOR darkgoldenrod][I]Recently Added Movies[/I][/COLOR]':
+			process.PLAY(name,url3.replace(' ','%20'),906,iconimage,fanart,desc,'')
+        else:
+            process.PLAY(name,url3.replace(' ','%20'),906,iconimage,fanart,desc,'')			
 
+    xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_TITLE)
     xbmcplugin.setContent(addon_handle, 'movies')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 			
+			
+def open_normal(name,url,iconimage,fanart,description):
+	html = process.OPEN_URL(url)
+	match2=re.compile('<a href="(.+?)" target="_blank"><img src="(.+?)" style="max-width:200px;" /><description = "(.+?)" /><background = "(.+?)" </background></a><br><b>(.+?)</b>').findall(html)
+	for url,iconimage,desc,fanart,name in match2:
+		process.PLAY(name,url.replace(' ','%20'),906,iconimage,fanart,description,'')			
 			
 def Pandora_Menu(url):
         
