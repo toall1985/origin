@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Personalise">
+        <setting label="Max stream results timeout" type="slider" id="Results" subsetting="true" default="50" range="5,5,2000" option="int" />
+        <setting label="Max Ingenious lists checked" type="slider" id="Sources" subsetting="true" default="30" range="5,5,150" option="int" />
+		<setting id="Freeview" type="bool" label="Freeview" default="true"/>
+		<setting id="Ingenious" type="bool" label="Ingenious" default="true"/>
+		<setting id="Mama_HD" type="bool" label="Mama HD" default="true"/>
+		<setting id="Live_Online" type="bool" label="Live Online" default="true"/>
+		<setting id="Shadow" type="bool" label="Shadow" default="true"/>
+		<setting id="IPTVsat" type="bool" label="IPTVsat" default="true"/>
+		<setting id="IPTVUrl" type="bool" label="IPTVUrl" default="true"/>
+		<setting id="Freeworld" type="bool" label="Freeworld" default="true"/>
+    </category>	
+	<category label="Search List">
+		<setting id="Search_List" type="bool" label="Add Search List Menu For Favourites" default="true"/>
+   	</category>
+	<category label="Auto-View">
+		<setting id="auto-view" type="bool" label="Enable Auto View" default="true"/>
+		<setting id="MAIN" type="number" label="MAIN" default="500" enable="!eq(-1,false)"/>
+		<setting id="INFO" type="number" label="INFO" default="515" enable="!eq(-1,false)"/>
+		<setting id="INFO2" type="number" label="INFO2" default="503" enable="!eq(-1,false)"/>
+        <setting id="message" type="bool" label="for messages" default="false" visible="false"/>
+        <setting id="pop_time" type="text" label="For POP UP" default="2000-01-01 00:00:00" visible="false"/>
+        <setting id="ga_time" type="text" label="GA Called" default="2000-01-01 00:00:00" visible="false"/>
+        <setting id="visitor_ga" type="text" label="GA visitor" default="" visible="false"/>
+   	</category>
+</settings>
