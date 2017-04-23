@@ -101,15 +101,21 @@
   </extension>
 </addon>
 
-    <addon id="repository.origin" name="Origin Repo" version="1.0.5" provider-name="Origin">
-        <broken>Support dropped</broken>
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.metadata">
-            <summary>A short summary of this addon</summary>
-            <description>Origin Builds Repo</description>
-            <platform>all</platform>
+<addon id="repository.origin" name="Origin Repo" version="1.0.4" provider-name="Origin">
+    <broken>Support dropped</broken>
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository" name="Origin Repo">
+        <info compressed="false"></info>
+        <checksum></checksum>
+        <datadir zip="true"></datadir>
+        <hashes>false</hashes>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>A short summary of this addon</summary>
+        <description>Origin Builds Repo</description>
+        <platform>all</platform>
     </extension>
 </addon>
 </addons>
