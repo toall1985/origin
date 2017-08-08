@@ -92,6 +92,7 @@ def get_links(url):
 			get_source(link)
 			
 def get_source(url):
+    xbmc.log('url:'+url,xbmc.LOGNOTICE)
     List = []
     html3 = requests.get(url).content
     match3 = re.compile('JuicyCodes.Run\((.+?)\);',re.DOTALL).findall(html3)
@@ -120,21 +121,24 @@ def get_source(url):
                 "episodeHOT":ep_hot,
                 "file":File
                 }
-        response = requests.post('https://api.streamdor.co/sources',headers=headers,data=data).json()
-        results = response["sources"]
         try:
-            results.extend(response["sources_backup"])
+            response = requests.post('https://api.streamdor.co/sources',headers=headers,data=data).json()
+            results = response["sources"]
+            try:
+                results.extend(response["sources_backup"])
+            except:
+                results = results
+            for item in results:
+                playlink = item["file"]
+                quality = item["label"]
+                if '=m' in playlink:
+                    source = 'Gvideo'
+                else:
+                    source = 'Streamdor'
+                Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
         except:
-            results = results
-        for item in results:
-            playlink = item["file"]
-            quality = item["label"]
-            if '=m' in playlink:
-                source = 'Gvideo'
-            else:
-                source = 'Streamdor'
-            Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
-
+            Play('No response from stream, please try again','',20,'','','','')
+            Play('If it fails again it may be worth trying another addon','',20,'','','','')
 
 			
 def Search():
