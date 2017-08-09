@@ -17,7 +17,6 @@
 import sys
 import urlparse
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
-import urlresolver
 import time
 from datetime import datetime
 
@@ -221,11 +220,9 @@ print "URL: "+str(url)
 print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
-def Resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
+def Resolve(name,url): 
+	xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def OPEN_URL(url):
         req = urllib2.Request(url)
@@ -249,7 +246,7 @@ elif mode == 1 		: TESTCATS()
 elif mode == 2    	: Search()
 elif mode == 3    	: LISTS(url)
 elif mode == 4    	: LISTS2(url,iconimage)
-elif mode == 5    	: Resolve(url)
+elif mode == 5    	: Resolve(name,url)
 elif mode == 6 		: Classics1()
 elif mode == 7 		: Classics2(url)
 elif mode == 8 		: Classics3(url)

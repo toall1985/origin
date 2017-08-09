@@ -8,6 +8,8 @@ FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
 ADDON_DATA = USERDATA_PATH + '/plugin.video.1movies/'
 favourites = ADDON_DATA + 'favourites'
+addon_id = 'plugin.video.1movies'
+ADDON = xbmcaddon.Addon(id=addon_id)
 if os.path.exists(favourites) == True:
    FAV = open(favourites).read()
 else:
@@ -57,20 +59,28 @@ def get_info(url):
 	for url,name,image,qual in match:
 		url = 'http:'+url
 		if 'season' in name.lower():
-			Menu(name,url,4,image,FANART,'',qual)
+			tv_check(name,url,image,qual)
 		elif 's0' in name.lower():
-			Menu(name,url,4,image,FANART,'',qual)
+			tv_check(name,url,image,qual)
 		elif 's1' in name.lower():
-			Menu(name,url,4,image,FANART,'',qual)
+			tv_check(name,url,image,qual)
 		elif 's2' in name.lower():
-			Menu(name,url,4,image,FANART,'',qual)
+			tv_check(name,url,image,qual)
 		elif 's3' in name.lower():
-			Menu(name,url,4,image,FANART,'',qual)
+			tv_check(name,url,image,qual)
 		else:
 			Play(name+' ('+qual+')',url,5,image,FANART,'',qual)
 	Next = re.compile('<li class="c-active">.+?href=".+?href="(.+?)"').findall(html)
 	for n in Next:
 		Menu('Next Page','http:'+n,1,ICON,FANART,'','')
+		
+def tv_check(name,url,image,qual):
+	if ADDON.getSetting('choice') == 'Playlist':
+		Random_play(name.replace('/',''),6,url=url,image='',isFolder=False)
+	elif ADDON.getSetting('choice') == 'Single':
+		Menu(name,url,4,image,FANART,'',qual)
+
+
 
 def tv_show(url,qual):
 	html = requests.get(url).content
@@ -80,7 +90,79 @@ def tv_show(url,qual):
 		for u,n in match:
 			Play(n+' ('+qual+')','http:'+u,5,ICON,FANART,'',qual)
 
-		
+def playlist(url,isFolder=None):
+	List = []
+	Choices = []
+	html = requests.get(url).content
+	block = re.compile('<div class="ep_link full">(.+?)</div>',re.DOTALL).findall(html)
+	for b in block:
+		match = re.compile('<a href="(.+?)".+?>(.+?)<').findall(str(b))
+		for u,n in match:
+			u = 'http:'+u
+			xbmc.log('name:'+n,xbmc.LOGNOTICE)
+			ep_name = re.compile('Episode (.+?)<').findall(str(n+'<'))[0]
+			if len(ep_name)>1:
+				if ep_name[0] == '0':
+					ep_name = ep_name[1]
+			else:
+				ep_name = ep_name
+			Choices.append(('Episode '+ep_name,u))
+			List.append((n,u))
+			if len(List)==len(match):
+				choice = xbmcgui.Dialog().select("Start from", [name for name,url in Choices])
+				if choice != -1:
+					Select_Type(Choices[int(choice-1):])
+				
+def Select_Type(List):
+	xbmc.log('########################################')
+	xbmc.log(str(List))
+	xbmc.log('########################################')
+	skip = []
+	Playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+	Playlist.clear()
+	for item in List:
+		name = item[0]
+		link = item[1]
+		playlink = get_playlist_source(link)
+		p = playlink
+		liz = xbmcgui.ListItem(name, iconImage='', thumbnailImage='')
+		liz.setInfo( type="Video", infoLabels={"Title": name})
+		liz.setProperty("IsPlayable","true")
+		Playlist.add(p, liz)
+		xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+
+def get_playlist_source(link):
+	xbmc.log('link:'+link,xbmc.LOGNOTICE)
+	html = requests.get(link).content
+	match = re.compile('load_player\((.+?)\)').findall(html)
+	for i in match:
+		u = i
+		headers = {
+					"referer":link,
+					"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
+					"host":"1movies.tv"
+				}
+		item = 'http://1movies.tv/ajax/movie/load_player_v3?id='+u
+		xbmc.log('item:'+item,xbmc.LOGNOTICE)
+		head_req = requests.post(item,headers=headers).content
+		xbmc.log('head_req:'+head_req,xbmc.LOGNOTICE)
+		resp = re.compile('value":"(.+?)"').findall(head_req)
+		for r in resp:
+			new_headers = {
+			"referer":link,
+			"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
+			"host":"xplay.1movies.tv"
+			}
+			newurl = 'http:'+r.replace('\\','')
+			xbmc.log('newurl:'+newurl,xbmc.LOGNOTICE)
+			response = requests.post(newurl,headers=new_headers).json()
+			results = response["playlist"]
+			for item in results:
+				playlink = item["file"]
+				return playlink
+			
+				
+				
 def get_source(link,qual):
 	xbmc.log('link:'+link,xbmc.LOGNOTICE)
 	qual = qual
@@ -127,6 +209,28 @@ def setView(content, viewType):
       xbmcplugin.setContent(int(sys.argv[1]), content)
    if ADDON.getSetting('auto-view')=='true':
       xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )
+	  
+	  
+def Random_play(name, mode, url='', image=None, isFolder=True, page=1, keyword=None, infoLabels=None, contextMenu=None):
+    u  = sys.argv[0] 
+    u += '?mode='  + str(mode)
+    u += '&title=' + urllib.quote_plus(name)
+    u += '&image=' + urllib.quote_plus(image)
+    u += '&page='  + str(page)
+    if url != '':     
+        u += '&url='   + urllib.quote_plus(url) 
+    if keyword:
+        u += '&keyword=' + urllib.quote_plus(keyword) 
+    liz = xbmcgui.ListItem(name, iconImage=image, thumbnailImage=image)
+    if contextMenu:
+        liz.addContextMenuItems(contextMenu)
+    if infoLabels:
+        liz.setInfo(type="Video", infoLabels=infoLabels)
+    if not isFolder:
+        liz.setProperty("IsPlayable","true")
+    liz.setProperty('Fanart_Image', '')     
+    xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=isFolder)
+
 		
 		
 def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
@@ -323,6 +427,7 @@ elif mode == 2 : Search()
 elif mode == 3 : Genre()
 elif mode == 4 : tv_show(url,extra)
 elif mode == 5 : get_source(url,extra)
+elif mode == 6 : playlist(url)
 elif mode == 10: getFavourites()
 elif mode==11:
    try:

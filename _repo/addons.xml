@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.5" provider-name="Origin">
+<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.5.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -17,10 +16,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.1080pmovie" name="1080p Movie" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.1080pmovie" name="1080p Movie" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -36,10 +34,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.1movies" name="1Movies" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.1movies" name="1Movies" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -55,10 +52,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.animetoon" name="Animetoon" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.animetoon" name="Animetoon" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -74,10 +70,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.8" provider-name="Origin">
+<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.8.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -91,10 +86,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.fullmatchesandshows" name="Full Matches and Shows" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.fullmatchesandshows" name="Full Matches and Shows" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -110,10 +104,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -129,10 +122,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.kingmovies" name="Kingmovies" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.kingmovies" name="Kingmovies" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -148,10 +140,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.watchcartoononline" name="Watchcartoononline" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.watchcartoononline" name="Watchcartoononline" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
@@ -167,10 +158,9 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.yesmovies" name="Yesmovies" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.yesmovies" name="Yesmovies" version="0.0.1.1" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="3.0.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />

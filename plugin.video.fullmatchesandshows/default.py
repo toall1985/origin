@@ -237,12 +237,7 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(name,url): 
-	import urlresolver
-	try:
-		resolved_url = urlresolver.resolve(url)
-		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
-	except:
-		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmc.Player().play(url, xbmcgui.ListItem(name))
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():

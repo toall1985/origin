@@ -17,7 +17,6 @@
 import sys
 import urlparse
 import urllib,urllib2,datetime,re,os,base64,xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs,traceback,cookielib,urlparse,httplib,time
-import urlresolver
 import time
 from datetime import datetime
 
@@ -189,10 +188,8 @@ def GetPlayerCore():
 
 
 def Resolve(url): 
-    play=xbmc.Player(GetPlayerCore())
-    import urlresolver
-    try: play.play(url)
-    except: pass
+	xbmc.Player().play(url, xbmcgui.ListItem(name))
+	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def OPEN_URL(url):
         req = urllib2.Request(url)
@@ -213,7 +210,7 @@ def setView(content, viewType):
 
 if mode == None     : Home_Menu()
 elif mode == 1 		: Radio(url)
-elif mode == 2    	: Resolve(url)
+elif mode == 2    	: Resolve(name,url)
 elif mode == 3  	: Radio_Country()
 elif mode == 4 	 	: MUSIC3()
 elif mode == 5 		: MUSIC4(url,iconimage)
