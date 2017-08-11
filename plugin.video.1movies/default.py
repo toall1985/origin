@@ -125,13 +125,6 @@ def Select_Type(List):
 		link = item[1]
 		playlink = get_playlist_source(link)
 		p = playlink
-		if ADDON.getSetting('choice') == 'Playlist':
-			p = playlink
-		elif ADDON.getSetting('choice') == 'Random':
-			g=random.randint(1,len(List)-len(skip))
-			rand = List[g]
-			name = rand[0]
-			p = rand[1]
 		liz = xbmcgui.ListItem(name, iconImage='', thumbnailImage='')
 		liz.setInfo( type="Video", infoLabels={"Title": name})
 		liz.setProperty("IsPlayable","true")
@@ -354,7 +347,12 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(name,url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+	import urlresolver
+	try:
+		resolved_url = urlresolver.resolve(url)
+		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
