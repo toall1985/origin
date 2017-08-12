@@ -20,7 +20,6 @@ def Main_Menu():
 	Menu('Latest News','http://www.fullmatchesandshows.com/category/latest-news/',1,ICON,FANART,'','')
 	Menu('Leagues','',3,ICON,FANART,'','')
 	Menu('Search','',2,ICON,FANART,'','')
-	Play('TEST','https://secure-cf-c.ooyala.com/pleWc3YzE6PsPvpR4V3znPOYAQFNx_F-/2/dash/2_3_1280_720_2200_baselineinit.mp4',20,'','','','')
 	
 	
 def Leagues():	
@@ -83,8 +82,13 @@ def get_PLAYlink(name,url):
 			if 'div' in playlink:
 				pass
 			elif 'weshare' in playlink:
-				if 'php' in playlink:
-					Play('Play - Weshare',playlink,20,ICON,FANART,'','')
+				if not 'mp4' in playlink:
+					h = requests.get(playlink).content
+					match = re.compile('source src="(.+?)"').findall(h)
+					for p in match:
+						Play('Play - Weshare',p,20,ICON,FANART,'','')
+				else:
+					Play('Play - Weshare',p,20,ICON,FANART,'','')
 			elif 'rutube.ru' in playlink:
 				playlink = 'https:'+playlink
 				api = 'https://rutube.ru/api/play/options/'+playlink.replace('https://rutube.ru/play/embed/','')+'/?format=json&sqr4374_compat=1&no_404=true&referer='+playlink

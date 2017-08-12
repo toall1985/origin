@@ -57,8 +57,9 @@ def movie_channels():
                         splitter = time_info + '>'
                         movie_search = re.compile('m (.+?)>').findall(str(splitter))
                         for item in movie_search:
-                            fin_item = item
-                        process.PLAY(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',209,'','','',fin_item)
+                            n,y = re.findall('(.+?) \((.+?)\)',item)[0]
+                            fin_item = '>'+n+'>'+y+'>'
+                        process.PLAY(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
 
 #    except:
 #        pass
@@ -107,7 +108,7 @@ def IMDB_Top250(url):
 			pass
 		
 def IMDB_Grab(url):
-	try:
+#	try:
 		List = []
 		xbmc.log(url)
 		html = requests.get(url).text	
@@ -115,12 +116,12 @@ def IMDB_Grab(url):
 		for url,name,image,year,desc in match:
 			image = image.replace('45,67','174,256').replace('UY67','UY256').replace('UX67','UX175').replace('UY98','UY256').replace('SX54','SX170').replace('54,74','174,256').replace('67,98','174,256')
 			try:
-				if '(2017)' in year:
+				if '(2018)' in year:
 					pass
 				else:
 					xbmc.log(image)
 					year = year.replace('(I) ','').replace('II','')
-					process.PLAY(name + ' ' + year,'Movies',1501,image,'',desc,'>'+title+'>'+year+'>')
+					process.PLAY(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
 					process.setView('movies', 'INFO')
 			except:
 				pass
@@ -129,5 +130,5 @@ def IMDB_Grab(url):
 			if item not in List:
 				process.Menu('Next Page','http://imdb.com/search/title'+item,203,'','','','')
 				List.append(item)
-	except:
-		pass
+#	except:
+#		pass
