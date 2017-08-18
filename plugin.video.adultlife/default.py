@@ -35,6 +35,10 @@ def Main_Menu():
 		process.Menu('Spank Wire','',772,'http://kenny2u.org/wp-content/uploads/2016/09/icon-43.png',FANART,'','')
 		process.Menu('4k','',758,'https://pbs.twimg.com/profile_images/700315084980035588/fZZO6Pf-.jpg',FANART,'','')
 		process.Menu('VR','http://www.xvideos.com/?k=vr',701,'https://pbs.twimg.com/profile_images/741907565689217024/DByQczLO.jpg',FANART,'','')
+    else:
+		process.Menu('The addon will not work without correct password','','',ICON,FANART,'','')
+		process.Menu('visit http://kodification.co.uk/reportissues to find it','','',ICON,FANART,'','')
+	
 	
 def setView(content, viewType):
     # set content type so library shows more views and info
