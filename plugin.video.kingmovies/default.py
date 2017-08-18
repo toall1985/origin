@@ -76,10 +76,13 @@ def movie_check(url):
 		get_links(url)
 		
 def tv_show(url):
+    List = []
     html2 = requests.get(url).content
     match2 = re.compile('<li class="ep-item">.+?<a href="(.+?)">(.+?)</a>',re.DOTALL).findall(html2)
     for url3,name2 in match2:
-        Menu(name2,url3,7,ICON,FANART,'','')
+        if name2 not in List:
+            Menu(name2,url3,7,ICON,FANART,'','')
+            List.append(name2)
 		
 
 	
@@ -89,10 +92,9 @@ def get_links(url):
 	for link in match2:
 		if not link.startswith('http:'):
 			link = 'http:'+link
-			get_source(link)
+			get_source(link,url)
 			
-def get_source(url):
-    xbmc.log('url:'+url,xbmc.LOGNOTICE)
+def get_source(url,u):
     List = []
     html3 = requests.get(url).content
     match3 = re.compile('JuicyCodes.Run\((.+?)\);',re.DOTALL).findall(html3)
@@ -111,7 +113,7 @@ def get_source(url):
         ep_hot = re.findall('"episodeHOT":(.+?),',string)[0]
         File = re.findall('"file":"(.+?)"',string)[0]
         headers = {"origin":"https://embed.streamdor.co",
-                   "referer":url,
+                   "referer":u,
                    "user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36"
                    }
                 
@@ -122,15 +124,17 @@ def get_source(url):
                 "file":File
                 }
         try:
+            xbmc.log('hi',xbmc.LOGNOTICE)
             response = requests.post('https://api.streamdor.co/sources',headers=headers,data=data).json()
             results = response["sources"]
-            try:
-                results.extend(response["sources_backup"])
-            except:
-                results = results
-            for item in results:
-                playlink = item["file"]
-                quality = item["label"]
+            ur = 'http:'+results
+            z = requests.get(ur).json()
+            s = re.findall("'sources'.+?\[(.+?)\]",str(z))[0]
+            single = re.compile('{(.+?)}').findall(s)
+            for item in single:
+                xbmc.log(item,xbmc.LOGNOTICE)
+                playlink = re.findall("'file':.+?'(.+?)'",item)[0]
+                quality = re.findall("'label':.+?'(.+?)'",item)[0]
                 if '=m' in playlink:
                     source = 'Gvideo'
                 else:
