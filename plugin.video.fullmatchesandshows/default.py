@@ -54,19 +54,28 @@ def Get_info(url,iconimage):
             Menu(Name,url,4,img,'','','')
         else:
     	    Name = name.replace('&#8211;', '-').replace('&#038;', '&').replace('&#8217;', '')
-            Menu(Name,url,5,img,'','','')
+            Menu(Name,url,4,img,'','','')
     Next = re.compile('<span class="current">.+?</span><a href="(.+?)" class="page" title=".+?">(.+?)</a>').findall(HTML)
     for url,name in Next:
         Menu('Next Page',url,1,iconimage,FANART,'','')
 		
-def get_Multi_Links(url,iconimage):
-    Play('Extended Highlights',url,5,iconimage,FANART,'','')
-    HTML = requests.get(url).content
-    match = re.compile('<link href=".+?" rel="stylesheet" type="text/css"><li tabindex="0" class="button_style" id=".+?"><a href="(.+?)"><div class="acp_title">(.+?)</div></a></li>').findall(HTML)
-    for url2,name in match:
-        url = url+url2
-        name = (name).replace('HL English','English Highlights')
-        Play(name,url,5,iconimage,FANART,'','')
+def get_Multi_Links(name,url,iconimage):
+    try:
+        List = []
+        HTML = requests.get(url).content
+        block = re.findall('<ul class="paging_btns" id="acp_paging_menu">(.+?)</ul>',HTML)[0]
+        match2 = re.findall('<div class="acp_title">(.+?)</div>',HTML)
+        match = re.compile('<li.+?href="(.+?)".+?<div class="acp_title">(.+?)</div>').findall(str(block))
+        for url2,name in match:
+            name = (name).replace('HL English','English Highlights')
+            List.append(name)
+            Menu(name,url2,5,iconimage,FANART,'','')
+        for n in match2:
+            name = (n).replace('HL English','English Highlights')
+            if name not in List:
+                Menu(name,url,5,iconimage,FANART,'','')
+    except:
+        get_PLAYlink(name,url)
 		
 		
 def get_PLAYlink(name,url):
@@ -314,7 +323,7 @@ if mode == None: Main_Menu()
 elif mode == 1 : Get_info(url,iconimage)
 elif mode == 2 : Search()
 elif mode == 3 : Leagues()
-elif mode == 4 : get_Multi_Links(url,iconimage)
+elif mode == 4 : get_Multi_Links(name,url,iconimage)
 elif mode == 5 : get_PLAYlink(name,url)
 elif mode == 6 : yt.PlayVideo(url)
 elif mode == 10: getFavourites()
