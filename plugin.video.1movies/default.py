@@ -69,7 +69,7 @@ def get_info(url):
 		elif 's3' in name.lower():
 			tv_check(name,url,image,qual)
 		else:
-			Play(name+' ('+qual+')',url,5,image,FANART,'',qual)
+			Play(name+' ('+qual+')',url,20,image,FANART,'',qual)
 	Next = re.compile('<li class="c-active">.+?href=".+?href="(.+?)"').findall(html)
 	for n in Next:
 		Menu('Next Page','http:'+n,1,ICON,FANART,'','')
@@ -88,7 +88,7 @@ def tv_show(url,qual):
 	for b in block:
 		match = re.compile('<a href="(.+?)".+?>(.+?)<').findall(str(b))
 		for u,n in match:
-			Play(n+' ('+qual+')','http:'+u,5,ICON,FANART,'',qual)
+			Play(n+' ('+qual+')','http:'+u,20,ICON,FANART,'',qual)
 
 def playlist(url,isFolder=None):
 	List = []
@@ -160,40 +160,6 @@ def get_playlist_source(link):
 			for item in results:
 				playlink = item["file"]
 				return playlink
-			
-				
-				
-def get_source(link,qual):
-	xbmc.log('link:'+link,xbmc.LOGNOTICE)
-	qual = qual
-	html = requests.get(link).content
-	match = re.compile('load_player\((.+?)\)').findall(html)
-	for i in match:
-		u = i
-		headers = {
-					"referer":link,
-					"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
-					"host":"1movies.tv"
-				}
-		item = 'http://1movies.tv/ajax/movie/load_player_v3?id='+u
-		xbmc.log('item:'+item,xbmc.LOGNOTICE)
-		head_req = requests.post(item,headers=headers).content
-		xbmc.log('head_req:'+head_req,xbmc.LOGNOTICE)
-		resp = re.compile('value":"(.+?)"').findall(head_req)
-		for r in resp:
-			new_headers = {
-			"referer":link,
-			"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
-			"host":"xplay.1movies.tv"
-			}
-			newurl = 'http:'+r.replace('\\','')
-			xbmc.log('newurl:'+newurl,xbmc.LOGNOTICE)
-			response = requests.post(newurl,headers=new_headers).json()
-			results = response["playlist"]
-			for item in results:
-				playlink = item["file"]
-				resolve('Gvideo | ('+qual+')',playlink)
-	
 	
 def Search():
    Search_url = 'http://1movies.tv/movies/search?s='
@@ -347,12 +313,8 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(name,url): 
-	import urlresolver
-	try:
-		resolved_url = urlresolver.resolve(url)
-		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
-	except:
-		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	import originresolver
+	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():

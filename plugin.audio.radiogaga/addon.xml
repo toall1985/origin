@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.5.1" provider-name="Origin">
+<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.originresolver"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">

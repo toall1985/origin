@@ -27,49 +27,23 @@ def Get_Info(url):
 	html = requests.get(url).content
 	match = re.compile('<div class="ml-item">.+?href="(.+?)".+?title="(.+?)".+?img.+?data-original="(.+?)"',re.DOTALL).findall(html)
 	for url,name,image in match:
-		Menu(name,url,5,image,FANART,'','')
+		if '-season-' in url:
+			Menu(name,url,5,image,FANART,'','')
+		else:
+			Play(name,url,20,image,FANART,'','')
+	
+		
 	Next = re.compile('<li class="active">.+?<li>.+?href="(.+?)"').findall(html)
 	for u in Next:
 		Menu('Next Page',u,3,ICON,FANART,'','')
 
-def movie_check(url):
-	if '-season-' in url:
-		tv_show(url)
-	else:
-		movie(url)
 		
-def movie(link):
-    qual = 'SD'
-    html = requests.get(link).content
-    match = re.findall('favorite\((.+?),',html)[0]
-    second_url = 'https://yesmovies.to/ajax/v4_movie_episodes/'+match
-    html2 = requests.get(second_url).content
-    match2 = re.compile('data-id=.+?"(.+?)\"').findall(html2)
-    for m in match2:
-        m = m.replace('\\','')
-        if len(m)==6:
-            url = 'https://yesmovies.to/ajax/movie_token?eid='+m+'&mid='+match
-            html3 = requests.get(url).content
-            x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
-            fin_url = 'https://yesmovies.to/ajax/movie_sources/'+m+'?x='+x+'&y='+y
-            h = requests.get(fin_url).content
-            source = re.findall('"sources":\[(.+?)\]',h)
-            single = re.findall('{(.+?)}',str(source))
-            for s in single:
-                playlink = re.findall('"file":"(.+?)"',str(s))
-                q = re.compile('"label":"(.+?)"').findall(str(s))
-                for h in q:
-                    qual = h
-                for p in playlink:
-                    if 'lemon' not in p:
-                        if 'http' in p:
-                            p = p.replace('\\','')
-                            Play(qual,p,20,ICON,FANART,'','')
- 	
 		
 def tv_show(url):
+	xbmc.log('url:'+url,xbmc.LOGNOTICE)
 	html2 = requests.get(url).content
 	match2 = re.findall('favorite\((.+?),',html2)[0]
+	xbmc.log('https://yesmovies.to/ajax/v4_movie_episodes/'+match2,xbmc.LOGNOTICE)
 	get_ep = requests.get('https://yesmovies.to/ajax/v4_movie_episodes/'+match2).content
 	block = re.compile('<ul id=.+?"episodes-sv-6(.+?)"(.+?)ul>',re.DOTALL).findall(get_ep)
 	for c,u in block:
@@ -78,6 +52,7 @@ def tv_show(url):
 		else:
 			m = re.compile('<li class=.+?"ep-item .+?".+?data-server=.+?"(.+?)" data-id=.+?"(.+?)".+?title=.+?"(.+?)">').findall(str(u))
 			for s,i,t in m:
+				xbmc.log(i.replace('\\','')+'-'+s.replace('\\',''),xbmc.LOGNOTICE)
 				Menu(t.replace('\\',''),i.replace('\\',''),6,ICON,FANART,'',match2)
 	
 def get_ep_source(m,match):
@@ -247,7 +222,11 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+	try:
+		import originresolver
+		originresolver.originresolver(name,url)
+	except:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
@@ -321,7 +300,7 @@ elif mode == 1 : genre(url)
 elif mode == 2 : Search()
 elif mode == 3 : Get_Info(url)
 elif mode == 4 : imdb()
-elif mode == 5 : movie_check(url)
+elif mode == 5 : tv_show(url)
 elif mode == 6 : get_ep_source(url,extra)
 
 

@@ -25,6 +25,7 @@ def Main_Menu():
    Menu('Genre','',3,ICON,FANART,'','')
    Menu('Year','',5,ICON,FANART,'','')
    Menu('Search','',2,ICON,FANART,'','')
+   Play('Test','https://bigcdn.flashx1.tv/cdn04/5k7x3s5kg4vvjuw5lwozpuqa3waomipych2k3uxnqbajpe4lkdg2put2rzwq/normal.mp4',20,'','','','')
 
 def genre():
    Menu('Comedy','https://kingmovies.is/genre/comedy',1,ICON,FANART,'','')

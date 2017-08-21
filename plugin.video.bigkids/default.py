@@ -45,7 +45,6 @@ BASE 		= Decode('aHR0cDovL3d3dy5hbmltZXRvb24ub3JnL2NhcnRvb24=')
 
 def Home_Menu():
 
-    addDirFolder('Classics','',6,IMAGES,FANART,'')	
     addDirFolder('Cartoons','',1,IMAGES,FANART,'')
     addDirFolder('Search Cartoons','',2,IMAGES,FANART,'')
 	
@@ -220,8 +219,9 @@ print "URL: "+str(url)
 print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
-def Resolve(name,url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+def resolve(name,url): 
+	import originresolver
+	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def OPEN_URL(url):
@@ -246,7 +246,7 @@ elif mode == 1 		: TESTCATS()
 elif mode == 2    	: Search()
 elif mode == 3    	: LISTS(url)
 elif mode == 4    	: LISTS2(url,iconimage)
-elif mode == 5    	: Resolve(name,url)
+elif mode == 5    	: resolve(name,url)
 elif mode == 6 		: Classics1()
 elif mode == 7 		: Classics2(url)
 elif mode == 8 		: Classics3(url)

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.kingmovies" name="Kingmovies" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.kingmovies" name="Kingmovies" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
+	<import addon="script.module.originresolver"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>

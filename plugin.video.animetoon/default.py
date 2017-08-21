@@ -54,29 +54,7 @@ def get_items(url):
     for item in block:
         single = re.compile('<a href="(.+?)">(.+?)</a>').findall(str(block))
         for url,name in single:
-            Menu(name,url,5,ICON,FANART,'','')
-			
-def Playlink(url):
-    html3 = requests.get(url).text
-    match2 = re.compile('<div class="vmargin">.+?src="(.+?)"').findall(html3)
-    for playlink in match2:
-        if 'zoo' in playlink:
-            playname = 'videozoo'
-        elif 'bb' in playlink:
-            playname = 'playbb'
-        elif 'easy' in playlink:
-            playname = 'easyvideo'
-        elif 'panda' in playlink:
-            playname = 'playpanda'
-#        Menu(playname,'','','','','','')
-        html4 = requests.get(playlink).content
-        play = re.compile('"link":"(.+?)"').findall(html4)
-        for link in play:
-            playlink = link.replace('\\','')
-        _url = re.compile('_url = "(.+?)"').findall(html4)
-        for i in _url:
-            playlink = link.replace('\\','')
-        Play(playname,playlink,20,ICON,FANART,'','')
+            Play(name,url,20,ICON,FANART,'','')
 			
 def setView(content, viewType):
    # set content type so library shows more views and info
@@ -199,8 +177,9 @@ def rmFavorite(name):
          break
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
-def resolve(url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+def resolve(name,url): 
+	import originresolver
+	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
@@ -297,6 +276,6 @@ elif mode==12:
       pass
    rmFavorite(name)
 elif mode == 14 : queueItem()	
-elif mode == 20: resolve(url)
+elif mode == 20: resolve(name,url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
