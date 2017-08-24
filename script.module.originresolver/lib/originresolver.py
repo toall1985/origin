@@ -5,7 +5,7 @@ import xbmc
 import xbmcgui
 
 def originresolver(name,url):
-    xbmc.log('STARTING O RESOLVER',xbmc.LOGNOTICE)
+    xbmc.log('STARTING O RESOLVER:'+url,xbmc.LOGNOTICE)
     Dialog = xbmcgui.Dialog()
     path = os.path.dirname(os.path.abspath(__file__))
     s = os.path.join(path,'sources')
