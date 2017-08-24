@@ -125,22 +125,25 @@ def get_source(url,u):
                 "file":File
                 }
         try:
-            xbmc.log('hi',xbmc.LOGNOTICE)
             response = requests.post('https://api.streamdor.co/sources',headers=headers,data=data).json()
-            results = response["sources"]
-            ur = 'http:'+results
-            z = requests.get(ur).json()
-            s = re.findall("'sources'.+?\[(.+?)\]",str(z))[0]
-            single = re.compile('{(.+?)}').findall(s)
-            for item in single:
-                xbmc.log(item,xbmc.LOGNOTICE)
-                playlink = re.findall("'file':.+?'(.+?)'",item)[0]
-                quality = re.findall("'label':.+?'(.+?)'",item)[0]
-                if '=m' in playlink:
-                    source = 'Gvideo'
-                else:
-                    source = 'Streamdor'
-                Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
+            results = []
+            results.extend([response["sources"]])
+            try:
+                results.extend([response["sources_backup"]])
+            except:
+                results = results
+            for result in results:
+                if not result.startswith("http:"):
+                    result = "http:" + result
+                response2 = requests.get(result).content
+                m = re.compile('"file":"(.+?)".+?"label":"(.+?)"').findall(response2)
+                for playlink,quality in m:
+                    playlink = playlink.replace('\\','')
+                    if '=m' in playlink:
+                        source = 'Gvideo'
+                    else:
+                        source = 'Streamdor'
+                    Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
         except:
             Play('No response from stream, please try again','',20,'','','','')
             Play('If it fails again it may be worth trying another addon','',20,'','','','')
