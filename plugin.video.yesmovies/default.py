@@ -57,7 +57,6 @@ def tv_show(url):
 	
 def get_ep_source(m,match):
 	url = 'https://yesmovies.to/ajax/movie_token?eid='+m+'&mid='+match
-	xbmc.log(url+']',xbmc.LOGNOTICE)
 	html3 = requests.get(url).content
 	x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
 	fin_url = 'https://yesmovies.to/ajax/movie_sources/'+m+'?x='+x+'&y='+y
@@ -71,7 +70,7 @@ def get_ep_source(m,match):
 			if 'lemon' not in p:
 				if 'http' in p:
 					p = p.replace('\\','')
-					Play(qual,p,21,ICON,FANART,'','')
+					Play(qual,p,20,ICON,FANART,'','')
 
 	
 	
@@ -328,6 +327,5 @@ elif mode==12:
    rmFavorite(name)
 elif mode == 14 : queueItem()	
 elif mode == 20: resolve(url)
-elif mode == 21: xbmc.Player().play(url, xbmcgui.ListItem(name))
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
