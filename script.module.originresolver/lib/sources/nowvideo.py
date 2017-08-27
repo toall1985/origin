@@ -1,14 +1,14 @@
 import re
 import requests
 
-domain = ''
-name = ''
+domain = 'nowvideo.sx'
+name = 'Nowvideo'
 sources = []
-url = ''
 
 def resolve(url):
     html = requests.get(url).content
+    p = re.findall('source src="(.+?)"',html)
+    for playlink in p:
         sources.append({'source': name, 'quality': 'SD', 'scraper': name, 'url': playlink,'direct': True})
-    print sources
+    return sources
 
-resolve(url)
