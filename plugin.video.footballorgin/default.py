@@ -2,11 +2,11 @@
 
 import requests, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, urllib
 from threading import Thread
-ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.yesmovies/')
+ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.footballorgin/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
-ADDON_DATA = USERDATA_PATH + '/plugin.video.yesmovies/'
+ADDON_DATA = USERDATA_PATH + '/plugin.video.footballorgin/'
 favourites = ADDON_DATA + 'favourites'
 if os.path.exists(favourites) == True:
    FAV = open(favourites).read()
@@ -14,92 +14,84 @@ else:
    FAV = []
 
 def Main_Menu():
-   Menu('Genre','https://yesmovies.to/',1,ICON,FANART,'','')
-   Menu('TV-Series','https://yesmovies.to/movie/filter/series.html',3,ICON,FANART,'','')
-   Menu('Top IMDb','https://yesmovies.to/top-imdb/all.html',4,ICON,FANART,'','')
+   Menu('Full Match Replay','http://www.footballorgin.com/category/full-match-replay/',1,ICON,FANART,'','')
+   Menu('Review Show','http://www.footballorgin.com/category/review-show/',1,ICON,FANART,'','')
+   Menu('Premier League','http://www.footballorgin.com/category/leagues/premier-league-epl/',1,ICON,FANART,'','')
+   Menu('Other Leagues','',3,ICON,FANART,'','')
+   Menu('Shows','http://www.footballorgin.com/category/tv-show/',1,ICON,FANART,'','')
+   Menu('Cup Games','http://www.footballorgin.com',4,ICON,FANART,'','')
+   Menu('UFC','http://www.footballorgin.com/category/ufc/',1,ICON,FANART,'','')
    Menu('Search','',2,ICON,FANART,'','')
    
-def imdb():
-   Menu('TV Shows','https://yesmovies.to/top-imdb/series.html',3,ICON,FANART,'','')
-   Menu('Movies','https://yesmovies.to/top-imdb/movie.html',3,ICON,FANART,'','')
-   
-def Get_Info(url):
+def other_leagues():
+	Menu('UCL','http://www.footballorgin.com/category/cup-games/uefa-champions-league-ucl/',1,ICON,FANART,'','')
+	Menu('LA LIGA','http://www.footballorgin.com/category/leagues/la-liga/',1,ICON,FANART,'','')
+	Menu('SCOTTISH PREMIERSHIP','http://www.footballorgin.com/category/leagues/scottish-premiership/',1,ICON,FANART,'','')
+	Menu('CHAMPIONSHIP','http://www.footballorgin.com/category/leagues/championship/',1,ICON,FANART,'','')
+	Menu('SERIE A','http://www.footballorgin.com/category/leagues/serie-a/',1,ICON,FANART,'','')
+	Menu('BUNDESLIGA','http://www.footballorgin.com/category/leagues/bundesliga/',1,ICON,FANART,'','')
+	Menu('LIGUE 1','http://www.footballorgin.com/category/leagues/ligue-1/',1,ICON,FANART,'','')
+	
+def cup_games(url):
 	html = requests.get(url).content
-	match = re.compile('<div class="ml-item">.+?href="(.+?)".+?title="(.+?)".+?img.+?data-original="(.+?)"',re.DOTALL).findall(html)
-	for url,name,image in match:
-		if '-season-' in url:
-			Menu(name,url,5,image,FANART,'','')
-		else:
-			Play(name,url,20,image,FANART,'','')
+	block = re.compile('Cup Games</a>(.+?)</ul>',re.DOTALL).findall(html)
+	for b in block:
+		match = re.compile('href="(.+?)">(.+?)</a>').findall(str(b))
+		for url,name in match:
+			Menu(name.replace('&#8211;','-'),url,1,ICON,FANART,'','')
 	
-		
-	Next = re.compile('<li class="active">.+?<li>.+?href="(.+?)"').findall(html)
-	for u in Next:
-		Menu('Next Page',u,3,ICON,FANART,'','')
-
-		
-		
-def tv_show(url):
-	xbmc.log('url:'+url,xbmc.LOGNOTICE)
-	html2 = requests.get(url).content
-	match2 = re.findall('favorite\((.+?),',html2)[0]
-	xbmc.log('https://yesmovies.to/ajax/v4_movie_episodes/'+match2,xbmc.LOGNOTICE)
-	get_ep = requests.get('https://yesmovies.to/ajax/v4_movie_episodes/'+match2).content
-	block = re.compile('<ul id=.+?"episodes-sv-6(.+?)"(.+?)ul>',re.DOTALL).findall(get_ep)
-	for c,u in block:
-		if '9' in c:
-			pass
-		else:
-			m = re.compile('<li class=.+?"ep-item .+?".+?data-server=.+?"(.+?)" data-id=.+?"(.+?)".+?title=.+?"(.+?)">').findall(str(u))
-			for s,i,t in m:
-				xbmc.log(i.replace('\\','')+'-'+s.replace('\\',''),xbmc.LOGNOTICE)
-				Menu(t.replace('\\',''),i.replace('\\',''),6,ICON,FANART,'',match2)
-	
-def get_ep_source(m,match):
-	url = 'https://yesmovies.to/ajax/movie_token?eid='+m+'&mid='+match
-	xbmc.log(url+']',xbmc.LOGNOTICE)
-	html3 = requests.get(url).content
-	x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
-	fin_url = 'https://yesmovies.to/ajax/movie_sources/'+m+'?x='+x+'&y='+y
-	h = requests.get(fin_url).content
-	source = re.findall('"sources":\[(.+?)\]',h)
-	single = re.findall('{(.+?)}',str(source))
-	for s in single:
-		playlink = re.findall('"file":"(.+?)"',str(s))
-		qual = re.findall('"label":"(.+?)"',str(s))[0]
-		for p in playlink:
-			if 'lemon' not in p:
-				if 'http' in p:
-					p = p.replace('\\','')
-					Play(qual,p,21,ICON,FANART,'','')
-
-	
-	
-	
-	
-def genre(url):
+def get_info(url):
 	html = requests.get(url).content
-	block = re.compile('<a href="#" title="Genre">(.+?)</ul>',re.DOTALL).findall(html)
-	for m in block:
-		match = re.compile('href="(.+?)".+?title="(.+?)"').findall(str(m))
-		for u,n in match:
-			Menu(n,u,3,ICON,FANART,'','')
+	match = re.compile('<div class="thumbnail">.+?href="(.+?)".+?img.+?src="(.+?)".+?rel="bookmark">(.+?)</a>',re.DOTALL).findall(html)
+	for u,image,name in match:
+		Menu(name.replace('&#8211;','-'),u,5,image,FANART,'','')
+	Menu('Next Page','',6,ICON,FANART,url,'1')
 	
-  
+def get_links(url):
+	html = requests.get(url).content
+	link = re.compile('"entry-subtitle">(.+?)</h2>.+?src="(.+?)"',re.DOTALL).findall(html)
+	for name,l in link:
+		Play('Play',l,20,ICON,FANART,'','')
+	other_links = re.compile('<span class="numbers">(.+?)</span> <a href="(.+?)">(.+?)</a></li>').findall(html)
+	for no, u, n in other_links:
+		if not url == u:
+			Menu(n,u,5,ICON,FANART,'','')
+	link = re.compile('<video autoplay preload="metadata">.+?src="(.+?)"',re.DOTALL).findall(html)
+	for li in link:
+		Play('Play',li,20,ICON,FANART,'','')
+	iframe = re.compile('iframe.+?src="(.+?)"').findall(html)
+	for i in iframe:
+		Play('Play',i,20,ICON,FANART,'','')
+	
+def next_page_loop(referer,page):
+	if page == None:
+		page = 2
+	else:
+		page = int(page)+1
+	next_page = 'http://www.footballorgin.com/wp-admin/admin-ajax.php'
+	headers = {
+				'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+				'host':'www.footballorgin.com',
+				'Referer':referer,
+				}
+	data = {
+			'page_no':str(page),
+			'action':'infinite_scroll'
+			}
+	h = requests.post(next_page,headers=headers,data=data).content
+	match = re.compile('href="(.+?)" rel="bookmark">.+?src="(.+?)".+?rel="bookmark">(.+?)</a>',re.DOTALL).findall(h)
+	for url,image,name in match:
+		Menu(name.replace('&#8211;','-'),url,5,image,FANART,'','')
+	Menu('Next Page','',6,ICON,FANART,referer,str(page))
+	
 
 def Search():
-	Search_url = 'https://yesmovies.to/search/'
-	Dialog = xbmcgui.Dialog()
-	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-	Search_name = Search_title.replace(' ','+').lower()
-	url = Search_url+Search_name
-	html = requests.get(url).content
-	match = re.compile('<div class="ml-item">.+?href="(.+?)".+?title="(.+?)".+?img.+?data-original="(.+?)"',re.DOTALL).findall(html)
-	for url,name,image in match:
-		Menu(name,url,5,image,FANART,'','')
-	Next = re.compile('<li class="active">.+?<li>.+?href="(.+?)"').findall(html)
-	for u in Next:
-		Menu('Next Page',u,3,ICON,FANART,'','')
+   Search_url = 'http://www.footballorgin.com/?s='
+   Dialog = xbmcgui.Dialog()
+   Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
+   Search_name = Search_title.replace(' ','+').lower()
+   url = Search_url+Search_name
+   get_info(url)
 	
 def setView(content, viewType):
    # set content type so library shows more views and info
@@ -109,7 +101,7 @@ def setView(content, viewType):
       xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting(viewType) )
 		
 		
-def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={}):
+def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allinfo={},referer=None,page=None):
       fav_mode = mode
       u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)+"&extra="+urllib.quote_plus(extra)
       ok=True
@@ -119,10 +111,10 @@ def Menu(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
       if showcontext:
          contextMenu = []
          if showcontext == 'fav':
-            contextMenu.append(('Remove from yesmovies Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
+            contextMenu.append(('Remove from footballorgin Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
                            %(sys.argv[0], urllib.quote_plus(name))))
          if not name in FAV:
-            contextMenu.append(('Add to yesmovies Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
+            contextMenu.append(('Add to footballorgin Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
                    %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode, urllib.quote_plus(fanart), urllib.quote_plus(description))))
          liz.addContextMenuItems(contextMenu)
       ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
@@ -141,10 +133,10 @@ def Play(name,url,mode,iconimage,fanart,description,extra,showcontext=True,allin
       if showcontext:
          contextMenu = []
          if showcontext == 'fav':
-            contextMenu.append(('Remove from yesmovies Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
+            contextMenu.append(('Remove from footballorgin Favorites','XBMC.RunPlugin(%s?mode=12&name=%s)'
                            %(sys.argv[0], urllib.quote_plus(name))))
          if not name in FAV:
-            contextMenu.append(('Add to yesmovies Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
+            contextMenu.append(('Add to footballorgin Favourites','XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fav_mode=%s&fanart=%s&description=%s)'
                    %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), fav_mode, urllib.quote_plus(fanart), urllib.quote_plus(description))))
          liz.addContextMenuItems(contextMenu)
          contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=14)' % sys.argv[0]))
@@ -179,7 +171,7 @@ def addFavorite(name, url, mode, iconimage, fanart, description, extra):
 def getFavourites():
    if not os.path.exists(favourites):
       favList = []
-      favList.append(('yesmovies Favourites Section', '', '', '', '', '', ''))
+      favList.append(('footballorgin Favourites Section', '', '', '', '', '', ''))
       a = open(favourites, "w")
       a.write(json.dumps(favList))
       a.close()
@@ -222,12 +214,15 @@ def rmFavorite(name):
          break
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
-def resolve(url): 
-	try:
+def resolve(name,url):
+	if not url.startswith('http:'):
+		if not url.startswith('https'):
+			url = 'http:'+url
+	if 'playlist.m3u8' in url:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	else:
 		import originresolver
 		originresolver.originresolver(name,url)
-	except:
-		xbmc.Player().play(url, xbmcgui.ListItem(name))
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
@@ -297,13 +292,12 @@ except:
 #####################################################END PROCESSES##############################################################		
 		
 if mode == None: Main_Menu()
-elif mode == 1 : genre(url)
+elif mode == 1 : get_info(url)
 elif mode == 2 : Search()
-elif mode == 3 : Get_Info(url)
-elif mode == 4 : imdb()
-elif mode == 5 : tv_show(url)
-elif mode == 6 : get_ep_source(url,extra)
-
+elif mode == 3 : other_leagues()
+elif mode == 4 : cup_games(url)
+elif mode == 5 : get_links(url)
+elif mode == 6 : next_page_loop(description,extra)
 
 elif mode == 10: getFavourites()
 elif mode==11:
@@ -327,7 +321,7 @@ elif mode==12:
       pass
    rmFavorite(name)
 elif mode == 14 : queueItem()	
-elif mode == 20: resolve(url)
+elif mode == 20: resolve(name,url)
 elif mode == 21: xbmc.Player().play(url, xbmcgui.ListItem(name))
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

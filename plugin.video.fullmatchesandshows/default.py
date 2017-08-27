@@ -86,7 +86,7 @@ def get_PLAYlink(name,url):
         Play('Play - Youtube',url,6,ICON,FANART,'','')
     iframe = re.compile('<iframe(.+?)</iframe>').findall(HTML)
     for i in iframe:
-		src = re.compile('src="(.+?)"').findall(str(i))
+		src = re.compile('data-lazy-src="(.+?)"').findall(str(i))
 		for playlink in src:
 			if 'div' in playlink:
 				pass
@@ -120,8 +120,23 @@ def get_PLAYlink(name,url):
 				m = re.compile('source src="(.+?)"').findall(html)
 				for s in m:
 					Play('Play - Streamable','http:'+s,20,ICON,FANART,'','')
-			elif 'ooyala' in playlink:
-				pass
+			elif 'ok.ru' in playlink:
+				playlink = 'http:'+playlink
+				headers = {
+						'Referer':playlink,
+						'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+						'host':'ok.ru'
+						}
+				html = requests.get(playlink,headers=headers).content
+				h = ''.join(html.replace('\\','').replace('u0026','&').replace('&quot;',''))
+				match = re.compile('name:(.+?),url:(.+?),').findall(h)
+				for qual,m in match:
+					m = m.replace('srcAg=UNKNOWN','srcAg=GECKO').replace('%3B',';').replace('ct=0','ct=4')
+					if 'type=' in m:
+						qual = qual.replace('lowest','v bad').replace('low','bad').replace('mobile','v v bad')
+						Play('Ok.Ru '+qual,m,20,ICON,FANART,'','')
+
+
 				
 			
 #				Playlink = (playlink).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
