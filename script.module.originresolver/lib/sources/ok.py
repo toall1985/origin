@@ -3,8 +3,8 @@ import re
 from HTMLParser import HTMLParser
 
 domain = 'ok.ru'
-sources = []
 name = 'Ok.Ru'
+sources = []
 
 
 def resolve(url):
@@ -19,6 +19,6 @@ def resolve(url):
     for qual,m in match:
         m = m.replace('srcAg=UNKNOWN','srcAg=GECKO').replace('%3B',';').replace('ct=0','ct=4')
         if 'type=' in m:
-            qual = qual.replace('lowest','v bad').replace('low','bad').replace('mobile','v v bad'
+            qual = qual.replace('lowest','v bad').replace('low','bad').replace('mobile','v v bad')
             sources.append({'source': name, 'quality': qual, 'scraper': name, 'url': m,'direct': True})
     return sources

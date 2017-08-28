@@ -5,6 +5,9 @@ import xbmc
 import xbmcgui
 
 def originresolver(name,url):
+    if not url.startswith('http:'):
+        if not url.startswith('https'):
+            url = 'http:'+url
     xbmc.log('STARTING O RESOLVER:'+url,xbmc.LOGNOTICE)
     Dialog = xbmcgui.Dialog()
     path = os.path.dirname(os.path.abspath(__file__))
@@ -24,14 +27,18 @@ def originresolver(name,url):
                         sources = __import__(module_name).resolve(url)
                     finally:
                         sys.path[:] = path # restore
-                    if len(sources)==1:
+                    if sources == None:
+                        xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link")
+                        sys.exit()
+                    elif len(sources)==1:
                         for link in sources:
                             xbmc.Player().play(link["url"], xbmcgui.ListItem(name))
+                    elif len(sources)==0:
+                        xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link")
+                        sys.exit()
                     else:
                         choice = Dialog.select('Select Playlink',[link["quality"] for link in sources])
                         if choice != -1:
                             playlink = sources[choice]['url']
                             isFolder=False
                             xbmc.Player().play(playlink, xbmcgui.ListItem(name))
-
-

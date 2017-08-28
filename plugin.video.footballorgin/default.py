@@ -51,17 +51,20 @@ def get_links(url):
 	html = requests.get(url).content
 	link = re.compile('"entry-subtitle">(.+?)</h2>.+?src="(.+?)"',re.DOTALL).findall(html)
 	for name,l in link:
-		Play('Play',l,20,ICON,FANART,'','')
+		Play(name,l,20,ICON,FANART,'','')
 	other_links = re.compile('<span class="numbers">(.+?)</span> <a href="(.+?)">(.+?)</a></li>').findall(html)
 	for no, u, n in other_links:
 		if not url == u:
-			Menu(n,u,5,ICON,FANART,'','')
+			Play(n,u,7,ICON,FANART,'','')
 	link = re.compile('<video autoplay preload="metadata">.+?src="(.+?)"',re.DOTALL).findall(html)
 	for li in link:
 		Play('Play',li,20,ICON,FANART,'','')
-	iframe = re.compile('iframe.+?src="(.+?)"').findall(html)
-	for i in iframe:
-		Play('Play',i,20,ICON,FANART,'','')
+	
+def get_link_play(url):	
+	html = requests.get(url).content
+	link = re.compile('"entry-subtitle">(.+?)</h2>.+?src="(.+?)"',re.DOTALL).findall(html)
+	for name,l in link:
+		resolve(name,l)
 	
 def next_page_loop(referer,page):
 	if page == None:
@@ -298,6 +301,7 @@ elif mode == 3 : other_leagues()
 elif mode == 4 : cup_games(url)
 elif mode == 5 : get_links(url)
 elif mode == 6 : next_page_loop(description,extra)
+elif mode == 7 : get_link_play(url)
 
 elif mode == 10: getFavourites()
 elif mode==11:

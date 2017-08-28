@@ -25,7 +25,6 @@ def Main_Menu():
    Menu('Genre','',3,ICON,FANART,'','')
    Menu('Year','',5,ICON,FANART,'','')
    Menu('Search','',2,ICON,FANART,'','')
-   Play('Test','https://bigcdn.flashx1.tv/cdn04/5k7x3s5kg4vvjuw5lwozpuqa3waomipych2k3uxnqbajpe4lkdg2put2rzwq/normal.mp4',20,'','','','')
 
 def genre():
    Menu('Comedy','https://kingmovies.is/genre/comedy',1,ICON,FANART,'','')
@@ -111,39 +110,41 @@ def get_source(url,u):
         ep_id = re.findall('"episodeID":"(.+?)"',string)[0]
         ep_name = re.findall('"episodeName":"(.+?)"',string)[0]
         ep_backup = re.findall('"episodeBackup":"(.+?)"',string)[0]
-        ep_hot = re.findall('"episodeHOT":(.+?),',string)[0]
-        File = re.findall('"file":"(.+?)"',string)[0]
-        headers = {"origin":"https://embed.streamdor.co",
-                   "referer":u,
-                   "user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36"
-                   }
-                
-        data = {"episodeID":ep_id,
-                "episodeName":ep_name,
-                "episodeBackup":ep_backup,
-                "episodeHOT":ep_hot,
-                "file":File
+        ep_URL = re.findall('"episodeURL":"(.+?)",',string)[0]
+        ep_XID = re.findall('"episodeXID":"(.+?)"',string)[0]
+        headers = {
+					'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36',
+                    'host':'api.streamdor.co',
+                    'referer':url,
+                    'origin':'https://embed.streamdor.co'
+                  }
+        t = requests.post('https://embed.streamdor.co/token.php',data={'id':ep_id}).content
+        Key,Token = re.findall('"key":"(.+?)","token":"(.+?)"',t)[0]
+        data = {
+                'episodeID':ep_id,
+                'episodeName':ep_name,
+                'episodeBackup':ep_backup,
+                'episodeURL':ep_URL,
+                'episodeXID':ep_XID,
+                'key':Key,
+                'token':Token
                 }
         try:
-            response = requests.post('https://api.streamdor.co/sources',headers=headers,data=data).json()
+            response = requests.post('https://api.streamdor.co/sources.php',headers=headers,data=data).json()
             results = []
             results.extend([response["sources"]])
             try:
                 results.extend([response["sources_backup"]])
             except:
                 results = results
-            for result in results:
-                if not result.startswith("http:"):
-                    result = "http:" + result
-                response2 = requests.get(result).content
-                m = re.compile('"file":"(.+?)".+?"label":"(.+?)"').findall(response2)
-                for playlink,quality in m:
-                    playlink = playlink.replace('\\','')
-                    if '=m' in playlink:
-                        source = 'Gvideo'
-                    else:
-                        source = 'Streamdor'
-                    Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
+            m = re.compile("'file'.+?'(.+?)'.+?'label'.+?'(.+?)'").findall(str(results))
+            for playlink,quality in m:
+                playlink = playlink.replace('\\','')
+                if '=m' in playlink:
+                    source = 'Gvideo'
+                else:
+                    source = 'Streamdor'
+                Play(source + ' ('+quality+')',playlink,20,ICON,FANART,'','')
         except:
             Play('No response from stream, please try again','',20,'','','','')
             Play('If it fails again it may be worth trying another addon','',20,'','','','')

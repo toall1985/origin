@@ -2,6 +2,7 @@
 
 import requests, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, urllib
 from threading import Thread
+import originresolver
 import yt
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.fullmatchesandshows/')
 ICON = ADDON_PATH + 'icon.png'
@@ -88,58 +89,11 @@ def get_PLAYlink(name,url):
     for i in iframe:
 		src = re.compile('data-lazy-src="(.+?)"').findall(str(i))
 		for playlink in src:
-			if 'div' in playlink:
-				pass
-			elif 'weshare' in playlink:
-				if not 'mp4' in playlink:
-					h = requests.get(playlink).content
-					match = re.compile('source src="(.+?)"').findall(h)
-					for p in match:
-						Play('Play - Weshare',p,20,ICON,FANART,'','')
-				else:
-					Play('Play - Weshare',p,20,ICON,FANART,'','')
-			elif 'rutube.ru' in playlink:
-				playlink = 'https:'+playlink
-				api = 'https://rutube.ru/api/play/options/'+playlink.replace('https://rutube.ru/play/embed/','')+'/?format=json&sqr4374_compat=1&no_404=true&referer='+playlink
-				xbmc.log('api:'+api,xbmc.LOGNOTICE)
-				headers = {"user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36",
-						   "Referer": playlink,
-						   "Host":"rutube.ru"
-						   }				
-				html = requests.get(api,headers=headers).content
-				m3u8 = re.compile('"m3u8": "(.+?)"').findall(str(html))
-				for link in m3u8:
-					xbmc.log('link:'+link,xbmc.LOGNOTICE)
-					last = link+'&referer='+playlink
-					h = requests.get(last).content
-					m = re.compile('".+?"\n(.+?)\n',re.DOTALL).findall(h)
-					for l in m:
-						Play('Play - Rutube',l,20,ICON,FANART,'','')
-			elif 'streamable' in playlink:
-				html = requests.get(playlink).content
-				m = re.compile('source src="(.+?)"').findall(html)
-				for s in m:
-					Play('Play - Streamable','http:'+s,20,ICON,FANART,'','')
-			elif 'ok.ru' in playlink:
-				playlink = 'http:'+playlink
-				headers = {
-						'Referer':playlink,
-						'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
-						'host':'ok.ru'
-						}
-				html = requests.get(playlink,headers=headers).content
-				h = ''.join(html.replace('\\','').replace('u0026','&').replace('&quot;',''))
-				match = re.compile('name:(.+?),url:(.+?),').findall(h)
-				for qual,m in match:
-					m = m.replace('srcAg=UNKNOWN','srcAg=GECKO').replace('%3B',';').replace('ct=0','ct=4')
-					if 'type=' in m:
-						qual = qual.replace('lowest','v bad').replace('low','bad').replace('mobile','v v bad')
-						Play('Ok.Ru '+qual,m,20,ICON,FANART,'','')
-
-
-				
-			
-#				Playlink = (playlink).replace('/v2', '').replace('zeus.json', 'video-sd.mp4?hosting_id=21772').replace('config.playwire.com', 'cdn.video.playwire.com')
+			try:
+				name = re.findall('//(.+?)/',str(playlink))[0]
+			except:
+				name = 'Play'
+			Play(name,playlink,20,ICON,FANART,'','')
 
 
 	
@@ -264,8 +218,12 @@ def rmFavorite(name):
          break
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
-def resolve(name,url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+def resolve(name,url):
+	if 'm3u8' in url or 'mp4' in url:
+		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	else:
+		import originresolver
+		originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
