@@ -17,11 +17,15 @@ def resolve(url,count=None):
     xbmc.log(str(count),xbmc.LOGNOTICE)
     api = 'https://api.openload.co/1'
     u = api + '/streaming/get?file='
-    media_id = url.replace('https://openload.co/embed/','').replace('/','')
+    if 'mp4' in url:
+        media_id = re.findall('openload.co/.+?/(.+?)/',str(url))[0]
+    elif 'embed' in url:
+        media_id = url.replace('https://openload.co/embed/','').replace('/','')
     html = requests.get(u+media_id).json()
     print html
     status = re.findall("'status': (.+?),",str(html))[0]
     if not '200' in status:
+        xbmc.log(str(html),xbmc.LOGNOTICE)
         if count == 0:
             count +=1
             msg = re.findall("'msg'.+?'(.+?)'",str(html))[0]
@@ -54,7 +58,7 @@ def resolve(url,count=None):
     elif '200' in status:
         playlink = re.findall("'url'.+?'(.+?)'",str(html))
         for p in playlink:
-            sources.append({'source': name, 'quality': 'SD', 'scraper': name, 'url': playlink,'direct': True})
+            sources.append({'source': name, 'quality': 'SD', 'scraper': name, 'url': p,'direct': True})
         return sources
 
 def timer(url,count):
