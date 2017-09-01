@@ -2,6 +2,7 @@
 
 import requests, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, urllib
 from threading import Thread
+import originresolver
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.1080pmovie/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
@@ -185,12 +186,8 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(url): 
-	try:
-		import urlresolver
-		resolved_url = urlresolver.resolve(url)
-		xbmc.Player().play(resolved_url, xbmcgui.ListItem(name))
-	except:
-		xbmc.Player().play(url, xbmcgui.ListItem(name))
+	import originresolver
+	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():

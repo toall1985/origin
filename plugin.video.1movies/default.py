@@ -413,5 +413,5 @@ elif mode==12:
    rmFavorite(name)
 elif mode == 14 : queueItem()	
 elif mode == 20: resolve(name,url)
-
+elif mode == 200 : xbmc.Player().play(url, xbmcgui.ListItem(name))
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
