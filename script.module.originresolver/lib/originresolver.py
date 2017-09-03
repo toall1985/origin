@@ -5,7 +5,7 @@ import xbmc
 import xbmcgui
 
 def originresolver(name,url):
-#	try:
+	try:
 		if not url.startswith('http:'):
 			if not url.startswith('https'):
 				url = 'http:'+url
@@ -45,5 +45,5 @@ def originresolver(name,url):
 								playlink = sources[choice]['url']
 								isFolder=False
 								xbmc.Player().play(playlink, xbmcgui.ListItem(name))
-#	except:
-#		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link c")
+	except:
+		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link c")

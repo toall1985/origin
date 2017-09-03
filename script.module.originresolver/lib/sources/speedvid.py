@@ -1,15 +1,18 @@
 import re
 import requests
 
-domain = 'watchers.to'
-name = 'Watchers'
+domain = 'speedvid.net'
+name = 'Speedvid'
 sources = []
 
 def resolve(url):
+    server = ''
+    no = ''
     html = requests.get(url).content
-    m = re.findall('mp4\|(.+?)\|',html)
-    for i in m:
-        playlink = 'http://s11.speedvid.net:8777/' + i + 'v.mp4'
+    n = re.findall('\|primary\|(.+?)\|(.+?)\|.+?mp4\|(.+?)\|',html)
+    for no,server,i in n:
+        no = no
+        server = server
+        playlink = 'http://'+server+'.speedvid.net:'+no+'/' + i + '/v.mp4'
         sources.append({'source': name, 'quality': 'SD', 'scraper': name, 'url': playlink,'direct': True})
-    print sources
-
+    return sources

@@ -15,7 +15,7 @@ else:
 
 def Main_Menu():
    Menu('Tv Shows','http://project-free-tv.ag/watch-series/',4,ICON,FANART,'','')
-#   Menu('Movies','http://project-free-tv.ag/movies/',1,ICON,FANART,'','')
+   Menu('Movies','http://project-free-tv.ag/movies/',1,ICON,FANART,'','')
    Menu('Search','',3,ICON,FANART,'','')
    
 def Movies(url):
@@ -70,11 +70,28 @@ def playlinks(url):
 	block = re.compile('<tr>(.+?)</tr>',re.DOTALL).findall(html)
 	for b in block:
 		if 'aff_id' in str(b):
-			m = re.compile('<img src="(.+?)".+?>(.+?)</a>.+?\'http(.+?)\'',re.DOTALL).findall(str(b))
-			for img,name,u in m:
+			m = re.compile('<td><a href="(.+?)".+?height="16">(.+?)</a>',re.DOTALL).findall(str(b))
+			for u,name in m:
 				name = name.replace('&nbsp;','').replace('&nbsp','').replace('  ','')
-				u = 'http'+u
-				Play(name,u,20,img,FANART,'','')
+				u = 'http://project-free-tv.ag'+u
+				Play(name,u,15,ICON,FANART,'','')
+				
+def final_grab(name,url):
+	List = []
+	html = requests.get(url).content
+	m = re.findall('iframe.+?src="(.+?)"',html)
+	for n in m:
+		if not 'creative' in n:
+			if len(List)<1:
+				List.append(n)
+				resolve(name,n)
+	n = re.findall('rel="nofollow" href="(.+?)"',html)
+	for o in n:
+		if not 'project-free' in o:
+			if o not in List:
+				List.append(o)
+				resolve(name,o)
+			
 		
 	
 def search_choice():
@@ -327,7 +344,8 @@ elif mode==12:
    except:
       pass
    rmFavorite(name)
-elif mode == 14 : queueItem()	
+elif mode == 14 : queueItem()
+elif mode == 15 : final_grab(name,url)
 elif mode == 20: resolve(name,url)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))

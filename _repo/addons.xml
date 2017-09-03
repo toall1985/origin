@@ -224,7 +224,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.project-free-tv" name="Project-Free-Tv" version="0.0.1" provider-name="Origin">
+<addon id="plugin.video.project-free-tv" name="Project-Free-Tv" version="0.0.2" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -291,11 +291,6 @@
 				<checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
 				<datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
 			</dir>
-			<dir>
-				<info compressed="false">https://raw.githubusercontent.com/Colossal1/repository.colossus.common/master/addons.xml</info>
-				<checksum>https://raw.githubusercontent.com/Colossal1/repository.colossus.common/master/addons.xml.md5</checksum>
-				<datadir zip="true">https://raw.githubusercontent.com/Colossal1/repository.colossus.common/master/</datadir>
-			</dir>
             <info compressed="false">https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/toall1985/origin/master/_repo/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/toall1985/origin/master/_repo/</datadir>
@@ -308,7 +303,7 @@
     </extension>
 </addon>
 
-<addon id="script.module.originresolver" name="Origin Resolver" version="0.0.6" provider-name="Origin">
+<addon id="script.module.originresolver" name="Origin Resolver" version="0.0.7" provider-name="Origin">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="plugin.video.youtube" optional="true"/>
