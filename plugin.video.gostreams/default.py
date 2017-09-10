@@ -71,41 +71,42 @@ def get_playlink(url):
 	get_info = requests.get(url).content
 	token = re.findall("var tok.+?= '(.+?)'",get_info)[0]
 	elid = re.findall('elid = "(.+?)"',get_info)[0]
-
-	headers = {
-		'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
-		'Referer':url,
-		'X-Requested-With':'XMLHttpRequest',
-		}
-
-	data = {
-			'action':'getEpisodeEmb',
-			'idEl':elid,
-			'token':token,
+	actions = ['getMovieEmb','getEpisodeEmb']
+	for action in actions:
+		headers = {
+			'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+			'Referer':url,
+			'X-Requested-With':'XMLHttpRequest',
 			}
 
-	html = requests.post(ajax_url,headers=headers,data=data).json()
-	for single in html:
-		item = html[single]
-		playlink = re.findall('src="(.+?)"',str(item['embed']).lower())[0]
-		qual = item['type']
-		if '360p' in qual:
-			quality = '360p'
-		elif '720p' in qual:
-			quality = '720p'
-		elif '1080p' in qual:
-			quality = '1080p'
-		else:
-			quality = 'unknown quality'
-		if 'openload' in playlink:
-			quality = 'openload ('+quality+')'
-		elif 'streamango' in playlink:
-			quality = 'streamango ('+quality+')'
-		elif 'blogspot' in playlink:
-			quality = 'google video ('+quality+')'
-		elif 'google' in playlink:
-			quality = 'google video ('+quality+')'
-		Play(quality,playlink,20,ICON,FANART,'','')
+		data = {
+				'action':action,
+				'idEl':elid,
+				'token':token,
+				}
+
+		html = requests.post(ajax_url,headers=headers,data=data).json()
+		for single in html:
+			item = html[single]
+			playlink = re.findall('src="(.+?)"',str(item['embed']).lower())[0]
+			qual = item['type']
+			if '360p' in qual:
+				quality = '360p'
+			elif '720p' in qual:
+				quality = '720p'
+			elif '1080p' in qual:
+				quality = '1080p'
+			else:
+				quality = 'unknown quality'
+			if 'openload' in playlink:
+				quality = 'openload ('+quality+')'
+			elif 'streamango' in playlink:
+				quality = 'streamango ('+quality+')'
+			elif 'blogspot' in playlink:
+				quality = 'google video ('+quality+')'
+			elif 'google' in playlink:
+				quality = 'google video ('+quality+')'
+			Play(quality,playlink,20,ICON,FANART,'','')
 
 def Search():
 	Search_url = 'https://api.cartoonhd.tech/api/v1/0A6ru35yevokjaqbb3'
@@ -123,7 +124,17 @@ def Search():
 		url = base_link+single['permalink']
 		image = base_link+single['image']
 		if single['type']!='actor':
-			Menu(single['title']+' ('+str(single['year'])+')',url,3,image,FANART,'','')
+			try: 
+				name = single['title']+' ('+str(single['year'])+')'
+			except: 
+				try:
+					name = single['title']
+				except:
+					name = 'naming error'
+			try:
+				Menu(name,url,3,image,FANART,'','')
+			except:
+				pass
 	
 def setView(content, viewType):
    # set content type so library shows more views and info
