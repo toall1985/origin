@@ -6,132 +6,124 @@ ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.gostreams/')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
-ADDON_DATA = USERDATA_PATH + '/plugin.video.yesmovies/'
+ADDON_DATA = USERDATA_PATH + '/plugin.video.gostreams/'
 favourites = ADDON_DATA + 'favourites'
+base_link = 'https://cartoonhd.tech'
 if os.path.exists(favourites) == True:
    FAV = open(favourites).read()
 else:
    FAV = []
 
 def Main_Menu():
-   Menu('Genre','https://gostream.is',1,ICON,FANART,'','')
-   Menu('TV-Series','https://gostream.is/movie/filter/series',3,ICON,FANART,'','')
-   Menu('Top IMDb','https://gostream.is/movie/topimdb',4,ICON,FANART,'','')
+   Menu('TV-Series','https://cartoonhd.tech/tv-shows',1,ICON,FANART,'','')
+   Menu('Movies','https://cartoonhd.tech/full-movies',1,ICON,FANART,'','')
+   Menu('Cinema Movies','https://cartoonhd.tech/box-office-movies',1,ICON,FANART,'','')
+   Menu('Just Added','https://cartoonhd.tech/new-movies',1,ICON,FANART,'','')
+   Menu('Cinema Movies','https://cartoonhd.tech/box-office-movies',1,ICON,FANART,'','')
    Menu('Search','',2,ICON,FANART,'','')
-   
-def imdb():
-   Menu('TV Shows','https://gostream.is/movie/topimdb/series',3,ICON,FANART,'','')
-   Menu('Movies','https://gostream.is/movie/topimdb/movie',3,ICON,FANART,'','')
-   
+ 
 def Get_Info(url):
 	List = []
-	html = requests.get(url).content
-	match = re.compile('div data-movie-id=.+?href="(.+?)".+?title="(.+?)".+?img.+?data-original="(.+?)"',re.DOTALL).findall(html)
-	for url,name,image in match:
-		url = url+'watching.html'
-		Menu(name,url,5,image,FANART,'','')
-	Next = re.compile('<li class="active">.+?<li>.+?href="(.+?)"').findall(html)
+	html = requests.get(url,verify=False).content
+	block = re.compile('<section class="cardBox flip">(.+?)</section>',re.DOTALL).findall(html)
+	for b in block:
+		image = re.compile('img src="(.+?)"').findall(str(b))
+		for i in image:
+			if 'jpg' in i:
+				image = i
+		name = re.findall('alt="(.+?)"',str(b))[0]
+		url = re.findall('href="(.+?)"',str(b))[0]
+		trailer = re.findall('<div class="ribbon-wrapper"><div class="ribbon black">(.+?)</div></div>',str(b))
+		for t in trailer:
+			name = name + ' : '+t
+		Menu(name,url,3,image,FANART,'','')
+	Next = re.compile('<ul class="pagination">.+?<li class="active">.+?href.+?href="(.+?)"',re.DOTALL).findall(html)
 	for u in Next:
 		if u not in List:
-			Menu('Next Page',u,3,ICON,FANART,'','')
+			Menu('Next Page',u,1,ICON,FANART,'','')
 			List.append(u)
-
-def movie_check(url):
-	if '-season-' in url:
-		tv_show(url)
-	else:
-		movie(url)
 		
-def movie(link):
-	qual = ''
-	html3 = requests.get(link).text
-	match3 = re.compile('<a onclick="favorite\((.+?),',re.DOTALL).findall(html3)
-	for i in match3:
-		html4 = requests.get('https://gostream.is/ajax/movie_episodes/'+i).json()
-        data = re.findall('data-id="(.+?)"',html4['html'])
-        for u in data:
-			if len(u) == 6:
-				s = 'https://gostream.is/ajax/movie_token?eid='+u+'&mid='+i
-				html3 = requests.get(s).content
-				x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
-				fin_url = 'https://gostream.is/ajax/movie_sources/'+u+'?x='+x+'&y='+y
-				h = requests.get(fin_url).content
-				source = re.findall('"sources":\[(.+?)\]',h)
-				single = re.findall('{(.+?)}',str(source))
-				for l in single:
-					playlink = re.findall('"file":"(.+?)"',str(l))
-					qua = re.findall('"label":"(.+?)"',str(l))
-					for q in qua:
-						qual = q
-					for p in playlink:
-						if 'lemon' not in p:
-							if 'http' in p:
-								p = p.replace('\\','')
-								Play(qual,p,20,ICON,FANART,'','')
-
- 	
-		
-def tv_show(url):
-	html2 = requests.get(url).content
-	match2 = re.findall('favorite\((.+?),',html2)[0]
-	get_ep = requests.get('https://gostream.is/ajax/movie_episodes/'+match2).content
-	xbmc.log('##############https://gostream.is/ajax/movie_episodes/'+match2,xbmc.LOGNOTICE)
-	block = re.compile('sv-6(.+?)"(.+?)clearfix',re.DOTALL).findall(get_ep)
-	for b,c in block:
-		if '9' in b:
-			pass
-		else:
-			m = re.compile('title=.+?"(.+?)".+?data-id=.+?"(.+?)"',re.DOTALL).findall(str(c))
-			for i,t in m:
-				if len(t.replace('\\',''))==6:
-					Menu(i.replace('\\',''),t.replace('\\',''),6,ICON,FANART,'',match2)
-	
-def get_ep_source(m,match):
-	url = 'https://gostream.is/ajax/movie_token?eid='+m+'&mid='+match
-	xbmc.log(url,xbmc.LOGNOTICE)
-	html3 = requests.get(url).content
-	x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
-	fin_url = 'https://gomovies.is/ajax/movie_sources/'+m+'?x='+x+'&y='+y
-	h = requests.get(fin_url).content
-	source = re.findall('"sources":\[(.+?)\]',h)
-	single = re.findall('{(.+?)}',str(source))
-	for s in single:
-		playlink = re.findall('"file":"(.+?)"',str(s))
-		qual = re.findall('"label":"(.+?)"',str(s))[0]
-		for p in playlink:
-			if 'lemon' not in p:
-				if 'http' in p:
-					p = p.replace('\\','')
-					Play(qual,p,20,ICON,FANART,'','')
-
-	
-	
-	
-	
-def genre(url):
+def get_page_info(url,iconimage):
+	count = 0
 	html = requests.get(url).content
-	block = re.compile('<a href="#" title="Genre">(.+?)</ul>',re.DOTALL).findall(html)
-	for m in block:
-		match = re.compile('href="(.+?)">(.+?)</a>').findall(str(m))
-		for u,n in match:
-			Menu(n,u,3,ICON,FANART,'','')
-	
-  
+	try:
+		fanart = re.findall('<div id="watch".+?url\(\'(.+?)\'',html)[0]
+	except:
+		fanart = FANART
+	match = re.compile('<b>Season\(s\):</b>(.+?)</p>',re.DOTALL).findall(html)
+	for block in match:
+		match2 = re.compile('href="(.+?)".+?title="(.+?)"').findall(str(block))
+		for url2, name in match2:
+			Menu(name,url2,4,iconimage,fanart,'','')
+			count+=1
+	if count==0:
+		get_playlink(url)
+			
+def get_season_info(url):
+	html = requests.get(url).content
+	m = re.compile('<div class="episode ">.+?href="(.+?)" title="(.+?)">.+?img="(.+?)"',re.DOTALL).findall(html)
+	for url,name,image in m:
+		Menu(name,url,5,image,FANART,'','')
+
+
+def get_playlink(url):			
+	ajax_url = 'https://cartoonhd.tech/ajax/tnembedr.php'
+	get_info = requests.get(url).content
+	token = re.findall("var tok.+?= '(.+?)'",get_info)[0]
+	elid = re.findall('elid = "(.+?)"',get_info)[0]
+
+	headers = {
+		'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+		'Referer':url,
+		'X-Requested-With':'XMLHttpRequest',
+		}
+
+	data = {
+			'action':'getEpisodeEmb',
+			'idEl':elid,
+			'token':token,
+			}
+
+	html = requests.post(ajax_url,headers=headers,data=data).json()
+	for single in html:
+		item = html[single]
+		playlink = re.findall('src="(.+?)"',str(item['embed']).lower())[0]
+		qual = item['type']
+		if '360p' in qual:
+			quality = '360p'
+		elif '720p' in qual:
+			quality = '720p'
+		elif '1080p' in qual:
+			quality = '1080p'
+		else:
+			quality = 'unknown quality'
+		if 'openload' in playlink:
+			quality = 'openload ('+quality+')'
+		elif 'streamango' in playlink:
+			quality = 'streamango ('+quality+')'
+		elif 'blogspot' in playlink:
+			quality = 'google video ('+quality+')'
+		elif 'google' in playlink:
+			quality = 'google video ('+quality+')'
+		Play(quality,playlink,20,ICON,FANART,'','')
 
 def Search():
-	Search_url = 'https://gostream.is/movie/search/'
+	Search_url = 'https://api.cartoonhd.tech/api/v1/0A6ru35yevokjaqbb3'
 	Dialog = xbmcgui.Dialog()
 	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
 	Search_name = Search_title.replace(' ','+').lower()
-	url = Search_url+Search_name
-	html = requests.get(url).content
-	match = re.compile('div data-movie-id=.+?href="(.+?)".+?title="(.+?)".+?img.+?data-original="(.+?)"',re.DOTALL).findall(html)
-	for url,name,image in match:
-		url = url+'watching.html'
-		Menu(name,url,5,image,FANART,'','')
-	Next = re.compile('<li class="active">.+?<li>.+?href="(.+?)"').findall(html)
-	for u in Next:
-		Menu('Next Page',u,3,ICON,FANART,'','')
+	url = 'https://api.cartoonhd.tech/api/v1/0A6ru35yevokjaqbb3'
+	headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+           }
+	data = {'q':Search_name.replace(' ','+'),
+			'sl':'evokjaqbb3'
+			}
+	html = requests.post(url,headers=headers,data=data).json()
+	for single in html:
+		url = base_link+single['permalink']
+		image = base_link+single['image']
+		if single['type']!='actor':
+			Menu(single['title']+' ('+str(single['year'])+')',url,3,image,FANART,'','')
 	
 def setView(content, viewType):
    # set content type so library shows more views and info
@@ -255,7 +247,8 @@ def rmFavorite(name):
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
 def resolve(url): 
-	xbmc.Player().play(url, xbmcgui.ListItem(name))
+	import originresolver
+	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 	
 def get_params():
@@ -325,12 +318,12 @@ except:
 #####################################################END PROCESSES##############################################################		
 		
 if mode == None: Main_Menu()
-elif mode == 1 : genre(url)
+elif mode == 1 : Get_Info(url)
 elif mode == 2 : Search()
-elif mode == 3 : Get_Info(url)
-elif mode == 4 : imdb()
-elif mode == 5 : movie_check(url)
-elif mode == 6 : get_ep_source(url,extra)
+elif mode == 3 : get_page_info(url,iconimage)
+elif mode == 4 : get_season_info(url)
+elif mode == 5 : get_playlink(url)
+elif mode == 6 : genre(url)
 
 
 elif mode == 10: getFavourites()

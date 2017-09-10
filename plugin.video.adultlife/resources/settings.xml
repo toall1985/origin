@@ -2,6 +2,6 @@
 <settings>
     <category label="Main Settings">
 		<setting id="Adult" type="text" label="Adult Password:" default="" visible="true"/>
-		<setting id="Porn_Pass" type="text" default="teabagging" visible="false"/>
+		<setting id="Porn_Pass" type="text" default="analbead" visible="false"/>
     </category>
 </settings>
