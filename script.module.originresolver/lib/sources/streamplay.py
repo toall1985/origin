@@ -3,7 +3,7 @@ import requests
 import time
 import xbmc
 
-domain = 'streamplay.to'
+domain = ['streamplay.to']
 name = 'Streamplay'
 sources = []
 

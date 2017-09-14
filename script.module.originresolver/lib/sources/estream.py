@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'estream.to'
+domain = ['estream.to']
 name = 'Estream'
 sources = []
 

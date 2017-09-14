@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'weshare.me'
+domain = ['weshare.me']
 name = 'Weshare'
 sources = []
 

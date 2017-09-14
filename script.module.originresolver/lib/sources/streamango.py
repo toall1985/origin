@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'streamango.com'
+domain = ['streamango.com']
 name = 'Streamango'
 
 sources = []

@@ -1,8 +1,9 @@
 import re
 import requests
 import xbmc
+from resources.jsunpack import unpack
 
-domain = 'thevideo.me'
+domain = ['thevideo.me']
 name = 'Thevideo'
 sources = []
 
@@ -13,9 +14,9 @@ def resolve(url):
     html = requests.get(url).content
     m = re.findall("var lets_play_a_game='(.+?)'",html)[0]
     url = 'https://thevideo.me/vsign/player/'+m
-    h = requests.get(url).content
-    print h
-    info = re.findall('jwConfig\|(.+?)\|',h)[0]
+    h = requests.get(u).content
+    info_get = unpack(h)
+    info = re.findall('vt=(.+?)"',info_get)[0]
     if info == 'return':
         info = re.findall('function\|(.+?)\|',h)[0]
     File = re.findall('{"file":"(.+?)","label":"(.+?)"',html)

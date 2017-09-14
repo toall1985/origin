@@ -2,7 +2,7 @@ import re
 import requests
 import time
 
-domain = 'vodlock.co'
+domain = ['vodlock.co']
 name = 'Vodlock'
 sources = []
 

@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'streamable.com'
+domain = ['streamable.com']
 name = 'Streamable'
 sources = []
 

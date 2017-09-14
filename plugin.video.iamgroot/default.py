@@ -161,6 +161,7 @@ elif mode==12:
     except:
         pass
     process.rmFavorite(name)
+elif mode == 20: from lib import process;process.Big_Resolve(name,url)
 elif mode == 200: from lib import Movies;Movies.Movie_Main(url)
 elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
 elif mode == 203 : from lib import Movies;Movies.IMDB_Grab(url)

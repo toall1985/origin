@@ -59,7 +59,7 @@ def movie_channels():
                         for item in movie_search:
                             n,y = re.findall('(.+?) \((.+?)\)',item)[0]
                             fin_item = '>'+n+'>'+y+'>'
-                        process.PLAY(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
+                        process.Menu(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
 
 #    except:
 #        pass
@@ -84,7 +84,7 @@ def search_movies():
 				pass
 			else:
 				image = image.replace('32,44','174,256').replace('UY67','UY256').replace('UX32','UX175').replace('UY44','UY256')
-				process.PLAY(title+' '+year,'Movies',1501,image,'','','>'+title+'>'+year+'>')
+				process.Menu(title+' '+year,'Movies',1501,image,'','','>'+title+'>'+year+'>')
 				process.setView('movies', 'INFO')
 	
 def Movie_Genre(url):
@@ -103,7 +103,7 @@ def IMDB_Top250(url):
 		try:
 			img = img.replace('45,67','174,256').replace('UY67','UY256').replace('UX45','UX175')
 			extra = '>'+title+'>'+year+'>'
-			process.PLAY(title + ' ' + year,'Movies',1501,img,'','',extra)
+			process.Menu(title + ' ' + year,'Movies',1501,img,'','',extra)
 		except:
 			pass
 		

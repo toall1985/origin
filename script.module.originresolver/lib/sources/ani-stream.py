@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'ani-stream.com'
+domain = ['ani-stream.com']
 name = 'Anistream'
 sources = []
 

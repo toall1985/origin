@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'igenetive.com'
+domain = ['igenetive.com']
 name = 'Igenetive'
 sources = []
 

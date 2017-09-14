@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'yesmovies.to'
+domain = ['yesmovies.to']
 name = 'Yesmovies'
 
 def resolve(url):

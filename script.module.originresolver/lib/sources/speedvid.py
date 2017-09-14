@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'speedvid.net'
+domain = ['speedvid.net']
 name = 'Speedvid'
 sources = []
 

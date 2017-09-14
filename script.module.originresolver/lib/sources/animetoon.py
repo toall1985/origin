@@ -2,7 +2,7 @@ import re
 import requests
 import xbmc
 
-domain = 'animetoon.org'
+domain = ['animetoon.org']
 name = 'Animetoon'
 sources = []
 

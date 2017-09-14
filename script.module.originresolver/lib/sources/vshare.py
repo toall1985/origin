@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'vshare.eu'
+domain = ['vshare.eu']
 name = 'Vshare'
 sources = []
 

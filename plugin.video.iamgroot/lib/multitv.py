@@ -45,6 +45,7 @@ def IMDB_Get_Season_info(url,image,title):
                 number = int(number) - 1
 
 def IMDB_Get_Episode_info(url,title):
+	xbmc.log('URL:'+url,xbmc.LOGNOTICE)
 	ep_year = ''
 	image = ''
 	html = requests.get(url).text
@@ -74,13 +75,13 @@ def IMDB_Get_Episode_info(url,title):
 				episode = two.replace('Ep','Episode ').replace(' Episode ','')
 			title_split = re.compile('(.+?)\((.+?)\)').findall(str(title))
 			for title,show_year in title_split:
-				title = title
-				show_year = show_year
+				title = title.encode('utf-8').strip()
+				show_year = show_year.encode('utf-8').strip()
 			search_split = 'SPLITTER>'+title+'>'+show_year+'>'+ep_year+'>'+season+'>'+episode+'>'
 			search_split = search_split.replace(' >','>')
 			final_name = 'Episode '+episode+' - '+name
 			try:
-				process.PLAY(str(final_name),'',307,str(image),'','[COLORred]AIR DATE[/COLOR] == '+str(date).replace('  ','').replace('\n','')+'\n'+str(desc),search_split)
+				process.Menu(str(final_name),'',307,str(image),'','[COLORred]AIR DATE[/COLOR] == '+str(date).replace('  ','').replace('\n','')+'\n'+str(desc.encode('utf-8').strip()),search_split)
 				process.setView('movies', 'INFO')
 			except:
 				pass
@@ -88,7 +89,6 @@ def IMDB_Get_Episode_info(url,title):
 			pass
 		
 def SPLIT(extra):
-	xbmc.log('#######'+extra)
 	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)>(.+?)>(.+?)>').findall(str(extra))
 	for title,show_year,ep_year,season,episode in finish:
 		from lib import Scrape_Nan

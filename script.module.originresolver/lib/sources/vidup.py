@@ -1,8 +1,9 @@
 import re
 import requests
 import xbmc
+from resources.jsunpack import unpack
 
-domain = 'vidup.me'
+domain = ['vidup.me']
 name = 'Vidup'
 sources = []
 
@@ -14,7 +15,8 @@ def resolve(url):
     m = re.findall("var mpri_Key='(.+?)'",html)[0]
     u = 'http://vidup.me/jwv/'+m
     h = requests.get(u).content
-    info = re.findall('jwConfig\|(.+?)\|',h)[0]
+    info_get = unpack(h)
+    info = re.findall('vt=(.+?)"',info_get)[0]
     File = re.findall('{"file":"(.+?)","label":"(.+?)"',html)
     for f,qual in File:
         playlink = f+'?direct=false&ua=1&vt='+info

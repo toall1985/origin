@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'vidlox.tv'
+domain = ['vidlox.tv']
 name = 'Vidlox'
 sources = []
 

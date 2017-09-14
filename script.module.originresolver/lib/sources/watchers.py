@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'watchers.to'
+domain = ['watchers.to']
 name = 'Watchers'
 sources = []
 

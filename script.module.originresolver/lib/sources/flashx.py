@@ -2,7 +2,7 @@ import re
 import requests
 import time
 
-domain = 'flashx.tv'
+domain = ['flashx.tv']
 name = 'Flashx'
 sources = []
 test = 'https://www.flashx.tv/dl?playthis'

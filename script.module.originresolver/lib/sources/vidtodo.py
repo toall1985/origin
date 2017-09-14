@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'vidtodo.com'
+domain = ['vidtodo.com']
 name = 'Vidtodo'
 sources = []
 

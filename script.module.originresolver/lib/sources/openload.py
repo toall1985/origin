@@ -5,7 +5,7 @@ import xbmcgui
 import os
 import time
 
-domain = 'openload.co'
+domain = ['openload.co']
 name = 'Openload'
 sources = []
 Dialog = xbmcgui.DialogProgress()

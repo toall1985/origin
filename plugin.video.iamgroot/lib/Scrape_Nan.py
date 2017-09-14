@@ -1,97 +1,51 @@
-import xbmc,xbmcgui
+import xbmc,xbmcgui,xbmcplugin,sys
+import process
+dp =  xbmcgui.DialogProgress()
 
+
+def return_links(populator):
+    fin_list = []
+    hd_list = ['s']
+    mid_list = ['s']
+    sd_list = ['s']
+    for scraper_links in populator():
+        for link in scraper_links:
+			if dp.iscanceled():
+				return
+			if scraper_links != None:
+				fin_list.extend(scraper_links)
+				dp.update(int(2*len(fin_list)),'Cancelling will display results so far but cache incomplete list',"Results : ("+str(int(len(hd_list)-1))+ "/"+str(int(len(mid_list)-1))+ "/"+str(int(len(sd_list)-1))+')')	
+				if link["quality"]=='SD': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+				elif link["quality"]=='CAM': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+				elif link["quality"]=='360': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+				elif link["quality"]=='480': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+				elif link["quality"]=='560': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+				elif link["quality"]=='720': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+				elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+				elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+				elif link["quality"]=='DVD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+				try:
+					process.PLAY(name,str(link['url']),20,'','','','')
+					xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
+				except:
+					pass
 
 def scrape_episode(title,show_year,year,season,episode,imdb):
-	from nanscrapers import scrape_episode_with_dialog
-	progress = []
-	item = []
-	dp =  xbmcgui.DialogProgress()
-	dp.create('Initiating Scrapers')
-	links_scraper = scrape_episode_with_dialog(title, show_year, year, season, episode,imdb,None)
-	if links_scraper is False:
-		xbmcgui.Dialog().ok("Movie not found", "No Links Found for " + name + " (" + year + ")")
-	else:
-		if links_scraper:
-			url = links_scraper['url']
-			xbmc.Player().play(url, xbmcgui.ListItem(title))
+    year = year.replace('(','').replace(')','').replace(' ','').replace('I','')
+    show_year = show_year.replace('(','').replace(')','').replace(' ','')
+    from nanscrapers import scrape_episode
+    progress = []
+    item = []
+    dp.create('Initiating Scrapers')
+    populator = scrape_episode(title, show_year, year, season, episode,imdb,'')
+    return_links(populator)
 
 
-'''	if links_scraper is False:
-		xbmc.log('passed',xbmc.LOGNOTICE)
-		pass
-	else:
-		scraped_links = []
-		if len(scraped_links)!=0:
-			for scraper_links in links_scraper():
-				item.append(scraper_links)
-			items = len(item)
-			for scraper_links in links_scraper():
-				if scraper_links is not None:
-					progress.append(scraper_links)
-					dp_add = len(progress) / float(items) * 100
-					dp.update(int(dp_add),'Checking sources',"Checking Nan Scrapers",'Please Wait')				
-					scraped_links.extend(scraper_links)
-			xbmc.log('links:'+str(scraper_links),xbmc.LOGNOTICE)
-			for link in scraped_links:
-				if link["quality"]=='SD': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='CAM': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='360': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='480': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='560': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='720': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='1080': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='HD': name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif 'vidzi' in link["source"]: name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				url = link['url']
-				url = url
-				process.Big_Resolve(name,url)
-				xbmc.Player().play(url, xbmcgui.ListItem(name))'''
-
-#		process.PLAY('test',link["url"],906,'','','','')
-#		xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 
 def scrape_movie(name,year,imdb):
-	import xbmc
-	from nanscrapers import scrape_movie_with_dialog
-	link = scrape_movie_with_dialog(name, year, imdb, timeout=600)
-	if link is False:
-		xbmcgui.Dialog().ok("Movie not found", "No Links Found for " + name + " (" + year + ")")
-	else:
-		if link:
-			url = link['url']
-			xbmc.Player().play(url, xbmcgui.ListItem(name))
-
-
-'''	progress = []
-		item = []
-		dp =  xbmcgui.DialogProgress()
-		dp.create('Initiating Scrapers')
-		links_scraper = scrape_movie(name, year, '', timeout=60)
-		if links_scraper is False:
-			pass
-		else:
-			scraped_links = []
-			for scraper_links in links_scraper():
-				item.append(scraper_links)
-			items = len(item)
-			for scraper_links in links_scraper():
-				if scraper_links is not None:
-					progress.append(scraper_links)
-					dp_add = len(progress) / float(items) * 100
-					dp.create('Checking for stream')
-					dp.update(int(dp_add),'Checking sources',"Checking Nan Scrapers",'Please Wait')				
-					scraped_links.extend(scraper_links)
-			for link in scraped_links:
-				if link["quality"]=='SD': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='CAM': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='360': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='480': name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='560': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='720': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='1080': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif link["quality"]=='HD': name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				elif 'vidzi' in link["source"]: name = '  '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				else: name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")"
-				process.Play(name,link["url"],906,'','','','')
-				xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);'''
+    dp.create('Initiating Scrapers')
+    year = year.replace('(','').replace(')','').replace(' ','').replace('I','')
+    from nanscrapers import scrape_movie
+    populator = scrape_movie(name, year, imdb)
+    return_links(populator)

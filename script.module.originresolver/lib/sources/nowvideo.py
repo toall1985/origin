@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = 'nowvideo.sx'
+domain = ['nowvideo.sx']
 name = 'Nowvideo'
 sources = []
 

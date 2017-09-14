@@ -2,7 +2,7 @@ import requests
 import re
 from HTMLParser import HTMLParser
 
-domain = 'ok.ru'
+domain = ['ok.ru']
 name = 'Ok.Ru'
 sources = []
 

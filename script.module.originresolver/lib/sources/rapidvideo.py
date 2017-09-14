@@ -2,7 +2,7 @@ import re
 import requests
 import time
 
-domain = 'rapidvideo.ws'
+domain = ['rapidvideo.ws']
 name = 'Rapidvideo'
 sources = []
 
