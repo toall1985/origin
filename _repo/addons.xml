@@ -186,11 +186,13 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.iamgroot" name="I Am Groot" version="0.0.3" provider-name="Origin">
+<addon id="plugin.video.iamgroot" name="I Am Groot" version="0.0.4" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
     <import addon="script.module.nanscrapers"/>
+	<import addon="script.module.originresolver"/>
+    <import addon="script.module.urlresolver" optional="true"/>
 	<import addon="script.module.requests" />
 	<import addon="script.module.beautifulsoup4" />
   </requires>
@@ -303,7 +305,7 @@
     </extension>
 </addon>
 
-<addon id="script.module.originresolver" name="Origin Resolver" version="0.0.8" provider-name="Origin">
+<addon id="script.module.originresolver" name="Origin Resolver" version="0.0.9" provider-name="Origin">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="plugin.video.youtube" optional="true"/>
