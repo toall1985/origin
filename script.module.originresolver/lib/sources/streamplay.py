@@ -35,3 +35,5 @@ def resolve(url):
     sources.append({'source': name, 'quality': 'SD', 'scraper': name, 'url': playlink,'direct': True})
     return sources
 
+
+#resolve('http://streamplay.to/yyz8948ahf39')

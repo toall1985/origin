@@ -3,28 +3,39 @@ import re
 import sys
 import xbmc
 import xbmcgui
+import xbmcplugin
 playlist = ['.mp4','.mkv','.m3u8','=m22','=m18','=m37']
 
 def originresolver(name,url):
-#	try:
+	try:
+		xbmc.log('STARTING O RESOLVER:'+url,xbmc.LOGNOTICE)
 		xbmcgui.Dialog().notification("Origin Resolvers", "Starting Resolvers")
-		if not url.startswith('http:'):
-			if not url.startswith('https'):
-				url = 'http:'+url
+		if not url.startswith('http'):
+			url = 'http:'+url
 		if '.mp4' in url or '.mkv' in url or 'm3u8' in url or '=m22' in url or '=m18' in url or '=m37' in url:
 			if 'openload' in url:
 				resolve(name,url)
 			elif 'embed' in url:
 				resolve(name,url)
+			elif '.html' in url:
+				resolve(name,url)
 			else:
 				xbmc.Player().play(url, xbmcgui.ListItem(name))
+		elif 'youtube' in url:
+			try:
+				url = re.findall('v=(.+?)>',str(url+'>'))[0]
+			except:
+				url = url
+			xbmc.log('STARTING O RESOLVER YOUTUBE:'+url,xbmc.LOGNOTICE)
+			from sources.resources import yt
+			yt.PlayVideo(url)
 		else:
 			resolve(name,url)
 			xbmc.log('STARTING O RESOLVER:'+url,xbmc.LOGNOTICE)
 			
-#	except Exception as e:
-#		xbmc.log(repr(e),xbmc.LOGNOTICE)
-#		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link c")
+	except Exception as e:
+		xbmc.log(repr(e),xbmc.LOGNOTICE)
+		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link c")
 
 def resolve(name,url):
 	Dialog = xbmcgui.Dialog()
@@ -48,7 +59,7 @@ def resolve(name,url):
 						finally:
 							sys.path[:] = path # restore
 						if sources == None:
-							xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link")
+							xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link b")
 							sys.exit()
 						elif len(sources)==1:
 							for link in sources:

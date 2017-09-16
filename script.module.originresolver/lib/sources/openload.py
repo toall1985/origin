@@ -5,13 +5,18 @@ import xbmcgui
 import os
 import time
 
-domain = ['openload.co']
+domain = ['openload.co','openload.link']
 name = 'Openload'
 sources = []
 Dialog = xbmcgui.DialogProgress()
 
 def resolve(url,count=None):
     global pair_url
+    if '.link' in url:
+        html = requests.get(url).content
+        match = re.compile('<iframe src="(.+?)"').findall(html)
+        for u in match:
+            url = u
     if count == None:
         count = 0
     xbmc.log(str(count),xbmc.LOGNOTICE)

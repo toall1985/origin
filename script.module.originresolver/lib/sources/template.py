@@ -1,7 +1,7 @@
 import re
 import requests
 
-domain = ''
+domain = ['']
 name = ''
 sources = []
 url = ''

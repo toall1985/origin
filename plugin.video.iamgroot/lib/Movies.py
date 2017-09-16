@@ -63,13 +63,6 @@ def movie_channels():
 
 #    except:
 #        pass
-		
-def split_for_search(extra):
-	year = re.compile('\((.+?)\)').findall(str(extra))
-	for item in year:
-		year = item
-	name = extra.replace('\(','').replace('\)','').replace(year,'')
-	import Scrape_Nan;Scrape_Nan.scrape_movie(name,year,'')
 
 def search_movies():
 	Search_title = xbmcgui.Dialog().input('Search', type=xbmcgui.INPUT_ALPHANUM)
@@ -110,7 +103,6 @@ def IMDB_Top250(url):
 def IMDB_Grab(url):
 #	try:
 		List = []
-		xbmc.log(url)
 		html = requests.get(url).text	
 		match = re.compile('<div class="lister-item-image float-left">.+?<a href="(.+?)".+?<img alt="(.+?)".+?loadlate="(.+?)".+?<span class="lister-item-year text-muted unbold">(.+?)</span>.+?<p class="text-muted">\n(.+?)</p>',re.DOTALL).findall(html)
 		for url,name,image,year,desc in match:
@@ -119,9 +111,8 @@ def IMDB_Grab(url):
 				if '(2018)' in year:
 					pass
 				else:
-					xbmc.log(image)
 					year = year.replace('(I) ','').replace('II','')
-					process.PLAY(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
+					process.Menu(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
 					process.setView('movies', 'INFO')
 			except:
 				pass

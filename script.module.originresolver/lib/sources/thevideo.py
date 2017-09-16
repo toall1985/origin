@@ -13,8 +13,8 @@ def resolve(url):
     xbmc.log(url,xbmc.LOGNOTICE)
     html = requests.get(url).content
     m = re.findall("var lets_play_a_game='(.+?)'",html)[0]
-    url = 'https://thevideo.me/vsign/player/'+m
-    h = requests.get(u).content
+    player_url = 'https://thevideo.me/vsign/player/'+m
+    h = requests.get(player_url).content
     info_get = unpack(h)
     info = re.findall('vt=(.+?)"',info_get)[0]
     if info == 'return':

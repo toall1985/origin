@@ -33,7 +33,6 @@ debug = ADDON.getSetting('debug')
 
 
 def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=True, allinfo={}):
-    xbmc.log(extra,xbmc.LOGNOTICE)
     if iconimage == '':
         iconimage = ICON
     elif iconimage == ' ':
@@ -52,10 +51,10 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
-            contextMenu.append(('Remove from Sanctuary Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
+            contextMenu.append(('Remove from I am groot Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name))))
         if not name in FAV:
-            contextMenu.append(('Add to Sanctuary Favorites',
+            contextMenu.append(('Add to I am groot Favorites',
                                 'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
                                    urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
@@ -76,10 +75,10 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
-            contextMenu.append(('Remove from Sanctuary Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
+            contextMenu.append(('Remove from I am groot Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name))))
         if not name in FAV:
-            contextMenu.append(('Add to Sanctuary Favorites',
+            contextMenu.append(('Add to I am groot Favorites',
                                 'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
                                    urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
@@ -101,7 +100,7 @@ def addon_log(string):
         xbmc.log("[addon.live.Sanctuary-%s]: %s" % (addon_version, string))
 
 
-def addFavorite(name, url, iconimage, fanart, mode, playlist=None, regexs=None):
+def addFavorite(name, url, mode, iconimage, fanart, desc, extra):
     favList = []
     try:
         # seems that after
@@ -110,7 +109,7 @@ def addFavorite(name, url, iconimage, fanart, mode, playlist=None, regexs=None):
         pass
     if os.path.exists(favourites) == False:
         addon_log('Making Favorites File')
-        favList.append((name, url, iconimage, fanart, mode, playlist, regexs))
+        favList.append((name, url, mode, iconimage, fanart, desc, extra))
         a = open(favourites, "w")
         a.write(json.dumps(favList))
         a.close()
@@ -118,7 +117,7 @@ def addFavorite(name, url, iconimage, fanart, mode, playlist=None, regexs=None):
         addon_log('Appending Favorites')
         a = open(favourites).read()
         data = json.loads(a)
-        data.append((name, url, iconimage, fanart, mode))
+        data.append((name, url, mode, iconimage, fanart, desc, extra))
         b = open(favourites, "w")
         b.write(json.dumps(data))
         b.close()
@@ -138,24 +137,15 @@ def getFavourites():
         for i in items:
             name = i[0]
             url = i[1]
-            iconimage = i[2]
-            try:
-                fanart = i[3]
-            except:
-                fanart = ''
-            try:
-                playlist = i[5]
-            except:
-                playlist = None
-            try:
-                regexs = i[6]
-            except:
-                regexs = None
-
+            mode = i[2]
+            iconimage = i[3]
+            fanart = i[4]
+            desc = i[5]
+            extra = i[6]
             if i[4] == 906:
-                Play(name, url, '', iconimage, fanart, '', '', 'fav')
+                Play(name, url, i[2], iconimage, fanart, '', '', 'fav')
             else:
-                Menu(name, url, i[4], iconimage, fanart, '', '', 'fav')
+                Menu(name, url, i[2], iconimage, fanart, '', '', 'fav')
 
 
 def rmFavorite(name):

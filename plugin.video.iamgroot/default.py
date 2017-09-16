@@ -17,8 +17,51 @@ else:
 def Main_Menu():
 	process.Menu('TV Shows','',300,'','','','')
 	process.Menu('Movies','',200,'','','','')
+	process.Menu('Comedy','http://www.imdb.com/user/ur80459712/watchlist',13,'','','','')
+	process.Menu('Origin\'s Entertainment','',14,'','','','')
 	process.Menu('Favourites','',10,'','','','')
 	process.setView('movies', 'INFO')
+	
+def Origin_picks():
+	process.Menu('Origin\'s TV','http://www.imdb.com/list/ls020814698/',16,'','','','')
+	process.Menu('Origin\'s Movies','http://www.imdb.com/list/ls020814225/',15,'','','','')
+	
+def get_list_movie(url):
+	html = requests.get(url).content
+	block = re.findall('<div class="list_item(.+?)<div class="clear"',html,re.DOTALL)
+	for blocky in block:
+		url = re.findall('href="(.+?)"',str(blocky))[0]
+		image = re.findall('img src="(.+?)"',str(blocky))[0]
+		name = re.findall('<div class="info">.+?href=.+?>(.+?)</a>',str(blocky),re.DOTALL)[0]
+		year = re.findall('<span class="year_type">(.+?)</span>',str(blocky))[0]
+		desc,length = re.findall('"item_description">(.+?)<span>(.+?)</span>',str(blocky))[0]
+		process.Menu(name+' '+year,'Movies',1501,image,'',length+' '+desc,'>'+name+'>'+year+'>')
+	
+def get_list_tv(url):
+	html = requests.get(url).content
+	block = re.findall('<div class="list_item(.+?)<div class="clear"',html,re.DOTALL)
+	for blocky in block:
+		url = re.findall('href="(.+?)"',str(blocky))[0]
+		image = re.findall('img src="(.+?)"',str(blocky))[0]
+		name = re.findall('<div class="info">.+?href=.+?>(.+?)</a>',str(blocky),re.DOTALL)[0]
+		year = re.findall('<span class="year_type">(.+?)</span>',str(blocky))[0]
+		desc,length = re.findall('"item_description">(.+?)<span>(.+?)</span>',str(blocky))[0]
+		year = re.sub("[^()0123456789\.]","",year)
+		process.Menu(name+' '+year,'http://imdb.com'+url,305,image,'',desc,name.encode('utf-8')+year.encode('utf-8'))
+	
+def comedy(url):
+	html = requests.get(url).content
+	match = re.compile('{"primary".+?"href":"(.+?)".+?"year":\["(.+?)".+?"title":"(.+?)".+?"plot":(.+?)".+?"poster":.+?"url":"(.+?)".+?"numberOfEpisodes":(.+?),').findall(html)
+	for url,year,name,desc,image,eps in match:
+		desc = desc.replace('"','').replace('&#39;','\'').replace('&quot;','"')
+		try:
+			extra_name = re.findall('(.+?):',str(name))[0]
+		except:
+			extra_name = name
+		if eps == 'null':
+			process.Menu(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+year+'>')
+		else:
+			process.Menu(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+year+')')
 
 def TV_Calender_Day(url):
 	from datetime import datetime
@@ -61,8 +104,10 @@ def send_to_search(name,extra):
 	Scrape_Nan.scrape_episode(title,'','',season,episode,'')
 	
 def movie_search(extra):
-	xbmc.log('extra:'+extra,xbmc.LOGNOTICE)
+	xbmc.log(extra,xbmc.LOGNOTICE)
 	title,year = re.findall('>(.+?)>(.+?)>',str(extra))[0]
+	xbmc.log(title,xbmc.LOGNOTICE)
+	xbmc.log(year,xbmc.LOGNOTICE)
 	from lib import Scrape_Nan
 	Scrape_Nan.scrape_movie(title,year,'')
 	
@@ -161,8 +206,12 @@ elif mode==12:
     except:
         pass
     process.rmFavorite(name)
+elif mode == 13: comedy(url)
+elif mode == 14: Origin_picks()
+elif mode == 15: get_list_movie(url)
+elif mode == 16: get_list_tv(url)
 elif mode == 20: from lib import process;process.Big_Resolve(name,url)
-elif mode == 200: from lib import Movies;Movies.Movie_Main(url)
+elif mode == 200 : from lib import Movies;Movies.Movie_Main(url)
 elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
 elif mode == 203 : from lib import Movies;Movies.IMDB_Grab(url)
 elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
@@ -170,7 +219,6 @@ elif mode == 205 : from lib import Movies;Movies.Get_playlink(url)
 elif mode == 206 : from lib import Movies;Movies.IMDB_Top250(url)
 elif mode == 207 : from lib import Movies;Movies.search_movies()
 elif mode == 208 : from lib import Movies;Movies.movie_channels()
-elif mode == 209 : from lib import Movies;Movies.split_for_search(extra)
 elif mode == 300 : from lib import multitv;multitv.multiv_Main_Menu(url)
 elif mode == 301 : from lib import multitv;multitv.IMDB_TOP_100_EPS(url)
 elif mode == 302 : from lib import multitv;multitv.Popular(url)

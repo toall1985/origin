@@ -45,7 +45,8 @@ def IMDB_Get_Season_info(url,image,title):
                 number = int(number) - 1
 
 def IMDB_Get_Episode_info(url,title):
-	xbmc.log('URL:'+url,xbmc.LOGNOTICE)
+	xbmc.log(title,xbmc.LOGNOTICE)
+	title = title.replace('(I)','')
 	ep_year = ''
 	image = ''
 	html = requests.get(url).text
@@ -89,6 +90,7 @@ def IMDB_Get_Episode_info(url,title):
 			pass
 		
 def SPLIT(extra):
+	xbmc.log(extra+'#',xbmc.LOGNOTICE)
 	finish = re.compile('SPLITTER>(.+?)>(.+?)>(.+?)>(.+?)>(.+?)>').findall(str(extra))
 	for title,show_year,ep_year,season,episode in finish:
 		from lib import Scrape_Nan
