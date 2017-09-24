@@ -57,7 +57,6 @@ def get_info(url):
 	html = requests.get(url).content
 	match = re.compile('<div class="item_movie">.+?href="(.+?)".+?title="(.+?)".+?img src="(.+?)".+?<span class="res">(.+?)</span>',re.DOTALL).findall(html)
 	for url,name,image,qual in match:
-		url = 'http:'+url
 		if 'season' in name.lower():
 			tv_check(name,url,image,qual)
 		elif 's0' in name.lower():
