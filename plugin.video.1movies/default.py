@@ -17,41 +17,41 @@ else:
 
 def Main_Menu():
     Menu('Genre','',3,ICON,FANART,'','')
-    Menu('Hot Movies','http://1movies.tv/movies/hot',1,ICON,FANART,'','')
-    Menu('TV Series','http://1movies.tv/movies/series',1,ICON,FANART,'','')
-    Menu('Most Watched','http://1movies.tv/movies/mostviewed',1,ICON,FANART,'','')
-    Menu('Latest','http://1movies.tv/movies/latest',1,ICON,FANART,'','')
+    Menu('Hot Movies','http://1movies.im/movies/hot',1,ICON,FANART,'','')
+    Menu('TV Series','http://1movies.im/movies/series',1,ICON,FANART,'','')
+    Menu('Most Watched','http://1movies.im/movies/mostviewed',1,ICON,FANART,'','')
+    Menu('Latest','http://1movies.im/movies/latest',1,ICON,FANART,'','')
     Menu('Search','',2,ICON,FANART,'','')
 	
 def Genre():
-    Menu(' Action','http://1movies.tv/genre/action',1,ICON,FANART,'','')
-    Menu(' Adventure','http://1movies.tv/genre/adventure',1,ICON,FANART,'','')
-    Menu(' Animation','http://1movies.tv/genre/animation',1,ICON,FANART,'','')
-    Menu(' Biography','http://1movies.tv/genre/biography',1,ICON,FANART,'','')
-    Menu(' Comedy','http://1movies.tv/genre/comedy',1,ICON,FANART,'','')
-    Menu(' Crime','http://1movies.tv/genre/crime',1,ICON,FANART,'','')
-    Menu(' Documentary','http://1movies.tv/genre/documentary',1,ICON,FANART,'','')
-    Menu(' Drama','http://1movies.tv/genre/drama',1,ICON,FANART,'','')
-    Menu(' Family','http://1movies.tv/genre/family',1,ICON,FANART,'','')
-    Menu(' Fantasy','http://1movies.tv/genre/fantasy',1,ICON,FANART,'','')
-    Menu(' Game show','http://1movies.tv/genre/game-show',1,ICON,FANART,'','')
-    Menu(' History','http://1movies.tv/genre/history',1,ICON,FANART,'','')
-    Menu(' Horror','http://1movies.tv/genre/horror',1,ICON,FANART,'','')
-    Menu(' Movie horror','http://1movies.tv/genre/movie-horror',1,ICON,FANART,'','')
-    Menu(' Music','http://1movies.tv/genre/music',1,ICON,FANART,'','')
-    Menu(' Musical','http://1movies.tv/genre/musical',1,ICON,FANART,'','')
-    Menu(' Mystery','http://1movies.tv/genre/mystery',1,ICON,FANART,'','')
-    Menu(' News','http://1movies.tv/genre/news',1,ICON,FANART,'','')
-    Menu(' Reality TV','http://1movies.tv/genre/reality-tv',1,ICON,FANART,'','')
-    Menu(' Romance','http://1movies.tv/genre/romance',1,ICON,FANART,'','')
-    Menu(' Sci-fi','http://1movies.tv/genre/sci-fi',1,ICON,FANART,'','')
-    Menu(' Short','http://1movies.tv/genre/short',1,ICON,FANART,'','')
-    Menu(' Sport','http://1movies.tv/genre/sport',1,ICON,FANART,'','')
-    Menu(' Talk show','http://1movies.tv/genre/talk-show',1,ICON,FANART,'','')
-    Menu(' Thriller','http://1movies.tv/genre/thriller',1,ICON,FANART,'','')
-    Menu(' TV Series','http://1movies.tv/genre/tv-series',1,ICON,FANART,'','')
-    Menu(' War','http://1movies.tv/genre/war',1,ICON,FANART,'','')
-    Menu(' Western','http://1movies.tv/genre/western',1,ICON,FANART,'','')
+    Menu(' Action','http://1movies.im/genre/action',1,ICON,FANART,'','')
+    Menu(' Adventure','http://1movies.im/genre/adventure',1,ICON,FANART,'','')
+    Menu(' Animation','http://1movies.im/genre/animation',1,ICON,FANART,'','')
+    Menu(' Biography','http://1movies.im/genre/biography',1,ICON,FANART,'','')
+    Menu(' Comedy','http://1movies.im/genre/comedy',1,ICON,FANART,'','')
+    Menu(' Crime','http://1movies.im/genre/crime',1,ICON,FANART,'','')
+    Menu(' Documentary','http://1movies.im/genre/documentary',1,ICON,FANART,'','')
+    Menu(' Drama','http://1movies.im/genre/drama',1,ICON,FANART,'','')
+    Menu(' Family','http://1movies.im/genre/family',1,ICON,FANART,'','')
+    Menu(' Fantasy','http://1movies.im/genre/fantasy',1,ICON,FANART,'','')
+    Menu(' Game show','http://1movies.im/genre/game-show',1,ICON,FANART,'','')
+    Menu(' History','http://1movies.im/genre/history',1,ICON,FANART,'','')
+    Menu(' Horror','http://1movies.im/genre/horror',1,ICON,FANART,'','')
+    Menu(' Movie horror','http://1movies.im/genre/movie-horror',1,ICON,FANART,'','')
+    Menu(' Music','http://1movies.im/genre/music',1,ICON,FANART,'','')
+    Menu(' Musical','http://1movies.im/genre/musical',1,ICON,FANART,'','')
+    Menu(' Mystery','http://1movies.im/genre/mystery',1,ICON,FANART,'','')
+    Menu(' News','http://1movies.im/genre/news',1,ICON,FANART,'','')
+    Menu(' Reality TV','http://1movies.im/genre/reality-tv',1,ICON,FANART,'','')
+    Menu(' Romance','http://1movies.im/genre/romance',1,ICON,FANART,'','')
+    Menu(' Sci-fi','http://1movies.im/genre/sci-fi',1,ICON,FANART,'','')
+    Menu(' Short','http://1movies.im/genre/short',1,ICON,FANART,'','')
+    Menu(' Sport','http://1movies.im/genre/sport',1,ICON,FANART,'','')
+    Menu(' Talk show','http://1movies.im/genre/talk-show',1,ICON,FANART,'','')
+    Menu(' Thriller','http://1movies.im/genre/thriller',1,ICON,FANART,'','')
+    Menu(' TV Series','http://1movies.im/genre/tv-series',1,ICON,FANART,'','')
+    Menu(' War','http://1movies.im/genre/war',1,ICON,FANART,'','')
+    Menu(' Western','http://1movies.im/genre/western',1,ICON,FANART,'','')
 
 def get_info(url):
 	html = requests.get(url).content
@@ -139,9 +139,9 @@ def get_playlist_source(link):
 		headers = {
 					"referer":link,
 					"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
-					"host":"1movies.tv"
+					"host":"1movies.im"
 				}
-		item = 'http://1movies.tv/ajax/movie/load_player_v3?id='+u
+		item = 'http://1movies.im/ajax/movie/load_player_v3?id='+u
 		xbmc.log('item:'+item,xbmc.LOGNOTICE)
 		head_req = requests.post(item,headers=headers).content
 		xbmc.log('head_req:'+head_req,xbmc.LOGNOTICE)
@@ -150,7 +150,7 @@ def get_playlist_source(link):
 			new_headers = {
 			"referer":link,
 			"user-agent":"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
-			"host":"xplay.1movies.tv"
+			"host":"xplay.1movies.im"
 			}
 			newurl = 'http:'+r.replace('\\','')
 			xbmc.log('newurl:'+newurl,xbmc.LOGNOTICE)
@@ -161,7 +161,7 @@ def get_playlist_source(link):
 				return playlink
 	
 def Search():
-   Search_url = 'http://1movies.tv/movies/search?s='
+   Search_url = 'https://search.1movies.im/?q='
    Dialog = xbmcgui.Dialog()
    Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
    Search_name = Search_title.replace(' ','+').lower()
