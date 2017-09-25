@@ -6,9 +6,6 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 
-addon_id = 'plugin.video.scrapertest'
-ADDON = xbmcaddon.Addon(id=addon_id)
-
 def scrape_movie(name,year,imdb):
 
     if name is not "" and year is not "":
