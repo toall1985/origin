@@ -8,18 +8,18 @@ FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
 ADDON_DATA = USERDATA_PATH + '/plugin.video.gostreams/'
 favourites = ADDON_DATA + 'favourites'
-base_link = 'https://cartoonhd.tech'
+base_link = 'https://cartoonhd.in'
 if os.path.exists(favourites) == True:
    FAV = open(favourites).read()
 else:
    FAV = []
 
 def Main_Menu():
-   Menu('TV-Series','https://cartoonhd.tech/tv-shows',1,ICON,FANART,'','')
-   Menu('Movies','https://cartoonhd.tech/full-movies',1,ICON,FANART,'','')
-   Menu('Cinema Movies','https://cartoonhd.tech/box-office-movies',1,ICON,FANART,'','')
-   Menu('Just Added','https://cartoonhd.tech/new-movies',1,ICON,FANART,'','')
-   Menu('Cinema Movies','https://cartoonhd.tech/box-office-movies',1,ICON,FANART,'','')
+   Menu('TV-Series','https://cartoonhd.in/tv-shows',1,ICON,FANART,'','')
+   Menu('Movies','https://cartoonhd.in/full-movies',1,ICON,FANART,'','')
+   Menu('Cinema Movies','https://cartoonhd.in/box-office-movies',1,ICON,FANART,'','')
+   Menu('Just Added','https://cartoonhd.in/new-movies',1,ICON,FANART,'','')
+   Menu('Cinema Movies','https://cartoonhd.in/box-office-movies',1,ICON,FANART,'','')
    Menu('Search','',2,ICON,FANART,'','')
  
 def Get_Info(url):
@@ -59,20 +59,21 @@ def get_page_info(url,iconimage):
 	if count==0:
 		get_playlink(url)
 			
-def get_season_info(url):
+def get_season_info(url,fanart):
 	html = requests.get(url).content
 	m = re.compile('<div class="episode ">.+?href="(.+?)" title="(.+?)">.+?img="(.+?)"',re.DOTALL).findall(html)
 	for url,name,image in m:
-		Menu(name,url,5,image,FANART,'','')
+		Menu(name,url,5,image,fanart,'','')
 
 
 def get_playlink(url):			
-	ajax_url = 'https://cartoonhd.tech/ajax/tnembedr.php'
+	ajax_url = 'https://cartoonhd.in/ajax/tnembedr.php'
 	get_info = requests.get(url).content
 	token = re.findall("var tok.+?= '(.+?)'",get_info)[0]
 	elid = re.findall('elid = "(.+?)"',get_info)[0]
 	actions = ['getMovieEmb','getEpisodeEmb']
 	for action in actions:
+	
 		headers = {
 			'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
 			'Referer':url,
@@ -88,7 +89,10 @@ def get_playlink(url):
 		html = requests.post(ajax_url,headers=headers,data=data).json()
 		for single in html:
 			item = html[single]
-			playlink = re.findall('src="(.+?)"',str(item['embed']).lower())[0]
+			try:
+				playlink = re.findall('src="(.+?)"',str(item['embed']))[0]
+			except:
+				playlink = re.findall('SRC="(.+?)"',str(item['embed']))[0]
 			qual = item['type']
 			if '360p' in qual:
 				quality = '360p'
@@ -109,11 +113,11 @@ def get_playlink(url):
 			Play(quality,playlink,20,ICON,FANART,'','')
 
 def Search():
-	Search_url = 'https://api.cartoonhd.tech/api/v1/0A6ru35yevokjaqbb3'
+	Search_url = 'https://api.cartoonhd.in/api/v1/0A6ru35yevokjaqbb3'
 	Dialog = xbmcgui.Dialog()
 	Search_title = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
 	Search_name = Search_title.replace(' ','+').lower()
-	url = 'https://api.cartoonhd.tech/api/v1/0A6ru35yevokjaqbb3'
+	url = 'https://api.cartoonhd.in/api/v1/0A6ru35yevokjaqbb3'
 	headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
            }
 	data = {'q':Search_name.replace(' ','+'),
@@ -332,7 +336,7 @@ if mode == None: Main_Menu()
 elif mode == 1 : Get_Info(url)
 elif mode == 2 : Search()
 elif mode == 3 : get_page_info(url,iconimage)
-elif mode == 4 : get_season_info(url)
+elif mode == 4 : get_season_info(url,fanart)
 elif mode == 5 : get_playlink(url)
 elif mode == 6 : genre(url)
 

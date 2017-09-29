@@ -167,7 +167,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.3" provider-name="Origin">
+<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.4" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.originresolver"/>
