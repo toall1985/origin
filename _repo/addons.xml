@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.audio.radiogaga" name="Radio Ga Ga" version="1.0.6" provider-name="Origin">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.originresolver"/>
-	<import addon="script.module.addon.common" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Radio Ga Ga</summary>
-	<description lang="en">An addon by origin for Radio. http://kodification.co.uk/reportissues</description>
-	<disclaimer lang="en">The author neither hosts or stores any content, the author has no affiliation with content hosts</disclaimer>
-	<platform>all</platform>
-  </extension>
-</addon>
-
 <addon id="plugin.video.1080pmovie" name="1080p Movie" version="0.0.4" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
