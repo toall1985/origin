@@ -15,7 +15,6 @@ def multiv_Main_Menu(url):
     process.Menu('TV Schedule','http://www.tvmaze.com/calendar',6,ICON,FANART,'','')
     process.Menu('IMDB Top 100 Programs','http://www.imdb.com/chart/tvmeter?ref_=m_nv_ch_tvm',301,ICON,FANART,'','')
     process.Menu('Genres','',303,ICON,FANART,'','')
-    process.Menu('Check for episode','',41,ICON,FANART,'','')
     process.Menu('Search','',308,ICON,FANART,'','')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))	
 

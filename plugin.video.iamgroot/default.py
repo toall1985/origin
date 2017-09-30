@@ -7,20 +7,110 @@ ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.plugin.video
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
-ADDON_DATA = USERDATA_PATH + '/plugin.video.iamgroot/'
-favourites = ADDON_DATA + 'favourites'
-if os.path.exists(favourites) == True:
-    FAV = open(favourites).read()
-else:
-    FAV = []
+ADDON_DATA = os.path.join(USERDATA_PATH,'plugin.video.iamgroot')
+favourites = os.path.join(ADDON_DATA,'favourites')
+watched = os.path.join(ADDON_DATA,'watched')
+imdb = os.path.join(ADDON_DATA,'imdb')
+Dialog = xbmcgui.Dialog()
 
 def Main_Menu():
 	process.Menu('TV Shows','',300,'','','','')
 	process.Menu('Movies','',200,'','','','')
 	process.Menu('Comedy','http://www.imdb.com/user/ur80459712/watchlist',13,'','','','')
 	process.Menu('Origin\'s Entertainment','',14,'','','','')
+	process.Menu('Watched Shows','',18,'','','','')
 	process.Menu('Favourites','',10,'','','','')
 	process.setView('movies', 'INFO')
+	
+def Watched_Menu():
+	process.Menu('Latest Episodes','',19,'','','','')
+	process.Menu('Watched Shows','',21,'','','','')
+	
+def Latest_Shows():
+    single_list = []
+    Type = ''
+    Choices = ['Watch now','Upcoming Episodes this month']
+    decide = Dialog.select('Select Choice',Choices)
+    if decide == 0:
+        Choice = 'Watch now'
+    elif decide == 1:
+        Choice = 'Upcoming'		
+    from datetime import datetime
+    today = datetime.now().strftime("%d")
+    this_month = datetime.now().strftime("%m")
+    this_year = datetime.now().strftime("%y")
+    todays_number = (int(this_year)*100)+(int(this_month)*31)+(int(today))
+    if not os.path.exists(watched):
+        watchedList = []
+        watchedList.append(('I am Groot Watched Section', '', '', '', '', ''))
+        a = open(watched, "w")
+        a.write(json.dumps(watched))
+        a.close()
+    HTML = requests.get('http://www.tvmaze.com/calendar').content
+    match = re.compile('<span class="dayofmonth">.+?<span class=".+?">(.+?)</span>(.+?)</span>(.+?)</div>',re.DOTALL).findall(HTML)
+    for Day_Month,Date,Block in match:
+        Date = Date.replace('\n','').replace('  ','').replace(' ','')
+        Day_Month = Day_Month.replace('\n','').replace('  ','').replace('   ','')
+        Final_Name = Day_Month.replace(',',' '+Date+' ')
+        split_month = Day_Month+'>'
+        Month_split = re.compile(', (.+?)>').findall(str(split_month))
+        for items in Month_split:
+                month_one = items.replace('January','1').replace('February','2').replace('March','3').replace('April','4').replace('May','5').replace('June','6')
+                month = month_one.replace('July','7').replace('August','8').replace('September','9').replace('October','10').replace('November','11').replace('December','12')
+        show_day = Date.replace('st','').replace('th','').replace('nd','').replace('rd','')
+        shows_number = (int(this_year)*100)+(int(month)*31)+(int(show_day))
+        if shows_number< todays_number:
+            Aired = 'Watch now'
+        else:
+            Aired = 'Airs:'
+        prog = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(Block))
+        for prog, ep in prog:
+            prog_check = prog.lower().replace(' ','')
+            Split = 'season '+ep.replace('x',' episode ')+'>'
+            season_check = re.compile('season (.+?) episode (.+?)>').findall(str(Split))
+            for season, episode in season_check:
+                season = season
+                episode = episode
+            f = json.loads(open(watched).read())
+            for item in f:
+                Watched_Name = item[0]
+                Watched_Name = Watched_Name.lower().replace(' ','')
+                if str(prog_check) in str(Watched_Name):
+                    check_name = Watched_Name
+                    check_season = item[3]
+                    check_ep = item[4]                        
+                    if prog_check == check_name:
+                        if check_name == prog_check and int(season) >= int(check_season) and int(episode) > int(check_ep):
+                            if Choice == 'Watch now':
+                                if Aired == 'Watch now':
+                                    if prog+'season:'+season+';episode:'+episode not in single_list:
+                                        process.PLAY(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
+                                        single_list.append(prog+'season:'+season+';episode:'+episode)
+                            elif Choice == 'Upcoming':
+                                if Aired == 'Airs:':
+                                    if prog+'season:'+season+';episode:'+episode not in single_list:
+                                        process.PLAY('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
+                                        single_list.append(prog+'season:'+season+';episode:'+episode)
+                                else:
+                                    pass
+
+
+def Watched_Shows():
+	watched_list = []
+	watched_ = json.loads(open(watched).read())
+	imdb_ = json.loads(open(imdb).read())
+	for item in watched_:
+		watched_name = item[0]
+		watched_name = watched_name.lower().replace(' ','')
+		watched_list.append(watched_name)
+	for i in imdb_:
+		imdb_name = i[0]
+		imdb_name = imdb_name.lower().replace(' ','')
+		if '(' in imdb_name:
+			imdb_name = re.findall('(.+?)\(',str(imdb_name))[0]
+		if imdb_name in watched_list:
+			process.Menu(i[0],i[1],305,i[2],'','',i[0])
+		
 	
 def Origin_picks():
 	process.Menu('Origin\'s TV','http://www.imdb.com/list/ls020814698/',16,'','','','')
@@ -93,6 +183,8 @@ def TV_Calender_Prog(extra):
 		process.PLAY(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
 
 def send_to_search(name,extra):
+	if 'year' in extra:
+		year = re.findall('year = (.+?)>',str(extra)+'>')[0]
 	title,season,episode = re.findall('<(.+?)- Season (.+?) Episode (.+?)>','<'+str(name)+'>')[0]
 	if 'COLOR' in name:
 		name = re.compile('- (.+?)>').findall(str(name)+'>')
@@ -101,7 +193,7 @@ def send_to_search(name,extra):
 	dp =  xbmcgui.DialogProgress()
 	dp.create('Checking for stream')
 	from lib import Scrape_Nan
-	Scrape_Nan.scrape_episode(title,'','',season,episode,'')
+	Scrape_Nan.scrape_episode(title,'',year,season,episode,'')
 	
 def movie_search(extra):
 	xbmc.log(extra,xbmc.LOGNOTICE)
@@ -210,6 +302,19 @@ elif mode == 13: comedy(url)
 elif mode == 14: Origin_picks()
 elif mode == 15: get_list_movie(url)
 elif mode == 16: get_list_tv(url)
+elif mode == 17:     
+    try:
+        name = name.split('\\ ')[1]
+    except:
+        pass
+    try:
+        name = name.split('  - ')[0]
+    except:
+        pass
+    process.rmWatched(name)
+elif mode == 18: Watched_Menu()
+elif mode == 19: Latest_Shows()
+elif mode == 21: Watched_Shows()
 elif mode == 20: from lib import process;process.Big_Resolve(name,url)
 elif mode == 200 : from lib import Movies;Movies.Movie_Main(url)
 elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)

@@ -25,6 +25,16 @@ if os.path.exists(favourites) == True:
     FAV = open(favourites).read()
 else:
     FAV = []
+watched = ADDON_DATA + 'watched'
+if os.path.exists(watched) == True:
+    WATCHED = open(watched).read()
+else:
+    WATCHED = []
+imdbFile = ADDON_DATA + 'imdb'
+if os.path.exists(imdbFile) == True:
+    IMDB = open(imdbFile).read()
+else:
+    IMDB = []
 dp = xbmcgui.DialogProgress()
 addon_handle = int(sys.argv[1])
 List = []
@@ -41,12 +51,6 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
         fanart = FANART
     elif fanart == ' ':
         fanart = FANART
-	if mode==1501:
-		folder = False
-	elif mode==20:
-		folder = False
-	elif mode==307:
-		folder = False
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(
         name) + "&iconimage=" + urllib.quote_plus(iconimage) + "&fanart=" + urllib.quote_plus(
         fanart) + "&description=" + urllib.quote_plus(description) + "&extra=" + urllib.quote_plus(extra)
@@ -54,6 +58,10 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     liz = xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
     liz.setInfo(type="Video", infoLabels={"Title": name, "Plot": description})
     liz.setProperty("Fanart_Image", fanart)
+    if 'imdb' in url:
+        if 'title' in url:
+            if not name in IMDB:
+                imdb_log(name,url,iconimage)
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
@@ -64,6 +72,9 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
                                 'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
                                    urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+        if showcontext == 'watched':
+            contextMenu.append(('Remove from I am groot Watched List', 'XBMC.RunPlugin(%s?mode=17&name=%s)'
+                                % (sys.argv[0], urllib.quote_plus(name))))
         liz.addContextMenuItems(contextMenu)
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=folder)
     return ok
@@ -81,13 +92,16 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
-            contextMenu.append(('Remove from I am groot Favorites', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
+            contextMenu.append(('Remove from I am groot Favorites', 'XBMC.RunPlugin(%s?mode=17&name=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name))))
         if not name in FAV:
             contextMenu.append(('Add to I am groot Favorites',
                                 'XBMC.RunPlugin(%s?mode=11&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                                 % (sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url),
                                    urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
+        if showcontext == 'watched':
+            contextMenu.append(('Remove from I am groot Watched List', 'XBMC.RunPlugin(%s?mode=12&name=%s)'
+                                % (sys.argv[0], urllib.quote_plus(name))))
         contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
         liz.addContextMenuItems(contextMenu)
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=False)
@@ -97,7 +111,58 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
 
 def queueItem():
     return xbmc.executebuiltin('Action(Queue)')
+	
+def imdb_log(name,url,iconimage):
+    imdbList = []
+    try:
+        # seems that after
+        name = name.encode('utf-8', 'ignore')
+    except:
+        pass
+    if os.path.exists(imdbFile) == False:
+        imdbList.append((name,url,iconimage))
+        a = open(imdbFile, "w")
+        a.write(json.dumps(imdbList))
+        a.close()
+    else:
+        a = open(imdbFile).read()
+        data = json.loads(a)
+        data.append((name,url,iconimage))
+        b = open(imdbFile, "w")
+        b.write(json.dumps(data))
+        b.close()
 
+
+def watched_shows(name,show_year,year,season,episode,imdb_url):
+    watchedList = []
+    try:
+        # seems that after
+        name = name.encode('utf-8', 'ignore')
+    except:
+        pass
+    if os.path.exists(watched) == False:
+        watchedList.append((name,show_year,year,season,episode,imdb_url))
+        a = open(watched, "w")
+        a.write(json.dumps(watchedList))
+        a.close()
+    else:
+        a = open(watched).read()
+        data = json.loads(a)
+        data.append((name,show_year,year,season,episode,imdb_url))
+        b = open(watched, "w")
+        b.write(json.dumps(data))
+        b.close()
+
+def rmWatched(name):
+    data = json.loads(open(watched).read())
+    for index in range(len(data)):
+        if data[index][0] == name:
+            del data[index]
+            b = open(watched, "w")
+            b.write(json.dumps(data))
+            b.close()
+            break
+    xbmc.executebuiltin("XBMC.Container.Refresh")
 
 # ===============================Favourites-----------Not sure whos code this is but credit due to them-------------------------------
 
@@ -133,13 +198,12 @@ def getFavourites():
     if os.path.exists(favourites) == False:
         favList = []
         addon_log('Making Favorites File')
-        favList.append(('Sanctuary Favourites Section', '', '', '', '', '', ''))
+        favList.append(('I am Groot Favourites Section', '', '', '', '', '', ''))
         a = open(favourites, "w")
         a.write(json.dumps(favList))
         a.close()
     else:
         items = json.loads(open(favourites).read())
-        total = len(items)
         for i in items:
             name = i[0]
             url = i[1]
@@ -149,9 +213,9 @@ def getFavourites():
             desc = i[5]
             extra = i[6]
             if i[4] == 906:
-                Play(name, url, i[2], iconimage, fanart, '', '', 'fav')
+                Play(name, url, mode, iconimage, fanart, '', '', 'fav')
             else:
-                Menu(name, url, i[2], iconimage, fanart, '', '', 'fav')
+                Menu(name, url, mode, iconimage, fanart, '', '', 'fav')
 
 
 def rmFavorite(name):
