@@ -134,24 +134,44 @@ def imdb_log(name,url,iconimage):
 
 
 def watched_shows(name,show_year,year,season,episode,imdb_url):
-    watchedList = []
-    try:
-        # seems that after
-        name = name.encode('utf-8', 'ignore')
-    except:
-        pass
-    if os.path.exists(watched) == False:
-        watchedList.append((name,show_year,year,season,episode,imdb_url))
-        a = open(watched, "w")
-        a.write(json.dumps(watchedList))
-        a.close()
-    else:
-        a = open(watched).read()
-        data = json.loads(a)
-        data.append((name,show_year,year,season,episode,imdb_url))
-        b = open(watched, "w")
-        b.write(json.dumps(data))
-        b.close()
+	watchedList = []
+	run = False
+
+	try:
+		# seems that after
+		name = name.encode('utf-8', 'ignore')
+	except:
+		pass
+	if os.path.exists(watched) == False:
+		watchedList.append((name,show_year,year,season,episode,imdb_url))
+		a = open(watched, "w")
+		a.write(json.dumps(watchedList))
+		a.close()
+	file_open = json.loads(open(watched).read())
+	for item in file_open:
+		item_season = item[3]
+		item_episode = item[4]
+		item_name = item[0]
+		if item_name == name:
+			if item_season >= season:
+				if item_episode < episode:
+					run = True
+		else:
+			run = True
+	if run == True:
+		data = json.loads(open(watched).read())
+		for index in range(len(data)):
+			if data[index][0] == name:
+				del data[index]
+				b = open(watched, "w")
+				b.write(json.dumps(data))
+				b.close()
+		a = open(watched).read()
+		data = json.loads(a)
+		data.append((name,show_year,year,season,episode,imdb_url))
+		b = open(watched, "w")
+		b.write(json.dumps(data))
+		b.close()
 
 def rmWatched(name):
     data = json.loads(open(watched).read())

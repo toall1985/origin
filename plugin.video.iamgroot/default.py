@@ -91,9 +91,10 @@ def Latest_Shows():
                                     if prog+'season:'+season+';episode:'+episode not in single_list:
                                         process.PLAY('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
                                         single_list.append(prog+'season:'+season+';episode:'+episode)
-                                else:
-                                    pass
+                            else:
+                                pass	
 
+							
 
 def Watched_Shows():
 	watched_list = []
@@ -196,10 +197,7 @@ def send_to_search(name,extra):
 	Scrape_Nan.scrape_episode(title,'',year,season,episode,'')
 	
 def movie_search(extra):
-	xbmc.log(extra,xbmc.LOGNOTICE)
 	title,year = re.findall('>(.+?)>(.+?)>',str(extra))[0]
-	xbmc.log(title,xbmc.LOGNOTICE)
-	xbmc.log(year,xbmc.LOGNOTICE)
 	from lib import Scrape_Nan
 	Scrape_Nan.scrape_movie(title,year,'')
 	
