@@ -184,6 +184,7 @@ def TV_Calender_Prog(extra):
 		process.PLAY(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
 
 def send_to_search(name,extra):
+	year = ''
 	if 'year' in extra:
 		year = re.findall('year = (.+?)>',str(extra)+'>')[0]
 	title,season,episode = re.findall('<(.+?)- Season (.+?) Episode (.+?)>','<'+str(name)+'>')[0]
