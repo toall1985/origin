@@ -134,6 +134,10 @@ def imdb_log(name,url,iconimage):
 
 
 def watched_shows(name,show_year,year,season,episode,imdb_url):
+	if episode[0] == '0':
+		episode = episode[1:]
+	if season[0] == '0':
+		season = season[1:]
 	watchedList = []
 	run = False
 
@@ -161,11 +165,14 @@ def watched_shows(name,show_year,year,season,episode,imdb_url):
 	if run == True:
 		data = json.loads(open(watched).read())
 		for index in range(len(data)):
-			if data[index][0] == name:
-				del data[index]
-				b = open(watched, "w")
-				b.write(json.dumps(data))
-				b.close()
+			try:
+				if data[index][0] == name:
+					del data[index]
+					b = open(watched, "w")
+					b.write(json.dumps(data))
+					b.close()
+			except:
+				pass
 		a = open(watched).read()
 		data = json.loads(a)
 		data.append((name,show_year,year,season,episode,imdb_url))

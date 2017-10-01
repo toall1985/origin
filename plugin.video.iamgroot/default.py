@@ -89,7 +89,7 @@ def Latest_Shows():
                             elif Choice == 'Upcoming':
                                 if Aired == 'Airs:':
                                     if prog+'season:'+season+';episode:'+episode not in single_list:
-                                        process.PLAY('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
+                                        process.PLAY('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+str(item[2]))
                                         single_list.append(prog+'season:'+season+';episode:'+episode)
                             else:
                                 pass	
@@ -150,9 +150,9 @@ def comedy(url):
 		except:
 			extra_name = name
 		if eps == 'null':
-			process.PLAY(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+year+'>')
+			process.PLAY(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+str(year)+'>')
 		else:
-			process.PLAY(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+year+')')
+			process.PLAY(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+str(year)+')')
 
 def TV_Calender_Day(url):
 	from datetime import datetime
@@ -185,6 +185,7 @@ def TV_Calender_Prog(extra):
 
 def send_to_search(name,extra):
 	year = ''
+	xbmc.log(extra,xbmc.LOGNOTICE)
 	if 'year' in extra:
 		year = re.findall('year = (.+?)>',str(extra)+'>')[0]
 	title,season,episode = re.findall('<(.+?)- Season (.+?) Episode (.+?)>','<'+str(name)+'>')[0]
