@@ -25,7 +25,7 @@ def Main_Menu():
 def Get_Info(url):
 	List = []
 	html = requests.get(url,verify=False).content
-	block = re.compile('<section class="cardBox flip">(.+?)</section>',re.DOTALL).findall(html)
+	block = re.compile('<section class="cardBox flip".+?>(.+?)</section>',re.DOTALL).findall(html)
 	for b in block:
 		image = re.compile('img src="(.+?)"').findall(str(b))
 		for i in image:
