@@ -38,9 +38,11 @@ def originresolver(name,url):
 		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link c")
 
 def resolve(name,url):
+	run = False
 	Dialog = xbmcgui.Dialog()
 	path = os.path.dirname(os.path.abspath(__file__))
 	s = os.path.join(path,'sources')
+	file_to_run = ''
 	for Root,Dir,File in os.walk(s):
 		for f in File:
 			if str(f.replace('.py','')) in url:
@@ -48,28 +50,36 @@ def resolve(name,url):
 				domain_list = re.findall("domain.+?\[(.+?)\]",str(info))[0]
 				domains = re.findall("'(.+?)'",str(domain_list))
 				for domain in domains:
+					xbmcgui.Dialog().notification("Origin Resolvers", str(domain))
 					if domain in url:
-						directory = s
-						module_name = f
-						module_name = os.path.splitext(module_name)[0]
-						path = list(sys.path)
-						sys.path.insert(0, directory)
-						try:
-							sources = __import__(module_name).resolve(url)
-						finally:
-							sys.path[:] = path # restore
-						if sources == None:
-							xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link b")
-							sys.exit()
-						elif len(sources)==1:
-							for link in sources:
-								xbmc.Player().play(link["url"], xbmcgui.ListItem(name))
-						elif len(sources)==0:
-							xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link a")
-							sys.exit()
-						else:
-							choice = Dialog.select('Select Playlink',[link["quality"] for link in sources])
-							if choice != -1:
-								playlink = sources[choice]['url']
-								isFolder=False
-								xbmc.Player().play(playlink, xbmcgui.ListItem(name))
+						file_to_run = f
+						run = True
+	if run == True:
+		directory = s
+		module_name = file_to_run
+		module_name = os.path.splitext(module_name)[0]
+		xbmcgui.Dialog().notification("Origin Resolvers", str(module_name))
+		path = list(sys.path)
+		sys.path.insert(0, directory)
+		try:
+			sources = __import__(module_name).resolve(url)
+		finally:
+			sys.path[:] = path # restore
+		if sources == None:
+			xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link b")
+			sys.exit()
+		elif len(sources)==1:
+			for link in sources:
+				xbmc.Player().play(link["url"], xbmcgui.ListItem(name))
+		elif len(sources)==0:
+			xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link a")
+			sys.exit()
+		else:
+			choice = Dialog.select('Select Playlink',[link["quality"] for link in sources])
+			if choice != -1:
+				playlink = sources[choice]['url']
+				isFolder=False
+				xbmc.Player().play(playlink, xbmcgui.ListItem(name))
+	else:
+		xbmcgui.Dialog().notification("Origin Resolvers", "Can\'t resolve stream link *")
+	

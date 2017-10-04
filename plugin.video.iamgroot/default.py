@@ -152,7 +152,7 @@ def comedy(url):
 		if eps == 'null':
 			process.PLAY(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+str(year)+'>')
 		else:
-			process.PLAY(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+str(year)+')')
+			process.Menu(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+str(year)+')')
 
 def TV_Calender_Day(url):
 	from datetime import datetime

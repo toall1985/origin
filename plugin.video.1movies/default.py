@@ -82,12 +82,16 @@ def tv_check(name,url,image,qual):
 
 
 def tv_show(url,qual):
+	if not 'http' in url:
+		url = 'http:'+url
 	html = requests.get(url).content
 	block = re.compile('<div class="ep_link full">(.+?)</div>',re.DOTALL).findall(html)
 	for b in block:
 		match = re.compile('<a href="(.+?)".+?>(.+?)<').findall(str(b))
 		for u,n in match:
-			Play(n+' ('+qual+')','http:'+u,20,ICON,FANART,'',qual)
+			if not 'http' in u:
+				u = 'http:'+u
+			Play(n+' ('+qual+')',u,20,ICON,FANART,'',qual)
 
 def playlist(url,isFolder=None):
 	List = []
