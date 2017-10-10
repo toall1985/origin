@@ -28,9 +28,10 @@ def resolve(url):
                 for h in q:
                     qual = h
                     for p in playlink:
-                        if 'lemon' not in p:
-                            if 'http' in p:
-                                p = p.replace('\\','')
-                                sources.append({'source': 'Gvideo', 'quality': qual, 'scraper': name, 'url': p,'direct': True})
+			p = p.replace('\\','')
+                        if 'lemon' in p:
+                            p = p+'|User-Agent=Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&Host=streaming.lemonstream.me:1443&Referer=https://yesmovies.to'
+                        if 'http' in p:
+                            sources.append({'source': 'Gvideo', 'quality': qual, 'scraper': name, 'url': p,'direct': True})
     return sources
  

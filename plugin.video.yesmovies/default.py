@@ -53,7 +53,16 @@ def tv_show(url):
 			m = re.compile('<li class=.+?"ep-item .+?".+?data-server=.+?"(.+?)" data-id=.+?"(.+?)".+?title=.+?"(.+?)">').findall(str(u))
 			for s,i,t in m:
 				xbmc.log(i.replace('\\','')+'-'+s.replace('\\',''),xbmc.LOGNOTICE)
-				Menu(t.replace('\\',''),i.replace('\\',''),6,ICON,FANART,'',match2)
+				Menu(t.replace('\\','')+' | Server 6',i.replace('\\',''),6,ICON,FANART,'',match2)
+	block2 = re.compile('<ul id=.+?"episodes-sv-7(.+?)"(.+?)ul>',re.DOTALL).findall(get_ep)
+	for c2,u2 in block2:
+		if '9' in c2:
+			pass
+		else:
+			m2 = re.compile('<li class=.+?"ep-item .+?".+?data-server=.+?"(.+?)" data-id=.+?"(.+?)".+?title=.+?"(.+?)">').findall(str(u2))
+			for s2,i2,t2 in m2:
+				xbmc.log(i2.replace('\\','')+'-'+s2.replace('\\',''),xbmc.LOGNOTICE)
+				Menu(t2.replace('\\','')+' | Server 7',i2.replace('\\',''),6,ICON,FANART,'',match2)
 	
 def get_ep_source(m,match):
 	url = 'https://yesmovies.to/ajax/movie_token?eid='+m+'&mid='+match
@@ -61,17 +70,23 @@ def get_ep_source(m,match):
 	html3 = requests.get(url).content
 	x,y = re.findall("_x='(.+?)', _y='(.+?)'",html3)[0]
 	fin_url = 'https://yesmovies.to/ajax/movie_sources/'+m+'?x='+x+'&y='+y
+	xbmc.log(fin_url+']',xbmc.LOGNOTICE)
 	h = requests.get(fin_url).content
 	source = re.findall('"sources":\[(.+?)\]',h)
 	single = re.findall('{(.+?)}',str(source))
 	for s in single:
+		xbmc.log(s,xbmc.LOGNOTICE)
 		playlink = re.findall('"file":"(.+?)"',str(s))
-		qual = re.findall('"label":"(.+?)"',str(s))[0]
+		try:
+			qual = re.findall('"label":"(.+?)"',str(s))[0]
+		except:
+			qual = 'SD'
 		for p in playlink:
-			if 'lemon' not in p:
-				if 'http' in p:
-					p = p.replace('\\','')
-					Play(qual,p,21,ICON,FANART,'','')
+			p = p.replace('\\','')
+			if 'lemon' in p:
+				p = p+'|User-Agent=Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&Host=streaming.lemonstream.me:1443&Referer=https://yesmovies.to'
+			if 'http' in p:
+				Play(qual,p,21,ICON,FANART,'','')
 
 	
 	
@@ -222,7 +237,7 @@ def rmFavorite(name):
          break
    xbmc.executebuiltin("XBMC.Container.Refresh")		
 
-def resolve(url): 
+def resolve(name,url): 
 	try:
 		import originresolver
 		originresolver.originresolver(name,url)
@@ -327,7 +342,7 @@ elif mode==12:
       pass
    rmFavorite(name)
 elif mode == 14 : queueItem()	
-elif mode == 20: resolve(url)
+elif mode == 20: resolve(name,url)
 elif mode == 21: xbmc.Player().play(url, xbmcgui.ListItem(name))
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
