@@ -82,6 +82,9 @@ def Menu(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
 
 
 def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=True, allinfo={}):
+    url = url.replace('http:https:','http:')
+    if url.startswith('//'):
+        url = 'http:'+url
     u = sys.argv[0] + "?url=" + urllib.quote_plus(url) + "&mode=" + str(mode) + "&name=" + urllib.quote_plus(
         name) + "&iconimage=" + urllib.quote_plus(iconimage) + "&fanart=" + urllib.quote_plus(
         fanart) + "&description=" + urllib.quote_plus(description) + "&extra=" + urllib.quote_plus(extra)
@@ -89,7 +92,6 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     liz = xbmcgui.ListItem(name, iconImage=" ", thumbnailImage=iconimage)
     liz.setInfo(type="Video", infoLabels={"Title": name, "Plot": description})
     liz.setProperty("Fanart_Image", fanart)
-    liz.setProperty("IsPlayable","true")
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
@@ -105,7 +107,18 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
                                 % (sys.argv[0], urllib.quote_plus(name))))
         contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
         liz.addContextMenuItems(contextMenu)
-    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=liz, isFolder=False)
+    if '.mp4' in url or '.mkv' in url or 'm3u8' in url or '=m22' in url or '=m18' in url or '=m37' in url:
+        if 'openload' in url:
+            url2=u
+        elif 'embed' in url:
+            url2=u
+        elif '.html' in url:
+            url2=u
+        else:
+            url2 = url
+    else:
+        url2 = u
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url2, listitem=liz, isFolder=False)
     return ok
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -289,6 +302,9 @@ def setView(content, viewType):
 
 
 def Big_Resolve(name,url):
+	xbmc.log('STARTING RESOLVE',xbmc.LOGNOTICE)
+	xbmc.log(url,xbmc.LOGNOTICE)
+	xbmc.log('STARTING RESOLVE',xbmc.LOGNOTICE)
 	import originresolver
 	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))

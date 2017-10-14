@@ -1,9 +1,18 @@
 import xbmc,xbmcgui,xbmcplugin,sys,xbmcaddon
 import process
 import re
+import os
+import datetime
+
 dp =  xbmcgui.DialogProgress()
 ADDON = xbmcaddon.Addon(id='plugin.video.iamgroot')
 Hosts = []
+hd_list = ['s']
+mid_list = ['s']
+sd_list = ['s']
+fin_list = []
+unsorted_list = []
+scraper_list =[]
 if ADDON.getSetting('vidzi')=='true':Hosts.append('vidzi')
 if ADDON.getSetting('thevideo')=='true':Hosts.append('thevideo')
 if ADDON.getSetting('gvid')=='true':Hosts.append('gvideo')
@@ -18,50 +27,63 @@ else:
 	high_qual = int(ADDON.getSetting('high_return'))
 
 
-
+def sort_qual(link):
+	qual_return = str(link["quality"]).lower().replace('0p','0').replace(' ','')
+	if qual_return=='sd': qual_check = '240';qual_letter='i';name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+	elif qual_return=='240': qual_check = '240';qual_letter='i'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+	elif qual_return=='cam': qual_check = '120';qual_letter='j'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+	elif qual_return=='360': qual_check = '360';qual_letter='h'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
+	elif qual_return=='480': qual_check = '480';qual_letter='g'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+	elif qual_return=='560': qual_check = '560';qual_letter='f'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+	elif qual_return=='720': qual_check = '720';qual_letter='e'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
+	elif qual_return=='hd': qual_check = '1080';qual_letter='d'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+	elif qual_return=='dvd': qual_check = '1080';qual_letter='c'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+	elif qual_return=='bluray': qual_check = '1080';qual_letter='b'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+	elif qual_return=='1080': qual_check = '1080';qual_letter='a'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
+	else: qual_check='240';qual_letter='i';name = str(link["source"]) + " - " + str(link["scraper"]) + " (" + str(link["quality"]) + ")";sd_list.append('1')
+	unsorted_list.append({'name':name,'quality':qual_check,'letter':qual_letter,'link':link})
+	
 def return_links(populator):
-    result = 0
-    fin_list = []
-    hd_list = ['s']
-    mid_list = ['s']
-    sd_list = ['s']
-    for scraper_links in populator():
+	nanscraper_no = []
+	nanscraper_folder = xbmc.translatePath('special://home/addons/script.module.nanscrapers/lib/nanscrapers/scraperplugins/')
+	for Root,Dir,Files in os.walk(nanscraper_folder):
+		for File in Files:
+			if File.endswith('.py'):
+				if not '__' in File:
+					nanscraper_no.append('1')
+	result = 0
+	for scraper_links in populator():
+		scraper_list.append('a')
 		if scraper_links != None:
 			for link in scraper_links:
 				if dp.iscanceled():
 					return
-				fin_list.extend(scraper_links)
-				dp.update(int(2*len(fin_list)),'Cancelling will display results so far but cache incomplete list',"Results : ("+str(int(len(hd_list)-1))+ "/"+str(int(len(mid_list)-1))+ "/"+str(int(len(sd_list)-1))+')')
-				qual_return = str(link["quality"]).lower().replace('0p','0')
-				if qual_return=='sd': qual_check = '240';name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
-				elif qual_return=='cam': qual_check = '120'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
-				elif qual_return=='360': qual_check = '360'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";sd_list.append('1')
-				elif qual_return=='480': qual_check = '480'; name = link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
-				elif qual_return=='560': qual_check = '560'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
-				elif qual_return=='720': qual_check = '720'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";mid_list.append('1')
-				elif qual_return=='1080': qual_check = '1080'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
-				elif qual_return=='hd': qual_check = '1080'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
-				elif qual_return=='dvd': qual_check = '1080'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
-				elif qual_return=='blueray': qual_check = '1080'; name = ' '+link["source"] + " - " + link["scraper"] + " (" + link["quality"] + ")";hd_list.append('1')
-				else: qual_check='240';name = str(link["source"]) + " - " + str(link["scraper"]) + " (" + str(link["quality"]) + ")";sd_list.append('1')
+				fin_list.extend('a')
+				dp.update(100/int(len(nanscraper_no))*int(len(scraper_list)),'Cancelling will display results so far but cache incomplete list',"Results : ("+str(int(len(hd_list)-1))+ "/"+str(int(len(mid_list)-1))+ "/"+str(int(len(sd_list)-1))+')','Scrapers left to run: '+str(int(len(nanscraper_no))-int(len(scraper_list)))+' of '+str(len(nanscraper_no)))
 				if dp.iscanceled():
 					return
-				if int(high_qual)>=int(qual_check)>=int(low_qual):
-					process.PLAY(' '+name,str(link['url']),20,'','','','')
+				sort_qual(link)
+	sorted_list = sorted(unsorted_list, key = lambda unsorted_link: unsorted_link['letter'])
+	for item in sorted_list:
+		qual_check = item['quality']
+		name = item['name']
+		link = item['link']
+		if int(high_qual)>=int(qual_check)>=int(low_qual):
+			process.PLAY(' '+name,str(link['url']),20,'','','','')
+			result+=1
+		else:
+			for host in Hosts:
+				if str(host) in str(link["source"].lower().replace(' ','')):
+					process.PLAY(name,str(link['url']),20,'','','','')
 					result+=1
 				else:
-					for host in Hosts:
-						if str(host) in str(link["source"].lower().replace(' ','')):
-							process.PLAY(name,str(link['url']),20,'','','','')
-							result+=1
-						else:
-							pass
-				if result == 0:
-					process.PLAY('No streams found for required resolution','',100,'','','','')
-					process.PLAY('Try lowering in settings','',100,'','','','')
-					process.PLAY('#####################','',100,'','','','')
-					process.PLAY('Open Settings Menu','',100,'','','','')
-    xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
+					pass
+		if result == 0:
+			process.PLAY('No streams found for required resolution','',100,'','','','')
+			process.PLAY('Try lowering in settings','',100,'','','','')
+			process.PLAY('#####################','',100,'','','','')
+			process.PLAY('Open Settings Menu','',100,'','','','')
+#    xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
 
 def scrape_episode(title,show_year,year,season,episode,imdb):
     year = year.replace('(','').replace(')','').replace(' ','').replace('I','')
