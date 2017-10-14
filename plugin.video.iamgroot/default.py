@@ -4,6 +4,7 @@ import requests, xbmcgui, xbmcplugin, xbmc, re, sys, os, xbmcaddon, json, urllib
 from lib import process
 from threading import Thread
 ADDON_PATH = xbmc.translatePath('special://home/addons/plugin.video.plugin.video.iamgroot/')
+ADDON = xbmcaddon.Addon(id='plugin.video.iamgroot')
 ICON = ADDON_PATH + 'icon.png'
 FANART = ADDON_PATH + 'fanart.jpg'
 USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
@@ -84,12 +85,12 @@ def Latest_Shows():
                             if Choice == 'Watch now':
                                 if Aired == 'Watch now':
                                     if prog+'season:'+season+';episode:'+episode not in single_list:
-                                        process.PLAY(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
+                                        process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+item[2])
                                         single_list.append(prog+'season:'+season+';episode:'+episode)
                             elif Choice == 'Upcoming':
                                 if Aired == 'Airs:':
                                     if prog+'season:'+season+';episode:'+episode not in single_list:
-                                        process.PLAY('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+str(item[2]))
+                                        process.Menu('[COLORwhite]'+Aired+' '+Date+' '+items+'[/COLOR] '+prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','','year = '+str(item[2]))
                                         single_list.append(prog+'season:'+season+';episode:'+episode)
                             else:
                                 pass	
@@ -126,7 +127,7 @@ def get_list_movie(url):
 		name = re.findall('<div class="info">.+?href=.+?>(.+?)</a>',str(blocky),re.DOTALL)[0]
 		year = re.findall('<span class="year_type">(.+?)</span>',str(blocky))[0]
 		desc,length = re.findall('"item_description">(.+?)<span>(.+?)</span>',str(blocky))[0]
-		process.PLAY(name+' '+year,'Movies',1501,image,'',length+' '+desc,'>'+name+'>'+year+'>')
+		process.Menu(name+' '+year,'Movies',1501,image,'',length+' '+desc,'>'+name+'>'+year+'>')
 	
 def get_list_tv(url):
 	html = requests.get(url).content
@@ -150,7 +151,7 @@ def comedy(url):
 		except:
 			extra_name = name
 		if eps == 'null':
-			process.PLAY(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+str(year)+'>')
+			process.Menu(name + ' (' + year+')','Movies',1501,image,'',desc,'>'+extra_name+'>'+str(year)+'>')
 		else:
 			process.Menu(name + ' (' + year+')','http://imdb.com'+url,305,image,'',desc,name+'('+str(year)+')')
 
@@ -181,7 +182,7 @@ def TV_Calender_Day(url):
 def TV_Calender_Prog(extra):
 	match = re.compile('<span class="show">.+?<a href=".+?">(.+?)</a>:.+?</span>.+?<a href=".+?" title=".+?">(.+?)</a>',re.DOTALL).findall(str(extra))
 	for prog, ep in match:
-		process.PLAY(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
+		process.Menu(prog+' - Season '+ep.replace('x',' Episode '),'',8,'','','',prog)
 
 def send_to_search(name,extra):
 	year = ''
@@ -316,11 +317,12 @@ elif mode == 18: Watched_Menu()
 elif mode == 19: Latest_Shows()
 elif mode == 21: Watched_Shows()
 elif mode == 20: from lib import process;process.Big_Resolve(name,url)
+elif mode == 100 : ADDON.openSettings(sys.argv[0])
 elif mode == 200 : from lib import Movies;Movies.Movie_Main(url)
 elif mode == 202 : from lib import Movies;Movies.Movie_Genre(url)
 elif mode == 203 : from lib import Movies;Movies.IMDB_Grab(url)
 elif mode == 204 : from lib import Movies;Movies.Check_Link(name,url,image)
-elif mode == 205 : from lib import Movies;Movies.Get_playlink(url)
+elif mode == 205 : from lib import Movies;Movies.Get_Menulink(url)
 elif mode == 206 : from lib import Movies;Movies.IMDB_Top250(url)
 elif mode == 207 : from lib import Movies;Movies.search_movies()
 elif mode == 208 : from lib import Movies;Movies.movie_channels()

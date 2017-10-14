@@ -80,7 +80,7 @@ def IMDB_Get_Episode_info(url,title):
 			search_split = search_split.replace(' >','>')
 			final_name = 'Episode '+episode+' - '+name
 			try:
-				process.PLAY(str(final_name),'',307,str(image),'','[COLORred]AIR DATE[/COLOR] == '+str(date).replace('  ','').replace('\n','')+'\n'+str(desc.encode('utf-8').strip()),search_split)
+				process.Menu(str(final_name),'',307,str(image),'','[COLORred]AIR DATE[/COLOR] == '+str(date).replace('  ','').replace('\n','')+'\n'+str(desc.encode('utf-8').strip()),search_split)
 				process.setView('movies', 'INFO')
 			except:
 				pass

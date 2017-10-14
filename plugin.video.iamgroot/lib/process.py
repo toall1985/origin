@@ -89,6 +89,7 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
     liz = xbmcgui.ListItem(name, iconImage=" ", thumbnailImage=iconimage)
     liz.setInfo(type="Video", infoLabels={"Title": name, "Plot": description})
     liz.setProperty("Fanart_Image", fanart)
+    liz.setProperty("IsPlayable","true")
     if showcontext:
         contextMenu = []
         if showcontext == 'fav':
@@ -104,7 +105,7 @@ def PLAY(name, url, mode, iconimage, fanart, description, extra, showcontext=Tru
                                 % (sys.argv[0], urllib.quote_plus(name))))
         contextMenu.append(('Queue Item', 'RunPlugin(%s?mode=1)' % sys.argv[0]))
         liz.addContextMenuItems(contextMenu)
-    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=False)
+    ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=liz, isFolder=False)
     return ok
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
