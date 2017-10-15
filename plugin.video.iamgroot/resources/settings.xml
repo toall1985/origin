@@ -3,6 +3,7 @@
 	<category label="Results">
         <setting id="low_return" type="select" label="Lowest Quality (p)" values="None|360|480|720|1080" default="None" />
         <setting id="high_return" type="select" label="Highest Quality (p)" values="None|360|480|720|1080" default="1080" />
+        <setting id="autoplay" type="bool" label="Auto Play" default="false" />
     </category>	
 	<category label="Reliable Hosts">
         <setting id="vidzi" type="bool" label="Vidzi" default="true" />

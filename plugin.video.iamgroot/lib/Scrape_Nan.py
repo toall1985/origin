@@ -3,6 +3,7 @@ import process
 import re
 import os
 import datetime
+import time
 
 dp =  xbmcgui.DialogProgress()
 ADDON = xbmcaddon.Addon(id='plugin.video.iamgroot')
@@ -64,26 +65,44 @@ def return_links(populator):
 					return
 				sort_qual(link)
 	sorted_list = sorted(unsorted_list, key = lambda unsorted_link: unsorted_link['letter'])
-	for item in sorted_list:
-		qual_check = item['quality']
-		name = item['name']
-		link = item['link']
-		if int(high_qual)>=int(qual_check)>=int(low_qual):
-			process.PLAY(' '+name,str(link['url']),20,'','','','')
-			result+=1
-		else:
-			for host in Hosts:
-				if str(host) in str(link["source"].lower().replace(' ','')):
-					process.PLAY(name,str(link['url']),20,'','','','')
-					result+=1
-				else:
-					pass
-		if result == 0:
-			process.PLAY('No streams found for required resolution','',100,'','','','')
-			process.PLAY('Try lowering in settings','',100,'','','','')
-			process.PLAY('#####################','',100,'','','','')
-			process.PLAY('Open Settings Menu','',100,'','','','')
-#    xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_TITLE);
+	if ADDON.getSetting('autoplay')=='true':
+		dp.close()
+		count = 0
+		while count<len(sorted_list) and xbmc.Player().isPlaying()!=True:
+			count+=1
+			item = sorted_list[int(count)]
+			playlink = item['link']
+			playlink = playlink['url']
+			if '.mp4' in playlink or '.mkv' in playlink or 'm3u8' in playlink or '=m22' in playlink or '=m18' in playlink or '=m37' in playlink:
+				if not 'openload' in playlink:
+					if not 'embed' in playlink:
+						if not '.html' in playlink:
+							try:
+								xbmc.Player().play(playlink, xbmcgui.ListItem(item['name']))
+								time.sleep(3)
+							except:
+								time.sleep(3)
+								pass
+	else:
+		for item in sorted_list:
+			qual_check = item['quality']
+			name = item['name']
+			link = item['link']
+			if int(high_qual)>=int(qual_check)>=int(low_qual):
+				process.PLAY(' '+name,str(link['url']),20,'','','','')
+				result+=1
+			else:
+				for host in Hosts:
+					if str(host) in str(link["source"].lower().replace(' ','')):
+						process.PLAY(name,str(link['url']),20,'','','','')
+						result+=1
+					else:
+						pass
+			if result == 0:
+				process.PLAY('No streams found for required resolution','',100,'','','','')
+				process.PLAY('Try lowering in settings','',100,'','','','')
+				process.PLAY('#####################','',100,'','','','')
+				process.PLAY('Open Settings Menu','',100,'','','','')
 
 def scrape_episode(title,show_year,year,season,episode,imdb):
     year = year.replace('(','').replace(')','').replace(' ','').replace('I','')

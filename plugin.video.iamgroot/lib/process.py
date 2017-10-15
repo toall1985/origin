@@ -302,9 +302,6 @@ def setView(content, viewType):
 
 
 def Big_Resolve(name,url):
-	xbmc.log('STARTING RESOLVE',xbmc.LOGNOTICE)
-	xbmc.log(url,xbmc.LOGNOTICE)
-	xbmc.log('STARTING RESOLVE',xbmc.LOGNOTICE)
 	import originresolver
 	originresolver.originresolver(name,url)
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))

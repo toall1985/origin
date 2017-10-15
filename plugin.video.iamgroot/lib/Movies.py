@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import urllib,re,xbmcgui,xbmcplugin,xbmc,sys,process,requests
+import xbmcaddon
+
+ADDON = xbmcaddon.Addon(id='plugin.video.iamgroot')
 
 
 def Movie_Main(url):
@@ -59,7 +62,10 @@ def movie_channels():
                         for item in movie_search:
                             n,y = re.findall('(.+?) \((.+?)\)',item)[0]
                             fin_item = '>'+n+'>'+y+'>'
-                        process.Menu(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
+                        if ADDON.getSetting('autoplay')=='true':
+						    process.PLAY(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
+                        else:
+						    process.Menu(clean_channel.encode('utf-8') + ': '+ time_info.encode('utf-8'),'',1501,'','','',fin_item)
 
 #    except:
 #        pass
@@ -77,7 +83,10 @@ def search_movies():
 				pass
 			else:
 				image = image.replace('32,44','174,256').replace('UY67','UY256').replace('UX32','UX175').replace('UY44','UY256')
-				process.Menu(title+' '+year,'Movies',1501,image,'','','>'+title+'>'+year+'>')
+				if ADDON.getSetting('autoplay')=='true':
+					process.PLAY(title+' '+year,'Movies',1501,image,'','','>'+title+'>'+year+'>')
+				else:
+					process.Menu(title+' '+year,'Movies',1501,image,'','','>'+title+'>'+year+'>')
 				process.setView('movies', 'INFO')
 	
 def Movie_Genre(url):
@@ -96,7 +105,10 @@ def IMDB_Top250(url):
 		try:
 			img = img.replace('45,67','174,256').replace('UY67','UY256').replace('UX45','UX175')
 			extra = '>'+title+'>'+year+'>'
-			process.Menu(title + ' ' + year,'Movies',1501,img,'','',extra)
+			if ADDON.getSetting('autoplay')=='true':
+				process.PLAY(title + ' ' + year,'Movies',1501,img,'','',extra)
+			else:
+				process.Menu(title + ' ' + year,'Movies',1501,img,'','',extra)
 		except:
 			pass
 		
@@ -112,7 +124,10 @@ def IMDB_Grab(url):
 					pass
 				else:
 					year = year.replace('(I) ','').replace('II','')
-					process.Menu(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
+					if ADDON.getSetting('autoplay')=='true':
+						process.PLAY(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
+					else:
+						process.Menu(name + ' ' + year,'Movies',1501,image,'',desc,'>'+name+'>'+year+'>')
 					process.setView('movies', 'INFO')
 			except:
 				pass
