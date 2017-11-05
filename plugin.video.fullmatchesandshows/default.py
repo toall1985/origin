@@ -67,10 +67,18 @@ def get_Multi_Links(name,url,iconimage):
         block = re.findall('<ul class="paging_btns" id="acp_paging_menu">(.+?)</ul>',HTML)[0]
         match2 = re.findall('<div class="acp_title">(.+?)</div>',HTML)
         match = re.compile('<li.+?href="(.+?)".+?<div class="acp_title">(.+?)</div>').findall(str(block))
+        match3 = re.compile('<h3>.+?data-lazy-src="(.+?)".+?</iframe>',re.DOTALL).findall(HTML)
+        for url3 in match3:
+            if not url3.startswith('http'):
+                url3 = 'http:'+url3
+                Play('Alternative Link',url3,20,iconimage,FANART,'','')
         for url2,name in match:
-            name = (name).replace('HL English','English Highlights')
-            List.append(name)
-            Menu(name,url2,5,iconimage,FANART,'','')
+            if '#' in url2:
+                pass
+            else:
+                name = (name).replace('HL English','English Highlights')
+                List.append(name)
+                Menu(name,url2,5,iconimage,FANART,'','')
         for n in match2:
             name = (n).replace('HL English','English Highlights')
             if name not in List:
@@ -93,7 +101,9 @@ def get_PLAYlink(name,url):
 				name = re.findall('//(.+?)/',str(playlink))[0]
 			except:
 				name = 'Play'
-			Play(name,playlink,20,ICON,FANART,'','')
+			if not playlink.startswith('http'):
+				playlink = 'http:'+playlink
+			Play(playlink,playlink,20,ICON,FANART,'','')
 
 
 	
