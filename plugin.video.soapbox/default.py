@@ -31,8 +31,10 @@ def Episode_Grab(url,fanart):
 
 def playlinks(name,url):
 	html = requests.get(url).content
-	match = re.compile('<iframe.+?data-lazy-src="(.+?)" allowfullscreen></iframe>').findall(html)
+	xbmc.log('GETTING PLAYLINKS: '+url,xbmc.LOGNOTICE)	
+	match = re.compile('<iframe.+?data-lazy-src="(.+?)"').findall(html)
 	for source in match:
+		xbmc.log(source,xbmc.LOGNOTICE)
 		if 'dailymotion' in source:
 			source = 'http:'+source
 			resolve(name,source)
