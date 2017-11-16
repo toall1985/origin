@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.1080pmovie" name="1080p Movie" version="0.0.4" provider-name="Origin">
+<addon id="plugin.video.1080pmovie" name="1080p Movie" version="0.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.originresolver"/>
@@ -19,7 +19,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.1movies" name="1Movies" version="0.0.5" provider-name="Origin">
+<addon id="plugin.video.1movies" name="1Movies" version="0.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -38,7 +38,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.adultlife" name="Adult Life" version="0.0.4" provider-name="Origin">
+<addon id="plugin.video.adultlife" name="Adult Life" version="0.0.5" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -57,7 +57,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.animetoon" name="Animetoon" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.animetoon" name="Animetoon" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -76,7 +76,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.bigkids" name="Big Kids" version="1.0.9" provider-name="Origin">
+<addon id="plugin.video.bigkids" name="Big Kids" version="1.1.0" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -93,7 +93,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.f1fullraces" name="F1Fullraces" version="0.0.3" provider-name="Origin">
+<addon id="plugin.video.f1fullraces" name="F1Fullraces" version="0.0.4" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -112,7 +112,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.footballorgin" name="Footballorgin" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.footballorgin" name="Footballorgin" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -131,7 +131,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.fullmatchesandshows" name="Full Matches and Shows" version="0.0.7" provider-name="Origin">
+<addon id="plugin.video.fullmatchesandshows" name="Full Matches and Shows" version="0.0.8" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.originresolver"/>
@@ -150,7 +150,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.5" provider-name="Origin">
+<addon id="plugin.video.gostreams" name="Gostreams" version="0.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.originresolver"/>
@@ -169,7 +169,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.iamgroot" name="I Am Groot" version="0.1.5" provider-name="Origin">
+<addon id="plugin.video.iamgroot" name="I Am Groot" version="0.1.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -190,7 +190,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.project-free-tv" name="Project-Free-Tv" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.project-free-tv" name="Project-Free-Tv" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -209,7 +209,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.soapbox" name="Soap Box" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.soapbox" name="Soap Box" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -228,7 +228,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.watchcartoononline" name="Watchcartoononline" version="0.0.2" provider-name="Origin">
+<addon id="plugin.video.watchcartoononline" name="Watchcartoononline" version="0.0.3" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -247,7 +247,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.yesmovies" name="Yesmovies" version="0.0.5" provider-name="Origin">
+<addon id="plugin.video.yesmovies" name="Yesmovies" version="0.0.6" provider-name="Origin">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.originresolver"/>
@@ -288,7 +288,7 @@
     </extension>
 </addon>
 
-<addon id="script.module.originresolver" name="Origin Resolver" version="0.1.4" provider-name="Origin">
+<addon id="script.module.originresolver" name="Origin Resolver" version="0.1.5" provider-name="Origin">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="plugin.video.youtube" optional="true"/>
