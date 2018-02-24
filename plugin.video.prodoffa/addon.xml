@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.prodoffa" name="Prodoffa" version="0.0.1" provider-name="Prodoffa">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.addon.common" />
+	<import addon="script.module.requests" />
+	<import addon="script.module.beautifulsoup4" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Blank</summary>
+	<description lang="en">A plugin for showcasing Prodoffa.co.uk products. Visit http://prodoffa.co.uk for some great deals in the UK. </description>
+	<disclaimer lang="en">We may sell android boxes but they are sold blank and we do not condone or support any sort of piracy</disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>

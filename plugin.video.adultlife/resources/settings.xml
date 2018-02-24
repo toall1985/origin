@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-    <category label="Main Settings">
-		<setting id="Adult" type="text" label="Adult Password:" default="" visible="true"/>
-		<setting id="Porn_Pass" type="text" default="analbead" visible="false"/>
-    </category>
-</settings>
